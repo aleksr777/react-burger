@@ -1,19 +1,34 @@
 import React from 'react';
 import headerStyles from './app-header.module.css';
 import {
-  Logo, 
-  BurgerIcon, 
-  ListIcon, 
+  Logo,
+  BurgerIcon,
+  ListIcon,
   ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-class AppHeader extends React.Component {
+const NavLink = props => {
+  return (
+    <div className={headerStyles.nav__link}>
+      {props.children}
+      <p className={headerStyles.nav__text}>{props.navText}</p>
+    </div>
+  );
+};
+
+export default class AppHeader extends React.Component {
   render() {
     return (
-      <header>
+      <header className={headerStyles.header}>
+        <nav className={headerStyles.nav}>
+          <div className={headerStyles.nav__box}>
+            <NavLink navText="Конструктор"><BurgerIcon type="primary" /></NavLink>
+            <NavLink navText="Лента заказов"><ListIcon type="primary" /></NavLink>
+            <Logo />
+          </div>
+          <NavLink navText="Личный кабинет"><ProfileIcon type="primary" /></NavLink>
+        </nav>
       </header>
     );
   }
 }
-
-export default AppHeader; 

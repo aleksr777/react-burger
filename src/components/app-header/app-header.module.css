@@ -1,0 +1,42 @@
+.header {
+  background-color: rgba(28, 28, 33, 1);
+  margin: 0;
+  padding: 0;
+  composes: p-4 from global;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1295px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.nav__box {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav__box .nav__link:last-of-type {
+  margin-right: 106px;
+}
+
+.nav__link {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  composes: pl-5 pr-7 pb-5 pt-5 from global;
+}
+
+
+.nav__text {
+  margin: 0;
+  padding: 0;
+  composes: text text_type_main-default pl-2 from global;
+}
