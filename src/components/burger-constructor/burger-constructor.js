@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { data } from '../../utils/data.js';
 import {
@@ -16,6 +17,12 @@ const Item = props => {
     </li>
   )
 };
+
+Item.propTypes = {
+  price: PropTypes.number,
+  thumbnail: PropTypes.string,
+  text: PropTypes.string
+}; 
 
 const ScrollList = () => {
   return (
@@ -60,12 +67,16 @@ const OrderingBlock = props => {
   )
 };
 
+OrderingBlock.propTypes = {
+  totalPrice: PropTypes.number
+};
+
 export default class BurgerConstructor extends React.Component {
   render() {
     return (
       <section className={burgerConstructorStyles.section}>
         <ItemsList />
-        <OrderingBlock totalPrice="610" />
+        <OrderingBlock totalPrice={610} />
       </section>
     );
   }

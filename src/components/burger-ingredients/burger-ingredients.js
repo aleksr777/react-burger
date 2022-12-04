@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { data } from '../../utils/data.js';
 import {
@@ -35,19 +36,29 @@ const IngredientBlock = props => {
   )
 };
 
+IngredientBlock.propTypes = {
+  blockTitle: PropTypes.string
+}; 
+
 const IngredientItem = props => {
   return (
     <li className={burgerIngredientsStyles.item}>
       {props.children}
-      <img className={burgerIngredientsStyles.item__image} src={props.imgPath} alt={props.ItemTitle} />
+      <img className={burgerIngredientsStyles.item__image} src={props.imgPath} alt={props.itemTitle} />
       <div className={burgerIngredientsStyles.item__box}>
-        <p className={burgerIngredientsStyles.item__price}>{props.ItemPrice}</p>
+        <p className={burgerIngredientsStyles.item__price}>{props.itemPrice}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={burgerIngredientsStyles.item__title}>{props.ItemTitle}</p>
+      <p className={burgerIngredientsStyles.item__title}>{props.itemTitle}</p>
     </li>
   )
 };
+
+IngredientItem.propTypes = {
+  itemPrice: PropTypes.number,
+  imgPath: PropTypes.string,
+  itemTitle: PropTypes.string
+}; 
 
 export default class BurgerIngredients extends React.Component {
   render() {
@@ -61,22 +72,22 @@ export default class BurgerIngredients extends React.Component {
         <div className={burgerIngredientsStyles.section__blocks}>
 
           <IngredientBlock blockTitle="Булки">
-            <IngredientItem ItemPrice={data[0].price} ItemTitle={data[0].name} imgPath={data[0].image}>
+            <IngredientItem itemPrice={data[0].price} itemTitle={data[0].name} imgPath={data[0].image}>
               <Counter count={1} size="default" extraClass="m-1" />
             </IngredientItem>
-            <IngredientItem ItemPrice={data[14].price} ItemTitle={data[14].name} imgPath={data[14].image}>
+            <IngredientItem itemPrice={data[14].price} itemTitle={data[14].name} imgPath={data[14].image}>
             </IngredientItem>
           </IngredientBlock>
 
           <IngredientBlock blockTitle="Соусы">
-            <IngredientItem ItemPrice={data[3].price} ItemTitle={data[3].name} imgPath={data[3].image}>
+            <IngredientItem itemPrice={data[3].price} itemTitle={data[3].name} imgPath={data[3].image}>
             </IngredientItem>
-            <IngredientItem ItemPrice={data[6].price} ItemTitle={data[6].name} imgPath={data[6].image}>
+            <IngredientItem itemPrice={data[6].price} itemTitle={data[6].name} imgPath={data[6].image}>
             </IngredientItem>
-            <IngredientItem ItemPrice={data[5].price} ItemTitle={data[5].name} imgPath={data[5].image}>
+            <IngredientItem itemPrice={data[5].price} itemTitle={data[5].name} imgPath={data[5].image}>
               <Counter count={1} size="default" extraClass="m-1" />
             </IngredientItem>
-            <IngredientItem ItemPrice={data[9].price} ItemTitle={data[9].name} imgPath={data[9].image}>
+            <IngredientItem itemPrice={data[9].price} itemTitle={data[9].name} imgPath={data[9].image}>
             </IngredientItem>
           </IngredientBlock>
 

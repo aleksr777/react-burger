@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import headerStyles from './app-header.module.css';
 import {
   Logo,
@@ -15,6 +16,10 @@ const NavLink = props => {
     </a>
   );
 };
+
+NavLink.propTypes = {
+  navText: PropTypes.string
+}; 
 
 export default class AppHeader extends React.Component {
   render() {
