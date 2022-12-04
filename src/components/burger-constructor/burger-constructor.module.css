@@ -1,0 +1,88 @@
+.section {
+  margin: 0;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  max-width: 600px;
+  min-height: 912px;
+  height: 100vh;
+  composes: pt-25 from global;
+}
+
+.list,
+.list_scroll {
+  list-style: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-color: rgba(47, 47, 55, 1);
+}
+
+.list_scroll {
+  max-height: 480px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.list_scroll::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.list_scroll::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: rgba(133, 133, 173, 1)
+}
+
+.item,
+.item_scroll {
+  box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+  composes: mb-4 from global;
+}
+
+.item {
+  margin-left: 15px;
+  composes: pl-8 pr-4 from global;
+}
+
+.item_scroll {
+  display: flex;
+  align-items: center;
+  column-gap: 9px;
+  composes: pl-4 pr-2 from global;
+}
+
+.item:last-of-type {
+  margin-bottom: 0;
+}
+
+.order {
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  composes: pt-10 pr-4 from global;
+}
+
+.order__box {
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  column-gap: 9px;
+  composes: mr-10 from global;
+}
+
+.order__price {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  composes: text text_type_digits-medium from global;
+}
