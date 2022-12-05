@@ -11,7 +11,7 @@ import {
 const TabBlock = () => {
   const [current, setCurrent] = React.useState('one')
   return (
-    <div style={{ display: 'flex' }} className={burgerIngredientsStyles.tab}>
+    <div className={burgerIngredientsStyles.tab}>
       <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
         Булки
       </Tab>
@@ -37,8 +37,9 @@ const IngredientBlock = props => {
 };
 
 IngredientBlock.propTypes = {
-  blockTitle: PropTypes.string
-}; 
+  blockTitle: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired
+};
 
 const IngredientItem = props => {
   return (
@@ -55,12 +56,29 @@ const IngredientItem = props => {
 };
 
 IngredientItem.propTypes = {
-  itemPrice: PropTypes.number,
-  imgPath: PropTypes.string,
-  itemTitle: PropTypes.string
-}; 
+  itemPrice: PropTypes.number.isRequired,
+  imgPath: PropTypes.string.isRequired,
+  itemTitle: PropTypes.string.isRequired
+};
 
 export default class BurgerIngredients extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ingredientsData = [];
+    this.saucesData = [];
+    this.bunsData = [];
+    data.map((obj) => {
+      if (obj.type === 'main') { this.ingredientsData.push(obj) }
+      else if (obj.type === 'sauce') { this.saucesData.push(obj) }
+      else if (obj.type === 'bun') { this.bunsData.push(obj) }
+    });
+    this.state = {
+      ingredientsData: this.ingredientsData,
+      saucesData: this.saucesData,
+      bunsData: this.bunsData,
+    };
+  }
+
   render() {
     return (
       <section className={burgerIngredientsStyles.section}>
@@ -72,27 +90,34 @@ export default class BurgerIngredients extends React.Component {
         <div className={burgerIngredientsStyles.section__blocks}>
 
           <IngredientBlock blockTitle="Булки">
-            <IngredientItem itemPrice={data[0].price} itemTitle={data[0].name} imgPath={data[0].image}>
+            {this.state.bunsData.map((obj) => (
+              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+              </IngredientItem>
+            ))}
+
+            {/* Для примера вёрстки счётчика (пока не понятно, как дальше реализовывать показ счётчика)*/}
+            <IngredientItem itemPrice={this.bunsData[0].price} itemTitle={this.bunsData[0].name} imgPath={this.bunsData[0].image} key={this.bunsData[0]._id}>
               <Counter count={1} size="default" extraClass="m-1" />
             </IngredientItem>
-            <IngredientItem itemPrice={data[14].price} itemTitle={data[14].name} imgPath={data[14].image}>
-            </IngredientItem>
+            {/* //// */}
+
           </IngredientBlock>
 
           <IngredientBlock blockTitle="Соусы">
-            <IngredientItem itemPrice={data[3].price} itemTitle={data[3].name} imgPath={data[3].image}>
-            </IngredientItem>
-            <IngredientItem itemPrice={data[6].price} itemTitle={data[6].name} imgPath={data[6].image}>
-            </IngredientItem>
-            <IngredientItem itemPrice={data[5].price} itemTitle={data[5].name} imgPath={data[5].image}>
-              <Counter count={1} size="default" extraClass="m-1" />
-            </IngredientItem>
-            <IngredientItem itemPrice={data[9].price} itemTitle={data[9].name} imgPath={data[9].image}>
-            </IngredientItem>
+            {this.state.saucesData.map((obj) => (
+              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+              </IngredientItem>
+            ))}
           </IngredientBlock>
 
+          <IngredientBlock blockTitle="Начинки">
+            {this.state.ingredientsData.map((obj) => (
+              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+              </IngredientItem>
+            ))}
+          </IngredientBlock>
         </div>
       </section>
     );
-  }
+  };
 };

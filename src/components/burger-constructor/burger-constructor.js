@@ -19,40 +19,39 @@ const Item = props => {
 };
 
 Item.propTypes = {
-  price: PropTypes.number,
-  thumbnail: PropTypes.string,
-  text: PropTypes.string
-}; 
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+};
 
-const ScrollList = () => {
+const ScrollList = props => {
   return (
     <ul className={burgerConstructorStyles.list_scroll}>
-      <Item text={data[5].name} price={data[5].price} thumbnail={data[5].image} />
-      <Item text={data[4].name} price={data[4].price} thumbnail={data[4].image} />
-      <Item text={data[7].name} price={data[7].price} thumbnail={data[7].image} />
-      <Item text={data[8].name} price={data[8].price} thumbnail={data[8].image} />
-      <Item text={data[9].name} price={data[9].price} thumbnail={data[9].image} />
-      <Item text={data[10].name} price={data[10].price} thumbnail={data[10].image} />
-      <Item text={data[11].name} price={data[11].price} thumbnail={data[11].image} />
-      <Item text={data[12].name} price={data[12].price} thumbnail={data[12].image} />
+      {props.selectedIngredients.map((obj) => (
+        <Item text={obj.name} price={obj.price} thumbnail={obj.image} key={obj._id} />
+      ))}
     </ul>
   )
 };
 
-const ItemsList = () => {
+const ItemsList = props => {
   return (
     <ul className={burgerConstructorStyles.list}>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="top" text={data[0].name + ' (верх)'} price={data[0].price} thumbnail={data[0].image} />
+        <ConstructorElement isLocked={true} type="top" text={props.selectedBuns[0].name + ' (верх)'} price={props.selectedBuns[0].price} thumbnail={props.selectedBuns[0].image} />
       </li>
       <li>
-        <ScrollList />
+        <ScrollList selectedIngredients={props.selectedIngredients}/>
       </li>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="bottom" text={data[0].name + ' (низ)'} price={data[0].price} thumbnail={data[0].image} />
+        <ConstructorElement isLocked={true} type="bottom" text={props.selectedBuns[1].name + ' (низ)'} price={props.selectedBuns[1].price} thumbnail={props.selectedBuns[1].image} />
       </li>
     </ul>
   )
+};
+
+ItemsList.propTypes = {
+  selectedIngredients: PropTypes.array.isRequired
 };
 
 const OrderingBlock = props => {
@@ -68,16 +67,27 @@ const OrderingBlock = props => {
 };
 
 OrderingBlock.propTypes = {
-  totalPrice: PropTypes.number
+  totalPrice: PropTypes.number.isRequired
 };
 
 export default class BurgerConstructor extends React.Component {
+  constructor(props) {
+    super(props);
+    // Выбранные пользователем ингридиенты
+    this.selectedIngredients = [data[5], data[4], data[7], data[8], data[9], data[10], data[11], data[12]];
+    this.selectedBuns = [data[0], data[0]];
+    this.state = {
+      selectedIngredients: this.selectedIngredients,
+      selectedBuns: this.selectedBuns
+    };
+  }
+
   render() {
     return (
       <section className={burgerConstructorStyles.section}>
-        <ItemsList />
+        <ItemsList selectedIngredients={this.state.selectedIngredients} selectedBuns={this.state.selectedBuns} />
         <OrderingBlock totalPrice={610} />
       </section>
     );
-  }
+  };
 };
