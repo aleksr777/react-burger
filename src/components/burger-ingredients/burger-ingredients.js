@@ -64,16 +64,16 @@ IngredientItem.propTypes = {
 export default class BurgerIngredients extends React.Component {
   constructor(props) {
     super(props);
-    this.ingredientsData = [];
+    this.fillingsData = [];
     this.saucesData = [];
     this.bunsData = [];
     data.map((obj) => {
-      if (obj.type === 'main') { this.ingredientsData.push(obj) }
+      if (obj.type === 'main') { this.fillingsData.push(obj) }
       else if (obj.type === 'sauce') { this.saucesData.push(obj) }
       else if (obj.type === 'bun') { this.bunsData.push(obj) }
     });
     this.state = {
-      ingredientsData: this.ingredientsData,
+      fillingsData: this.fillingsData,
       saucesData: this.saucesData,
       bunsData: this.bunsData,
     };
@@ -107,7 +107,7 @@ export default class BurgerIngredients extends React.Component {
           </IngredientBlock>
 
           <IngredientBlock blockTitle="Начинки">
-            {this.state.ingredientsData.map((obj) => (
+            {this.state.fillingsData.map((obj) => (
               <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
               </IngredientItem>
             ))}

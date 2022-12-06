@@ -73,7 +73,7 @@ OrderingBlock.propTypes = {
 export default class BurgerConstructor extends React.Component {
   constructor(props) {
     super(props);
-    // Выбранные пользователем ингридиенты
+    // Выбранные пользователем ингредиенты
     this.selectedIngredients = [data[5], data[4], data[7], data[8], data[9], data[10], data[11], data[12]];
     this.selectedBuns = [data[0], data[0]];
     this.state = {
