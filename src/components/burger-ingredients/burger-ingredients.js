@@ -94,12 +94,8 @@ export default class BurgerIngredients extends React.Component {
               <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
               </IngredientItem>
             ))}
-
-            {/* Для примера вёрстки счётчика (пока не понятно, как дальше реализовывать показ счётчика)*/}
-            <IngredientItem itemPrice={this.bunsData[0].price} itemTitle={this.bunsData[0].name} imgPath={this.bunsData[0].image} key={this.bunsData[0]._id}>
-              <Counter count={1} size="default" extraClass="m-1" />
-            </IngredientItem>
-            {/* //// */}
+            
+            {/* <Counter count={1} size="default" extraClass="m-1" /> */}
 
           </IngredientBlock>
 
