@@ -61,59 +61,57 @@ IngredientItem.propTypes = {
   itemTitle: PropTypes.string.isRequired
 };
 
-export default class BurgerIngredients extends React.Component {
-  constructor(props) {
-    super(props);
-    this.fillingsData = [];
-    this.saucesData = [];
-    this.bunsData = [];
-    data.map((obj) => {
-      if (obj.type === 'main') { this.fillingsData.push(obj) }
-      else if (obj.type === 'sauce') { this.saucesData.push(obj) }
-      else if (obj.type === 'bun') { this.bunsData.push(obj) }
-    });
-    this.state = {
-      fillingsData: this.fillingsData,
-      saucesData: this.saucesData,
-      bunsData: this.bunsData,
-    };
-  }
+export const BurgerIngredients = (props) => {
 
-  render() {
-    return (
-      <section className={burgerIngredientsStyles.section}>
+  let fillingsData = [];
+  let saucesData = [];
+  let bunsData = [];
 
-        <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
+  data.map((obj) => {
+    if (obj.type === 'main') { fillingsData.push(obj) }
+    else if (obj.type === 'sauce') { saucesData.push(obj) }
+    else if (obj.type === 'bun') { bunsData.push(obj) }
+  });
 
-        <TabBlock />
+  const [ingredients, setIngredients] = React.useState({
+    fillings: fillingsData,
+    sauces: saucesData,
+    buns: bunsData
+  });
 
-        <div className={burgerIngredientsStyles.section__blocks}>
+  return (
+    <section className={burgerIngredientsStyles.section}>
 
-          <IngredientBlock blockTitle="Булки">
-            {this.state.bunsData.map((obj) => (
-              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
-              </IngredientItem>
-            ))}
-            
-            {/* <Counter count={1} size="default" extraClass="m-1" /> */}
+      <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
 
-          </IngredientBlock>
+      <TabBlock />
 
-          <IngredientBlock blockTitle="Соусы">
-            {this.state.saucesData.map((obj) => (
-              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
-              </IngredientItem>
-            ))}
-          </IngredientBlock>
+      <div className={burgerIngredientsStyles.section__blocks}>
 
-          <IngredientBlock blockTitle="Начинки">
-            {this.state.fillingsData.map((obj) => (
-              <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
-              </IngredientItem>
-            ))}
-          </IngredientBlock>
-        </div>
-      </section>
-    );
-  };
+        <IngredientBlock blockTitle="Булки">
+          {ingredients.buns.map((obj) => (
+            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            </IngredientItem>
+          ))}
+
+          {/* <Counter count={1} size="default" extraClass="m-1" /> */}
+
+        </IngredientBlock>
+
+        <IngredientBlock blockTitle="Соусы">
+          {ingredients.sauces.map((obj) => (
+            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            </IngredientItem>
+          ))}
+        </IngredientBlock>
+
+        <IngredientBlock blockTitle="Начинки">
+          {ingredients.fillings.map((obj) => (
+            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            </IngredientItem>
+          ))}
+        </IngredientBlock>
+      </div>
+    </section>
+  );
 };
