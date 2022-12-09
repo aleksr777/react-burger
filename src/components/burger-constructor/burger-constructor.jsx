@@ -41,13 +41,13 @@ const ItemsList = props => {
   return (
     <ul className={burgerConstructorStyles.list}>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="top" text={props.buns[0].name + ' (верх)'} price={props.buns[0].price} thumbnail={props.buns[0].image} />
+        <ConstructorElement isLocked={true} type="top" text={`${props.buns[0].name} (верх)`} price={props.buns[0].price} thumbnail={props.buns[0].image} />
       </li>
       <li>
         <ScrollList fillings={props.fillings} sauces={props.sauces} />
       </li>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="bottom" text={props.buns[1].name + ' (низ)'} price={props.buns[1].price} thumbnail={props.buns[1].image} />
+        <ConstructorElement isLocked={true} type="bottom" text={`${props.buns[1].name} (низ)`} price={props.buns[1].price} thumbnail={props.buns[1].image} />
       </li>
     </ul>
   )
