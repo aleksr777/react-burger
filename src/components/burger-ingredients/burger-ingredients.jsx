@@ -61,7 +61,7 @@ IngredientItem.propTypes = {
   itemTitle: PropTypes.string.isRequired
 };
 
-export const BurgerIngredients = (props) => {
+export const BurgerIngredients = () => {
 
   let fillingsData = [];
   let saucesData = [];

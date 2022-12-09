@@ -27,7 +27,10 @@ Item.propTypes = {
 const ScrollList = props => {
   return (
     <ul className={burgerConstructorStyles.list_scroll}>
-      {props.selectedIngredients.map((obj) => (
+      {props.ingredients.sauces.map((obj) => (
+        <Item text={obj.name} price={obj.price} thumbnail={obj.image} key={obj._id} />
+      ))}
+      {props.ingredients.fillings.map((obj) => (
         <Item text={obj.name} price={obj.price} thumbnail={obj.image} key={obj._id} />
       ))}
     </ul>
@@ -38,20 +41,20 @@ const ItemsList = props => {
   return (
     <ul className={burgerConstructorStyles.list}>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="top" text={props.selectedBuns[0].name + ' (верх)'} price={props.selectedBuns[0].price} thumbnail={props.selectedBuns[0].image} />
+        <ConstructorElement isLocked={true} type="top" text={props.ingredients.buns[0].name + ' (верх)'} price={props.ingredients.buns[0].price} thumbnail={props.ingredients.buns[0].image} />
       </li>
       <li>
-        <ScrollList selectedIngredients={props.selectedIngredients}/>
+        <ScrollList ingredients={props.ingredients} />
       </li>
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement isLocked={true} type="bottom" text={props.selectedBuns[1].name + ' (низ)'} price={props.selectedBuns[1].price} thumbnail={props.selectedBuns[1].image} />
+        <ConstructorElement isLocked={true} type="bottom" text={props.ingredients.buns[1].name + ' (низ)'} price={props.ingredients.buns[1].price} thumbnail={props.ingredients.buns[1].image} />
       </li>
     </ul>
   )
 };
 
 ItemsList.propTypes = {
-  selectedIngredients: PropTypes.array.isRequired
+  ingredients: PropTypes.object.isRequired
 };
 
 const OrderingBlock = props => {
@@ -70,24 +73,22 @@ OrderingBlock.propTypes = {
   totalPrice: PropTypes.number.isRequired
 };
 
-export default class BurgerConstructor extends React.Component {
-  constructor(props) {
-    super(props);
-    // Выбранные пользователем ингредиенты
-    this.selectedIngredients = [data[5], data[4], data[7], data[8], data[9], data[10], data[11], data[12]];
-    this.selectedBuns = [data[0], data[0]];
-    this.state = {
-      selectedIngredients: this.selectedIngredients,
-      selectedBuns: this.selectedBuns
-    };
-  }
+export const BurgerConstructor = () => {
 
-  render() {
-    return (
-      <section className={burgerConstructorStyles.section}>
-        <ItemsList selectedIngredients={this.state.selectedIngredients} selectedBuns={this.state.selectedBuns} />
-        <OrderingBlock totalPrice={610} />
-      </section>
-    );
-  };
+  const selectedFillings = [data[4], data[7], data[8], data[10], data[11], data[12]];
+  const selectedSauces = [data[5], data[9]];
+  const selectedBuns = [data[0], data[0]];
+
+  const [ingredients, setIngredients] = React.useState({
+    fillings: selectedFillings,
+    sauces: selectedSauces,
+    buns: selectedBuns
+  });
+
+  return (
+    <section className={burgerConstructorStyles.section}>
+      <ItemsList ingredients={ingredients} />
+      <OrderingBlock totalPrice={6100} />
+    </section>
+  );
 };
