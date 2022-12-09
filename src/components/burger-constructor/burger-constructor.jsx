@@ -76,18 +76,29 @@ OrderingBlock.propTypes = {
 };
 
 export const BurgerConstructor = () => {
+
   const selectedFillings = [data[4], data[7], data[8], data[10], data[11], data[12]];
   const selectedSauces = [data[5], data[9]];
   const selectedBuns = [data[0], data[0]];
+
   const [ingredients, setIngredients] = React.useState({
     fillings: selectedFillings,
     sauces: selectedSauces,
     buns: selectedBuns
   });
+
+  const countTotalPrice = () => {
+    let price = 0;
+    [...ingredients.fillings, ...ingredients.sauces, ...ingredients.buns].map((obj) => {
+      price = price + obj.price;
+    });
+    return price;
+  }
+
   return (
     <section className={burgerConstructorStyles.section}>
       <ItemsList buns={ingredients.buns} fillings={ingredients.fillings} sauces={ingredients.sauces} />
-      <OrderingBlock totalPrice={6100} />
+      <OrderingBlock totalPrice={countTotalPrice()} />
     </section>
   );
 };
