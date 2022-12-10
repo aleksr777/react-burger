@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { data } from '../../utils/data.js';
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -75,30 +74,25 @@ OrderingBlock.propTypes = {
   totalPrice: PropTypes.number.isRequired
 };
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = props => {
+  
+    //Выбранные пользователем ингридиенты (пока только условно для отображения вёрстки)
+    const selectedFillings = [props.ingredientsData.fillings[0], props.ingredientsData.fillings[1], props.ingredientsData.fillings[2], props.ingredientsData.fillings[3], props.ingredientsData.fillings[4]];
+    const selectedSauces = [props.ingredientsData.sauces[0], props.ingredientsData.sauces[1], props.ingredientsData.sauces[2]];
+    const selectedBuns = [props.ingredientsData.buns[0], props.ingredientsData.buns[0]];
 
-  const selectedFillings = [data[4], data[7], data[8], data[10], data[11], data[12]];
-  const selectedSauces = [data[5], data[9]];
-  const selectedBuns = [data[0], data[0]];
+      const countTotalPrice = () => {
+        let price = 0;
+        [...selectedFillings, ...selectedSauces, ...selectedBuns].map((obj) => {
+          price = price + obj.price;
+        });
+        return price;
+      } 
 
-  const [ingredients, setIngredients] = React.useState({
-    fillings: selectedFillings,
-    sauces: selectedSauces,
-    buns: selectedBuns
-  });
-
-  const countTotalPrice = () => {
-    let price = 0;
-    [...ingredients.fillings, ...ingredients.sauces, ...ingredients.buns].map((obj) => {
-      price = price + obj.price;
-    });
-    return price;
-  }
-
-  return (
-    <section className={burgerConstructorStyles.section}>
-      <ItemsList buns={ingredients.buns} fillings={ingredients.fillings} sauces={ingredients.sauces} />
-      <OrderingBlock totalPrice={countTotalPrice()} />
-    </section>
-  );
-};
+    return (
+      <section className={burgerConstructorStyles.section}>
+        <ItemsList buns={selectedBuns} fillings={selectedFillings} sauces={selectedSauces} />
+        <OrderingBlock totalPrice={countTotalPrice()} />
+      </section>
+    );
+  };

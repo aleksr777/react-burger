@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
-import { data } from '../../utils/data.js';
 import {
   Tab,
   CurrencyIcon,
@@ -61,23 +60,7 @@ IngredientItem.propTypes = {
   itemTitle: PropTypes.string.isRequired
 };
 
-export const BurgerIngredients = () => {
-
-  let fillingsData = [];
-  let saucesData = [];
-  let bunsData = [];
-
-  data.map((obj) => {
-    if (obj.type === 'main') { fillingsData.push(obj) }
-    else if (obj.type === 'sauce') { saucesData.push(obj) }
-    else if (obj.type === 'bun') { bunsData.push(obj) }
-  });
-
-  const [ingredients, setIngredients] = React.useState({
-    fillings: fillingsData,
-    sauces: saucesData,
-    buns: bunsData
-  });
+export const BurgerIngredients = props => {
 
   return (
     <section className={burgerIngredientsStyles.section}>
@@ -89,24 +72,21 @@ export const BurgerIngredients = () => {
       <div className={burgerIngredientsStyles.section__blocks}>
 
         <IngredientBlock blockTitle="Булки">
-          {ingredients.buns.map((obj) => (
+          {props.ingredientsData.buns.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
           ))}
-
-          {/* <Counter count={1} size="default" extraClass="m-1" /> */}
-
         </IngredientBlock>
 
         <IngredientBlock blockTitle="Соусы">
-          {ingredients.sauces.map((obj) => (
+          {props.ingredientsData.sauces.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
           ))}
         </IngredientBlock>
 
         <IngredientBlock blockTitle="Начинки">
-          {ingredients.fillings.map((obj) => (
+          {props.ingredientsData.fillings.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
           ))}
@@ -114,4 +94,8 @@ export const BurgerIngredients = () => {
       </div>
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  ingredientsData: PropTypes.object.isRequired
 };
