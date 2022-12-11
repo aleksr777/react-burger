@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import appStyles from './app.module.css';
+import Modal, { modalRootElement } from '../modal/modal';
 import { AppHeader } from '../app-header/app-header';
 import { AppMain } from '../app-main/app-main';
 import { apiConfig } from '../../constants/constants.js';
 import { getIngredientsData } from '../../utils/api.js';
 
-export const App = () => {
+const App = () => {
 
   const [ingredientsData, setIngredientsData] = useState({
     fillings: [],
@@ -34,10 +35,45 @@ export const App = () => {
       .catch(err => { console.log(err) })
   }, []);
 
+  /*   const [modal, setModal] = useState({
+      modal1: false,
+      modal2: false,
+      modal3: false
+    }); */
+
+  const [isVisible, setVisible] = useState(false);
+
+  function handleEsc(e) {
+    if (e.key === 'Escape') {
+      handleCloseModal()
+    }
+  }
+
+  function handleOpenModal() {
+    document.addEventListener('keydown', handleEsc);
+    setVisible(true);
+  }
+
+  function handleCloseModal() {
+    document.removeEventListener('keydown', handleEsc);
+    setVisible(false);
+  }
+
   return (
     <div className={appStyles.app}>
+
+      <button onClick={handleOpenModal} type="button"> Открыть окно 1</button>
+
       <AppHeader />
+
       <AppMain ingredientsData={ingredientsData} />
+
+      <Modal visible={isVisible} onClose={handleCloseModal} >
+        <p>Первое окно</p>
+      </Modal>
+
     </div>
   )
-}; 
+};
+
+export default App;

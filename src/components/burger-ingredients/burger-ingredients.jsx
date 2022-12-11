@@ -11,13 +11,13 @@ const TabBlock = () => {
   const [current, setCurrent] = React.useState('one')
   return (
     <div className={burgerIngredientsStyles.tab}>
-      <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
+      <Tab value='buns' active={current === 'buns'} onClick={setCurrent}>
         Булки
       </Tab>
-      <Tab value="sauces" active={current === 'sauces'} onClick={setCurrent}>
+      <Tab value='sauces' active={current === 'sauces'} onClick={setCurrent}>
         Соусы
       </Tab>
-      <Tab value="fillings" active={current === 'fillings'} onClick={setCurrent}>
+      <Tab value='fillings' active={current === 'fillings'} onClick={setCurrent}>
         Начинки
       </Tab>
     </div>
@@ -47,7 +47,7 @@ const IngredientItem = props => {
       <img className={burgerIngredientsStyles.item__image} src={props.imgPath} alt={props.itemTitle} />
       <div className={burgerIngredientsStyles.item__box}>
         <p className={burgerIngredientsStyles.item__price}>{props.itemPrice}</p>
-        <CurrencyIcon type="primary" />
+        <CurrencyIcon type='primary' />
       </div>
       <p className={burgerIngredientsStyles.item__title}>{props.itemTitle}</p>
     </li>
@@ -71,21 +71,21 @@ export const BurgerIngredients = props => {
 
       <div className={burgerIngredientsStyles.section__blocks}>
 
-        <IngredientBlock blockTitle="Булки">
+        <IngredientBlock blockTitle='Булки'>
           {props.ingredientsData.buns.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
           ))}
         </IngredientBlock>
 
-        <IngredientBlock blockTitle="Соусы">
+        <IngredientBlock blockTitle='Соусы'>
           {props.ingredientsData.sauces.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
           ))}
         </IngredientBlock>
 
-        <IngredientBlock blockTitle="Начинки">
+        <IngredientBlock blockTitle='Начинки'>
           {props.ingredientsData.fillings.map((obj) => (
             <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
             </IngredientItem>
