@@ -8,8 +8,15 @@ export const AppMain = props => {
   if (props.ingredientsData.fillings[0] && props.ingredientsData.sauces[0] && props.ingredientsData.buns[0]) {
     return (
       <main className={mainStyles.main}>
-        <BurgerIngredients ingredientsData={props.ingredientsData} />
-        <BurgerConstructor ingredientsData={props.ingredientsData} />
+        <BurgerIngredients
+          ingredientsData={props.ingredientsData}
+          handleOpenModal={props.handleOpenModal}
+          fillPopupContent={props.fillPopupContent} />
+        <BurgerConstructor
+          ingredientsData={props.ingredientsData}
+          handleOpenModal={props.handleOpenModal}
+          fillPopupContent={props.fillPopupContent}
+        />
       </main>
     );
   };

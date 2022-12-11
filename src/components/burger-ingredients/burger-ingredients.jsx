@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import {
   Tab,
   CurrencyIcon,
@@ -42,9 +43,19 @@ IngredientBlock.propTypes = {
 
 const IngredientItem = props => {
   return (
-    <li className={burgerIngredientsStyles.item}>
+    <li
+      className={burgerIngredientsStyles.item}
+      onClick={() => {
+        props.handleOpenModal();
+        props.fillPopupContent(<IngredientDetails ingridient={props.ingridient} />);
+      }}
+    >
       {props.children}
-      <img className={burgerIngredientsStyles.item__image} src={props.imgPath} alt={props.itemTitle} />
+      <img
+        className={burgerIngredientsStyles.item__image}
+        src={props.imgPath}
+        alt={props.itemTitle}
+      />
       <div className={burgerIngredientsStyles.item__box}>
         <p className={burgerIngredientsStyles.item__price}>{props.itemPrice}</p>
         <CurrencyIcon type='primary' />
@@ -73,21 +84,45 @@ export const BurgerIngredients = props => {
 
         <IngredientBlock blockTitle='Булки'>
           {props.ingredientsData.buns.map((obj) => (
-            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            <IngredientItem
+              itemPrice={obj.price}
+              itemTitle={obj.name}
+              imgPath={obj.image}
+              key={obj._id}
+              handleOpenModal={props.handleOpenModal}
+              fillPopupContent={props.fillPopupContent}
+              ingridient={obj}
+            >
             </IngredientItem>
           ))}
         </IngredientBlock>
 
         <IngredientBlock blockTitle='Соусы'>
           {props.ingredientsData.sauces.map((obj) => (
-            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            <IngredientItem
+              itemPrice={obj.price}
+              itemTitle={obj.name}
+              imgPath={obj.image}
+              key={obj._id}
+              handleOpenModal={props.handleOpenModal}
+              fillPopupContent={props.fillPopupContent}
+              ingridient={obj}
+            >
             </IngredientItem>
           ))}
         </IngredientBlock>
 
         <IngredientBlock blockTitle='Начинки'>
           {props.ingredientsData.fillings.map((obj) => (
-            <IngredientItem itemPrice={obj.price} itemTitle={obj.name} imgPath={obj.image} key={obj._id}>
+            <IngredientItem
+              itemPrice={obj.price}
+              itemTitle={obj.name}
+              imgPath={obj.image}
+              key={obj._id}
+              handleOpenModal={props.handleOpenModal}
+              fillPopupContent={props.fillPopupContent}
+              ingridient={obj}
+            >
             </IngredientItem>
           ))}
         </IngredientBlock>

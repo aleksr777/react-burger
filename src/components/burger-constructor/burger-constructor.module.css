@@ -78,7 +78,8 @@
   composes: mr-10 from global;
 }
 
-.order__price {
+.order__price {overflow: hidden;
+  text-overflow: ellipsis;
   box-sizing: border-box;
   padding: 0;
   margin: 0;

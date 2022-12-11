@@ -70,13 +70,19 @@
 }
 
 .item {
+  cursor: pointer;
   position: relative;
   padding: 0;
   box-sizing: border-box;
   flex: 0 0 auto;
   max-width: 272px;
+  transition: all .3s ease 0s;
   composes: mr-6 mb-8 from global;
   /* логичнее использовать gap, но по заданию использую систему отступов */
+}
+
+.item:hover {
+  opacity: 0.8;
 }
 
 .item:nth-child(2n) {

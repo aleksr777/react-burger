@@ -1,0 +1,80 @@
+.container {
+  position: relative;
+  z-index: 102;
+  min-width: 638px;
+  max-width: 90%;
+  background: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  composes: pt-10 pb-15 pl-10 pr-10 from global;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 12px 0 12px 0;
+  margin: 0;
+  composes: text text_type_main-large from global;
+}
+
+.image {
+  display: block;
+  padding: 0;
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  max-height: 100%;
+  composes: mb-4 from global;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  text-align: center;
+  composes: mb-8 text text_type_main-medium from global;
+}
+
+.composition {
+  display: flex;
+  padding: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.composition__item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: center;
+  padding: 0 14px 0 14px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  composes: mr-5 from global;
+}
+
+.composition__item:last-of-type {
+  margin-right: 0;
+}
+
+.composition__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin: 0;
+  composes: text text_type_main-default from global;
+}
+
+.composition__number {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin: 0;
+  composes: text text_type_digits-default from global;
+}

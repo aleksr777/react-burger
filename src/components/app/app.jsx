@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import appStyles from './app.module.css';
-import Modal, { modalRootElement } from '../modal/modal';
+import Modal from '../modal/modal';
 import { AppHeader } from '../app-header/app-header';
 import { AppMain } from '../app-main/app-main';
 import { apiConfig } from '../../constants/constants.js';
 import { getIngredientsData } from '../../utils/api.js';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
+
+let popupContent;
 
 const App = () => {
 
@@ -35,41 +39,38 @@ const App = () => {
       .catch(err => { console.log(err) })
   }, []);
 
-  /*   const [modal, setModal] = useState({
-      modal1: false,
-      modal2: false,
-      modal3: false
-    }); */
-
   const [isVisible, setVisible] = useState(false);
 
-  function handleEsc(e) {
+  const handleEsc = (e) => {
     if (e.key === 'Escape') {
       handleCloseModal()
     }
   }
 
-  function handleOpenModal() {
+  const handleOpenModal = () => {
     document.addEventListener('keydown', handleEsc);
     setVisible(true);
   }
 
-  function handleCloseModal() {
+  const handleCloseModal = () => {
     document.removeEventListener('keydown', handleEsc);
     setVisible(false);
+    popupContent = null;
+  }
+
+  const fillPopupContent = (content) => {
+    popupContent = content;
   }
 
   return (
     <div className={appStyles.app}>
 
-      <button onClick={handleOpenModal} type="button"> Открыть окно 1</button>
-
       <AppHeader />
 
-      <AppMain ingredientsData={ingredientsData} />
+      <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
 
       <Modal visible={isVisible} onClose={handleCloseModal} >
-        <p>Первое окно</p>
+        {popupContent}
       </Modal>
 
     </div>
