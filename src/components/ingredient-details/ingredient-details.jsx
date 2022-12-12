@@ -9,9 +9,9 @@ const IngredientDetails = (props) => {
 
       <p className={ingredientDetails.title}>Детали ингредиента</p>
 
-      <div className={ingredientDetails.imageBox}>
+      <picture className={ingredientDetails.imageBox}>
         <img className={ingredientDetails.image} src={props.ingridient.image_large} alt={props.ingridient.name} />
-      </div>
+      </picture>
 
       <p className={ingredientDetails.name}>{props.ingridient.name}</p>
 

@@ -8,9 +8,9 @@ const OrderDetails = (props) => {
     <div className={orderDetailsStyles.container}>
       <p className={orderDetailsStyles.id}>{props.orderId}</p>
       <p className={orderDetailsStyles.title}>идентификатор заказа</p>
-      <div className={orderDetailsStyles.imageBox}>
+      <picture className={orderDetailsStyles.imageBox}>
         <img className={orderDetailsStyles.image} src={donePath} alt="Иконка успешного заказа." />
-      </div>
+      </picture>
       <p className={orderDetailsStyles.info}>Ваш заказ начали готовить</p>
       <p className={orderDetailsStyles.instruction}>Дождитесь готовности на орбитальной станции</p>
     </div>
