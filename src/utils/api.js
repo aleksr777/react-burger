@@ -2,10 +2,13 @@ const getResponseData =(res) => {
   if (!res.ok) {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
-  return res.json();
-} 
+  return res.json()
+};
+
+function request(baseUrl) {
+  return fetch(baseUrl).then(getResponseData)
+};
 
 export const getIngredientsData = ({ baseUrl }) => {
-  return fetch(baseUrl)
-    .then(res => { return getResponseData(res) })
+  return request(baseUrl)
 };

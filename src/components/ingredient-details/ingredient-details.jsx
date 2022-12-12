@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ingredientDetails from './ingredient-details.module.css';
 
 const IngredientDetails = (props) => {
-  console.log(props.ingridient.image_large);
   return (
     <div className={ingredientDetails.container}>
 

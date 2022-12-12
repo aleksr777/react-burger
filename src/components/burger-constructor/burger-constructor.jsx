@@ -47,6 +47,11 @@ const ScrollList = props => {
   )
 };
 
+ScrollList.propTypes = {
+  sauces: PropTypes.array.isRequired,
+  fillings: PropTypes.array.isRequired
+};
+
 const ItemsList = props => {
   return (
     <ul className={burgerConstructorStyles.list}>
@@ -142,4 +147,8 @@ export const BurgerConstructor = props => {
       <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={props.handleOpenModal} fillPopupContent={props.fillPopupContent} />
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  ingredientsData: PropTypes.object.isRequired
 };

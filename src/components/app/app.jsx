@@ -5,12 +5,10 @@ import { AppHeader } from '../app-header/app-header';
 import { AppMain } from '../app-main/app-main';
 import { apiConfig } from '../../constants/constants.js';
 import { getIngredientsData } from '../../utils/api.js';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from '../order-details/order-details';
-
-let popupContent;
 
 const App = () => {
+
+  const [popupContent, setPopupContent] = useState();
 
   const [ingredientsData, setIngredientsData] = useState({
     fillings: [],
@@ -41,25 +39,17 @@ const App = () => {
 
   const [isVisible, setVisible] = useState(false);
 
-  const handleEsc = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseModal()
-    }
-  }
-
   const handleOpenModal = () => {
-    document.addEventListener('keydown', handleEsc);
     setVisible(true);
   }
 
   const handleCloseModal = () => {
-    document.removeEventListener('keydown', handleEsc);
     setVisible(false);
-    popupContent = null;
+    setPopupContent(null);
   }
 
   const fillPopupContent = (content) => {
-    popupContent = content;
+    setPopupContent(content);
   }
 
   return (
@@ -69,9 +59,9 @@ const App = () => {
 
       <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
 
-      <Modal visible={isVisible} onClose={handleCloseModal} >
-        {popupContent}
-      </Modal>
+      {isVisible ? (
+        <Modal handleCloseModal={handleCloseModal}> {popupContent} </Modal>
+      ) : null}
 
     </div>
   )

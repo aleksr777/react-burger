@@ -23,5 +23,9 @@ export const AppMain = props => {
 };
 
 AppMain.propTypes = {
-  ingredientsData: PropTypes.object.isRequired
+  ingredientsData: PropTypes.shape({
+    fillings: PropTypes.array.isRequired,
+    sauces: PropTypes.array.isRequired,
+    buns: PropTypes.array.isRequired
+  }).isRequired
 };

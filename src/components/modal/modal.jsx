@@ -1,46 +1,43 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import modalStyles from './modal.module.css';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
-export const modalRootElement = document.querySelector('#react-modals');
+const modalRootElement = document.getElementById('react-modals');
 
-const Modal = (props) => {
-
-  const { visible, onClose } = props;
-
-  const element = useMemo(() => document.createElement('div'), []);
+const Modal = ({ handleCloseModal, children }) => {
 
   useEffect(() => {
-    if (visible) {
-      modalRootElement.appendChild(element);
-      return () => {
-        modalRootElement.removeChild(element);
-      };
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        handleCloseModal();
+      }
     }
-  }, []);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [handleCloseModal]);
 
-
-  if (visible) {
-    return ReactDOM.createPortal(
-      <div>
-
-        <ModalOverlay onClose={onClose} />
-
-        <div className={modalStyles.modal}>
-          <div className={modalStyles.button} >
-            <CloseIcon type="primary" onClick={onClose} />
-          </div>
-          {props.children}
+  return ReactDOM.createPortal(
+    <div>
+      <ModalOverlay handleCloseModal={handleCloseModal} />
+      <div className={modalStyles.modal}>
+        <div className={modalStyles.button} >
+          <CloseIcon type="primary" onClick={handleCloseModal} />
         </div>
-
-      </div>,
-      modalRootElement
-    );
-  }
-  return null;
+        {children}
+      </div>
+    </div>,
+    modalRootElement
+  );
 };
 
+Modal.propTypes = {
+  handleCloseModal: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
+};
 
 export default Modal; 

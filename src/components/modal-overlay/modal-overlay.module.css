@@ -9,4 +9,5 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
+  transition: all .4s ease 0s;
 }
