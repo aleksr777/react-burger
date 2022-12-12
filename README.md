@@ -1,33 +1,33 @@
-### `npm start`
+# Учебный проект "React-burger"
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+В этом учебном проекте реализован сайт вымышленного космического онлайн-ресторана для заказа бургера.<br>
+На сайте можно выбрать ингридиенты для бургера, составить из ингридиентов свой бургер, подсчитать общую стоимость и сделать заказ.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Используемые технологии:
+* React.
+* HTML, CSS.  
+* JavaScript, Webpack, Babel.
+* Webpack.
+* Babel.
+* GIT.
 
-### `npm test`
+### В этом проекте отработаны навыки:
+* Основы работы с библиотекой React, синтаксис JSX.
+* Работа с Webpack, Babel.
+* Основы взаимодействия с сервером.
+* Работа с дизайнерским макетом в Figma.
+* Работа в GIT.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+--------------
 
-### `npm run build`
+* LINK gh-pages: <https://aleksr777.github.io/react-burger/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+--------------
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Запуск проекта в режиме разработчика: `npm start`<br>
+Сервер: <http://localhost:3000>.<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Сборка проекта для продакшена: `npm run build`<br>
+Сервер: <http://localhost:3000>.<br>
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
+--------------
