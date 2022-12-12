@@ -28,6 +28,7 @@
 Сервер: <http://localhost:3000>.<br>
 
 ### Сборка проекта для продакшена: `npm run build`<br>
+Запуск сервера: `serve -s build -l 4000`<br>
 Сервер: <http://localhost:4000>.<br>
 
 --------------
