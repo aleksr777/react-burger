@@ -9,11 +9,11 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Item = props => {
+const Item = ({ text, price, thumbnail }) => {
   return (
     <li className={burgerConstructorStyles.item_scroll}    >
       <DragIcon type='primary' />
-      <ConstructorElement text={props.text} price={props.price} thumbnail={props.thumbnail} />
+      <ConstructorElement text={text} price={price} thumbnail={thumbnail} />
     </li>
   )
 };
@@ -24,10 +24,10 @@ const Item = props => {
   text: PropTypes.string.isRequired
 }; */
 
-const ScrollList = props => {
+const ScrollList = ({ sauces, fillings }) => {
   return (
     <ul className={burgerConstructorStyles.list_scroll}>
-      {props.sauces.map((obj) => (
+      {sauces.map((obj) => (
         <Item
           text={obj.name}
           price={obj.price}
@@ -35,7 +35,7 @@ const ScrollList = props => {
           key={obj._id}
         />
       ))}
-      {props.fillings.map((obj) => (
+      {fillings.map((obj) => (
         <Item
           text={obj.name}
           price={obj.price}
@@ -90,18 +90,18 @@ const ItemsList = ({ bun, fillings, sauces }) => {
   sauces: PropTypes.array.isRequired
 }; */
 
-const OrderingBlock = props => {
+const OrderingBlock = ({ totalPrice, handleOpenModal, fillPopupContent }) => {
   return (
     <div className={burgerConstructorStyles.order}>
       <div className={burgerConstructorStyles.order__box}>
-        <p className={burgerConstructorStyles.order__price}>{props.totalPrice}</p>
+        <p className={burgerConstructorStyles.order__price}>{totalPrice}</p>
         <CurrencyIcon type='primary' />
       </div>
       <Button
         htmlType='button'
         type='primary'
         size='large'
-        onClick={() => { props.handleOpenModal(); props.fillPopupContent(<OrderDetails orderId='034536' />); }}
+        onClick={() => { handleOpenModal(); fillPopupContent(<OrderDetails orderId='034536' />); }}
       >Оформить заказ</Button>
     </div>
   )
@@ -111,22 +111,22 @@ OrderingBlock.propTypes = {
   totalPrice: PropTypes.number.isRequired
 };
 
-export const BurgerConstructor = props => {
+export const BurgerConstructor = ({ ingredientsData, handleOpenModal, fillPopupContent }) => {
 
   //Выбранные пользователем ингридиенты (пока только условно для отображения вёрстки)
   const selectedFillings = [
-    props.ingredientsData.fillings[0],
-    props.ingredientsData.fillings[1],
-    props.ingredientsData.fillings[2],
-    props.ingredientsData.fillings[3],
-    props.ingredientsData.fillings[4]
+    ingredientsData.fillings[0],
+    ingredientsData.fillings[1],
+    ingredientsData.fillings[2],
+    ingredientsData.fillings[3],
+    ingredientsData.fillings[4]
   ];
   const selectedSauces = [
-    props.ingredientsData.sauces[0],
-    props.ingredientsData.sauces[1],
-    props.ingredientsData.sauces[2]
+    ingredientsData.sauces[0],
+    ingredientsData.sauces[1],
+    ingredientsData.sauces[2]
   ];
-  const selectedBun = props.ingredientsData.buns[0];
+  const selectedBun = ingredientsData.buns[0];
 
   const countTotalPrice = () => {
     let price = 0;
@@ -139,7 +139,7 @@ export const BurgerConstructor = props => {
   return (
     <section className={burgerConstructorStyles.section}>
       <ItemsList bun={selectedBun} fillings={selectedFillings} sauces={selectedSauces} />
-      <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={props.handleOpenModal} fillPopupContent={props.fillPopupContent} />
+      <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
     </section>
   );
 };
