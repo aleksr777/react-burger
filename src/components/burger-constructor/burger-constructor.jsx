@@ -18,11 +18,11 @@ const Item = props => {
   )
 };
 
-Item.propTypes = {
+/* Item.propTypes = {
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired
-};
+}; */
 
 const ScrollList = props => {
   return (
@@ -47,50 +47,48 @@ const ScrollList = props => {
   )
 };
 
-ScrollList.propTypes = {
+/* ScrollList.propTypes = {
   sauces: PropTypes.array.isRequired,
   fillings: PropTypes.array.isRequired
+}; */
+
+const BunElement = ({ bun, type, positionText }) => {
+  return (
+    <ConstructorElement
+      isLocked={true}
+      type={type}
+      text={`${bun.name} ${positionText}`}
+      price={bun.price}
+      thumbnail={bun.image}
+    />
+  )
 };
 
-const ItemsList = props => {
+const ItemsList = ({ bun, fillings, sauces }) => {
   return (
     <ul className={burgerConstructorStyles.list}>
 
-      <li className={burgerConstructorStyles.item}      >
-        <ConstructorElement
-          isLocked={true} type='top'
-          text={`${props.buns[0].name} (верх)`}
-          price={props.buns[0].price}
-          thumbnail={props.buns[0].image}
-        />
+      <li className={burgerConstructorStyles.item}>
+        <BunElement bun={bun} type='top' positionText='(верх)' />
       </li>
 
       <li>
-        <ScrollList
-          fillings={props.fillings}
-          sauces={props.sauces}
-        />
+        <ScrollList fillings={fillings} sauces={sauces} />
       </li>
 
       <li className={burgerConstructorStyles.item}>
-        <ConstructorElement
-          isLocked={true}
-          type='bottom'
-          text={`${props.buns[1].name} (низ)`}
-          price={props.buns[1].price}
-          thumbnail={props.buns[1].image}
-        />
+        <BunElement bun={bun} type='bottom' positionText='(низ)' />
       </li>
 
     </ul>
   )
 };
 
-ItemsList.propTypes = {
+/* ItemsList.propTypes = {
   buns: PropTypes.array.isRequired,
   fillings: PropTypes.array.isRequired,
   sauces: PropTypes.array.isRequired
-};
+}; */
 
 const OrderingBlock = props => {
   return (
@@ -117,38 +115,35 @@ export const BurgerConstructor = props => {
 
   //Выбранные пользователем ингридиенты (пока только условно для отображения вёрстки)
   const selectedFillings = [
-    props.ingredientsData.fillings[0], 
-    props.ingredientsData.fillings[1], 
-    props.ingredientsData.fillings[2], 
-    props.ingredientsData.fillings[3], 
-    props.ingredientsData.fillings[4]  
+    props.ingredientsData.fillings[0],
+    props.ingredientsData.fillings[1],
+    props.ingredientsData.fillings[2],
+    props.ingredientsData.fillings[3],
+    props.ingredientsData.fillings[4]
   ];
   const selectedSauces = [
-    props.ingredientsData.sauces[0], 
-    props.ingredientsData.sauces[1], 
+    props.ingredientsData.sauces[0],
+    props.ingredientsData.sauces[1],
     props.ingredientsData.sauces[2]
   ];
-  const selectedBuns = [
-    props.ingredientsData.buns[0], 
-    props.ingredientsData.buns[0]
-  ];
+  const selectedBun = props.ingredientsData.buns[0];
 
   const countTotalPrice = () => {
     let price = 0;
-    [...selectedFillings, ...selectedSauces, ...selectedBuns].map((obj) => {
+    [...selectedFillings, ...selectedSauces].map((obj) => {
       price = price + obj.price;
     });
-    return price;
+    return price + selectedBun.price * 2;
   }
 
   return (
     <section className={burgerConstructorStyles.section}>
-      <ItemsList buns={selectedBuns} fillings={selectedFillings} sauces={selectedSauces} />
+      <ItemsList bun={selectedBun} fillings={selectedFillings} sauces={selectedSauces} />
       <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={props.handleOpenModal} fillPopupContent={props.fillPopupContent} />
     </section>
   );
 };
 
-BurgerConstructor.propTypes = {
+/* BurgerConstructor.propTypes = {
   ingredientsData: PropTypes.object.isRequired
-};
+}; */
