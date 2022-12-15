@@ -53,13 +53,14 @@ const ScrollList = ({ sauces, fillings }) => {
 }; */
 
 const BunElement = ({ bun, type, positionText }) => {
+  const { name, price, image } = bun;
   return (
     <ConstructorElement
       isLocked={true}
       type={type}
-      text={`${bun.name} ${positionText}`}
-      price={bun.price}
-      thumbnail={bun.image}
+      text={`${name} ${positionText}`}
+      price={price}
+      thumbnail={image}
     />
   )
 };
