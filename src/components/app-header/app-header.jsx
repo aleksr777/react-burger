@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import headerStyles from './app-header.module.css';
 import {
@@ -8,11 +7,11 @@ import {
   ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const NavLink = props => {
+const NavLink = ({children, navText}) => {
   return (
     <a className={headerStyles.nav__link} href="#">
-      {props.children}
-      <p className={headerStyles.nav__text}>{props.navText}</p>
+      {children}
+      <p className={headerStyles.nav__text}>{navText}</p>
     </a>
   );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import orderDetailsStyles from './order-details.module.css';
 import donePath from '../../images/done.svg'
