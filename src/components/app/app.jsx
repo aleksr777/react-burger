@@ -56,11 +56,11 @@ const App = () => {
       <AppHeader />
 
       {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
-      <IngredientsContext.Provider value={{ ingredientsData }}>
+        <IngredientsContext.Provider value={{ ingredientsData }}>
           <PopupContext.Provider value={{ handleOpenModal, setPopupContent }}>
-          <AppMain/>
-        </PopupContext.Provider>
-      </IngredientsContext.Provider>
+            <AppMain />
+          </PopupContext.Provider>
+        </IngredientsContext.Provider>
       ) : null}
 
       {isVisible ? (
