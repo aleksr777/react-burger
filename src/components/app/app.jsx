@@ -62,7 +62,7 @@ const App = () => {
       {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
       <IngredientsContext.Provider value={{ ingredientsData }}>
         <PopupContext.Provider value={{ handleOpenModal, fillPopupContent }}>
-          <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
+          <AppMain/>
         </PopupContext.Provider>
       </IngredientsContext.Provider>
       ) : null}
