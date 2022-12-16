@@ -7,8 +7,8 @@ import {
   CurrencyIcon,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext } from '../../context/ingredients-context.jsx';
-import { PopupContext } from '../../context/popup-context.jsx';
+import { IngredientsContext } from '../../context/ingredients-context';
+import { PopupContext } from '../../context/popup-context';
 
 const TabBlock = () => {
   const [current, setCurrent] = useState('one')

@@ -8,8 +8,8 @@ import {
   DragIcon,
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext } from '../../context/ingredients-context.jsx';
-import { PopupContext } from '../../context/popup-context.jsx';
+import { IngredientsContext } from '../../context/ingredients-context';
+import { PopupContext } from '../../context/popup-context';
 
 const Item = ({ text, price, thumbnail }) => {
   return (

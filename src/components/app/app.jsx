@@ -3,10 +3,10 @@ import appStyles from './app.module.css';
 import Modal from '../modal/modal';
 import { AppHeader } from '../app-header/app-header';
 import { AppMain } from '../app-main/app-main';
-import { apiConfig } from '../../constants/constants.js';
-import { getIngredientsData } from '../../utils/api.js';
-import { IngredientsContext } from '../../context/ingredients-context.jsx';
-import { PopupContext } from '../../context/popup-context.jsx';
+import { apiConfig } from '../../constants/constants';
+import { getIngredientsData } from '../../utils/api';
+import { IngredientsContext } from '../../context/ingredients-context';
+import { PopupContext } from '../../context/popup-context';
 
 const App = () => {
 
