@@ -50,10 +50,6 @@ const App = () => {
     setPopupContent(null);
   }
 
-  const fillPopupContent = (content) => {
-    setPopupContent(content);
-  }
-
   return (
     <div className={appStyles.app}>
 
@@ -61,7 +57,7 @@ const App = () => {
 
       {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
       <IngredientsContext.Provider value={{ ingredientsData }}>
-        <PopupContext.Provider value={{ handleOpenModal, fillPopupContent }}>
+          <PopupContext.Provider value={{ handleOpenModal, setPopupContent }}>
           <AppMain/>
         </PopupContext.Provider>
       </IngredientsContext.Provider>

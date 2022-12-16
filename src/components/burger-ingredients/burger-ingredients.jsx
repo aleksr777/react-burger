@@ -44,13 +44,13 @@ IngredientBlock.propTypes = {
 };
 
 const IngredientItem = ({ children, itemPrice, itemTitle, imgPath, ingridient }) => {
-  const { handleOpenModal, fillPopupContent } = useContext(PopupContext);
+  const { handleOpenModal, setPopupContent } = useContext(PopupContext);
   return (
     <li
       className={burgerIngredientsStyles.item}
       onClick={() => {
         handleOpenModal();
-        fillPopupContent(<IngredientDetails ingridient={ingridient} />);
+        setPopupContent(<IngredientDetails ingridient={ingridient} />);
       }}
     >
       {children}

@@ -100,7 +100,7 @@ ItemsList.propTypes = {
 };
 
 const OrderingBlock = ({ totalPrice}) => {
-  const { handleOpenModal, fillPopupContent } = useContext(PopupContext);
+  const { handleOpenModal, setPopupContent } = useContext(PopupContext);
   return (
     <div className={burgerConstructorStyles.order}>
       <div className={burgerConstructorStyles.order__box}>
@@ -111,7 +111,7 @@ const OrderingBlock = ({ totalPrice}) => {
         htmlType='button'
         type='primary'
         size='large'
-        onClick={() => { handleOpenModal(); fillPopupContent(<OrderDetails orderId='034536' />); }}
+        onClick={() => { handleOpenModal(); setPopupContent(<OrderDetails orderId='034536' />); }}
       >Оформить заказ</Button>
     </div>
   )
