@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useContext } from "react";
 import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -7,9 +7,11 @@ import {
   CurrencyIcon,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../context/ingredients-context.jsx';
+import { PopupContext } from '../../context/popup-context.jsx';
 
 const TabBlock = () => {
-  const [current, setCurrent] = React.useState('one')
+  const [current, setCurrent] = useState('one')
   return (
     <div className={burgerIngredientsStyles.tab}>
       <Tab value='buns' active={current === 'buns'} onClick={setCurrent}>
@@ -25,12 +27,12 @@ const TabBlock = () => {
   )
 };
 
-const IngredientBlock = props => {
+const IngredientBlock = ({ children, blockTitle }) => {
   return (
     <div className={burgerIngredientsStyles.block}>
-      <h3 className={burgerIngredientsStyles.block__title}>{props.blockTitle}</h3>
+      <h3 className={burgerIngredientsStyles.block__title}>{blockTitle}</h3>
       <ul className={burgerIngredientsStyles.block__list}>
-        {props.children}
+        {children}
       </ul>
     </div>
   )
@@ -41,26 +43,27 @@ IngredientBlock.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const IngredientItem = props => {
+const IngredientItem = ({ children, itemPrice, itemTitle, imgPath, ingridient }) => {
+  const { handleOpenModal, fillPopupContent } = useContext(PopupContext);
   return (
     <li
       className={burgerIngredientsStyles.item}
       onClick={() => {
-        props.handleOpenModal();
-        props.fillPopupContent(<IngredientDetails ingridient={props.ingridient} />);
+        handleOpenModal();
+        fillPopupContent(<IngredientDetails ingridient={ingridient} />);
       }}
     >
-      {props.children}
+      {children}
       <img
         className={burgerIngredientsStyles.item__image}
-        src={props.imgPath}
-        alt={props.itemTitle}
+        src={imgPath}
+        alt={itemTitle}
       />
       <div className={burgerIngredientsStyles.item__box}>
-        <p className={burgerIngredientsStyles.item__price}>{props.itemPrice}</p>
+        <p className={burgerIngredientsStyles.item__price}>{itemPrice}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <p className={burgerIngredientsStyles.item__title}>{props.itemTitle}</p>
+      <p className={burgerIngredientsStyles.item__title}>{itemTitle}</p>
     </li>
   )
 };
@@ -71,8 +74,8 @@ IngredientItem.propTypes = {
   itemTitle: PropTypes.string.isRequired
 };
 
-export const BurgerIngredients = props => {
-
+export const BurgerIngredients = () => {
+  const { ingredientsData } = useContext(IngredientsContext);
   return (
     <section className={burgerIngredientsStyles.section}>
 
@@ -83,14 +86,12 @@ export const BurgerIngredients = props => {
       <div className={burgerIngredientsStyles.section__blocks}>
 
         <IngredientBlock blockTitle='Булки'>
-          {props.ingredientsData.buns.map((obj) => (
+          {ingredientsData.buns.map((obj) => (
             <IngredientItem
               itemPrice={obj.price}
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              handleOpenModal={props.handleOpenModal}
-              fillPopupContent={props.fillPopupContent}
               ingridient={obj}
             >
             </IngredientItem>
@@ -98,14 +99,12 @@ export const BurgerIngredients = props => {
         </IngredientBlock>
 
         <IngredientBlock blockTitle='Соусы'>
-          {props.ingredientsData.sauces.map((obj) => (
+          {ingredientsData.sauces.map((obj) => (
             <IngredientItem
               itemPrice={obj.price}
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              handleOpenModal={props.handleOpenModal}
-              fillPopupContent={props.fillPopupContent}
               ingridient={obj}
             >
             </IngredientItem>
@@ -113,14 +112,12 @@ export const BurgerIngredients = props => {
         </IngredientBlock>
 
         <IngredientBlock blockTitle='Начинки'>
-          {props.ingredientsData.fillings.map((obj) => (
+          {ingredientsData.fillings.map((obj) => (
             <IngredientItem
               itemPrice={obj.price}
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              handleOpenModal={props.handleOpenModal}
-              fillPopupContent={props.fillPopupContent}
               ingridient={obj}
             >
             </IngredientItem>
@@ -129,8 +126,4 @@ export const BurgerIngredients = props => {
       </div>
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredientsData: PropTypes.object.isRequired
 };

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import appStyles from './app.module.css';
 import Modal from '../modal/modal';
 import { AppHeader } from '../app-header/app-header';
 import { AppMain } from '../app-main/app-main';
 import { apiConfig } from '../../constants/constants.js';
 import { getIngredientsData } from '../../utils/api.js';
+import { IngredientsContext } from '../../context/ingredients-context.jsx';
+import { PopupContext } from '../../context/popup-context.jsx';
 
 const App = () => {
 
@@ -57,7 +59,13 @@ const App = () => {
 
       <AppHeader />
 
-      <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
+      {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
+      <IngredientsContext.Provider value={{ ingredientsData }}>
+        <PopupContext.Provider value={{ handleOpenModal, fillPopupContent }}>
+          <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
+        </PopupContext.Provider>
+      </IngredientsContext.Provider>
+      ) : null}
 
       {isVisible ? (
         <Modal handleCloseModal={handleCloseModal}> {popupContent} </Modal>

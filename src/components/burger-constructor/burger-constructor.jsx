@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from "react";
 import PropTypes from 'prop-types';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
@@ -8,6 +8,8 @@ import {
   DragIcon,
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../context/ingredients-context.jsx';
+import { PopupContext } from '../../context/popup-context.jsx';
 
 const Item = ({ text, price, thumbnail }) => {
   return (
@@ -18,11 +20,11 @@ const Item = ({ text, price, thumbnail }) => {
   )
 };
 
-/* Item.propTypes = {
+Item.propTypes = {
+  text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-}; */
+  thumbnail: PropTypes.string.isRequired
+};
 
 const ScrollList = ({ sauces, fillings }) => {
   return (
@@ -47,10 +49,10 @@ const ScrollList = ({ sauces, fillings }) => {
   )
 };
 
-/* ScrollList.propTypes = {
+ScrollList.propTypes = {
   sauces: PropTypes.array.isRequired,
   fillings: PropTypes.array.isRequired
-}; */
+};
 
 const BunElement = ({ bun, type, positionText }) => {
   const { name, price, image } = bun;
@@ -63,6 +65,12 @@ const BunElement = ({ bun, type, positionText }) => {
       thumbnail={image}
     />
   )
+};
+
+BunElement.propTypes = {
+  bun: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  positionText: PropTypes.string.isRequired
 };
 
 const ItemsList = ({ bun, fillings, sauces }) => {
@@ -85,13 +93,14 @@ const ItemsList = ({ bun, fillings, sauces }) => {
   )
 };
 
-/* ItemsList.propTypes = {
-  buns: PropTypes.array.isRequired,
+ItemsList.propTypes = {
+  bun: PropTypes.object.isRequired,
   fillings: PropTypes.array.isRequired,
   sauces: PropTypes.array.isRequired
-}; */
+};
 
-const OrderingBlock = ({ totalPrice, handleOpenModal, fillPopupContent }) => {
+const OrderingBlock = ({ totalPrice}) => {
+  const { handleOpenModal, fillPopupContent } = useContext(PopupContext);
   return (
     <div className={burgerConstructorStyles.order}>
       <div className={burgerConstructorStyles.order__box}>
@@ -112,8 +121,9 @@ OrderingBlock.propTypes = {
   totalPrice: PropTypes.number.isRequired
 };
 
-export const BurgerConstructor = ({ ingredientsData, handleOpenModal, fillPopupContent }) => {
 
+export const BurgerConstructor = () => {
+  const { ingredientsData } = useContext(IngredientsContext);
   //Выбранные пользователем ингридиенты (пока только условно для отображения вёрстки)
   const selectedFillings = [
     ingredientsData.fillings[0],
@@ -140,11 +150,7 @@ export const BurgerConstructor = ({ ingredientsData, handleOpenModal, fillPopupC
   return (
     <section className={burgerConstructorStyles.section}>
       <ItemsList bun={selectedBun} fillings={selectedFillings} sauces={selectedSauces} />
-      <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
+      <OrderingBlock totalPrice={countTotalPrice()} />
     </section>
   );
 };
-
-/* BurgerConstructor.propTypes = {
-  ingredientsData: PropTypes.object.isRequired
-}; */
