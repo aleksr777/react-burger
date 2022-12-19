@@ -7,15 +7,28 @@ import { apiConfig } from '../../constants/constants';
 import { getIngredientsData } from '../../utils/api';
 import { IngredientsContext } from '../../context/ingredients-context';
 import { PopupContext } from '../../context/popup-context';
+import transparentPicturePath from '../../images/transparent-picture.png';
 
 const App = () => {
 
+  // Контент для вставки в модальное окно
   const [popupContent, setPopupContent] = useState();
 
+  // Cтейт для данных, полученныx с сервера
   const [ingredientsData, setIngredientsData] = useState({
     fillings: [],
     sauces: [],
     buns: []
+  });
+
+  // Cтейты для выбранных ингредиентов и булки из данных с сервера
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedBun, setSelectedBun] = useState({
+    image: transparentPicturePath,
+    name: '',
+    price: 0,
+    _id: null,
+    type: 'bun'
   });
 
   useEffect(() => {
@@ -56,7 +69,7 @@ const App = () => {
       <AppHeader />
 
       {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
-        <IngredientsContext.Provider value={{ ingredientsData }}>
+        <IngredientsContext.Provider value={{ ingredientsData, selectedIngredients, setSelectedIngredients, selectedBun, setSelectedBun }}>
           <PopupContext.Provider value={{ handleOpenModal, setPopupContent }}>
             <AppMain />
           </PopupContext.Provider>
