@@ -21,9 +21,10 @@ const App = () => {
     buns: []
   });
 
-  // Cтейты для выбранных ингредиентов и булки из данных с сервера
+  // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedBun, setSelectedBun] = useState({
+    // этот объект сделал для отображения "пустой" булки, если булка не выбрана
     image: transparentPicturePath,
     name: '',
     price: 0,
@@ -34,7 +35,7 @@ const App = () => {
   useEffect(() => {
     getIngredientsData(apiConfig)
       .then(res => {
-        /* сортируем данные по типу перед передачей в props */
+        /* сортируем данные с сервера*/
         let fillingsData = [];
         let saucesData = [];
         let bunsData = [];
@@ -52,6 +53,7 @@ const App = () => {
       .catch(err => { console.log(err) })
   }, []);
 
+  // Для модальных окон
   const [isVisible, setVisible] = useState(false);
 
   const handleOpenModal = () => {
@@ -68,13 +70,13 @@ const App = () => {
 
       <AppHeader />
 
-      {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0]) ? (
-        <IngredientsContext.Provider value={{ ingredientsData, selectedIngredients, setSelectedIngredients, selectedBun, setSelectedBun }}>
+      {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0])
+        ? (<IngredientsContext.Provider value={{ ingredientsData, selectedIngredients, setSelectedIngredients, selectedBun, setSelectedBun }}>
           <PopupContext.Provider value={{ handleOpenModal, setPopupContent }}>
             <AppMain />
           </PopupContext.Provider>
-        </IngredientsContext.Provider>
-      ) : null}
+        </IngredientsContext.Provider>)
+        : null}
 
       {isVisible ? (
         <Modal handleCloseModal={handleCloseModal}> {popupContent} </Modal>
