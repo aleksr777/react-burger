@@ -1,4 +1,4 @@
-import { useContext, useReducer, useEffect, useRef } from "react";
+import { useContext, useState, useReducer, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
@@ -48,7 +48,8 @@ const ScrollList = ({ ingredients, removeIngredient }) => {
 };
 
 ScrollList.propTypes = {
-  ingredients: PropTypes.array.isRequired
+  ingredients: PropTypes.array.isRequired,
+  removeIngredient: PropTypes.func.isRequired 
 };
 
 const BunElement = ({ bun, type, positionText }) => {
@@ -105,7 +106,8 @@ const ItemsList = ({ bun, ingredients, removeIngredient }) => {
 
 ItemsList.propTypes = {
   bun: PropTypes.object.isRequired,
-  ingredients: PropTypes.array.isRequired
+  ingredients: PropTypes.array.isRequired,
+  removeIngredient: PropTypes.func.isRequired
 };
 
 const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
@@ -127,7 +129,9 @@ const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
 };
 
 OrderingBlock.propTypes = {
-  totalPrice: PropTypes.number.isRequired
+  totalPrice: PropTypes.number.isRequired,
+  isOrderActive: PropTypes.bool.isRequired,
+  sendOrderRequest: PropTypes.func.isRequired
 };
 
 
@@ -192,7 +196,7 @@ const BurgerConstructor = () => {
   const effectRun = useRef(false);//чтобы не было повторного рендеринга (иначе стоимость считает дважды)
   useEffect(() => {
     if (effectRun.current === false) {
-      // имитируем добавление ингридиентов
+      // имитируем добавление ингредиентов
       addIngredient(ingredientsData.fillings[1]);
       addIngredient(ingredientsData.fillings[0]);
       addIngredient(ingredientsData.sauces[2]);
@@ -216,6 +220,8 @@ const BurgerConstructor = () => {
     return true
   };
 
+  const [orderId, setOrderId] = useState();
+
   function sendOrderRequest() {
     /* Создаём массив для отправки запроса на сервер */
     let arrId = [];
@@ -227,7 +233,9 @@ const BurgerConstructor = () => {
     postOrder(apiConfig, arrId)
       .then(res => {
         handleOpenModal();
-        setPopupContent(<OrderDetails orderId={String(res.order.number)} />); /* orderId почему-то не принимает числа, только строку */
+        setOrderId(res.order.number);
+        setPopupContent(<OrderDetails orderId={String(res.order.number)} />); 
+        /* orderId почему-то не принимает числа, только строку */
       })
       .catch(err => console.log(err));
   };
