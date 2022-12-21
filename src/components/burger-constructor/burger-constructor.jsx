@@ -1,5 +1,7 @@
 import { useContext, useReducer, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
+import { apiConfig } from '../../constants/constants';
+import { postOrder } from '../../utils/api';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import transparentPicturePath from '../../images/transparent-picture.png';
 import OrderDetails from '../order-details/order-details';
@@ -106,8 +108,7 @@ ItemsList.propTypes = {
   ingredients: PropTypes.array.isRequired
 };
 
-const OrderingBlock = ({ totalPrice, isOrderActive }) => {
-  const { handleOpenModal, setPopupContent } = useContext(PopupContext);
+const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
   return (
     <div className={burgerConstructorStyles.order}>
       <div className={burgerConstructorStyles.order__box}>
@@ -117,7 +118,7 @@ const OrderingBlock = ({ totalPrice, isOrderActive }) => {
       {
         (isOrderActive)
           ? (<Button htmlType='button' type='primary' size='large'
-            onClick={() => { handleOpenModal(); setPopupContent(<OrderDetails orderId='034536' />); }}>
+            onClick={sendOrderRequest}>
             Оформить заказ</Button>)
           : (<Button disabled htmlType='button' type='primary' size='large'>Оформить заказ</Button>)
       }
@@ -133,6 +134,8 @@ OrderingBlock.propTypes = {
 const BurgerConstructor = () => {
 
   const { ingredientsData, selectedIngredients, setSelectedIngredients, selectedBun, setSelectedBun } = useContext(IngredientsContext);
+
+  const { handleOpenModal, setPopupContent } = useContext(PopupContext);
 
   function priceReducer(totalPrice, action) {
     switch (action.type) {
@@ -201,8 +204,9 @@ const BurgerConstructor = () => {
       }
     }
   }, []);
-  /* Удаление ингредиентов реализовано через иконку на элементе*/
-  /* Как удалять булку, мне пока не понятно. Временно сделал кнопку для проверки (кнопка закоментирована). */
+  /* Удаление ингредиентов реализовано через иконку корзины на элементе*/
+  /* Как удалять булку (и нужно ли удалять), мне пока не понятно. 
+  Временно сделал кнопку для проверки (кнопка закоментирована, потом удалю). */
 
   // Проверка для активировации/дезактивации кнопки заказа.
   const isOrderActive = () => {
@@ -212,11 +216,27 @@ const BurgerConstructor = () => {
     return true
   };
 
+  function sendOrderRequest() {
+    /* Создаём массив для отправки запроса на сервер */
+    let arrId = [];
+    selectedIngredients.map((obj) => (
+      arrId.push(obj._id)
+    ));
+    arrId.push(selectedBun._id);
+    /* отправляем запрос и обрабатываем ответ */
+    postOrder(apiConfig, arrId)
+      .then(res => {
+        handleOpenModal();
+        setPopupContent(<OrderDetails orderId={String(res.order.number)} />); /* orderId почему-то не принимает числа, только строку */
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <section className={burgerConstructorStyles.section}>
       {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
       <ItemsList bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
-      <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} />
+      <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
     </section>
   );
 };
