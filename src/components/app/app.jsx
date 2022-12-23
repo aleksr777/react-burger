@@ -7,7 +7,7 @@ import { apiConfig } from '../../constants/constants';
 import { getIngredientsData } from '../../utils/api';
 import { IngredientsContext } from '../../context/ingredients-context';
 import { PopupContext } from '../../context/popup-context';
-import transparentPicturePath from '../../images/transparent-picture.png';
+import transparentImgPath from '../../images/transparent-picture.png';
 
 const App = () => {
 
@@ -25,7 +25,7 @@ const App = () => {
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedBun, setSelectedBun] = useState({
     // этот объект сделал для отображения "пустой" булки, если булка не выбрана
-    image: transparentPicturePath,
+    image: transparentImgPath,
     name: '',
     price: 0,
     _id: null,

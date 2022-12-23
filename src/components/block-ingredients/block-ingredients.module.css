@@ -1,0 +1,25 @@
+.block {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.block__title {
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin: 0;
+  composes: text text_type_main-medium from global;
+}
+
+.block__list {
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  composes: pl-4 pt-6 pb-2 from global;
+}

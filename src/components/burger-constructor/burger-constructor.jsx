@@ -1,139 +1,13 @@
 import { useContext, useState, useReducer, useEffect, useRef } from "react";
-import PropTypes from 'prop-types';
+import burgerConstructorStyles from './burger-constructor.module.css';
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
-import burgerConstructorStyles from './burger-constructor.module.css';
-import transparentPicturePath from '../../images/transparent-picture.png';
+import transparentImgPath from '../../images/transparent-picture.png';
 import OrderDetails from '../order-details/order-details';
-import {
-  ConstructorElement,
-  CurrencyIcon,
-  DragIcon,
-  Button
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderingBlock from '../ordering-block/ordering-block';
+import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
 import { PopupContext } from '../../context/popup-context';
 import { IngredientsContext } from '../../context/ingredients-context';
-
-const Item = ({ text, price, thumbnail, id, removeIngredient }) => {
-  return (
-    <li className={burgerConstructorStyles.item_scroll}    >
-      <DragIcon type='primary' />
-      <ConstructorElement text={text} price={price} thumbnail={thumbnail} handleClose={() => removeIngredient(id, price)} />
-    </li>
-  )
-};
-
-Item.propTypes = {
-  text: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  removeIngredient: PropTypes.func.isRequired
-};
-
-const ScrollList = ({ ingredients, removeIngredient }) => {
-  return (
-    <ul className={burgerConstructorStyles.list_scroll}>
-      {ingredients.map((obj) => (
-        <Item
-          text={obj.name}
-          price={obj.price}
-          thumbnail={obj.image}
-          key={obj._id}
-          id={obj._id}
-          removeIngredient={removeIngredient}
-        />))}
-    </ul>
-  )
-};
-
-ScrollList.propTypes = {
-  ingredients: PropTypes.array.isRequired,
-  removeIngredient: PropTypes.func.isRequired 
-};
-
-const BunElement = ({ bun, type, positionText }) => {
-  let nameTxt;
-  let positionTxt;
-  if (bun._id) {
-    nameTxt = bun.name;
-    positionTxt = positionText;
-  }
-  else {
-    nameTxt = 'Выберите булку';
-    positionTxt = '';
-  }
-  return (
-    <ConstructorElement
-      isLocked={true}
-      type={type}
-      text={`${nameTxt} ${positionTxt}`}
-      price={bun.price}
-      thumbnail={bun.image}
-    />
-  )
-};
-
-BunElement.propTypes = {
-  bun: PropTypes.object.isRequired,
-  type: PropTypes.string.isRequired,
-  positionText: PropTypes.string.isRequired
-};
-
-const ItemsList = ({ bun, ingredients, removeIngredient }) => {
-  return (
-    <ul className={burgerConstructorStyles.list}>
-
-      <li className={burgerConstructorStyles.item}>
-        <BunElement bun={bun} type='top' positionText='(верх)' />
-      </li>
-
-      <li>
-        {
-          (!ingredients[0])
-            ? (<p className={burgerConstructorStyles.noIngredientsText}>Выберите ингредиенты</p>)
-            : (<ScrollList ingredients={ingredients} removeIngredient={removeIngredient} />)
-        }
-      </li>
-
-      <li className={burgerConstructorStyles.item}>
-        <BunElement bun={bun} type='bottom' positionText='(низ)' />
-      </li>
-
-    </ul>
-  )
-};
-
-ItemsList.propTypes = {
-  bun: PropTypes.object.isRequired,
-  ingredients: PropTypes.array.isRequired,
-  removeIngredient: PropTypes.func.isRequired
-};
-
-const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
-  return (
-    <div className={burgerConstructorStyles.order}>
-      <div className={burgerConstructorStyles.order__box}>
-        <p className={burgerConstructorStyles.order__price}>{totalPrice}</p>
-        <CurrencyIcon type='primary' />
-      </div>
-      {
-        (isOrderActive)
-          ? (<Button htmlType='button' type='primary' size='large'
-            onClick={sendOrderRequest}>
-            Оформить заказ</Button>)
-          : (<Button disabled htmlType='button' type='primary' size='large'>Оформить заказ</Button>)
-      }
-    </div>
-  )
-};
-
-OrderingBlock.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
-  isOrderActive: PropTypes.bool.isRequired,
-  sendOrderRequest: PropTypes.func.isRequired
-};
-
 
 const BurgerConstructor = () => {
 
@@ -182,7 +56,7 @@ const BurgerConstructor = () => {
   function removeBun(price) {
     if (selectedBun) {
       setSelectedBun({
-        image: transparentPicturePath,
+        image: transparentImgPath,
         name: '',
         price: 0,
         _id: null,
@@ -199,9 +73,11 @@ const BurgerConstructor = () => {
       // имитируем добавление ингредиентов
       addIngredient(ingredientsData.fillings[1]);
       addIngredient(ingredientsData.fillings[0]);
+      addIngredient(ingredientsData.fillings[2]);
       addIngredient(ingredientsData.sauces[2]);
       addIngredient(ingredientsData.fillings[3]);
       addIngredient(ingredientsData.sauces[1]);
+      addIngredient(ingredientsData.sauces[0]);
       addBun(ingredientsData.buns[0]);
       return () => {
         effectRun.current = true
@@ -243,7 +119,7 @@ const BurgerConstructor = () => {
   return (
     <section className={burgerConstructorStyles.section}>
       {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
-      <ItemsList bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
+      <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
       <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
     </section>
   );
