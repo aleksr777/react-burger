@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link, animateScroll as scroll } from "react-scroll";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
@@ -16,9 +17,9 @@ const BurgerIngredients = () => {
 
       <TabBlockIngredients />
 
-      <div className={burgerIngredientsStyles.section__blocks}>
+      <div className={burgerIngredientsStyles.section__blocks} id='section-blocks'>
 
-        <BlockIngredients blockTitle='Булки'>
+        <BlockIngredients blockTitle='Булки' name='buns'>
           {ingredientsData.buns.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
@@ -31,7 +32,7 @@ const BurgerIngredients = () => {
           ))}
         </BlockIngredients>
 
-        <BlockIngredients blockTitle='Соусы'>
+        <BlockIngredients blockTitle='Соусы' name='sauces'>
           {ingredientsData.sauces.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
@@ -44,7 +45,7 @@ const BurgerIngredients = () => {
           ))}
         </BlockIngredients>
 
-        <BlockIngredients blockTitle='Начинки'>
+        <BlockIngredients blockTitle='Начинки' name='fillings'>
           {ingredientsData.fillings.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
