@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { Link, animateScroll as scroll } from "react-scroll";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';

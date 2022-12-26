@@ -99,21 +99,18 @@ const BurgerConstructor = () => {
   const [orderId, setOrderId] = useState();
 
   function sendOrderRequest() {
-    /* Создаём массив для отправки запроса на сервер */
-    let arrId = [];
+    let arrId = [];   
     selectedIngredients.map((obj) => (
       arrId.push(obj._id)
     ));
-    arrId.push(selectedBun._id);
-    /* отправляем запрос и обрабатываем ответ */
+    arrId.push(selectedBun._id);    
     postOrder(apiConfig, arrId)
       .then(res => {
         handleOpenModal();
         setOrderId(res.order.number);
-        setPopupContent(<OrderDetails orderId={String(res.order.number)} />); 
-        /* orderId почему-то не принимает числа, только строку */
+        setPopupContent(<OrderDetails orderId={String(res.order.number)} />);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   };
 
   return (
