@@ -130,7 +130,7 @@ const BurgerConstructor = () => {
   return (
     <>
       <section className={burgerConstructorStyles.section}>
-        <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button>
+        {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
         <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
         <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
       </section>
