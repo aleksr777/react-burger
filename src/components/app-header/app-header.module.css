@@ -24,28 +24,6 @@
   align-items: center;
 }
 
-.nav__link {
-  box-sizing: border-box;
-  display: flex;
-  margin: 0;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  composes: p-5 mr-2 from global;
-}
-
-.nav .nav__link:last-of-type {
-  margin-right: 0;
-}
-
-.nav__box .nav__link:last-of-type {
-  margin-right: 110px;
-}
-
-.nav__text {
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-  composes: text text_type_main-default pl-2 from global;
+.nav__box>*:last-child {
+  margin-left: 110px;
 }

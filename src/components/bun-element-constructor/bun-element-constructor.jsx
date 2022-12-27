@@ -3,7 +3,7 @@ import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BunElementConstructor = ({ bun, type, positionText }) => {
+function BunElementConstructor({ bun, type, positionText }) {
   let nameTxt;
   let positionTxt;
   if (bun._id) {
@@ -14,7 +14,7 @@ const BunElementConstructor = ({ bun, type, positionText }) => {
     nameTxt = 'Выберите булку';
     positionTxt = '';
   }
-  
+
   return (
     <ConstructorElement
       isLocked={true}
@@ -27,7 +27,17 @@ const BunElementConstructor = ({ bun, type, positionText }) => {
 };
 
 BunElementConstructor.propTypes = {
-  bun: PropTypes.object.isRequired,
+  bun: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    _id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+    ]),
+  }).isRequired,
   type: PropTypes.string.isRequired,
   positionText: PropTypes.string.isRequired
 };

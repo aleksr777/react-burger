@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import headerStyles from './app-header.module.css';
+import NavLink from '../nav-link/nav-link';
 import {
   Logo,
   BurgerIcon,
@@ -7,20 +7,7 @@ import {
   ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const NavLink = ({children, navText}) => {
-  return (
-    <a className={headerStyles.nav__link} href="#">
-      {children}
-      <p className={headerStyles.nav__text}>{navText}</p>
-    </a>
-  );
-};
-
-NavLink.propTypes = {
-  navText: PropTypes.string
-};
-
-export const AppHeader = () => {
+const AppHeader = () => {
   return (
     <header className={headerStyles.header}>
       <nav className={headerStyles.nav}>
@@ -34,3 +21,5 @@ export const AppHeader = () => {
     </header>
   );
 };
+
+export default AppHeader;

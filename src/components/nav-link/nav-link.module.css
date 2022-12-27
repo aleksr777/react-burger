@@ -1,0 +1,21 @@
+.nav__link {
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  composes: p-5 mr-2 from global;
+}
+
+.nav__text {
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  composes: text text_type_main-default pl-2 from global;
+}
+
+.nav__link:last-of-type {
+  margin-right: 0;
+}

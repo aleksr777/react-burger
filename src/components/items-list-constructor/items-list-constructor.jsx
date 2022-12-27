@@ -1,9 +1,10 @@
 import itemsListStyles from './items-list-constructor.module.css';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 import ScrollListConstructor from '../scroll-list-constructor/scroll-list-constructor';
 import BunElementConstructor from '../bun-element-constructor/bun-element-constructor';
 
 const ItemsListConstructor = ({ bun, ingredients, removeIngredient }) => {
+
   return (
     <ul className={itemsListStyles.list}>
 
@@ -28,8 +29,31 @@ const ItemsListConstructor = ({ bun, ingredients, removeIngredient }) => {
 };
 
 ItemsListConstructor.propTypes = {
-  bun: PropTypes.object.isRequired,
-  ingredients: PropTypes.array.isRequired,
+  bun: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    _id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+    ]),
+  }).isRequired,
+  ingredients: arrayOf(PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    __v: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
+  }).isRequired),
   removeIngredient: PropTypes.func.isRequired
 };
 

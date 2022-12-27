@@ -13,9 +13,9 @@ const BlockIngredients = ({ children, blockTitle, name }) => {
 };
 
 BlockIngredients.propTypes = {
+  children: PropTypes.node.isRequired,
   blockTitle: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  name: PropTypes.string.isRequired
 };
-
 
 export default BlockIngredients;

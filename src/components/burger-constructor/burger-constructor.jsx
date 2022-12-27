@@ -1,19 +1,27 @@
-import { useContext, useState, useReducer, useEffect, useRef } from "react";
+import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
 import transparentImgPath from '../../images/transparent-picture.png';
-import OrderDetails from '../order-details/order-details';
+import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
-import { PopupContext } from '../../context/popup-context';
 import { IngredientsContext } from '../../context/ingredients-context';
 
 const BurgerConstructor = () => {
 
-  const { ingredientsData, selectedIngredients, setSelectedIngredients, selectedBun, setSelectedBun } = useContext(IngredientsContext);
+  const { ingredientsData } = useContext(IngredientsContext);
 
-  const { handleOpenModal, setPopupContent } = useContext(PopupContext);
+  // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedBun, setSelectedBun] = useState({
+    // этот объект сделал для отображения "пустой" булки, если булка не выбрана
+    image: transparentImgPath,
+    name: '',
+    price: 0,
+    _id: '',
+    type: 'bun'
+  });
 
   function priceReducer(totalPrice, action) {
     switch (action.type) {
@@ -98,27 +106,36 @@ const BurgerConstructor = () => {
 
   const [orderId, setOrderId] = useState();
 
+  const [popupContent, setPopupContent] = useState();
+
+  const handleOpenModal = (orderNumber, content) => {
+    setPopupContent(content);
+    setOrderId(orderNumber);
+  };
+
+  const handleCloseModal = () => {
+    setPopupContent();
+  };
+
   function sendOrderRequest() {
-    let arrId = [];   
-    selectedIngredients.map((obj) => (
-      arrId.push(obj._id)
-    ));
-    arrId.push(selectedBun._id);    
+    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
     postOrder(apiConfig, arrId)
       .then(res => {
-        handleOpenModal();
-        setOrderId(res.order.number);
-        setPopupContent(<OrderDetails orderId={String(res.order.number)} />);
+        const content = (<ModalOrderDetails orderNumber={res.order.number} handleCloseModal={handleCloseModal} />);
+        handleOpenModal(res.order.number, content)
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   };
 
   return (
-    <section className={burgerConstructorStyles.section}>
-      {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
-      <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
-      <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
-    </section>
+    <>
+      <section className={burgerConstructorStyles.section}>
+        <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button>
+        <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
+        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
+      </section>
+      {orderId ? popupContent : null}
+    </>
   );
 };
 
