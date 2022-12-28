@@ -4,19 +4,19 @@ import ItemStyles from './item-ingredients.module.css';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingridient }) => {
+const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingredient }) => {
 
   const [popupContent, setPopupContent] = useState();
 
-  const [ingridientId, setIngridientId] = useState();
+  const [ingredientId, setIngredientId] = useState();
 
   const handleOpenModal = (id, content) => {
-    setIngridientId(id);
+    setIngredientId(id);
     setPopupContent(content);
   };
 
   const handleCloseModal = () => {
-    setIngridientId();
+    setIngredientId();
     setPopupContent();
   };
 
@@ -25,8 +25,8 @@ const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingridient }
       <li
         className={ItemStyles.item}
         onClick={() => {
-          const content = (<ModalIngredientDetails ingridient={ingridient} handleCloseModal={handleCloseModal} />);
-          handleOpenModal(ingridient._id, content);
+          const content = (<ModalIngredientDetails ingredient={ingredient} handleCloseModal={handleCloseModal} />);
+          handleOpenModal(ingredient._id, content);
         }}
       >
         {children}
@@ -41,7 +41,7 @@ const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingridient }
         </div>
         <p className={ItemStyles.item__title}>{itemTitle}</p>
       </li>
-      {ingridientId ? popupContent : null}
+      {ingredientId ? popupContent : null}
     </>
   )
 };
@@ -50,7 +50,7 @@ ItemIngredients.propTypes = {
   itemPrice: PropTypes.number.isRequired,
   itemTitle: PropTypes.string.isRequired,
   imgPath: PropTypes.string.isRequired,
-  ingridient: PropTypes.shape({
+  ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,

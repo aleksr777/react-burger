@@ -25,7 +25,7 @@ const BurgerIngredients = () => {
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              ingridient={obj}
+              ingredient={obj}
             >
             </ItemIngredients>
           ))}
@@ -38,7 +38,7 @@ const BurgerIngredients = () => {
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              ingridient={obj}
+              ingredient={obj}
             >
             </ItemIngredients>
           ))}
@@ -51,7 +51,7 @@ const BurgerIngredients = () => {
               itemTitle={obj.name}
               imgPath={obj.image}
               key={obj._id}
-              ingridient={obj}
+              ingredient={obj}
             >
             </ItemIngredients>
           ))}

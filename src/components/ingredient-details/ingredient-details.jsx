@@ -9,27 +9,27 @@ const IngredientDetails = (props) => {
       <p className={ingredientDetails.title}>Детали ингредиента</p>
 
       <picture className={ingredientDetails.imageBox}>
-        <img className={ingredientDetails.image} src={props.ingridient.image_large} alt={props.ingridient.name} />
+        <img className={ingredientDetails.image} src={props.ingredient.image_large} alt={props.ingredient.name} />
       </picture>
 
-      <p className={ingredientDetails.name}>{props.ingridient.name}</p>
+      <p className={ingredientDetails.name}>{props.ingredient.name}</p>
 
       <div className={ingredientDetails.composition}>
         <div className={ingredientDetails.composition__item}>
           <p className={ingredientDetails.composition__text}>Калории, ккал</p>
-          <p className={ingredientDetails.composition__number}>{props.ingridient.calories}</p>
+          <p className={ingredientDetails.composition__number}>{props.ingredient.calories}</p>
         </div>
         <div className={ingredientDetails.composition__item}>
           <p className={ingredientDetails.composition__text}>Белки, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingridient.proteins}</p>
+          <p className={ingredientDetails.composition__number}>{props.ingredient.proteins}</p>
         </div>
         <div className={ingredientDetails.composition__item}>
           <p className={ingredientDetails.composition__text}>Жиры, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingridient.fat}</p>
+          <p className={ingredientDetails.composition__number}>{props.ingredient.fat}</p>
         </div>
         <div className={ingredientDetails.composition__item}>
           <p className={ingredientDetails.composition__text}>Углеводы, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingridient.carbohydrates}</p>
+          <p className={ingredientDetails.composition__number}>{props.ingredient.carbohydrates}</p>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@ const IngredientDetails = (props) => {
 };
 
 IngredientDetails.propTypes = {
-  ingridient: PropTypes.shape({
+  ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,

@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
-const ModalIngredientDetails = ({ ingridient, handleCloseModal }) => {
+const ModalIngredientDetails = ({ ingredient, handleCloseModal }) => {
   return (
-    <Modal handleCloseModal={handleCloseModal}><IngredientDetails ingridient={ingridient} /></Modal>
+    <Modal handleCloseModal={handleCloseModal}><IngredientDetails ingredient={ingredient} /></Modal>
   )
 };
 
 ModalIngredientDetails.propTypes = {
-  ingridient: PropTypes.shape({
+  ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,
