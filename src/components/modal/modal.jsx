@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import modalStyles from './modal.module.css';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';

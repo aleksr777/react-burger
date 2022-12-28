@@ -1,12 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import orderDetailsStyles from './order-details.module.css';
 import donePath from '../../images/done.svg'
 
-const OrderDetails = (props) => {
+const OrderDetails = ({ orderId }) => {
   return (
     <div className={orderDetailsStyles.container}>
-      <p className={orderDetailsStyles.id}>{props.orderId}</p>
+      <p className={orderDetailsStyles.id}>{orderId}</p>
       <p className={orderDetailsStyles.title}>идентификатор заказа</p>
       <picture className={orderDetailsStyles.imageBox}>
         <img className={orderDetailsStyles.image} src={donePath} alt="Иконка успешного заказа." />

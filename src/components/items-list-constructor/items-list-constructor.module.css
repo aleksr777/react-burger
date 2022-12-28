@@ -1,0 +1,29 @@
+.list {
+  list-style: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-color: rgba(47, 47, 55, 1);
+}
+
+.noIngredientsText {
+  margin: 0 auto 15px auto;
+  text-align: center;
+  padding: 0;
+  composes: text text_type_main-default from global;
+}
+
+.item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-left: 15px;
+  padding-top: 0;
+  padding-bottom: 0;
+  composes: pl-8 pr-4 mb-4 from global;
+}
+
+.item:last-of-type {
+  margin-bottom: 0;
+}

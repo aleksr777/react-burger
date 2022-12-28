@@ -1,154 +1,142 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
-import OrderDetails from '../order-details/order-details';
-import {
-  ConstructorElement,
-  CurrencyIcon,
-  DragIcon,
-  Button
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { apiConfig } from '../../constants/constants';
+import { postOrder } from '../../utils/api';
+import transparentImgPath from '../../images/transparent-picture.png';
+import ModalOrderDetails from '../modal-order-details/modal-order-details';
+import OrderingBlock from '../ordering-block/ordering-block';
+import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
+import { IngredientsContext } from '../../context/ingredients-context';
 
-const Item = props => {
-  return (
-    <li className={burgerConstructorStyles.item_scroll}    >
-      <DragIcon type='primary' />
-      <ConstructorElement text={props.text} price={props.price} thumbnail={props.thumbnail} />
-    </li>
-  )
-};
+const BurgerConstructor = () => {
 
-Item.propTypes = {
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-};
+  const { ingredientsData } = useContext(IngredientsContext);
 
-const ScrollList = props => {
-  return (
-    <ul className={burgerConstructorStyles.list_scroll}>
-      {props.sauces.map((obj) => (
-        <Item
-          text={obj.name}
-          price={obj.price}
-          thumbnail={obj.image}
-          key={obj._id}
-        />
-      ))}
-      {props.fillings.map((obj) => (
-        <Item
-          text={obj.name}
-          price={obj.price}
-          thumbnail={obj.image}
-          key={obj._id}
-        />
-      ))}
-    </ul>
-  )
-};
+  // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedBun, setSelectedBun] = useState({
+    // этот объект сделал для отображения "пустой" булки, если булка не выбрана
+    image: transparentImgPath,
+    name: '',
+    price: 0,
+    _id: '',
+    type: 'bun'
+  });
 
-ScrollList.propTypes = {
-  sauces: PropTypes.array.isRequired,
-  fillings: PropTypes.array.isRequired
-};
-
-const ItemsList = props => {
-  return (
-    <ul className={burgerConstructorStyles.list}>
-
-      <li className={burgerConstructorStyles.item}      >
-        <ConstructorElement
-          isLocked={true} type='top'
-          text={`${props.buns[0].name} (верх)`}
-          price={props.buns[0].price}
-          thumbnail={props.buns[0].image}
-        />
-      </li>
-
-      <li>
-        <ScrollList
-          fillings={props.fillings}
-          sauces={props.sauces}
-        />
-      </li>
-
-      <li className={burgerConstructorStyles.item}>
-        <ConstructorElement
-          isLocked={true}
-          type='bottom'
-          text={`${props.buns[1].name} (низ)`}
-          price={props.buns[1].price}
-          thumbnail={props.buns[1].image}
-        />
-      </li>
-
-    </ul>
-  )
-};
-
-ItemsList.propTypes = {
-  buns: PropTypes.array.isRequired,
-  fillings: PropTypes.array.isRequired,
-  sauces: PropTypes.array.isRequired
-};
-
-const OrderingBlock = props => {
-  return (
-    <div className={burgerConstructorStyles.order}>
-      <div className={burgerConstructorStyles.order__box}>
-        <p className={burgerConstructorStyles.order__price}>{props.totalPrice}</p>
-        <CurrencyIcon type='primary' />
-      </div>
-      <Button
-        htmlType='button'
-        type='primary'
-        size='large'
-        onClick={() => { props.handleOpenModal(); props.fillPopupContent(<OrderDetails orderId='034536' />); }}
-      >Оформить заказ</Button>
-    </div>
-  )
-};
-
-OrderingBlock.propTypes = {
-  totalPrice: PropTypes.number.isRequired
-};
-
-export const BurgerConstructor = props => {
-
-  //Выбранные пользователем ингридиенты (пока только условно для отображения вёрстки)
-  const selectedFillings = [
-    props.ingredientsData.fillings[0], 
-    props.ingredientsData.fillings[1], 
-    props.ingredientsData.fillings[2], 
-    props.ingredientsData.fillings[3], 
-    props.ingredientsData.fillings[4]  
-  ];
-  const selectedSauces = [
-    props.ingredientsData.sauces[0], 
-    props.ingredientsData.sauces[1], 
-    props.ingredientsData.sauces[2]
-  ];
-  const selectedBuns = [
-    props.ingredientsData.buns[0], 
-    props.ingredientsData.buns[0]
-  ];
-
-  const countTotalPrice = () => {
-    let price = 0;
-    [...selectedFillings, ...selectedSauces, ...selectedBuns].map((obj) => {
-      price = price + obj.price;
-    });
-    return price;
+  function priceReducer(totalPrice, action) {
+    switch (action.type) {
+      case 'addIngredientPrice':
+        return { count: totalPrice.count + action.payload.price };
+      case 'removeIngredientPrice':
+        return { count: totalPrice.count - action.payload.price };
+      case 'addBunPrice':
+        return { count: totalPrice.count + (action.payload.price * 2) };
+      case 'removeBunPrice':
+        return { count: totalPrice.count - (action.payload.price * 2) };
+      default:
+        throw new Error(`Wrong type of action: ${action.type}`);
+    }
   }
 
+  const [totalPrice, priceDispatch] = useReducer(priceReducer, { count: 0 })
+
+  // Добавление ингридиента с добавлением цены в общую стоимость
+  function addIngredient(ingredientObj) {
+    setSelectedIngredients((ingredients) => { return [...ingredients, ingredientObj] });
+    priceDispatch({ type: 'addIngredientPrice', payload: { price: ingredientObj.price } });
+  };
+
+  // Удаление ингридиента с вычетом цены из общей стоимости
+  function removeIngredient(id, price) {
+    if (selectedIngredients[0]) {
+      setSelectedIngredients(selectedIngredients.filter((ingredient) => ingredient._id !== id));
+      priceDispatch({ type: 'removeIngredientPrice', payload: { price: price } });
+    };
+  };
+
+  // Добавление булки с добавлением цены в общую стоимость
+  function addBun(bunObj) {
+    setSelectedBun(bunObj);
+    priceDispatch({ type: 'addBunPrice', payload: { price: bunObj.price } });
+  };
+
+  // Удаление булки с вычетом цены из общей стоимости
+  function removeBun(price) {
+    if (selectedBun) {
+      setSelectedBun({
+        image: transparentImgPath,
+        name: '',
+        price: 0,
+        _id: null,
+        type: 'bun'
+      });
+      priceDispatch({ type: 'removeBunPrice', payload: { price: price } });
+    };
+  };
+
+  /* Имитируем динамический выбор пользователем для наглядности (потом удалю) */
+  const effectRun = useRef(false);//чтобы не было повторного рендеринга (иначе стоимость считает дважды)
+  useEffect(() => {
+    if (effectRun.current === false) {
+      // имитируем добавление ингредиентов
+      addIngredient(ingredientsData.fillings[1]);
+      addIngredient(ingredientsData.fillings[0]);
+      addIngredient(ingredientsData.fillings[2]);
+      addIngredient(ingredientsData.sauces[2]);
+      addIngredient(ingredientsData.fillings[3]);
+      addIngredient(ingredientsData.sauces[1]);
+      addIngredient(ingredientsData.sauces[0]);
+      addBun(ingredientsData.buns[0]);
+      return () => {
+        effectRun.current = true
+      }
+    }
+  }, []);
+  /* Удаление ингредиентов реализовано через иконку корзины на элементе*/
+  /* Как удалять булку (и нужно ли удалять), мне пока не понятно. 
+  Временно сделал кнопку для проверки (кнопка закоментирована, потом удалю). */
+
+  // Проверка для активировации/дезактивации кнопки заказа.
+  const isOrderActive = () => {
+    if (!totalPrice.count || totalPrice.count <= 0 || !selectedIngredients[0] || !selectedBun._id) {
+      return false
+    }
+    return true
+  };
+
+  const [orderId, setOrderId] = useState();
+
+  const [popupContent, setPopupContent] = useState();
+
+  const handleOpenModal = (orderNumber, content) => {
+    setPopupContent(content);
+    setOrderId(orderNumber);
+  };
+
+  const handleCloseModal = () => {
+    setPopupContent();
+  };
+
+  function sendOrderRequest() {
+    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
+    postOrder(apiConfig, arrId)
+      .then(res => {
+        const content = (<ModalOrderDetails orderNumber={res.order.number} handleCloseModal={handleCloseModal} />);
+        handleOpenModal(res.order.number, content)
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
-    <section className={burgerConstructorStyles.section}>
-      <ItemsList buns={selectedBuns} fillings={selectedFillings} sauces={selectedSauces} />
-      <OrderingBlock totalPrice={countTotalPrice()} handleOpenModal={props.handleOpenModal} fillPopupContent={props.fillPopupContent} />
-    </section>
+    <>
+      <section className={burgerConstructorStyles.section}>
+        {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
+        <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
+        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
+      </section>
+      {orderId ? popupContent : null}
+    </>
   );
 };
 
-BurgerConstructor.propTypes = {
-  ingredientsData: PropTypes.object.isRequired
-};
+export default BurgerConstructor;

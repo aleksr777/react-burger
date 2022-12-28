@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import appStyles from './app.module.css';
-import Modal from '../modal/modal';
-import { AppHeader } from '../app-header/app-header';
-import { AppMain } from '../app-main/app-main';
-import { apiConfig } from '../../constants/constants.js';
-import { getIngredientsData } from '../../utils/api.js';
+import AppHeader from '../app-header/app-header';
+import AppMain from '../app-main/app-main';
+import { apiConfig } from '../../constants/constants';
+import { getIngredientsData } from '../../utils/api';
+import { IngredientsContext } from '../../context/ingredients-context';
 
 const App = () => {
 
-  const [popupContent, setPopupContent] = useState();
-
+  // Cтейт для данных, полученныx с сервера
   const [ingredientsData, setIngredientsData] = useState({
     fillings: [],
     sauces: [],
@@ -19,7 +18,7 @@ const App = () => {
   useEffect(() => {
     getIngredientsData(apiConfig)
       .then(res => {
-        /* сортируем данные по типу перед передачей в props */
+        /* сортируем данные с сервера*/
         let fillingsData = [];
         let saucesData = [];
         let bunsData = [];
@@ -37,31 +36,16 @@ const App = () => {
       .catch(err => { console.log(err) })
   }, []);
 
-  const [isVisible, setVisible] = useState(false);
-
-  const handleOpenModal = () => {
-    setVisible(true);
-  }
-
-  const handleCloseModal = () => {
-    setVisible(false);
-    setPopupContent(null);
-  }
-
-  const fillPopupContent = (content) => {
-    setPopupContent(content);
-  }
-
   return (
     <div className={appStyles.app}>
 
       <AppHeader />
 
-      <AppMain ingredientsData={ingredientsData} handleOpenModal={handleOpenModal} fillPopupContent={fillPopupContent} />
-
-      {isVisible ? (
-        <Modal handleCloseModal={handleCloseModal}> {popupContent} </Modal>
-      ) : null}
+      {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0])
+        ? (<IngredientsContext.Provider value={{ ingredientsData }}>
+          <AppMain />
+        </IngredientsContext.Provider>)
+        : null}
 
     </div>
   )

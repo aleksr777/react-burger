@@ -7,20 +7,12 @@
   height: 100vh;
   scrollbar-color: rgba(47, 47, 55, 1);
   composes: mr-10 from global;
-  /* логичнее использовать gap, но по заданию использую систему отступов */
 }
 
 .section__title {
   margin: 0 0 20px 0;
   box-sizing: border-box;
   composes: text text_type_main-large pt-10 from global;
-}
-
-.tab {
-  box-sizing: border-box;
-  padding: 0;
-  display: flex;
-  composes: mb-10 from global;
 }
 
 .section__blocks {
@@ -41,97 +33,4 @@
 .section__blocks::-webkit-scrollbar-thumb {
   width: 8px;
   background-color: rgba(133, 133, 173, 1)
-}
-
-.block {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.block__title {
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0;
-  margin: 0;
-  composes: text text_type_main-medium from global;
-}
-
-.block__list {
-  margin: 0;
-  box-sizing: border-box;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  composes: pl-4 pt-6 pb-2 from global;
-}
-
-.item {
-  cursor: pointer;
-  position: relative;
-  padding: 0;
-  box-sizing: border-box;
-  flex: 0 0 auto;
-  max-width: 272px;
-  transition: all .3s ease 0s;
-  composes: mr-6 mb-8 from global;
-  /* логичнее использовать gap, но по заданию использую систему отступов */
-}
-
-.item:hover {
-  opacity: 0.8;
-}
-
-.item:nth-child(2n) {
-  margin-right: 0;
-}
-
-.item__image {
-  position: relative;
-  margin: 0;
-  box-sizing: border-box;
-  max-width: 100%;
-  composes: pl-4 pr-4 from global;
-}
-
-.item__title {
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-  padding: 0;
-  composes: text text_type_main-default from global;
-}
-
-.item__box {
-  position: relative;
-  box-sizing: border-box;
-  margin: 0;
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  composes: pt-1 pb-1 from global;
-}
-
-.item__price {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  composes: text text_type_digits-default from global;
-}
-
-.item__title {
-  margin: 0;
-  padding: 4px 0 0 0;
-  text-align: center;
-  min-height: 52px;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
