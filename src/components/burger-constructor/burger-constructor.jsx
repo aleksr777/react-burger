@@ -1,8 +1,8 @@
 import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
+import transparentImgPath from '../../images/transparent-picture.png';
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
-import transparentImgPath from '../../images/transparent-picture.png';
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';

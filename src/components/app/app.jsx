@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import AppMain from '../app-main/app-main';
+import Preloader from '../preloader/preloader';
 import { apiConfig } from '../../constants/constants';
 import { getIngredientsData } from '../../utils/api';
 import { IngredientsContext } from '../../context/ingredients-context';
@@ -26,16 +27,12 @@ const App = () => {
       <AppHeader />
 
       {ingredientsLoading
-        ? (<div>Загрузка...</div>)
-            /* <Preloader/> */
-        : (
-          <IngredientsContext.Provider value={{ ingredientsData }}>
-            <AppMain />
-          </IngredientsContext.Provider>
-        )
-      }
+        ? (<Preloader />)
+        : (<IngredientsContext.Provider value={{ ingredientsData }}>
+          <AppMain />
+        </IngredientsContext.Provider>)}
 
-    </div>
+    </div >
   )
 };
 
