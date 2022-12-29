@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
@@ -8,6 +8,10 @@ import { IngredientsContext } from '../../context/ingredients-context';
 const BurgerIngredients = () => {
 
   const { ingredientsData } = useContext(IngredientsContext);
+
+  const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'), [ingredientsData]);
+  const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'), [ingredientsData]);
+  const buns = useMemo(() => ingredientsData.filter((obj) => obj.type === 'bun'), [ingredientsData]);
 
   return (
     <section className={burgerIngredientsStyles.section}>
@@ -19,7 +23,7 @@ const BurgerIngredients = () => {
       <div className={burgerIngredientsStyles.section__blocks} id='section-blocks'>
 
         <BlockIngredients blockTitle='Булки' name='buns'>
-          {ingredientsData.buns.map((obj) => (
+          {buns.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
               itemTitle={obj.name}
@@ -32,7 +36,7 @@ const BurgerIngredients = () => {
         </BlockIngredients>
 
         <BlockIngredients blockTitle='Соусы' name='sauces'>
-          {ingredientsData.sauces.map((obj) => (
+          {sauces.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
               itemTitle={obj.name}
@@ -45,7 +49,7 @@ const BurgerIngredients = () => {
         </BlockIngredients>
 
         <BlockIngredients blockTitle='Начинки' name='fillings'>
-          {ingredientsData.fillings.map((obj) => (
+          {fillings.map((obj) => (
             <ItemIngredients
               itemPrice={obj.price}
               itemTitle={obj.name}

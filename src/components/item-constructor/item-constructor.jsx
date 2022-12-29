@@ -7,7 +7,7 @@ import {
 
 const ItemConstructor = ({ text, price, thumbnail, id, removeIngredient }) => {
   return (
-    <li className={itemStyles.item_scroll}    >
+    <li className={itemStyles.item_scroll}>
       <DragIcon type='primary' />
       <ConstructorElement text={text} price={price} thumbnail={thumbnail} handleClose={() => removeIngredient(id, price)} />
     </li>

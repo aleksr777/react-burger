@@ -8,44 +8,32 @@ import { IngredientsContext } from '../../context/ingredients-context';
 
 const App = () => {
 
+  // Стейт для отслеживания загрузки ингредиентов с сервера
+  const [ingredientsLoading, setIngredientsLoading] = useState(true);
+
   // Cтейт для данных, полученныx с сервера
-  const [ingredientsData, setIngredientsData] = useState({
-    fillings: [],
-    sauces: [],
-    buns: []
-  });
+  const [ingredientsData, setIngredientsData] = useState({});
 
   useEffect(() => {
     getIngredientsData(apiConfig)
-      .then(res => {
-        /* сортируем данные с сервера*/
-        let fillingsData = [];
-        let saucesData = [];
-        let bunsData = [];
-        res.data.map((obj) => {
-          if (obj.type === 'main') { fillingsData.push(obj) }
-          else if (obj.type === 'sauce') { saucesData.push(obj) }
-          else if (obj.type === 'bun') { bunsData.push(obj) }
-        });
-        setIngredientsData({
-          fillings: fillingsData,
-          sauces: saucesData,
-          buns: bunsData
-        });
-      })
-      .catch(err => { console.log(err) })
+      .then(res => { setIngredientsData(res.data) })
+      .catch(err => { alert('Ошибка загрузки данных с сервера'); console.log(err); })
+      .finally(() => setIngredientsLoading(false));
   }, []);
-
   return (
     <div className={appStyles.app}>
 
       <AppHeader />
 
-      {(ingredientsData.fillings[0] && ingredientsData.sauces[0] && ingredientsData.buns[0])
-        ? (<IngredientsContext.Provider value={{ ingredientsData }}>
-          <AppMain />
-        </IngredientsContext.Provider>)
-        : null}
+      {ingredientsLoading
+        ? (<div>Загрузка...</div>)
+            /* <Preloader/> */
+        : (
+          <IngredientsContext.Provider value={{ ingredientsData }}>
+            <AppMain />
+          </IngredientsContext.Provider>
+        )
+      }
 
     </div>
   )

@@ -12,6 +12,10 @@ const BurgerConstructor = () => {
 
   const { ingredientsData } = useContext(IngredientsContext);
 
+  const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'));
+  const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'));
+  const buns = useMemo(() => ingredientsData.filter((obj) => obj.type === 'bun'));
+
   // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedBun, setSelectedBun] = useState({
@@ -79,14 +83,14 @@ const BurgerConstructor = () => {
   useEffect(() => {
     if (effectRun.current === false) {
       // имитируем добавление ингредиентов
-      addIngredient(ingredientsData.fillings[1]);
-      addIngredient(ingredientsData.fillings[0]);
-      addIngredient(ingredientsData.fillings[2]);
-      addIngredient(ingredientsData.sauces[2]);
-      addIngredient(ingredientsData.fillings[3]);
-      addIngredient(ingredientsData.sauces[1]);
-      addIngredient(ingredientsData.sauces[0]);
-      addBun(ingredientsData.buns[0]);
+      addIngredient(fillings[1]);
+      addIngredient(fillings[0]);
+      addIngredient(fillings[2]);
+      addIngredient(sauces[2]);
+      addIngredient(fillings[3]);
+      addIngredient(sauces[1]);
+      addIngredient(sauces[0]);
+      addBun(buns[0]);
       return () => {
         effectRun.current = true
       }
