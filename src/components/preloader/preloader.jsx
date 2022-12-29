@@ -1,6 +1,5 @@
 import preloaderStyles from './preloader.module.css';
 import loaderImgPath from '../../images/loader.gif';
-import ModalOverlay from '../modal-overlay/modal-overlay'
 
 const Preloader = () => {
 
