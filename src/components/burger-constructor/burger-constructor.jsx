@@ -6,6 +6,7 @@ import { postOrder } from '../../utils/api';
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
+import Preloader from '../preloader/preloader';
 import { IngredientsContext } from '../../context/ingredients-context';
 
 const BurgerConstructor = () => {
@@ -108,6 +109,9 @@ const BurgerConstructor = () => {
     return true
   };
 
+  // Стейт для отслеживания загрузки ингредиентов с сервера
+  const [orderLoading, setorderLoading] = useState(false);
+
   const [orderId, setOrderId] = useState();
 
   const [popupContent, setPopupContent] = useState();
@@ -122,21 +126,24 @@ const BurgerConstructor = () => {
   };
 
   function sendOrderRequest() {
+    setorderLoading(true);
     const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
     postOrder(apiConfig, arrId)
       .then(res => {
         const content = (<ModalOrderDetails orderNumber={res.order.number} handleCloseModal={handleCloseModal} />);
         handleOpenModal(res.order.number, content)
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => setorderLoading(false));
   };
 
   return (
     <>
+      {orderLoading ? (<Preloader />) : (null)}
       <section className={burgerConstructorStyles.section}>
         {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
         <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
-        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
+        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} orderLoading={orderLoading} />
       </section>
       {orderId ? popupContent : null}
     </>

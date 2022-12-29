@@ -5,7 +5,7 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
+const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest, orderLoading }) => {
   return (
     <div className={orderingBlockStyles.order}>
       <div className={orderingBlockStyles.order__box}>
@@ -13,7 +13,7 @@ const OrderingBlock = ({ totalPrice, isOrderActive, sendOrderRequest }) => {
         <CurrencyIcon type='primary' />
       </div>
       {
-        (isOrderActive)
+        (isOrderActive && !orderLoading)
           ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>
             Оформить заказ</Button>)
           : (<Button disabled htmlType='button' type='primary' size='large'>Оформить заказ</Button>)
