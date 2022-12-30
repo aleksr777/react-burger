@@ -114,38 +114,35 @@ const BurgerConstructor = () => {
 
   const [orderId, setOrderId] = useState();
 
-  const [popupContent, setPopupContent] = useState();
-
-  const handleOpenModal = (orderNumber, content) => {
-    setPopupContent(content);
+  const handleOpenModal = (orderNumber) => {
     setOrderId(orderNumber);
   };
 
   const handleCloseModal = () => {
-    setPopupContent();
+    setOrderId();
   };
 
   function sendOrderRequest() {
     setOrderLoading(true);
-    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
+    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
     postOrder(apiConfig, arrId)
-      .then(res => {
-        const content = (<ModalOrderDetails orderNumber={res.order.number} handleCloseModal={handleCloseModal} />);
-        handleOpenModal(res.order.number, content)
-      })
+      .then(res => { handleOpenModal(res.order.number) })
       .catch(err => console.log(err))
       .finally(() => setOrderLoading(false));
   };
 
   return (
-    <>
+    <>    
       {orderLoading ? (<Preloader />) : (null)}
       <section className={burgerConstructorStyles.section}>
         {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
         <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
         <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} orderLoading={orderLoading} />
       </section>
-      {orderId ? popupContent : null}
+
+      {orderId
+        ? (<ModalOrderDetails orderNumber={orderId} handleCloseModal={handleCloseModal} />)
+        : null}
     </>
   );
 };

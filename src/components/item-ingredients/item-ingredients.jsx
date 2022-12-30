@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ItemStyles from './item-ingredients.module.css';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
@@ -6,18 +6,14 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 
 const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingredient }) => {
 
-  const [popupContent, setPopupContent] = useState();
-
   const [ingredientId, setIngredientId] = useState();
 
-  const handleOpenModal = (id, content) => {
+  const handleOpenModal = (id) => {
     setIngredientId(id);
-    setPopupContent(content);
   };
 
   const handleCloseModal = () => {
     setIngredientId();
-    setPopupContent();
   };
 
   return (
@@ -25,8 +21,7 @@ const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingredient }
       <li
         className={ItemStyles.item}
         onClick={() => {
-          const content = (<ModalIngredientDetails ingredient={ingredient} handleCloseModal={handleCloseModal} />);
-          handleOpenModal(ingredient._id, content);
+          handleOpenModal(ingredient._id);
         }}
       >
         {children}
@@ -41,7 +36,9 @@ const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingredient }
         </div>
         <p className={ItemStyles.item__title}>{itemTitle}</p>
       </li>
-      {ingredientId ? popupContent : null}
+      {ingredientId
+        ? <ModalIngredientDetails ingredient={ingredient} handleCloseModal={handleCloseModal} />
+        : null}
     </>
   )
 };

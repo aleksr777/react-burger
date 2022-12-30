@@ -4,7 +4,9 @@ import Modal from '../modal/modal';
 
 const ModalIngredientDetails = ({ ingredient, handleCloseModal }) => {
   return (
-    <Modal handleCloseModal={handleCloseModal}><IngredientDetails ingredient={ingredient} /></Modal>
+    <Modal handleCloseModal={handleCloseModal}>  
+      <IngredientDetails ingredient={ingredient} />
+    </Modal>
   )
 };
 
