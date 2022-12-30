@@ -110,7 +110,7 @@ const BurgerConstructor = () => {
   };
 
   // Стейт для отслеживания загрузки ингредиентов с сервера
-  const [orderLoading, setorderLoading] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
 
   const [orderId, setOrderId] = useState();
 
@@ -126,7 +126,7 @@ const BurgerConstructor = () => {
   };
 
   function sendOrderRequest() {
-    setorderLoading(true);
+    setOrderLoading(true);
     const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
     postOrder(apiConfig, arrId)
       .then(res => {
@@ -134,7 +134,7 @@ const BurgerConstructor = () => {
         handleOpenModal(res.order.number, content)
       })
       .catch(err => console.log(err))
-      .finally(() => setorderLoading(false));
+      .finally(() => setOrderLoading(false));
   };
 
   return (
