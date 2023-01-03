@@ -11,7 +11,7 @@ const ScrollListConstructor = ({ ingredients, removeIngredient }) => {
           text={obj.name}
           price={obj.price}
           thumbnail={obj.image}
-          key={obj._id}
+          key={obj._key}
           id={obj._id}
           removeIngredient={removeIngredient}
         />))}

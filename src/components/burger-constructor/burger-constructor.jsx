@@ -1,6 +1,7 @@
 import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
 import transparentImgPath from '../../images/transparent-picture.png';
+import uniqid from 'uniqid';
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
@@ -47,6 +48,7 @@ const BurgerConstructor = () => {
 
   // Добавление ингридиента с добавлением цены в общую стоимость
   function addIngredient(ingredientObj) {
+    ingredientObj._key = uniqid();
     setSelectedIngredients((ingredients) => { return [...ingredients, ingredientObj] });
     priceDispatch({ type: 'addIngredientPrice', payload: { price: ingredientObj.price } });
   };
