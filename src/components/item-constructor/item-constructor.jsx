@@ -5,11 +5,11 @@ import {
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ItemConstructor = ({ text, price, thumbnail, id, removeIngredient }) => {
+const ItemConstructor = ({ text, price, thumbnail, uKey, removeIngredient }) => {
   return (
     <li className={itemStyles.item_scroll}>
       <DragIcon type='primary' />
-      <ConstructorElement text={text} price={price} thumbnail={thumbnail} handleClose={() => removeIngredient(id, price)} />
+      <ConstructorElement text={text} price={price} thumbnail={thumbnail} handleClose={() => removeIngredient(uKey, price)} />
     </li>
   )
 };
@@ -18,7 +18,7 @@ ItemConstructor.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  uKey: PropTypes.string.isRequired,
   removeIngredient: PropTypes.func.isRequired
 };
 

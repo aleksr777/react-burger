@@ -52,7 +52,7 @@ ItemsListConstructor.propTypes = {
     proteins: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
+    _uKey: PropTypes.string.isRequired,
   }).isRequired),
   removeIngredient: PropTypes.func.isRequired
 };

@@ -11,8 +11,9 @@ const ScrollListConstructor = ({ ingredients, removeIngredient }) => {
           text={obj.name}
           price={obj.price}
           thumbnail={obj.image}
-          key={obj._key}
           id={obj._id}
+          key={obj._uKey}
+          uKey={obj._uKey}
           removeIngredient={removeIngredient}
         />))}
     </ul>
@@ -24,6 +25,7 @@ ScrollListConstructor.propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    _uKey: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired),
   removeIngredient: PropTypes.func.isRequired

@@ -1,4 +1,4 @@
-import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
+import { useContext, useState, useReducer, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
 import transparentImgPath from '../../images/transparent-picture.png';
 import uniqid from 'uniqid';
@@ -10,6 +10,55 @@ import ItemsListConstructor from '../items-list-constructor/items-list-construct
 import Preloader from '../preloader/preloader';
 import { IngredientsContext } from '../../context/ingredients-context';
 
+const noBunObj = {
+  // этот объект сделал для отображения "пустой" булки, если булка не выбрана
+  image: transparentImgPath,
+  name: '',
+  price: 0,
+  _id: '',
+  type: 'bun',
+};
+
+const initialIngrState = {
+  totalPrice: 0,
+  bun: noBunObj,
+  ingredients: [],
+};
+
+function selectedIngrReducer(state, action) {
+  switch (action.type) {
+    case 'addIngredient':
+      const newObj = {...action.payload.ingredientObj};
+      newObj._uKey = uniqid.process();
+      return {
+        ...state,
+        totalPrice: state.totalPrice + newObj.price,
+        ingredients: [...state.ingredients, newObj],
+      };
+    case 'removeIngredient':
+      const newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
+      return {
+        ...state,
+        totalPrice: state.totalPrice - action.payload.price,
+        ingredients: newArr,
+      };
+    case 'addBun':
+      return {
+        ...state,
+        totalPrice: state.totalPrice + (action.payload.bunObj.price * 2),
+        bun: action.payload.bunObj,
+      };
+    case 'removeBun':
+      return {
+        ...state,
+        totalPrice: state.totalPrice - (action.payload.price * 2),
+        bun: noBunObj,
+      };
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+};
+
 const BurgerConstructor = () => {
 
   const { ingredientsData } = useContext(IngredientsContext);
@@ -18,94 +67,41 @@ const BurgerConstructor = () => {
   const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'));
   const buns = useMemo(() => ingredientsData.filter((obj) => obj.type === 'bun'));
 
-  // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [selectedBun, setSelectedBun] = useState({
-    // этот объект сделал для отображения "пустой" булки, если булка не выбрана
-    image: transparentImgPath,
-    name: '',
-    price: 0,
-    _id: '',
-    type: 'bun'
-  });
 
-  function priceReducer(totalPrice, action) {
-    switch (action.type) {
-      case 'addIngredientPrice':
-        return { count: totalPrice.count + action.payload.price };
-      case 'removeIngredientPrice':
-        return { count: totalPrice.count - action.payload.price };
-      case 'addBunPrice':
-        return { count: totalPrice.count + (action.payload.price * 2) };
-      case 'removeBunPrice':
-        return { count: totalPrice.count - (action.payload.price * 2) };
-      default:
-        throw new Error(`Wrong type of action: ${action.type}`);
-    }
-  }
-
-  const [totalPrice, priceDispatch] = useReducer(priceReducer, { count: 0 })
+  const [selectedIngrState, priceDispatch] = useReducer(selectedIngrReducer, initialIngrState);
 
   // Добавление ингридиента с добавлением цены в общую стоимость
   function addIngredient(ingredientObj) {
-    ingredientObj._key = uniqid();
-    setSelectedIngredients((ingredients) => { return [...ingredients, ingredientObj] });
-    priceDispatch({ type: 'addIngredientPrice', payload: { price: ingredientObj.price } });
+    priceDispatch({ type: 'addIngredient', payload: { ingredientObj: ingredientObj } });
   };
 
   // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient(id, price) {
-    if (selectedIngredients[0]) {
-      setSelectedIngredients(selectedIngredients.filter((ingredient) => ingredient._id !== id));
-      priceDispatch({ type: 'removeIngredientPrice', payload: { price: price } });
+  function removeIngredient(uKey, price) {
+    if (selectedIngrState.ingredients[0]) {
+      priceDispatch({ type: 'removeIngredient', payload: { price: price, uKey: uKey } });
     };
   };
 
   // Добавление булки с добавлением цены в общую стоимость
   function addBun(bunObj) {
-    setSelectedBun(bunObj);
-    priceDispatch({ type: 'addBunPrice', payload: { price: bunObj.price } });
+    if (!selectedIngrState.bun._id) {
+      priceDispatch({ type: 'addBun', payload: { bunObj: bunObj } });
+    };
   };
 
   // Удаление булки с вычетом цены из общей стоимости
   function removeBun(price) {
-    if (selectedBun) {
-      setSelectedBun({
-        image: transparentImgPath,
-        name: '',
-        price: 0,
-        _id: null,
-        type: 'bun'
-      });
-      priceDispatch({ type: 'removeBunPrice', payload: { price: price } });
+    if (selectedIngrState.bun._id) {
+      priceDispatch({ type: 'removeBun', payload: { price: price } });
     };
   };
 
-  /* Имитируем динамический выбор пользователем для наглядности (потом удалю) */
-  const effectRun = useRef(false);//чтобы не было повторного рендеринга (иначе стоимость считает дважды)
-  useEffect(() => {
-    if (effectRun.current === false) {
-      // имитируем добавление ингредиентов
-      addIngredient(fillings[1]);
-      addIngredient(fillings[0]);
-      addIngredient(fillings[2]);
-      addIngredient(sauces[2]);
-      addIngredient(fillings[3]);
-      addIngredient(sauces[1]);
-      addIngredient(sauces[0]);
-      addBun(buns[0]);
-      return () => {
-        effectRun.current = true
-      }
-    }
-  }, []);
-  /* Удаление ингредиентов реализовано через иконку корзины на элементе*/
-  /* Как удалять булку (и нужно ли удалять), мне пока не понятно. 
-  Временно сделал кнопку для проверки (кнопка закоментирована, потом удалю). */
-
   // Проверка для активировации/дезактивации кнопки заказа.
   const isOrderActive = () => {
-    if (!totalPrice.count || totalPrice.count <= 0 || !selectedIngredients[0] || !selectedBun._id) {
+    if (!selectedIngrState.totalPrice ||
+      selectedIngrState.totalPrice <= 0 ||
+      !selectedIngrState.ingredients[0] ||
+      !selectedIngrState.bun._id) {
       return false
     }
     return true
@@ -126,7 +122,7 @@ const BurgerConstructor = () => {
 
   function sendOrderRequest() {
     setOrderLoading(true);
-    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
+    const arrId = [selectedIngrState.bun._id, ...selectedIngrState.ingredients.map(obj => obj._id), selectedIngrState.bun._id];
     postOrder(apiConfig, arrId)
       .then(res => { handleOpenModal(res.order.number) })
       .catch(err => console.log(err))
@@ -134,12 +130,28 @@ const BurgerConstructor = () => {
   };
 
   return (
-    <>    
+    <>
+      {console.log(selectedIngrState)}
       {orderLoading ? (<Preloader />) : (null)}
       <section className={burgerConstructorStyles.section}>
-        {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
-        <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
-        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} orderLoading={orderLoading} />
+
+        {/* кнопки для проверки (потом удалю) */}
+        <button onClick={() => addBun(buns[0])}>Добавить булку</button>
+        <button onClick={() => removeBun(selectedIngrState.bun.price)}>Удалить булку</button>
+        <button onClick={() => addIngredient(sauces[0])}>Добавить соус</button>
+        <button onClick={() => addIngredient(fillings[0])}>Добавить начинку</button>
+
+        <ItemsListConstructor
+          bun={selectedIngrState.bun}
+          ingredients={selectedIngrState.ingredients}
+          removeIngredient={removeIngredient} />
+
+        <OrderingBlock
+          totalPrice={selectedIngrState.totalPrice}
+          isOrderActive={isOrderActive()}
+          sendOrderRequest={sendOrderRequest}
+          orderLoading={orderLoading} />
+
       </section>
 
       {orderId
