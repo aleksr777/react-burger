@@ -1,5 +1,5 @@
 import {
-  UPDATE_DATA,
+  GET_DATA_INGREDIENTS,
 } from '../actions/ingredients-data-actions';
 
 const defaultState = {
@@ -8,7 +8,7 @@ const defaultState = {
 
 const ingredientsDataReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case UPDATE_DATA:
+    case GET_DATA_INGREDIENTS:
       return {
         data: action.payload.data
       };

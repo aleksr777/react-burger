@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { UPDATE_DATA } from '../../services/actions/ingredients-data-actions';
+import { GET_DATA_INGREDIENTS } from '../../services/actions/ingredients-data-actions';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import AppMain from '../app-main/app-main';
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     getIngredientsData(apiConfig)
       .then(res => {
-        dispatch({ type: UPDATE_DATA, payload: { data: res.data } });
+        dispatch({ type: GET_DATA_INGREDIENTS, payload: { data: res.data } });
       })
       .catch(err => { alert('Ошибка загрузки данных с сервера'); console.log(err); })
       .finally(() => setIngredientsLoading(false));

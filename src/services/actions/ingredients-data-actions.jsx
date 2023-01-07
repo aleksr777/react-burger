@@ -1,1 +1,1 @@
-export const UPDATE_DATA = 'UPDATE_DATA';
+export const GET_DATA_INGREDIENTS = 'GET_DATA_INGREDIENTS';
