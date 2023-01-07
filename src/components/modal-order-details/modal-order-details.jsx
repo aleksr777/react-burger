@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
-import Modal from '../modal/modal';
+import Modal from '../../ui/modal/modal';
 
 const ModalOrderDetails = ({ orderNumber, handleCloseModal }) => {
   return (

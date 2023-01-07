@@ -1,13 +1,13 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
+import { useSelector } from 'react-redux';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
 import ItemIngredients from '../item-ingredients/item-ingredients';
-import { IngredientsContext } from '../../context/ingredients-context';
 
 const BurgerIngredients = () => {
 
-  const { ingredientsData } = useContext(IngredientsContext);
+  const ingredientsData = useSelector(state => state.ingredientsData.data);
 
   const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'), [ingredientsData]);
   const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'), [ingredientsData]);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
+import Modal from '../../ui/modal/modal';
 
 const ModalIngredientDetails = ({ ingredient, handleCloseModal }) => {
   return (

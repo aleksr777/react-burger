@@ -1,12 +1,12 @@
 import preloaderStyles from './preloader.module.css';
-import loaderImgPath from '../../images/loader.gif';
+import loaderImgPath from './preloader.gif';
 
 const Preloader = () => {
 
   return (
     <div className={preloaderStyles.overlay} >
       <picture className={preloaderStyles.picture}>
-        <img className={preloaderStyles.picture__img} src={loaderImgPath} alt="Загрузка с сервера." />
+        <img className={preloaderStyles.picture__img} src={loaderImgPath} alt="Иконка загрузки с сервера." />
       </picture>
     </div>
   )
