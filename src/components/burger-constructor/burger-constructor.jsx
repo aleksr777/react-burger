@@ -1,5 +1,5 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ADD_INGREDIENT,
@@ -7,12 +7,9 @@ import {
   ADD_BUN,
   REMOVE_BUN
 } from '../../services/actions/selected-ingr-actions';
-import { apiConfig } from '../../constants/constants';
-import { postOrder } from '../../utils/api';
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
-import Preloader from '../../ui/preloader/preloader';
 
 
 const BurgerConstructor = () => {
@@ -20,7 +17,6 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const ingredientsData = useSelector(state => state.ingredientsData.data);
-  const totalPrice = useSelector(state => state.selectedIngr.totalPrice);
   const selectedBun = useSelector(state => state.selectedIngr.bun);
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
@@ -54,42 +50,11 @@ const BurgerConstructor = () => {
     };
   };
 
-  // Проверка для активировации/дезактивации кнопки заказа.
-  const isOrderActive = () => {
-    if (!totalPrice || totalPrice <= 0 || !selectedIngredients[0] || !selectedBun._id) {
-      return false
-    }
-    return true
-  };
-
-  // Стейт для отслеживания загрузки ингредиентов с сервера
-  const [orderLoading, setOrderLoading] = useState(false);
-
-  const [orderId, setOrderId] = useState();
-
-  const handleOpenModal = (orderNumber) => {
-    setOrderId(orderNumber);
-  };
-
-  const handleCloseModal = () => {
-    setOrderId();
-  };
-
-  function sendOrderRequest() {
-    setOrderLoading(true);
-    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
-    postOrder(apiConfig, arrId)
-      .then(res => { handleOpenModal(res.order.number) })
-      .catch(err => console.log(err))
-      .finally(() => setOrderLoading(false));
-  };
-
   return (
     <>
-      {orderLoading ? (<Preloader />) : (null)}
       <section className={burgerConstructorStyles.section}>
 
-        {/* кнопки для проверки (потом удалю) */}
+        {/* кнопки создал для проверки (потом удалю) */}
         <button onClick={() => addBun(buns[0])}>Добавить булку</button>
         <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button>
         <button onClick={() => addIngredient(sauces[0])}>Добавить соус</button>
@@ -100,17 +65,11 @@ const BurgerConstructor = () => {
           ingredients={selectedIngredients}
           removeIngredient={removeIngredient} />
 
-        <OrderingBlock
-          totalPrice={totalPrice}
-          isOrderActive={isOrderActive()}
-          sendOrderRequest={sendOrderRequest}
-          orderLoading={orderLoading} />
+        <OrderingBlock />
 
       </section>
 
-      {orderId
-        ? (<ModalOrderDetails orderNumber={orderId} handleCloseModal={handleCloseModal} />)
-        : null}
+      <ModalOrderDetails />
     </>
   );
 };

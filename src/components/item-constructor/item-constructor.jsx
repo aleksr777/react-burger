@@ -1,4 +1,5 @@
 import itemStyles from './item-constructor.module.css';
+import { memo } from "react";
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
@@ -22,4 +23,4 @@ ItemConstructor.propTypes = {
   removeIngredient: PropTypes.func.isRequired
 };
 
-export default ItemConstructor;
+export default memo(ItemConstructor);

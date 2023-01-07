@@ -1,3 +1,4 @@
+import { memo } from "react"; 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ItemStyles from './item-ingredients.module.css';
@@ -63,4 +64,4 @@ ItemIngredients.propTypes = {
   }).isRequired
 };
 
-export default ItemIngredients;
+export default memo(ItemIngredients);

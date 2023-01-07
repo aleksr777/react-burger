@@ -1,0 +1,19 @@
+.order__box {
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  column-gap: 9px;
+  composes: mr-10 from global;
+}
+
+.order__price {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  composes: text text_type_digits-medium from global;
+}
