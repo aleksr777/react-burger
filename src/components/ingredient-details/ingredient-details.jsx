@@ -1,34 +1,34 @@
+import ingrDetailsStyles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-import ingredientDetails from './ingredient-details.module.css';
 
-const IngredientDetails = (props) => {
+const IngredientDetails = ({ingredient}) => {
   return (
-    <div className={ingredientDetails.container}>
+    <div className={ingrDetailsStyles.container}>
 
-      <p className={ingredientDetails.title}>Детали ингредиента</p>
+      <p className={ingrDetailsStyles.title}>Детали ингредиента</p>
 
-      <picture className={ingredientDetails.imageBox}>
-        <img className={ingredientDetails.image} src={props.ingredient.image_large} alt={props.ingredient.name} />
+      <picture className={ingrDetailsStyles.imageBox}>
+        <img className={ingrDetailsStyles.image} src={ingredient.image_large} alt={ingredient.name} />
       </picture>
 
-      <p className={ingredientDetails.name}>{props.ingredient.name}</p>
+      <p className={ingrDetailsStyles.name}>{ingredient.name}</p>
 
-      <div className={ingredientDetails.composition}>
-        <div className={ingredientDetails.composition__item}>
-          <p className={ingredientDetails.composition__text}>Калории, ккал</p>
-          <p className={ingredientDetails.composition__number}>{props.ingredient.calories}</p>
+      <div className={ingrDetailsStyles.composition}>
+        <div className={ingrDetailsStyles.composition__item}>
+          <p className={ingrDetailsStyles.composition__text}>Калории, ккал</p>
+          <p className={ingrDetailsStyles.composition__number}>{ingredient.calories}</p>
         </div>
-        <div className={ingredientDetails.composition__item}>
-          <p className={ingredientDetails.composition__text}>Белки, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingredient.proteins}</p>
+        <div className={ingrDetailsStyles.composition__item}>
+          <p className={ingrDetailsStyles.composition__text}>Белки, г</p>
+          <p className={ingrDetailsStyles.composition__number}>{ingredient.proteins}</p>
         </div>
-        <div className={ingredientDetails.composition__item}>
-          <p className={ingredientDetails.composition__text}>Жиры, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingredient.fat}</p>
+        <div className={ingrDetailsStyles.composition__item}>
+          <p className={ingrDetailsStyles.composition__text}>Жиры, г</p>
+          <p className={ingrDetailsStyles.composition__number}>{ingredient.fat}</p>
         </div>
-        <div className={ingredientDetails.composition__item}>
-          <p className={ingredientDetails.composition__text}>Углеводы, г</p>
-          <p className={ingredientDetails.composition__number}>{props.ingredient.carbohydrates}</p>
+        <div className={ingrDetailsStyles.composition__item}>
+          <p className={ingrDetailsStyles.composition__text}>Углеводы, г</p>
+          <p className={ingrDetailsStyles.composition__number}>{ingredient.carbohydrates}</p>
         </div>
       </div>
     </div>

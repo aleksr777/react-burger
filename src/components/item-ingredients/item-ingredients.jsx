@@ -1,53 +1,42 @@
-import { memo } from "react"; 
-import { useState } from 'react';
+import { memo } from "react";
+import { useDispatch } from 'react-redux';
+import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
 import PropTypes from 'prop-types';
 import ItemStyles from './item-ingredients.module.css';
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingredient }) => {
+const ItemIngredients = ({ children, ingredient }) => {
 
-  const [ingredientId, setIngredientId] = useState();
+  const dispatch = useDispatch();
 
-  const handleOpenModal = (id) => {
-    setIngredientId(id);
-  };
-
-  const handleCloseModal = () => {
-    setIngredientId();
+  const handleOpenModal = (ingredient) => {
+    dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
   };
 
   return (
-    <>
-      <li
-        className={ItemStyles.item}
-        onClick={() => {
-          handleOpenModal(ingredient._id);
-        }}
-      >
-        {children}
-        <img
-          className={ItemStyles.item__image}
-          src={imgPath}
-          alt={itemTitle}
-        />
-        <div className={ItemStyles.item__box}>
-          <p className={ItemStyles.item__price}>{itemPrice}</p>
-          <CurrencyIcon type='primary' />
-        </div>
-        <p className={ItemStyles.item__title}>{itemTitle}</p>
-      </li>
-      {ingredientId
-        ? <ModalIngredientDetails ingredient={ingredient} handleCloseModal={handleCloseModal} />
-        : null}
-    </>
+    <li
+      className={ItemStyles.item}
+      onClick={() => { handleOpenModal(ingredient) }}
+    >
+      {children}
+
+      <img
+        className={ItemStyles.item__image}
+        src={ingredient.image_large}
+        alt={ingredient.name}
+      />
+
+      <div className={ItemStyles.item__box}>
+        <p className={ItemStyles.item__price}>{ingredient.price}</p>
+        <CurrencyIcon type='primary' />
+      </div>
+
+      <p className={ItemStyles.item__title}>{ingredient.name}</p>
+    </li>
   )
 };
 
 ItemIngredients.propTypes = {
-  itemPrice: PropTypes.number.isRequired,
-  itemTitle: PropTypes.string.isRequired,
-  imgPath: PropTypes.string.isRequired,
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,

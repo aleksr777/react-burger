@@ -26,7 +26,7 @@ const OrderingButton = () => {
     else {
       setOrderActive(true)
     };
-  }, [totalPrice]);
+  }, [totalPrice, selectedBun._id, selectedIngredients]);
 
   const handleOpenModal = (orderId) => {
     dispatch({ type: SET_ORDER_ID, payload: { id: orderId } });

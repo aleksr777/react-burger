@@ -15,9 +15,11 @@ const ModalOrderDetails = () => {
 
   return (
     <>
-      {orderId
-        ? (<Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderId)} /></Modal>)
-        : null}
+      {
+        orderId
+          ? (<Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderId)} /></Modal>)
+          : null
+      }
     </>
   )
 };
