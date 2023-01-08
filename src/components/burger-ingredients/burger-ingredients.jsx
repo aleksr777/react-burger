@@ -5,6 +5,7 @@ import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients'
 import BlockIngredients from '../block-ingredients/block-ingredients';
 import ItemIngredients from '../item-ingredients/item-ingredients';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
+import BlockSelectingIngredients from '../block-selecting-ingredients/block-selecting-ingredients';
 
 const BurgerIngredients = () => {
 
@@ -16,7 +17,11 @@ const BurgerIngredients = () => {
 
   return (
     <>
+
       <section className={burgerIngredientsStyles.section}>
+
+        {/* компонент для проверки функционала (потом удалю) */}
+        <BlockSelectingIngredients />
 
         <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
 
@@ -57,7 +62,7 @@ const BurgerIngredients = () => {
       </section>
 
       <ModalIngredientDetails />
-      
+
     </>
   );
 };
