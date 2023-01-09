@@ -13,10 +13,13 @@ const TabElement = ({ children, ingredientText }) => {
     dispatch({ type: SET_CURRENT_TAB, payload: { current: ingredientText } })
   }
 
+  console.log();
+
   return (
     <Link
       to={ingredientText}
-      spy={true}
+      spy={true} 
+      onSetActive={setCurrent}
       smooth={true}
       duration={700}
       containerId='section-blocks'
