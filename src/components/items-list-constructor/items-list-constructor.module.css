@@ -6,13 +6,6 @@
   scrollbar-color: rgba(47, 47, 55, 1);
 }
 
-.noIngredientsText {
-  margin: 0 auto 15px auto;
-  text-align: center;
-  padding: 0;
-  composes: text text_type_main-default from global;
-}
-
 .item {
   box-sizing: border-box;
   display: flex;

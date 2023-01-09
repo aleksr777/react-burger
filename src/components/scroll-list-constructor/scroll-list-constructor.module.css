@@ -1,3 +1,10 @@
+.noIngredientsText {
+  margin: 0 auto 15px auto;
+  text-align: center;
+  padding: 0;
+  composes: text text_type_main-default from global;
+}
+
 .list_scroll {
   list-style: none;
   box-sizing: border-box;

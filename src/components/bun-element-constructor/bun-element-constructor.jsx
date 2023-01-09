@@ -1,13 +1,19 @@
+import { useSelector } from 'react-redux';
+import { memo } from "react";
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BunElementConstructor({ bun, type, positionText }) {
+function BunElementConstructor({ type, positionText }) {
+
+  const selectedBun = useSelector(state => state.selectedIngr.bun);
+
   let nameTxt;
   let positionTxt;
-  if (bun._id) {
-    nameTxt = bun.name;
+
+  if (selectedBun._id) {
+    nameTxt = selectedBun.name;
     positionTxt = positionText;
   }
   else {
@@ -20,26 +26,15 @@ function BunElementConstructor({ bun, type, positionText }) {
       isLocked={true}
       type={type}
       text={`${nameTxt} ${positionTxt}`}
-      price={bun.price}
-      thumbnail={bun.image}
+      price={selectedBun.price}
+      thumbnail={selectedBun.image}
     />
   )
 };
 
 BunElementConstructor.propTypes = {
-  bun: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    _id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool
-    ]),
-  }).isRequired,
   type: PropTypes.string.isRequired,
   positionText: PropTypes.string.isRequired
 };
 
-export default BunElementConstructor;
+export default memo(BunElementConstructor);
