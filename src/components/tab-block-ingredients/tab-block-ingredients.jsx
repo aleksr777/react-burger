@@ -1,23 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-scroll';
 import TabBlockStyles from './tab-block-ingredients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import TabElement from '../tab-element/tab-element';
 
 const TabBlockIngredients = () => {
 
-  const [current, setCurrent] = useState('buns');
-
   return (
     <div className={TabBlockStyles.tab}>
-      <Link to='buns' spy={true} smooth={true} duration={700} containerId='section-blocks'>
-        <Tab value='buns' active={current === 'buns'} onClick={setCurrent}>Булки</Tab>
-      </Link>
-      <Link to='sauces' spy={true} smooth={true} duration={700} containerId='section-blocks'>
-        <Tab value='sauces' active={current === 'sauces'} onClick={setCurrent}>Соусы</Tab>
-      </Link>
-      <Link to='fillings' spy={true} smooth={true} duration={700} containerId='section-blocks'>
-        <Tab value='fillings' active={current === 'fillings'} onClick={setCurrent}>Начинки</Tab>
-      </Link>
+      <TabElement ingredientText='buns'>Булки</TabElement >
+      <TabElement ingredientText='sauces'>Соусы</TabElement >
+      <TabElement ingredientText='fillings'>Начинки</TabElement >
     </div>
   )
 };
