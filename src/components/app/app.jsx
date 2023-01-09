@@ -1,27 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { GET_DATA_INGREDIENTS } from '../../services/actions/ingredients-data-actions';
 import appStyles from './app.module.css';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { START_LOADING } from '../../services/actions/loading-state-actions';
 import AppHeader from '../app-header/app-header';
 import AppMain from '../app-main/app-main';
 import Preloader from '../../ui/preloader/preloader';
-import { apiConfig } from '../../constants/constants';
-import { getIngredientsData } from '../../utils/api';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
-  // Стейт для отслеживания загрузки ингредиентов с сервера
-  const [ingredientsLoading, setIngredientsLoading] = useState(true);
+  const loadingState = useSelector(state => state.loadingState.isLoading);
 
   useEffect(() => {
-    getIngredientsData(apiConfig)
-      .then(res => {
-        dispatch({ type: GET_DATA_INGREDIENTS, payload: { data: res.data } });
-      })
-      .catch(err => { alert('Ошибка загрузки данных с сервера'); console.log(err); })
-      .finally(() => setIngredientsLoading(false));
+    dispatch({ type: START_LOADING, payload: {} });
   }, []);
 
   return (
@@ -30,11 +22,7 @@ const App = () => {
 
       <AppHeader />
 
-      {
-        ingredientsLoading
-          ? (<Preloader />)
-          : (<AppMain />)
-      }
+      {loadingState ? (<Preloader />) : (<AppMain />)}
 
     </div >
   )

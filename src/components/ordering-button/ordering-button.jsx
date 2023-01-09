@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_ORDER_ID } from '../../services/actions/order-id-actions';
 import { apiConfig } from '../../constants/constants';
@@ -43,15 +43,12 @@ const OrderingButton = () => {
 
   return (
     <>
-      {
-        isOrderLoading ? (<Preloader />) : (null)
-      }
-      {
-        (isOrderActive && !isOrderLoading)
-          ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>
-            Оформить заказ</Button>)
-          : (<Button disabled htmlType='button' type='primary' size='large'>Оформить заказ</Button>)
-      }
+      {isOrderLoading ? <Preloader /> : null}
+
+      {(isOrderActive && !isOrderLoading)
+        ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>
+          Оформить заказ</Button>)
+        : (<Button disabled htmlType='button' type='primary' size='large'>Оформить заказ</Button>)}
     </>
   )
 };
