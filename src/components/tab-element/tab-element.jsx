@@ -13,8 +13,6 @@ const TabElement = ({ children, ingredientText }) => {
     dispatch({ type: SET_CURRENT_TAB, payload: { current: ingredientText } })
   }
 
-  console.log();
-
   return (
     <Link
       to={ingredientText}
@@ -27,7 +25,6 @@ const TabElement = ({ children, ingredientText }) => {
       <Tab
         value={ingredientText}
         active={current === ingredientText}
-        onClick={setCurrent}
       >
         {children}
       </Tab>
