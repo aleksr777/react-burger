@@ -30,25 +30,27 @@ const ItemConstructor = ({ obj, dragObj, setdragObj }) => {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: ingredientObj, toPosition: toPosition } });
   };
 
-  function dragStartHandler(e, obj) {
-    e.currentTarget.style.opacity = '.7';
+  function dragStartHandler(evt, obj) {
+    evt.currentTarget.style.opacity = '.7';
     setdragObj(obj);
   };
 
-  function dragLeaveHandler(e) {
+  function dragLeaveHandler(evt) {
+    evt.preventDefault();
   };
 
-  function dragEndHandler(e, obj) {
-    e.currentTarget.style.opacity = '';
+  function dragEndHandler(evt, obj) {
+    evt.preventDefault();
+    evt.currentTarget.style.opacity = '';
     setdragObj(null);
   };
 
-  function dragOverHandler(e) {
-    e.preventDefault();
+  function dragOverHandler(evt) {
+    evt.preventDefault();
   };
 
-  function dropHandler(e, obj, dragObj) {
-    e.preventDefault();
+  function dropHandler(evt, obj, dragObj) {
+    evt.preventDefault();
     removeIngredient(dragObj._uKey, dragObj.price);
     addIngredient(dragObj, selectedIngredients.indexOf(obj));
   };
@@ -57,11 +59,11 @@ const ItemConstructor = ({ obj, dragObj, setdragObj }) => {
     <li
       className={itemStyles.item_scroll}
       draggable={true}
-      onDragStart={e => dragStartHandler(e, obj)}
-      onDragLeave={(e) => { dragLeaveHandler(e) }}
-      onDragEnd={(e) => { dragEndHandler(e) }}
-      onDragOver={(e) => { dragOverHandler(e) }}
-      onDrop={(e) => { dropHandler(e, obj, dragObj); }}
+      onDragStart={evt => dragStartHandler(evt, obj)}
+      onDragLeave={evt => dragLeaveHandler(evt)}
+      onDragEnd={evt => dragEndHandler(evt)}
+      onDragOver={evt => dragOverHandler(evt)}
+      onDrop={evt => dropHandler(evt, obj, dragObj)}
     >
       <DragIcon
         type='primary'
@@ -91,23 +93,23 @@ ItemConstructor.propTypes = {
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired
   }).isRequired,
-  dragObj: PropTypes.oneOf([
-    PropTypes.shape({
-      calories: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      proteins: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-      _id: PropTypes.string.isRequired
-    }).isRequired,
-    PropTypes.oneOf([null]).isRequired
-  ]),
+    dragObj: PropTypes.oneOfType([
+      PropTypes.shape({
+        calories: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        proteins: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        __v: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired
+      }).isRequired,
+      PropTypes.oneOf([null]).isRequired
+    ]),
   setdragObj: PropTypes.func.isRequired
 };
 
