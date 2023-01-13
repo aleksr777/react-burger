@@ -8,7 +8,7 @@ const ScrollListConstructor = () => {
 
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
-  const [dragObj, setdragObj] = useState(null);
+  const [dragObj, setDragObj] = useState(null);
 
   return (
     <>
@@ -21,7 +21,7 @@ const ScrollListConstructor = () => {
                 obj={obj}
                 key={obj._uKey}
                 dragObj={dragObj}
-                setdragObj={setdragObj}
+                setDragObj={setDragObj}
               />))}
           </ul>)
       }
