@@ -8,13 +8,15 @@ import Preloader from '../../ui/preloader/preloader';
 
 const App = () => {
 
+  function startLoading() {
+    dispatch({ type: START_LOADING, payload: {} })
+  };
+
   const dispatch = useDispatch();
 
   const loadingState = useSelector(state => state.loadingState.isLoading);
 
-  useEffect(() => {
-    dispatch({ type: START_LOADING, payload: {} });
-  }, []);
+  useEffect(() => { startLoading() }, []);
 
   return (
 

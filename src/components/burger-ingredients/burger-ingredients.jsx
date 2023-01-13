@@ -17,13 +17,19 @@ const BurgerIngredients = () => {
 
   const ingredientsData = useSelector(state => state.ingredientsData.data);
 
+  function stopLoading() {
+    dispatch({ type: STOP_LOADING, payload: {} })
+  };
+
+  function getDataIngredients(res) {
+    dispatch({ type: GET_DATA_INGREDIENTS, payload: { data: res.data } })
+  };
+
   useEffect(() => {
     getIngredientsData(apiConfig)
-      .then(res => {
-        dispatch({ type: GET_DATA_INGREDIENTS, payload: { data: res.data } });
-      })
-      .catch(err => { alert('Ошибка загрузки данных с сервера'); console.log(err); })
-      .finally(() => dispatch({ type: STOP_LOADING, payload: {} }));
+      .then(res => getDataIngredients(res))
+      .catch(err => console.log(`Ошибка сервера: ${err}`))
+      .finally(() => stopLoading());
   }, []);
 
   const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'), [ingredientsData]);

@@ -19,8 +19,8 @@ const BlockSelectingIngredients = () => {
   const buns = useMemo(() => ingredientsData.filter((obj) => obj.type === 'bun'));
 
   // Добавление ингридиента с добавлением цены в общую стоимость
-  function addIngredient(ingredientObj) {
-    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: ingredientObj } });
+  function addIngredient(ingredientObj, toPosition) {
+    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: ingredientObj, toPosition: toPosition } });
   };
 
   // Добавление булки с добавлением цены в общую стоимость
@@ -37,10 +37,10 @@ const BlockSelectingIngredients = () => {
 
   return (
     <>
-      <button onClick={() => addBun(buns[prompt('Введите индекс массива', 0)])}>Добавить булку</button>
+      <button onClick={() => addBun(buns[0])}>Добавить булку</button>
       <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button>
-      <button onClick={() => { addIngredient(sauces[prompt('Введите индекс массива', 0)]) }}>Добавить соус</button>
-      <button onClick={() => addIngredient(fillings[prompt('Введите индекс массива', 0)])}>Добавить начинку</button>
+      <button onClick={() => addIngredient(sauces[0], 0)}>Добавить соус</button>
+      <button onClick={() => addIngredient(fillings[0], 0)}>Добавить начинку</button>
     </>
   );
 };

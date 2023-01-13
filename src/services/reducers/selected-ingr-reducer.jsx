@@ -14,17 +14,20 @@ const initialIngrState = {
 };
 
 const selectedIngrReducer = (state = initialIngrState, action) => {
+  let newArr = null;
   switch (action.type) {
     case ADD_INGREDIENT:
       const newObj = { ...action.payload.ingredientObj };
       newObj._uKey = uniqid.process();
+      newArr = [...state.ingredients];
+      newArr.splice(action.payload.toPosition, 0, newObj);
       return {
         ...state,
         totalPrice: state.totalPrice + newObj.price,
-        ingredients: [...state.ingredients, newObj],
+        ingredients: newArr,
       };
     case REMOVE_INGREDIENT:
-      const newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
+      newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
       return {
         ...state,
         totalPrice: state.totalPrice - action.payload.price,
