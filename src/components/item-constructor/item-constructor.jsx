@@ -11,6 +11,7 @@ import {
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+
 const ItemConstructor = ({ obj, dragObj, setdragObj }) => {
 
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const ItemConstructor = ({ obj, dragObj, setdragObj }) => {
 
   function dragEndHandler(e, obj) {
     e.currentTarget.style.opacity = '';
+    setdragObj(null);
   };
 
   function dragOverHandler(e) {
@@ -88,7 +90,25 @@ ItemConstructor.propTypes = {
     type: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  dragObj: PropTypes.oneOf([
+    PropTypes.shape({
+      calories: PropTypes.number.isRequired,
+      carbohydrates: PropTypes.number.isRequired,
+      fat: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      image_large: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      proteins: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      __v: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired
+    }).isRequired,
+    PropTypes.oneOf([null]).isRequired
+  ]),
+  setdragObj: PropTypes.func.isRequired
 };
 
 export default memo(ItemConstructor);

@@ -3,11 +3,12 @@ import { useState } from "react";
 import { useSelector } from 'react-redux';
 import ItemConstructor from '../item-constructor/item-constructor';
 
+
 const ScrollListConstructor = () => {
 
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
-  const [dragObj, setdragObj] = useState(false);
+  const [dragObj, setdragObj] = useState(null);
 
   return (
     <>
