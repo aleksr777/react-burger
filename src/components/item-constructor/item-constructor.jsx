@@ -19,11 +19,11 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
   // Изменяем позицию элемента
-  function swapIngredient(ingredientObj, fromPosition, toPosition) {
+  function swapIngredient(dragObj, fromPosition, toPosition) {
     dispatch({
       type: SWAP_INGREDIENTS,
       payload: {
-        ingredientObj: ingredientObj,
+        ingredientObj: dragObj,
         fromPosition: fromPosition,
         toPosition: toPosition
       }
