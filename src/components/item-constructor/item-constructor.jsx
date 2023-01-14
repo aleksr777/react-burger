@@ -3,7 +3,7 @@ import { memo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {
   REMOVE_INGREDIENT,
-  ADD_INGREDIENT
+  SWAP_INGREDIENTS
 } from '../../services/actions/selected-ingr-actions';
 import PropTypes from 'prop-types';
 import {
@@ -18,16 +18,21 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
 
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
-  // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient(uKey, price) {
-    if (selectedIngredients.length) {
-      dispatch({ type: REMOVE_INGREDIENT, payload: { price: price, uKey: uKey } });
-    };
+  // Изменяем позицию элемента
+  function swapIngredient(ingredientObj, fromPosition, toPosition) {
+    dispatch({
+      type: SWAP_INGREDIENTS,
+      payload: {
+        ingredientObj: ingredientObj,
+        fromPosition: fromPosition,
+        toPosition: toPosition
+      }
+    });
   };
 
-  // Добавление ингридиента с добавлением цены в общую стоимость
-  function addIngredient(ingredientObj, toPosition) {
-    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: ingredientObj, toPosition: toPosition } });
+  // Удаление ингридиента с вычетом цены из общей стоимости
+  function removeIngredient(uKey, price) {
+    dispatch({ type: REMOVE_INGREDIENT, payload: { price: price, uKey: uKey } });
   };
 
   function dragStartHandler(evt, obj) {
@@ -50,8 +55,9 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
   function dropHandler(evt, obj, dragObj) {
     evt.preventDefault();
     if (obj._uKey && obj._uKey !== dragObj._uKey) {
-      removeIngredient(dragObj._uKey, dragObj.price);
-      addIngredient(dragObj, selectedIngredients.indexOf(obj));
+      const fromPosition = selectedIngredients.indexOf(dragObj);
+      const toPosition = selectedIngredients.indexOf(obj);
+      swapIngredient(dragObj, fromPosition, toPosition);
     }
   };
 
