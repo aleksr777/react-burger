@@ -54,7 +54,8 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
 
   function dropHandler(evt, dropObj, dragObj) {
     evt.preventDefault();
-    if (dropObj._uKey && dropObj._uKey !== dragObj._uKey) {
+    /* исключаем перетаскивание на другие объекты (не ингредиент), на самого себя и на одинаковый ингредиент  */
+    if (dropObj._uKey && dropObj._uKey !== dragObj._uKey && dropObj._id !== dragObj._id) {
       const fromPosition = selectedIngredients.indexOf(dragObj);
       const toPosition = selectedIngredients.indexOf(dropObj);
       swapIngredient(dragObj, fromPosition, toPosition);
