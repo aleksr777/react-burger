@@ -43,7 +43,7 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
     evt.preventDefault();
   };
 
-  function dragEndHandler(evt, obj) {
+  function dragEndHandler(evt) {
     evt.preventDefault();
     setDragObj(null);
   };
@@ -52,11 +52,11 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
     evt.preventDefault();
   };
 
-  function dropHandler(evt, obj, dragObj) {
+  function dropHandler(evt, dropObj, dragObj) {
     evt.preventDefault();
-    if (obj._uKey && obj._uKey !== dragObj._uKey) {
+    if (dropObj._uKey && dropObj._uKey !== dragObj._uKey) {
       const fromPosition = selectedIngredients.indexOf(dragObj);
-      const toPosition = selectedIngredients.indexOf(obj);
+      const toPosition = selectedIngredients.indexOf(dropObj);
       swapIngredient(dragObj, fromPosition, toPosition);
     }
   };

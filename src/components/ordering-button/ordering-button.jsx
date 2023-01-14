@@ -20,13 +20,13 @@ const OrderingButton = () => {
 
   // Проверка для активировации/дезактивации кнопки заказа.
   useEffect(() => {
-    if (!totalPrice || totalPrice <= 0 || !selectedBun._id || !selectedIngredients[0]) {
+    if (!totalPrice || totalPrice <= 0 || !selectedBun._id || !selectedIngredients.length) {
       setOrderActive(false);
     }
     else {
       setOrderActive(true)
     };
-  }, [totalPrice, selectedBun._id, selectedIngredients]);
+  }, [totalPrice, selectedBun._id, selectedIngredients.length]);
 
   const handleOpenModal = (orderId) => {
     dispatch({ type: SET_ORDER_ID, payload: { id: orderId } });
