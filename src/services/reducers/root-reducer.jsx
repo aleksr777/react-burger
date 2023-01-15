@@ -15,4 +15,4 @@ const rootReducer = combineReducers({
   loadingState: loadingStateReducer
 });
 
-export const store = createStore(rootReducer);
+export {rootReducer};
