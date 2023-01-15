@@ -25,7 +25,15 @@ const BlockSelectingIngredients = () => {
 
   // Добавление булки с добавлением цены в общую стоимость
   function addBun(bunObj) {
-    dispatch({ type: ADD_BUN, payload: { bunObj: bunObj } });
+    /* если булка ранее не была выбрана, то ... */
+    if (!selectedBun._id) {
+      dispatch({ type: ADD_BUN, payload: { bunObj: bunObj } });
+    }
+    /* если булка ранее была выбрана, то ... */
+    else if (selectedBun._id && selectedBun._id !== bunObj._id) {
+      dispatch({ type: REMOVE_BUN, payload: { price: selectedBun.price } });
+      dispatch({ type: ADD_BUN, payload: { bunObj: bunObj } });
+    }
   };
 
   // Удаление булки с вычетом цены из общей стоимости
