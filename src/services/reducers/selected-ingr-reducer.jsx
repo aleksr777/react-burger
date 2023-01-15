@@ -15,9 +15,12 @@ const initialIngrState = {
 };
 
 const selectedIngrReducer = (state = initialIngrState, action) => {
+
   let newArr = null;
   let newObj = null;
+
   switch (action.type) {
+
     case ADD_INGREDIENT:
       newObj = { ...action.payload.ingredientObj };
       newObj._uKey = uniqid.process();
@@ -28,6 +31,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
         totalPrice: state.totalPrice + newObj.price,
         ingredients: newArr,
       };
+
     case SWAP_INGREDIENTS:
       newObj = { ...action.payload.ingredientObj };
       newArr = [...state.ingredients];
@@ -37,6 +41,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
         ...state,
         ingredients: newArr,
       };
+
     case REMOVE_INGREDIENT:
       newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
       return {
@@ -44,18 +49,21 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
         totalPrice: state.totalPrice - action.payload.price,
         ingredients: newArr,
       };
+
     case ADD_BUN:
       return {
         ...state,
         totalPrice: state.totalPrice + (action.payload.bunObj.price * 2),
         bun: action.payload.bunObj,
       };
+
     case REMOVE_BUN:
       return {
         ...state,
         totalPrice: state.totalPrice - (action.payload.price * 2),
         bun: noBunObj,
       };
+      
     default:
       return state;
   };
