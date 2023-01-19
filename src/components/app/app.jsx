@@ -1,30 +1,25 @@
 import appStyles from './app.module.css';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { START_LOADING } from '../../services/actions/loading-state-actions';
+import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/actions/ingredients-data-actions';
 import AppHeader from '../app-header/app-header';
 import AppMain from '../app-main/app-main';
 import Preloader from '../../ui/preloader/preloader';
 
 const App = () => {
 
-  function startLoading() {
-    dispatch({ type: START_LOADING, payload: {} })
-  };
-
   const dispatch = useDispatch();
+  
+  const { loadingState } = useSelector(state => state.ingredientsData);
 
-  const loadingState = useSelector(state => state.loadingState.isLoading);
-
-  useEffect(() => { startLoading() }, []);
+  useEffect(() => { dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} }) }, []);
 
   return (
-
     <div className={appStyles.app}>
 
       <AppHeader />
 
-      {loadingState ? (<Preloader />) : (<AppMain />)}
+      {loadingState ? <Preloader /> : <AppMain />}
 
     </div >
   )

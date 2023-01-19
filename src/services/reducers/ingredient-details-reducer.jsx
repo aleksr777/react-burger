@@ -17,7 +17,9 @@ const ingredientDetailsReducer = (state = defaultState, action) => {
       };
 
     case REMOVE_INGREDIENT_DETAILS:
-      return defaultState;
+      return {
+        ingredient: null
+      };
 
     default:
       return state;

@@ -1,23 +1,44 @@
 import {
-  SET_ORDER_ID,
+  GET_ORDER_ID_REQUEST,
+  GET_ORDER_ID_SUCCESS,
+  GET_ORDER_ID_FAILED,
   REMOVE_ORDER_ID
 } from '../actions/order-id-actions';
 
 const defaultState = {
-  id: null
+  loadingState: false,
+  id: null,
 };
 
 const orderIdReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case SET_ORDER_ID:
+    case GET_ORDER_ID_REQUEST: {
       return {
-        id: action.payload.id
+        ...state,
+        loadingState: true,
+      };
+    }
+
+    case GET_ORDER_ID_SUCCESS:
+      return {
+        ...state,
+        id: action.payload.id,
+        loadingState: false,
+      };
+
+    case GET_ORDER_ID_FAILED:
+      return {
+        ...state,
+        loadingState: false,
       };
 
     case REMOVE_ORDER_ID:
-      return defaultState;
+      return {
+        ...state,
+        id: null
+      };
 
     default:
       return state;

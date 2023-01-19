@@ -4,7 +4,6 @@ import { ingredientsDataReducer } from './ingredients-data-reducer';
 import { orderIdReducer } from './order-id-reducer';
 import { ingredientDetailsReducer } from './ingredient-details-reducer';
 import { currentTabReducer } from './tab-reducer';
-import { loadingStateReducer } from './loading-state-reducer';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsDataReducer,
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   orderId: orderIdReducer,
   ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,
-  loadingState: loadingStateReducer
 });
 
 export {rootReducer};

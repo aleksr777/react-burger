@@ -1,9 +1,6 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_DATA_INGREDIENTS } from '../../services/actions/ingredients-data-actions';
-import { STOP_LOADING } from '../../services/actions/loading-state-actions';
-import { apiConfig } from '../../constants/constants';
-import { getIngredientsData } from '../../utils/api';
+import { getIngredients } from '../../services/actions/ingredients-data-actions';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
@@ -15,22 +12,9 @@ const BurgerIngredients = () => {
 
   const dispatch = useDispatch();
 
-  const ingredientsData = useSelector(state => state.ingredientsData.data);
+  const { ingredientsData } = useSelector(state => state.ingredientsData);
 
-  function stopLoading() {
-    dispatch({ type: STOP_LOADING, payload: {} })
-  };
-
-  function getDataIngredients(res) {
-    dispatch({ type: GET_DATA_INGREDIENTS, payload: { data: res.data } })
-  };
-
-  useEffect(() => {
-    getIngredientsData(apiConfig)
-      .then(res => getDataIngredients(res))
-      .catch(err => console.log(`Ошибка сервера: ${err}`))
-      .finally(() => stopLoading());
-  }, []);
+  useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 
   const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'), [ingredientsData]);
   const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'), [ingredientsData]);

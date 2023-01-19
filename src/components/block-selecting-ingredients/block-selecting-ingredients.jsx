@@ -11,7 +11,7 @@ const BlockSelectingIngredients = () => {
 
   const dispatch = useDispatch();
 
-  const ingredientsData = useSelector(state => state.ingredientsData.data);
+  const { ingredientsData } = useSelector(state => state.ingredientsData);
   const selectedBun = useSelector(state => state.selectedIngr.bun);
 
   const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'));
