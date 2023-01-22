@@ -4,18 +4,25 @@ import { getOrderId } from '../../services/actions/order-id-actions';
 import Preloader from '../../ui/preloader/preloader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
+
+const getOrderIdState = state => state.orderId;
+const getTotalPriceState = state => state.selectedIngr.totalPrice;
+const getSelectedBunState = state => state.selectedIngr.bun;
+const getIngredientsState = state => state.selectedIngr.ingredients;
+
 const OrderingButton = () => {
 
   const dispatch = useDispatch();
 
-  const { loadingState } = useSelector(state => state.orderId);
+  const { loadingState } = useSelector(getOrderIdState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
-  const totalPrice = useSelector(state => state.selectedIngr.totalPrice);
-  const selectedBun = useSelector(state => state.selectedIngr.bun);
+  const totalPrice = useSelector(getTotalPriceState);
 
-  const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
+  const selectedBun = useSelector(getSelectedBunState);
+
+  const selectedIngredients = useSelector(getIngredientsState);
 
   // Проверка для активировации/дезактивации кнопки заказа.
   useEffect(() => {

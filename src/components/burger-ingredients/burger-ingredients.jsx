@@ -8,11 +8,14 @@ import ItemIngredients from '../item-ingredients/item-ingredients';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import BlockSelectingIngredients from '../block-selecting-ingredients/block-selecting-ingredients';
 
+
+const getIngredientsDataState = state => state.ingredientsData;
+
 const BurgerIngredients = () => {
 
   const dispatch = useDispatch();
 
-  const { ingredientsData } = useSelector(state => state.ingredientsData);
+  const { ingredientsData } = useSelector(getIngredientsDataState);
 
   useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 

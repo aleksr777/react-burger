@@ -2,9 +2,12 @@ import orderingPriceStyles from './ordering-price.module.css';
 import { useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+
+const getTotalPriceState = state => state.selectedIngr.totalPrice;
+
 const OrderingPrice = () => {
 
-  const totalPrice = useSelector(state => state.selectedIngr.totalPrice);
+  const totalPrice = useSelector(getTotalPriceState);
 
   return (
     <div className={orderingPriceStyles.order}>

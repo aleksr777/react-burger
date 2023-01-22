@@ -14,11 +14,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
+const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+
 const ItemConstructor = ({ obj, isLocked }) => {
 
   const dispatch = useDispatch();
 
-  const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
+  const selectedIngredients = useSelector(getSelectedIngredientsState);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'selectedIngr',

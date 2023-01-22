@@ -13,11 +13,13 @@ import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
 
 
+const getSelectedBunState = state => state.selectedIngr.bun;
+
 const BurgerConstructor = () => {
 
   const dispatch = useDispatch();
 
-  const selectedBun = useSelector(state => state.selectedIngr.bun);
+  const selectedBun = useSelector(getSelectedBunState);
 
   function addBun(item) {
     dispatch({ type: ADD_BUN, payload: { bunObj: item } });

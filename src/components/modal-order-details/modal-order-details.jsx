@@ -3,11 +3,14 @@ import { REMOVE_ORDER_ID } from '../../services/actions/order-id-actions';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 
+
+const getOrderIdState = state => state.orderId.id;
+
 const ModalOrderDetails = () => {
 
   const dispatch = useDispatch();
 
-  const orderId = useSelector(state => state.orderId.id);
+  const orderId = useSelector(getOrderIdState);
 
   const handleCloseModal = () => {
     dispatch({ type: REMOVE_ORDER_ID, payload: {} });

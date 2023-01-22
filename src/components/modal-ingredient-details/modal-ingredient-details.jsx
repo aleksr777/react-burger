@@ -3,11 +3,14 @@ import { REMOVE_INGREDIENT_DETAILS } from '../../services/actions/ingredient-det
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
+
+const getIngredientDetailsState = state => state.ingredientDetails.ingredient;
+
 const ModalIngredientDetails = () => {
 
   const dispatch = useDispatch();
 
-  const currentIngredient = useSelector(state => state.ingredientDetails.ingredient);
+  const currentIngredient = useSelector(getIngredientDetailsState);
 
   const handleCloseModal = () => {
     dispatch({ type: REMOVE_INGREDIENT_DETAILS, payload: {} });

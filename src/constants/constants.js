@@ -10,20 +10,33 @@ export const apiConfig = {
 
 // Объект сделал для отображения "пустой" булки, если булка не выбрана
 export const noBunObj = {
+  calories: 0,
+  carbohydrates: 0,
+  fat: 0,
   image: transparentImgPath,
-  name: '',
+  image_large: transparentImgPath,
+  image_mobile: transparentImgPath,
+  name: 'Выберите ингредиент',
   price: 0,
-  _id: '',
+  proteins: 0,
   type: 'bun',
+  __v: 0,
+  _id: ''
 };
 
 
 // Объект для отображения "пустого" ингредиента, если ингредиент не выбран
 export const noIngrObj = {
+  calories: 0,
+  carbohydrates: 0,
+  fat: 0,
   image: transparentImgPath,
+  image_large: transparentImgPath,
+  image_mobile: transparentImgPath,
   name: 'Выберите ингредиент',
   price: 0,
-  _id: '',
-  _uKey: '',
+  proteins: 0,
   type: 'ingr',
+  __v: 0,
+  _id: ''
 };

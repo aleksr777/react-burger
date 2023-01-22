@@ -6,13 +6,16 @@ import {
   REMOVE_BUN
 } from '../../services/actions/selected-ingr-actions';
 
+const getIngredientsDataState = state => state.ingredientsData;
+const getSelectedBunState = state => state.selectedIngr.bun;
+
 /* компонент для проверки функционала (потом удалю)*/
 const BlockSelectingIngredients = () => {
 
   const dispatch = useDispatch();
 
-  const { ingredientsData } = useSelector(state => state.ingredientsData);
-  const selectedBun = useSelector(state => state.selectedIngr.bun);
+  const { ingredientsData } = useSelector(getIngredientsDataState);
+  const selectedBun = useSelector(getSelectedBunState);
 
   const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'));
   const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'));

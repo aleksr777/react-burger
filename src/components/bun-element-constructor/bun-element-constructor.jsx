@@ -5,9 +5,11 @@ import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+const getSelectedBunState = state => state.selectedIngr.bun;
+
 function BunElementConstructor({ type, positionText }) {
 
-  const selectedBun = useSelector(state => state.selectedIngr.bun);
+  const selectedBun = useSelector(getSelectedBunState);
 
   let nameTxt;
   let positionTxt;

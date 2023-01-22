@@ -6,11 +6,13 @@ import AppHeader from '../app-header/app-header';
 import AppMain from '../app-main/app-main';
 import Preloader from '../../ui/preloader/preloader';
 
+const getIngredientsDataState = state => state.ingredientsData;
+
 const App = () => {
 
   const dispatch = useDispatch();
 
-  const { loadingState } = useSelector(state => state.ingredientsData);
+  const { loadingState } = useSelector(getIngredientsDataState);
 
   useEffect(() => { dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} }) }, []);
 
