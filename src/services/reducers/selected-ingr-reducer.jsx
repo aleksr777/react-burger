@@ -49,7 +49,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       newObj = { ...action.payload.ingredientObj };
       newArr = [...state.ingredients];
       newArr.splice(action.payload.fromPosition, 1); /* удаляем элемент со своей позиции*/
-      newArr.splice(action.payload.toPosition, 0, newObj); /* вставляем элемент в начало списка */
+      newArr.splice(action.payload.toPosition, 0, newObj); /* вставляем элемент в выбранную позицию */
       return {
         ...state,
         ingredients: newArr,
