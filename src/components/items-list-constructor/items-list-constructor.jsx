@@ -7,16 +7,16 @@ const ItemsListConstructor = () => {
   return (
     <ul className={itemsListStyles.list}>
 
-      <li className={itemsListStyles.item}>
-        <BunElementConstructor type='top' positionText='(верх)' />
+      <li className={`${itemsListStyles.item} ${itemsListStyles.item__position_top}`}>
+        <BunElementConstructor type='top' positionText='(верх)' draggable={false} />
       </li>
 
       <li>
-        <ScrollListConstructor/>
+        <ScrollListConstructor />
       </li>
 
-      <li className={itemsListStyles.item}>
-        <BunElementConstructor type='bottom' positionText='(низ)' />
+      <li className={`${itemsListStyles.item} ${itemsListStyles.item__position_bottom}`}>
+        <BunElementConstructor type='bottom' positionText='(низ)' draggable={false} />
       </li>
 
     </ul>

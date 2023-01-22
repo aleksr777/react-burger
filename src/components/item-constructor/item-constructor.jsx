@@ -1,6 +1,7 @@
 import itemStyles from './item-constructor.module.css';
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useDrag, useDrop } from "react-dnd";
 import {
   REMOVE_INGREDIENT,
   SWAP_INGREDIENTS
@@ -12,13 +13,31 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
+const ItemConstructor = ({ obj, isLocked }) => {
 
   const dispatch = useDispatch();
 
   const selectedIngredients = useSelector(state => state.selectedIngr.ingredients);
 
-  // Изменяем позицию элемента
+  const [{ isDragging }, dragRef] = useDrag({
+    type: 'selectedIngr',
+    item: obj,
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    }),
+  });
+
+  const [, dropRef] = useDrop({
+    accept: 'selectedIngr',
+    drop(item) { dropHandler(obj, item) },
+  });
+
+  // Удаление ингридиента с вычетом цены из общей стоимости
+  function removeIngredient(uKey, price) {
+    dispatch({ type: REMOVE_INGREDIENT, payload: { price: price, uKey: uKey } });
+  };
+
+  // Изменение позиции элемента в списке
   function swapIngredient(dragObj, fromPosition, toPosition) {
     dispatch({
       type: SWAP_INGREDIENTS,
@@ -30,52 +49,36 @@ const ItemConstructor = ({ obj, dragObj, setDragObj }) => {
     });
   };
 
-  // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient(uKey, price) {
-    dispatch({ type: REMOVE_INGREDIENT, payload: { price: price, uKey: uKey } });
-  };
-
-  function dragStartHandler(evt, obj) {
-    setDragObj(obj);
-  };
-
-  function dragLeaveHandler(evt) {
-    evt.preventDefault();
-  };
-
-  function dragEndHandler(evt) {
-    evt.preventDefault();
-    setDragObj(null);
-  };
-
-  function dragOverHandler(evt) {
-    evt.preventDefault();
-  };
-
-  function dropHandler(evt, dropObj, dragObj) {
-    evt.preventDefault();
-    /* исключаем перетаскивание на другие объекты (не ингредиент) и на самого себя */
-    if (dropObj._uKey && dropObj._uKey !== dragObj._uKey) {
-      const fromPosition = selectedIngredients.indexOf(dragObj);
-      const toPosition = selectedIngredients.indexOf(dropObj);
-      swapIngredient(dragObj, fromPosition, toPosition);
+  function dropHandler(dropObj, dragObj) {
+    /* определяем позицию в массиве */
+    const fromPosition = selectedIngredients.indexOf(dragObj);
+    const toPosition = selectedIngredients.indexOf(dropObj);
+    /* Проверяем, новый ли объект (если есть uKey, то ингредиент из списка выбранных) */
+    if (dragObj._uKey) {
+      /* исключаем перетаскивание на самого себя */
+      if (dropObj._uKey !== dragObj._uKey) {
+        swapIngredient(dragObj, fromPosition, toPosition);
+      }
     }
   };
 
+  const ref = useRef(null)
+  const dragDropRef = dragRef(dropRef(ref))
+
   return (
+
     <li
       className={itemStyles.item_scroll}
-      draggable={true}
-      onDragStart={evt => dragStartHandler(evt, obj)}
-      onDragLeave={evt => dragLeaveHandler(evt)}
-      onDragEnd={evt => dragEndHandler(evt)}
-      onDragOver={evt => dragOverHandler(evt)}
-      onDrop={evt => dropHandler(evt, obj, dragObj)}
+      ref={obj.price ? dragDropRef : dropRef}
+      style={{
+        cursor: obj.price ? '' : 'default',
+        transition: isDragging ? 'none' : '',
+        opacity: isDragging ? 0 : 1,
+      }}
     >
-      <DragIcon
-        type='primary'
-      />
+      <DragIcon type='primary' />
       <ConstructorElement
+        isLocked={isLocked}
         text={obj.name}
         price={obj.price}
         thumbnail={obj.image}
@@ -100,24 +103,7 @@ ItemConstructor.propTypes = {
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired
   }).isRequired,
-  dragObj: PropTypes.oneOfType([
-    PropTypes.shape({
-      calories: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      proteins: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-      _id: PropTypes.string.isRequired
-    }).isRequired,
-    PropTypes.oneOf([null]).isRequired
-  ]),
-  setDragObj: PropTypes.func.isRequired
+  isLocked: PropTypes.bool.isRequired
 };
 
 export default memo(ItemConstructor);

@@ -25,7 +25,7 @@ const BlockSelectingIngredients = () => {
 
   // Добавление булки с добавлением цены в общую стоимость
   function addBun(bunObj) {
-    /* если булка ранее не была выбрана, то ... */
+    /* если булка не была ранее выбрана, то ... */
     if (!selectedBun._id) {
       dispatch({ type: ADD_BUN, payload: { bunObj: bunObj } });
     }

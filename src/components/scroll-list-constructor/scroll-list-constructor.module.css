@@ -1,7 +1,8 @@
 .noIngredientsText {
-  margin: 0 auto 15px auto;
-  text-align: center;
+ outline: #df00cd solid 1px;
+  margin: 5px auto;
   padding: 0;
+  text-align: center;
   composes: text text_type_main-default from global;
 }
 
@@ -10,14 +11,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  scrollbar-color: rgba(47, 47, 55, 1);
-}
-
-.list_scroll {
   max-height: 480px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
+  scrollbar-color: rgba(47, 47, 55, 1);
 }
 
 .list_scroll::-webkit-scrollbar {

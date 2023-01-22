@@ -9,7 +9,7 @@ import Preloader from '../../ui/preloader/preloader';
 const App = () => {
 
   const dispatch = useDispatch();
-  
+
   const { loadingState } = useSelector(state => state.ingredientsData);
 
   useEffect(() => { dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} }) }, []);

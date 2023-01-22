@@ -1,4 +1,5 @@
 .list {
+  user-select: none;
   list-style: none;
   box-sizing: border-box;
   margin: 0;
@@ -11,12 +12,17 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin-left: 15px;
-  padding-top: 0;
-  padding-bottom: 0;
-  composes: pl-8 pr-4 mb-4 from global;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
-.item:last-of-type {
-  margin-bottom: 0;
+.item__position_top {
+  padding-top: 0;
+  composes: pb-2 pl-10 pr-4 ml-2 from global;
+}
+
+.item__position_bottom {
+  padding-bottom: 0;
+  composes: pt-2 pl-10 pr-4 ml-2 from global;
 }

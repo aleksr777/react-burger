@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useDispatch } from 'react-redux';
+import { useDrag } from "react-dnd";
 import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
 import PropTypes from 'prop-types';
 import ItemStyles from './item-ingredients.module.css';
@@ -9,14 +10,27 @@ const ItemIngredients = ({ children, ingredient }) => {
 
   const dispatch = useDispatch();
 
+  const [{ isDragging }, dragRef] = useDrag({
+    type: 'selectedIngr',
+    item: ingredient,
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    }),
+  });
+
   const handleOpenModal = (ingredient) => {
     dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
   };
 
   return (
     <li
+      ref={dragRef}
       className={ItemStyles.item}
       onClick={() => { handleOpenModal(ingredient) }}
+      style={{
+        transition: isDragging ? 'none' : '',
+        opacity: isDragging ? 0 : 1,
+      }}
     >
       {children}
 

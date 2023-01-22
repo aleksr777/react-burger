@@ -25,9 +25,6 @@ const BurgerIngredients = () => {
 
       <section className={burgerIngredientsStyles.section}>
 
-        {/* компонент для проверки функционала (потом удалю) */}
-        <BlockSelectingIngredients />
-
         <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
 
         <TabBlockIngredients />
