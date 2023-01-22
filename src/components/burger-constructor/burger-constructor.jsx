@@ -1,6 +1,8 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  ADD_PRICE,
+  REDUCE_PRICE,
   ADD_INGREDIENT,
   ADD_BUN,
   REMOVE_BUN
@@ -19,12 +21,15 @@ const BurgerConstructor = () => {
 
   function addBun(item) {
     dispatch({ type: ADD_BUN, payload: { bunObj: item } });
+    dispatch({ type: ADD_PRICE, payload: { price: item.price*2 } });
   }
   function removeBun(price) {
-    dispatch({ type: ADD_BUN, payload: { bunObj: price } });
+    dispatch({ type: REMOVE_BUN, payload: {} });
+    dispatch({ type: REDUCE_PRICE, payload: { price: price*2 } });
   }
   function addIngredient(item, toPosition) {
-    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } })
+    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
+    dispatch({ type: ADD_PRICE, payload: { price: item.price } });
   }
 
   // Добавление новой булки и ингредиента с добавлением цены в общую стоимость

@@ -1,6 +1,8 @@
 import uniqid from 'uniqid'; /* uniqid нужен для генерации key */
 import { noBunObj } from '../../constants/constants';
 import {
+  ADD_PRICE,
+  REDUCE_PRICE,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   SWAP_INGREDIENTS,
@@ -21,6 +23,18 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
 
   switch (action.type) {
 
+    case ADD_PRICE: 
+    return {
+      ...state,
+      totalPrice: state.totalPrice + action.payload.price
+    };
+
+    case REDUCE_PRICE:
+      return {
+        ...state,
+        totalPrice: state.totalPrice - action.payload.price
+      };
+
     case ADD_INGREDIENT:
       newObj = { ...action.payload.ingredientObj };
       newObj._uKey = uniqid.process();
@@ -28,7 +42,6 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       newArr.splice(action.payload.toPosition, 0, newObj);
       return {
         ...state,
-        totalPrice: state.totalPrice + newObj.price,
         ingredients: newArr,
       };
 
@@ -46,21 +59,18 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
       return {
         ...state,
-        totalPrice: state.totalPrice - action.payload.price,
         ingredients: newArr,
       };
 
     case ADD_BUN:
       return {
         ...state,
-        totalPrice: state.totalPrice + (action.payload.bunObj.price * 2),
         bun: action.payload.bunObj,
       };
 
     case REMOVE_BUN:
       return {
         ...state,
-        totalPrice: state.totalPrice - (action.payload.price * 2),
         bun: noBunObj,
       };
       

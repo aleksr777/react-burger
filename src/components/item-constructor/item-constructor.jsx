@@ -3,6 +3,7 @@ import { memo, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import {
+  REDUCE_PRICE,
   REMOVE_INGREDIENT,
   SWAP_INGREDIENTS
 } from '../../services/actions/selected-ingr-actions';
@@ -34,7 +35,8 @@ const ItemConstructor = ({ obj, isLocked }) => {
 
   // Удаление ингридиента с вычетом цены из общей стоимости
   function removeIngredient(uKey, price) {
-    dispatch({ type: REMOVE_INGREDIENT, payload: { price: price, uKey: uKey } });
+    dispatch({ type: REMOVE_INGREDIENT, payload: { uKey: uKey } });
+    dispatch({ type: REDUCE_PRICE, payload: { price: price } });
   };
 
   // Изменение позиции элемента в списке
