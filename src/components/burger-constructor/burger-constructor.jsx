@@ -17,28 +17,32 @@ const BurgerConstructor = () => {
 
   const selectedBun = useSelector(state => state.selectedIngr.bun);
 
+  function addBun(item) {
+    dispatch({ type: ADD_BUN, payload: { bunObj: item } });
+  }
+  function removeBun(price) {
+    dispatch({ type: ADD_BUN, payload: { bunObj: price } });
+  }
+  function addIngredient(item, toPosition) {
+    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } })
+  }
+
   // Добавление новой булки и ингредиента с добавлением цены в общую стоимость
   const dropHandler = (item, selectedBun) => {
     if (item.type === 'bun') {
       if (!selectedBun._id) {
-        dispatch({ type: ADD_BUN, payload: { bunObj: item } });
+        addBun(item)
       }
       /* если булка ранее была выбрана, то ... */
       else if (selectedBun._id && selectedBun._id !== item._id) {
-        dispatch({ type: REMOVE_BUN, payload: { price: selectedBun.price } });
-        dispatch({ type: ADD_BUN, payload: { bunObj: item } });
+        removeBun(selectedBun.price);
+        addBun(item);
       }
     }
     /* проверяем является ли инредиент новым по uKey 
     (иначе создаётся новый элемент при перетаскивании в selectedIngredients) */
-    else if (!item._uKey){
-      dispatch({
-        type: ADD_INGREDIENT,
-        payload: {
-          ingredientObj: item,
-          toPosition: 0
-        }
-      });
+    else if (!item._uKey) {
+      addIngredient(item, 0)
     }
   };
 
