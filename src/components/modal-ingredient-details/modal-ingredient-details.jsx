@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../../ui/modal/modal';
+import Modal from '../modal/modal';
 
 const ModalIngredientDetails = () => {
 
