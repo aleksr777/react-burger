@@ -1,5 +1,5 @@
 import {
-  GET_DATA_INGREDIENTS_FAILED,
+  GET_DATA_INGREDIENTS_ERROR,
   GET_DATA_INGREDIENTS_REQUEST,
   GET_DATA_INGREDIENTS_SUCCESS,
 } from '../actions/ingredients-data-actions';
@@ -24,7 +24,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
         loadingState: false,
       };
     }
-    case GET_DATA_INGREDIENTS_FAILED: {
+    case GET_DATA_INGREDIENTS_ERROR: {
       return {
         ...state,
         loadingState: false,

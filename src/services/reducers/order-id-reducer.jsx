@@ -1,7 +1,7 @@
 import {
   GET_ORDER_ID_REQUEST,
   GET_ORDER_ID_SUCCESS,
-  GET_ORDER_ID_FAILED,
+  GET_ORDER_ID_ERROR,
   REMOVE_ORDER_ID
 } from '../actions/order-id-actions';
 
@@ -28,7 +28,7 @@ const orderIdReducer = (state = defaultState, action) => {
         loadingState: false,
       };
 
-    case GET_ORDER_ID_FAILED:
+    case GET_ORDER_ID_ERROR:
       return {
         ...state,
         loadingState: false,

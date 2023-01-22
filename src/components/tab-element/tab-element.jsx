@@ -16,10 +16,11 @@ const TabElement = ({ children, ingredientText }) => {
   return (
     <Link
       to={ingredientText}
-      spy={true} 
+      spy={true}
       onSetActive={setCurrent}
       smooth={true}
       duration={700}
+      offset={-20}
       containerId='section-blocks'
     >
       <Tab

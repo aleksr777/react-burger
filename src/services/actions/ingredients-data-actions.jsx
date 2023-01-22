@@ -3,7 +3,7 @@ import { getIngredientsDataServer } from '../../utils/api';
 
 export const GET_DATA_INGREDIENTS_REQUEST = 'GET_DATA_INGREDIENTS';
 export const GET_DATA_INGREDIENTS_SUCCESS = 'GET_DATA_INGREDIENTS_SUCCESS';
-export const GET_DATA_INGREDIENTS_FAILED = 'GET_DATA_INGREDIENTS_FAILED';
+export const GET_DATA_INGREDIENTS_ERROR = 'GET_DATA_INGREDIENTS_ERROR';
 
 export function getIngredients() {
   return function (dispatch) {
@@ -17,7 +17,7 @@ export function getIngredients() {
         }
         else {
           dispatch({
-            type: GET_DATA_INGREDIENTS_FAILED
+            type: GET_DATA_INGREDIENTS_ERROR
           });
         };
       })
