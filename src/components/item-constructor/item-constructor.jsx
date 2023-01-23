@@ -36,7 +36,7 @@ const ItemConstructor = ({ obj, isLocked }) => {
   });
 
   // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient({ _uKey, price, _id }) {
+  function removeIngredient({ _uKey, price }) {
     dispatch({ type: REMOVE_INGREDIENT, payload: { uKey: _uKey } });
     dispatch({ type: REDUCE_PRICE, payload: { price: price } });
   };

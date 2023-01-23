@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';

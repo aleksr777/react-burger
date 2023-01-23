@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { memo } from "react";
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,

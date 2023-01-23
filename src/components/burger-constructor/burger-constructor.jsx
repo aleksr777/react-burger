@@ -25,7 +25,7 @@ const BurgerConstructor = () => {
     dispatch({ type: ADD_BUN, payload: { bunObj: item } });
     dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
   }
-  function removeBun({ price, _id }) {
+  function removeBun({ price }) {
     dispatch({ type: REMOVE_BUN, payload: {} });
     dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
   }

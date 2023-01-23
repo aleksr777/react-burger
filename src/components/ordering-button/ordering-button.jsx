@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderId } from '../../services/actions/order-id-actions';
 import Preloader from '../../ui/preloader/preloader';
