@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-data-actions';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
@@ -6,7 +6,7 @@ import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients'
 import BlockIngredients from '../block-ingredients/block-ingredients';
 import ItemIngredients from '../item-ingredients/item-ingredients';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
-import BlockSelectingIngredients from '../block-selecting-ingredients/block-selecting-ingredients';
+import CounterItem from '../counter-item/counter-item';
 
 
 const getIngredientsDataState = state => state.ingredientsData;
@@ -25,7 +25,6 @@ const BurgerIngredients = () => {
 
   return (
     <>
-
       <section className={burgerIngredientsStyles.section}>
 
         <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
@@ -40,6 +39,7 @@ const BurgerIngredients = () => {
                 key={obj._id}
                 ingredient={obj}
               >
+                <CounterItem obj={obj}/>
               </ItemIngredients>
             ))}
           </BlockIngredients>
@@ -50,6 +50,7 @@ const BurgerIngredients = () => {
                 key={obj._id}
                 ingredient={obj}
               >
+                <CounterItem obj={obj} />
               </ItemIngredients>
             ))}
           </BlockIngredients>
@@ -60,6 +61,7 @@ const BurgerIngredients = () => {
                 key={obj._id}
                 ingredient={obj}
               >
+                <CounterItem obj={obj} />
               </ItemIngredients>
             ))}
           </BlockIngredients>

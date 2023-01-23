@@ -5,7 +5,7 @@ import {
   REDUCE_PRICE,
   ADD_INGREDIENT,
   ADD_BUN,
-  REMOVE_BUN
+  REMOVE_BUN,
 } from '../../services/actions/selected-ingr-actions';
 import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
@@ -23,11 +23,11 @@ const BurgerConstructor = () => {
 
   function addBun(item) {
     dispatch({ type: ADD_BUN, payload: { bunObj: item } });
-    dispatch({ type: ADD_PRICE, payload: { price: item.price*2 } });
+    dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
   }
-  function removeBun(price) {
+  function removeBun({ price, _id }) {
     dispatch({ type: REMOVE_BUN, payload: {} });
-    dispatch({ type: REDUCE_PRICE, payload: { price: price*2 } });
+    dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
   }
   function addIngredient(item, toPosition) {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
@@ -42,7 +42,7 @@ const BurgerConstructor = () => {
       }
       /* если булка ранее была выбрана, то ... */
       else if (selectedBun._id && selectedBun._id !== item._id) {
-        removeBun(selectedBun.price);
+        removeBun(selectedBun);
         addBun(item);
       }
     }

@@ -1,5 +1,5 @@
 import itemStyles from './item-constructor.module.css';
-import { memo, useRef } from "react";
+import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import {
@@ -36,8 +36,8 @@ const ItemConstructor = ({ obj, isLocked }) => {
   });
 
   // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient(uKey, price) {
-    dispatch({ type: REMOVE_INGREDIENT, payload: { uKey: uKey } });
+  function removeIngredient({ _uKey, price, _id }) {
+    dispatch({ type: REMOVE_INGREDIENT, payload: { uKey: _uKey } });
     dispatch({ type: REDUCE_PRICE, payload: { price: price } });
   };
 
@@ -86,7 +86,7 @@ const ItemConstructor = ({ obj, isLocked }) => {
         text={obj.name}
         price={obj.price}
         thumbnail={obj.image}
-        handleClose={() => removeIngredient(obj._uKey, obj.price)}
+        handleClose={() => removeIngredient(obj)}
       />
     </li>
   )

@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { selectedIngrReducer } from './selected-ingr-reducer';
 import { ingredientsDataReducer } from './ingredients-data-reducer';
 import { orderIdReducer } from './order-id-reducer';
