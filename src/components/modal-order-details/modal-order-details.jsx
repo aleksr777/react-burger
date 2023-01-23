@@ -1,16 +1,30 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { REMOVE_ORDER_ID } from '../../services/actions/order-id-actions';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 
-const ModalOrderDetails = ({ orderNumber, handleCloseModal }) => {
-  return (
-    <Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderNumber)} /></Modal>
-  )
-};
 
-ModalOrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
-  handleCloseModal: PropTypes.func.isRequired
+const getOrderIdState = state => state.orderId.id;
+
+const ModalOrderDetails = () => {
+
+  const dispatch = useDispatch();
+
+  const orderId = useSelector(getOrderIdState);
+
+  const handleCloseModal = () => {
+    dispatch({ type: REMOVE_ORDER_ID, payload: {} });
+  };
+
+  return (
+    <>
+      {
+        orderId
+          ? (<Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderId)} /></Modal>)
+          : null
+      }
+    </>
+  )
 };
 
 export default ModalOrderDetails;

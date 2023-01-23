@@ -1,32 +1,39 @@
 import scrollListStyles from './scroll-list-constructor.module.css';
-import PropTypes, { arrayOf } from 'prop-types';
+import { useSelector } from 'react-redux';
 import ItemConstructor from '../item-constructor/item-constructor';
+import { noIngrObj } from '../../constants/constants';
 
-const ScrollListConstructor = ({ ingredients, removeIngredient }) => {
+
+const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+
+const ScrollListConstructor = () => {
+
+  const selectedIngredients = useSelector(getSelectedIngredientsState);
 
   return (
-    <ul className={scrollListStyles.list_scroll}>
-      {ingredients.map((obj) => (
-        <ItemConstructor
-          text={obj.name}
-          price={obj.price}
-          thumbnail={obj.image}
-          key={obj._id}
-          id={obj._id}
-          removeIngredient={removeIngredient}
-        />))}
-    </ul>
+    <>
+      {!selectedIngredients.length
+        ? (
+          <ul className={scrollListStyles.list_scroll}>
+            <ItemConstructor
+              obj={noIngrObj}
+              key={noIngrObj._uKey}
+              isLocked={true}
+            />
+          </ul>
+        ) : (
+          <ul className={scrollListStyles.list_scroll}>
+            {selectedIngredients.map((obj) => (
+              <ItemConstructor
+                obj={obj}
+                key={obj._uKey}
+                isLocked={false}
+              />))}
+          </ul>
+        )
+      }
+    </>
   )
-};
-
-ScrollListConstructor.propTypes = {
-  ingredients: arrayOf(PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired),
-  removeIngredient: PropTypes.func.isRequired
 };
 
 export default ScrollListConstructor;

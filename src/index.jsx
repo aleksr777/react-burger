@@ -1,12 +1,24 @@
+import './index.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import { configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 import App from './components/app/app';
+import { Provider } from 'react-redux';
+import { rootReducer } from './services/reducers/root-reducer';
+
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+})
 
 const root = createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
-    <div id="react-modals"></div>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );

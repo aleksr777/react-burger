@@ -3,14 +3,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  scrollbar-color: rgba(47, 47, 55, 1);
-}
-
-.list_scroll {
   max-height: 480px;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
+  scrollbar-color: rgba(47, 47, 55, 1);
 }
 
 .list_scroll::-webkit-scrollbar {

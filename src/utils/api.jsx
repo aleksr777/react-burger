@@ -10,7 +10,7 @@ function request(url, config) {
 };
 
 //Получение от сервера данных об ингредиентах
-export const getIngredientsData = (apiConfig) => {
+export const getIngredientsDataServer = (apiConfig) => {
   return request(`${apiConfig.baseUrl}/api/ingredients`, {
     method: 'GET',
     headers: apiConfig.headers

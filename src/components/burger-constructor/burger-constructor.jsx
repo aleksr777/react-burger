@@ -1,140 +1,74 @@
-import { useContext, useState, useReducer, useEffect, useRef, useMemo } from "react";
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { apiConfig } from '../../constants/constants';
-import { postOrder } from '../../utils/api';
-import transparentImgPath from '../../images/transparent-picture.png';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  ADD_PRICE,
+  REDUCE_PRICE,
+  ADD_INGREDIENT,
+  ADD_BUN,
+  REMOVE_BUN,
+} from '../../services/actions/selected-ingr-actions';
+import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
 import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
-import { IngredientsContext } from '../../context/ingredients-context';
+
+
+const getSelectedBunState = state => state.selectedIngr.bun;
 
 const BurgerConstructor = () => {
 
-  const { ingredientsData } = useContext(IngredientsContext);
+  const dispatch = useDispatch();
 
-  // Cтейты для выбранных ингредиентов и булки на основе данных с сервера
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [selectedBun, setSelectedBun] = useState({
-    // этот объект сделал для отображения "пустой" булки, если булка не выбрана
-    image: transparentImgPath,
-    name: '',
-    price: 0,
-    _id: '',
-    type: 'bun'
-  });
+  const selectedBun = useSelector(getSelectedBunState);
 
-  function priceReducer(totalPrice, action) {
-    switch (action.type) {
-      case 'addIngredientPrice':
-        return { count: totalPrice.count + action.payload.price };
-      case 'removeIngredientPrice':
-        return { count: totalPrice.count - action.payload.price };
-      case 'addBunPrice':
-        return { count: totalPrice.count + (action.payload.price * 2) };
-      case 'removeBunPrice':
-        return { count: totalPrice.count - (action.payload.price * 2) };
-      default:
-        throw new Error(`Wrong type of action: ${action.type}`);
-    }
+  function addBun(item) {
+    dispatch({ type: ADD_BUN, payload: { bunObj: item } });
+    dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
+  }
+  function removeBun({ price }) {
+    dispatch({ type: REMOVE_BUN, payload: {} });
+    dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
+  }
+  function addIngredient(item, toPosition) {
+    dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
+    dispatch({ type: ADD_PRICE, payload: { price: item.price } });
   }
 
-  const [totalPrice, priceDispatch] = useReducer(priceReducer, { count: 0 })
-
-  // Добавление ингридиента с добавлением цены в общую стоимость
-  function addIngredient(ingredientObj) {
-    setSelectedIngredients((ingredients) => { return [...ingredients, ingredientObj] });
-    priceDispatch({ type: 'addIngredientPrice', payload: { price: ingredientObj.price } });
-  };
-
-  // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient(id, price) {
-    if (selectedIngredients[0]) {
-      setSelectedIngredients(selectedIngredients.filter((ingredient) => ingredient._id !== id));
-      priceDispatch({ type: 'removeIngredientPrice', payload: { price: price } });
-    };
-  };
-
-  // Добавление булки с добавлением цены в общую стоимость
-  function addBun(bunObj) {
-    setSelectedBun(bunObj);
-    priceDispatch({ type: 'addBunPrice', payload: { price: bunObj.price } });
-  };
-
-  // Удаление булки с вычетом цены из общей стоимости
-  function removeBun(price) {
-    if (selectedBun) {
-      setSelectedBun({
-        image: transparentImgPath,
-        name: '',
-        price: 0,
-        _id: null,
-        type: 'bun'
-      });
-      priceDispatch({ type: 'removeBunPrice', payload: { price: price } });
-    };
-  };
-
-  /* Имитируем динамический выбор пользователем для наглядности (потом удалю) */
-  const effectRun = useRef(false);//чтобы не было повторного рендеринга (иначе стоимость считает дважды)
-  useEffect(() => {
-    if (effectRun.current === false) {
-      // имитируем добавление ингредиентов
-      addIngredient(ingredientsData.fillings[1]);
-      addIngredient(ingredientsData.fillings[0]);
-      addIngredient(ingredientsData.fillings[2]);
-      addIngredient(ingredientsData.sauces[2]);
-      addIngredient(ingredientsData.fillings[3]);
-      addIngredient(ingredientsData.sauces[1]);
-      addIngredient(ingredientsData.sauces[0]);
-      addBun(ingredientsData.buns[0]);
-      return () => {
-        effectRun.current = true
+  // Добавление новой булки и ингредиента с добавлением цены в общую стоимость
+  const dropHandler = (item, selectedBun) => {
+    if (item.type === 'bun') {
+      if (!selectedBun._id) {
+        addBun(item)
+      }
+      /* если булка ранее была выбрана, то ... */
+      else if (selectedBun._id && selectedBun._id !== item._id) {
+        removeBun(selectedBun);
+        addBun(item);
       }
     }
-  }, []);
-  /* Удаление ингредиентов реализовано через иконку корзины на элементе*/
-  /* Как удалять булку (и нужно ли удалять), мне пока не понятно. 
-  Временно сделал кнопку для проверки (кнопка закоментирована, потом удалю). */
-
-  // Проверка для активировации/дезактивации кнопки заказа.
-  const isOrderActive = () => {
-    if (!totalPrice.count || totalPrice.count <= 0 || !selectedIngredients[0] || !selectedBun._id) {
-      return false
+    /* проверяем является ли инредиент новым по uKey 
+    (иначе создаётся новый элемент при перетаскивании в selectedIngredients) */
+    else if (!item._uKey) {
+      addIngredient(item, 0)
     }
-    return true
   };
 
-  const [orderId, setOrderId] = useState();
-
-  const [popupContent, setPopupContent] = useState();
-
-  const handleOpenModal = (orderNumber, content) => {
-    setPopupContent(content);
-    setOrderId(orderNumber);
-  };
-
-  const handleCloseModal = () => {
-    setPopupContent();
-  };
-
-  function sendOrderRequest() {
-    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id]
-    postOrder(apiConfig, arrId)
-      .then(res => {
-        const content = (<ModalOrderDetails orderNumber={res.order.number} handleCloseModal={handleCloseModal} />);
-        handleOpenModal(res.order.number, content)
-      })
-      .catch(err => console.log(err));
-  };
+  const [, dropRef] = useDrop({
+    accept: 'selectedIngr',
+    drop(item) { dropHandler(item, selectedBun) }
+  });
 
   return (
     <>
-      <section className={burgerConstructorStyles.section}>
-        {/* <button onClick={() => removeBun(selectedBun.price)}>Удалить булку</button> */}
-        <ItemsListConstructor bun={selectedBun} ingredients={selectedIngredients} removeIngredient={removeIngredient} />
-        <OrderingBlock totalPrice={totalPrice.count} isOrderActive={isOrderActive()} sendOrderRequest={sendOrderRequest} />
+      <section ref={dropRef} className={burgerConstructorStyles.section}>
+
+        <ItemsListConstructor />
+
+        <OrderingBlock />
+
       </section>
-      {orderId ? popupContent : null}
+
+      <ModalOrderDetails />
     </>
   );
 };

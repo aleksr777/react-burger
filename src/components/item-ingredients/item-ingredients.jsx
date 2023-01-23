@@ -1,56 +1,57 @@
-import { useState } from "react";
+import { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useDrag } from "react-dnd";
+import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
 import PropTypes from 'prop-types';
 import ItemStyles from './item-ingredients.module.css';
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ItemIngredients = ({ children, itemPrice, itemTitle, imgPath, ingridient }) => {
+const ItemIngredients = ({ children, ingredient }) => {
 
-  const [popupContent, setPopupContent] = useState();
+  const dispatch = useDispatch();
 
-  const [ingridientId, setIngridientId] = useState();
+  const [{ isDragging }, dragRef] = useDrag({
+    type: 'selectedIngr',
+    item: ingredient,
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    }),
+  });
 
-  const handleOpenModal = (id, content) => {
-    setIngridientId(id);
-    setPopupContent(content);
-  };
-
-  const handleCloseModal = () => {
-    setIngridientId();
-    setPopupContent();
+  const handleOpenModal = (ingredient) => {
+    dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
   };
 
   return (
-    <>
-      <li
-        className={ItemStyles.item}
-        onClick={() => {
-          const content = (<ModalIngredientDetails ingridient={ingridient} handleCloseModal={handleCloseModal} />);
-          handleOpenModal(ingridient._id, content);
-        }}
-      >
-        {children}
-        <img
-          className={ItemStyles.item__image}
-          src={imgPath}
-          alt={itemTitle}
-        />
-        <div className={ItemStyles.item__box}>
-          <p className={ItemStyles.item__price}>{itemPrice}</p>
-          <CurrencyIcon type='primary' />
-        </div>
-        <p className={ItemStyles.item__title}>{itemTitle}</p>
-      </li>
-      {ingridientId ? popupContent : null}
-    </>
+    <li
+      ref={dragRef}
+      className={ItemStyles.item}
+      onClick={() => { handleOpenModal(ingredient) }}
+      style={{
+        transition: isDragging ? 'none' : '',
+        opacity: isDragging ? 0 : 1,
+      }}
+    >
+      {children}
+
+      <img
+        className={ItemStyles.item__image}
+        src={ingredient.image_large}
+        alt={ingredient.name}
+      />
+
+      <div className={ItemStyles.item__box}>
+        <p className={ItemStyles.item__price}>{ingredient.price}</p>
+        <CurrencyIcon type='primary' />
+      </div>
+
+      <p className={ItemStyles.item__title}>{ingredient.name}</p>
+    </li>
   )
 };
 
 ItemIngredients.propTypes = {
-  itemPrice: PropTypes.number.isRequired,
-  itemTitle: PropTypes.string.isRequired,
-  imgPath: PropTypes.string.isRequired,
-  ingridient: PropTypes.shape({
+  ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,
@@ -66,4 +67,4 @@ ItemIngredients.propTypes = {
   }).isRequired
 };
 
-export default ItemIngredients;
+export default memo(ItemIngredients);
