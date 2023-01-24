@@ -16,7 +16,7 @@ import {
 
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
-const ItemConstructor = ({ obj, isLocked }) => {
+const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
 
   const dispatch = useDispatch();
 
@@ -73,14 +73,22 @@ const ItemConstructor = ({ obj, isLocked }) => {
 
     <li
       className={itemStyles.item_scroll}
-      ref={obj.price ? dragDropRef : dropRef}
+      ref={allowDrag ? dragDropRef : dropRef}
       style={{
-        cursor: obj.price ? '' : 'default',
+        cursor: allowDrag ? '' : 'default',
         transition: isDragging ? 'none' : '',
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <DragIcon type='primary' />
+
+      <div
+        style={{
+          cursor: allowDrag ? '' : 'default',
+          opacity: allowDrag ? 1 : 0,
+        }} >
+        <DragIcon type='primary' />
+      </div>
+
       <ConstructorElement
         isLocked={isLocked}
         text={obj.name}

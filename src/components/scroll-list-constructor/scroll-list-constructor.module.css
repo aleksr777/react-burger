@@ -8,6 +8,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: rgba(47, 47, 55, 1);
+  transition: all .3s ease 0s;
 }
 
 .list_scroll::-webkit-scrollbar {

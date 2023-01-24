@@ -24,13 +24,19 @@ function BunElementConstructor({ type, positionText }) {
   }
 
   return (
-    <ConstructorElement
-      isLocked={true}
-      type={type}
-      text={`${nameTxt} ${positionTxt}`}
-      price={selectedBun.price}
-      thumbnail={selectedBun.image}
-    />
+    <div
+      style={{
+        width: '100%',
+        opacity: selectedBun._id ? 1 : .6,
+      }} >
+      <ConstructorElement
+        isLocked={true}
+        type={type}
+        text={`${nameTxt} ${positionTxt}`}
+        price={selectedBun.price}
+        thumbnail={selectedBun.image}
+      />
+    </div>
   )
 };
 

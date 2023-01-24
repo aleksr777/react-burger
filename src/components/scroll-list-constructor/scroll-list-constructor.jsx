@@ -14,11 +14,12 @@ const ScrollListConstructor = () => {
     <>
       {!selectedIngredients.length
         ? (
-          <ul className={scrollListStyles.list_scroll}>
+          <ul className={scrollListStyles.list_scroll} style={{ opacity: .6 }}>
             <ItemConstructor
               obj={noIngrObj}
               key={noIngrObj._uKey}
               isLocked={true}
+              allowDrag={false}
             />
           </ul>
         ) : (
@@ -28,6 +29,7 @@ const ScrollListConstructor = () => {
                 obj={obj}
                 key={obj._uKey}
                 isLocked={false}
+                allowDrag={true}
               />))}
           </ul>
         )
