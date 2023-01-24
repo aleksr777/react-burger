@@ -8,7 +8,7 @@ const ItemsListConstructor = () => {
     <ul className={itemsListStyles.list}>
 
       <li className={`${itemsListStyles.item} ${itemsListStyles.item__position_top}`}>
-        <BunElementConstructor type='top' positionText='(верх)' draggable={false} />
+        <BunElementConstructor type='top' positionText='(верх)' />
       </li>
 
       <li>
@@ -16,7 +16,7 @@ const ItemsListConstructor = () => {
       </li>
 
       <li className={`${itemsListStyles.item} ${itemsListStyles.item__position_bottom}`}>
-        <BunElementConstructor type='bottom' positionText='(низ)' draggable={false} />
+        <BunElementConstructor type='bottom' positionText='(низ)' />
       </li>
 
     </ul>

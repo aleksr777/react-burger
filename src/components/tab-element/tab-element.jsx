@@ -4,31 +4,36 @@ import { SET_CURRENT_TAB } from '../../services/actions/tab-actions';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-const getCurrentTabState = state => state.currentTab.current;
+const getCurrentTabState = state => state.currentTab;
 
 const TabElement = ({ children, ingredientText }) => {
 
   const dispatch = useDispatch();
 
-  const current = useSelector(getCurrentTabState);
+  const { currentTab } = useSelector(getCurrentTabState);
 
-  const setCurrent = () => {
-    dispatch({ type: SET_CURRENT_TAB, payload: { current: ingredientText } })
+  function setCurrent(ingredientText) {
+    dispatch({ type: SET_CURRENT_TAB, payload: { currentTab: ingredientText } })
   }
 
   return (
     <Link
       to={ingredientText}
       spy={true}
-      onSetActive={setCurrent}
       smooth={true}
-      duration={700}
-      offset={-20}
+      hashSpy={true}
+      offset={-30}
+      duration={800}
+      delay={0}
+      isDynamic={true}
+      spyThrottle={0}
+      ignoreCancelEvents={false}
+      onSetActive={() => setCurrent(ingredientText)}
       containerId='section-blocks'
     >
       <Tab
         value={ingredientText}
-        active={current === ingredientText}
+        active={currentTab === ingredientText ? true : false}
       >
         {children}
       </Tab>

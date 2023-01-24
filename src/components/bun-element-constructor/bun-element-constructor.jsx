@@ -1,3 +1,4 @@
+import BunElementStyle from './bun-element-constructor.module.css';
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -24,11 +25,8 @@ function BunElementConstructor({ type, positionText }) {
   }
 
   return (
-    <div
-      style={{
-        width: '100%',
-        opacity: selectedBun._id ? 1 : .6,
-      }} >
+    <div className={BunElementStyle.boxElement}
+      style={{ opacity: selectedBun._id ? 1 : .6 }} >
       <ConstructorElement
         isLocked={true}
         type={type}
