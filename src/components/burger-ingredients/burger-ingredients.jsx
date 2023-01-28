@@ -19,9 +19,19 @@ const BurgerIngredients = () => {
 
   useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 
-  const fillings = useMemo(() => ingredientsData.filter((obj) => obj.type === 'main'), [ingredientsData]);
-  const sauces = useMemo(() => ingredientsData.filter((obj) => obj.type === 'sauce'), [ingredientsData]);
-  const buns = useMemo(() => ingredientsData.filter((obj) => obj.type === 'bun'), [ingredientsData]);
+  /* Добавляем информацию о react-компоненте (нужно для функционала DnD) */
+  function addLocationInfo(data) {
+    const arr = [...data];
+    for (let i = 0; i < arr.length; i += 1) {
+      arr[i] = { ...arr[i], component: 'BurgerIngredients' };
+    };
+    return arr
+  };
+
+  const data = useMemo(() => addLocationInfo(ingredientsData), [ingredientsData]);
+  const fillings = useMemo(() => data.filter((obj) => obj.type === 'main'), [data]);
+  const sauces = useMemo(() => data.filter((obj) => obj.type === 'sauce'), [data]);
+  const buns = useMemo(() => data.filter((obj) => obj.type === 'bun'), [data]);
 
   return (
     <>
@@ -39,7 +49,7 @@ const BurgerIngredients = () => {
                 key={obj._id}
                 ingredient={obj}
               >
-                <CounterItem obj={obj}/>
+                <CounterItem obj={obj} />
               </ItemIngredients>
             ))}
           </BlockIngredients>

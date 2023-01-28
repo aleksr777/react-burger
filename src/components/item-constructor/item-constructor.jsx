@@ -22,11 +22,12 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
 
   const selectedIngredients = useSelector(getSelectedIngredientsState);
 
-  const [{ isDragging }, dragRef] = useDrag({
+  const [{ isDragging, dragElementData }, dragRef] = useDrag({
     type: 'selectedIngr',
     item: obj,
     collect: monitor => ({
-      isDragging: monitor.isDragging()
+      isDragging: monitor.isDragging(),
+      dragElementData: monitor.getItem()
     }),
   });
 
@@ -57,14 +58,37 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
     /* определяем позицию в массиве */
     const fromPosition = selectedIngredients.indexOf(dragObj);
     const toPosition = selectedIngredients.indexOf(dropObj);
-    /* Проверяем, новый ли объект (если есть uKey, то ингредиент из списка выбранных) */
-    if (dragObj._uKey) {
+    /* Проверяем, откуда перетаскиваемый объект*/
+    if (dragElementData.component === 'BurgerConstructor') {
       /* исключаем перетаскивание на самого себя */
       if (dropObj._uKey !== dragObj._uKey) {
         swapIngredient(dragObj, fromPosition, toPosition);
       }
     }
   };
+
+
+  function dragOverSetOpacity(evt) {
+    /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
+    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      evt.preventDefault();
+      evt.currentTarget.style.opacity = '.5';
+    }
+  }
+
+  function dragLeaveSetOpacity(evt) {
+    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      evt.preventDefault();
+      evt.currentTarget.style.opacity = '';
+    }
+  }
+
+  function dropSetOpacity(evt) {
+    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      evt.preventDefault();
+      evt.currentTarget.style.opacity = '';
+    }
+  }
 
   const ref = useRef(null)
   const dragDropRef = dragRef(dropRef(ref))
@@ -74,6 +98,9 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
     <li
       className={itemStyles.item_scroll}
       ref={allowDrag ? dragDropRef : dropRef}
+      onDragOver={(evt) => dragOverSetOpacity(evt)}
+      onDragLeave={(evt) => dragLeaveSetOpacity(evt)}
+      onDrop={(evt) => dropSetOpacity(evt)}
       style={{
         cursor: allowDrag ? '' : 'default',
         transition: isDragging ? 'none' : '',

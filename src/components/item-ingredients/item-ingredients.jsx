@@ -33,7 +33,6 @@ const ItemIngredients = ({ children, ingredient }) => {
       }}
     >
       {children}
-
       <img
         className={ItemStyles.item__image}
         src={ingredient.image_large}
