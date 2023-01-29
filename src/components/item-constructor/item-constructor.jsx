@@ -1,4 +1,5 @@
 import itemStyles from './item-constructor.module.css';
+import burgerConstructorStyles from '../burger-constructor/burger-constructor.module.css';
 import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -18,16 +19,19 @@ const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
 const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
 
+  const burgerConstructorSelector = [...document.getElementsByClassName(burgerConstructorStyles.section)][0];
+
   const dispatch = useDispatch();
 
   const selectedIngredients = useSelector(getSelectedIngredientsState);
 
-  const [{ isDragging, dragElementData }, dragRef] = useDrag({
+  const [{ dragElementData, dragItemOpacity, dragItemTransition }, dragRef] = useDrag({
     type: 'selectedIngr',
     item: obj,
     collect: monitor => ({
-      isDragging: monitor.isDragging(),
-      dragElementData: monitor.getItem()
+      dragElementData: monitor.getItem(),
+      dragItemOpacity: monitor.isDragging() ? 0 : 1,
+      dragItemTransition: monitor.isDragging() ? 'none' : '',
     }),
   });
 
@@ -69,24 +73,32 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
 
 
   function dragOverSetOpacity(evt) {
+    evt.preventDefault();
     /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
     if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.preventDefault();
-      evt.currentTarget.style.opacity = '.5';
+      evt.currentTarget.style.opacity = '.6';
+    }
+    else if (dragElementData.component === 'BurgerIngredients') {
+      burgerConstructorSelector.style.opacity = '.6';
+      burgerConstructorSelector.style.boxShadow = '0px 0px 10px 4px rgba(76, 76, 255, 1) inset';
     }
   }
 
   function dragLeaveSetOpacity(evt) {
+    evt.preventDefault();
     if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.preventDefault();
-      evt.currentTarget.style.opacity = '';
+      evt.currentTarget.style.opacity = '1';
+    }
+    else if (dragElementData.component === 'BurgerIngredients') {
+      burgerConstructorSelector.style.opacity = '.8';
+      burgerConstructorSelector.style.boxShadow = '0px 0px 10px 4px rgba(76, 76, 255, .4) inset';
     }
   }
 
   function dropSetOpacity(evt) {
+    evt.preventDefault();
     if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.preventDefault();
-      evt.currentTarget.style.opacity = '';
+      evt.currentTarget.style.opacity = '1';
     }
   }
 
@@ -103,8 +115,8 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
       onDrop={(evt) => dropSetOpacity(evt)}
       style={{
         cursor: allowDrag ? '' : 'default',
-        transition: isDragging ? 'none' : '',
-        opacity: isDragging ? 0 : 1,
+        transition: dragItemTransition,
+        opacity: dragItemOpacity,
       }}
     >
 

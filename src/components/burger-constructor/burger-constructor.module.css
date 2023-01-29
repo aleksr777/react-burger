@@ -1,10 +1,13 @@
 .section {
+  border: none;
+  outline: none;
   margin: 0;
   box-sizing: border-box;
   flex: 0 0 auto;
   max-width: 600px;
   min-height: 912px;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  transition: all .3s ease 0s;
   composes: pt-25 from global;
 }

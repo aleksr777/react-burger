@@ -17,6 +17,8 @@ const getSelectedBunState = state => state.selectedIngr.bun;
 
 const BurgerConstructor = () => {
 
+  const burgerConstructorSelector = [...document.getElementsByClassName(burgerConstructorStyles.section)][0];
+
   const dispatch = useDispatch();
 
   const selectedBun = useSelector(getSelectedBunState);
@@ -32,10 +34,12 @@ const BurgerConstructor = () => {
   function addIngredient(item, toPosition) {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
     dispatch({ type: ADD_PRICE, payload: { price: item.price } });
-  }
+  };
 
   // Добавление новой булки и ингредиента с добавлением цены в общую стоимость
   const dropHandler = (item, selectedBun) => {
+    /* burgerConstructorSelector.style.opacity = '';
+    burgerConstructorSelector.style.outline = ''; */
     if (item.type === 'bun') {
       if (!selectedBun._id) {
         addBun(item)
@@ -48,8 +52,8 @@ const BurgerConstructor = () => {
     }
     /* проверяем является ли инредиент новым по uKey 
     (иначе создаётся новый элемент при перетаскивании в selectedIngredients) */
-    else if (!item._uKey) {
-      addIngredient(item, 0)
+    else if (item.component === 'BurgerIngredients') {
+      addIngredient(item, 0);
     }
   };
 
@@ -60,7 +64,10 @@ const BurgerConstructor = () => {
 
   return (
     <>
-      <section ref={dropRef} className={burgerConstructorStyles.section}>
+      <section
+        ref={dropRef}
+        className={burgerConstructorStyles.section}
+      >
 
         <ItemsListConstructor />
 
