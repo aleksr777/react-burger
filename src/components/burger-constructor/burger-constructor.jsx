@@ -1,4 +1,5 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
+import { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ADD_PRICE,
@@ -16,8 +17,6 @@ import ItemsListConstructor from '../items-list-constructor/items-list-construct
 const getSelectedBunState = state => state.selectedIngr.bun;
 
 const BurgerConstructor = () => {
-
-  const burgerConstructorSelector = [...document.getElementsByClassName(burgerConstructorStyles.section)][0];
 
   const dispatch = useDispatch();
 
@@ -80,4 +79,4 @@ const BurgerConstructor = () => {
   );
 };
 
-export default BurgerConstructor;
+export default memo(BurgerConstructor);

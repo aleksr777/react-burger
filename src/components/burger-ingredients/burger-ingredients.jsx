@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-data-actions';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
@@ -84,4 +84,4 @@ const BurgerIngredients = () => {
   );
 };
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);

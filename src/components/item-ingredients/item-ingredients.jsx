@@ -1,6 +1,6 @@
 import ItemStyles from './item-ingredients.module.css';
 import burgerConstructorStyles from '../burger-constructor/burger-constructor.module.css';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
@@ -13,15 +13,12 @@ const ItemIngredients = ({ children, ingredient }) => {
 
   const dispatch = useDispatch();
 
-  const [{ dragElementData, isDragging, dragItemOpacity, dragItemTransition, dragBurgerSelectorStyle }, dragRef] = useDrag({
+  const [{ dragItemOpacity, dragItemTransition }, dragRef] = useDrag({
     type: 'selectedIngr',
     item: ingredient,
     collect: monitor => ({
-      dragElementData: monitor.getItem(),
-      isDragging: monitor.isDragging(),
       dragItemOpacity: monitor.isDragging() ? 0 : 1,
       dragItemTransition: monitor.isDragging() ? 'none' : '',
-      dragBurgerSelectorStyle: monitor.isDragging() ? .7 : 1,
     }),
   });
 
@@ -42,35 +39,33 @@ const ItemIngredients = ({ children, ingredient }) => {
   }
 
   return (
-    <>
-      <li
-        ref={dragRef}
-        className={ItemStyles.item}
-        onDragStart={(evt) => handleDragStart(evt)}
-        onDragEnd={(evt) => handleDragEnd(evt)}
-        onClick={() => { handleOpenModal(ingredient) }}
-        style={{
-          transition: dragItemTransition,
-          opacity: dragItemOpacity
-        }}
-      >
+    <li
+      ref={dragRef}
+      className={ItemStyles.item}
+      onDragStart={(evt) => handleDragStart(evt)}
+      onDragEnd={(evt) => handleDragEnd(evt)}
+      onClick={() => { handleOpenModal(ingredient) }}
+      style={{
+        transition: dragItemTransition,
+        opacity: dragItemOpacity
+      }}
+    >
 
-        {children}
+      {children}
 
-        <img
-          className={ItemStyles.item__image}
-          src={ingredient.image_large}
-          alt={ingredient.name}
-        />
+      <img
+        className={ItemStyles.item__image}
+        src={ingredient.image_large}
+        alt={ingredient.name}
+      />
 
-        <div className={ItemStyles.item__box}>
-          <p className={ItemStyles.item__price}>{ingredient.price}</p>
-          <CurrencyIcon type='primary' />
-        </div>
+      <div className={ItemStyles.item__box}>
+        <p className={ItemStyles.item__price}>{ingredient.price}</p>
+        <CurrencyIcon type='primary' />
+      </div>
 
-        <p className={ItemStyles.item__title}>{ingredient.name}</p>
-      </li>
-    </>
+      <p className={ItemStyles.item__title}>{ingredient.name}</p>
+    </li>
   )
 };
 
