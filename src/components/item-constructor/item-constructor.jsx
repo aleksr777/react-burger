@@ -78,20 +78,12 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
     if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
       evt.currentTarget.style.opacity = '.6';
     }
-    else if (dragElementData.component === 'BurgerIngredients') {
-      burgerConstructorSelector.style.opacity = '.6';
-      burgerConstructorSelector.style.boxShadow = '0px 0px 10px 4px rgba(76, 76, 255, 1) inset';
-    }
   }
 
   function dragLeaveSetOpacity(evt) {
     evt.preventDefault();
     if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
       evt.currentTarget.style.opacity = '1';
-    }
-    else if (dragElementData.component === 'BurgerIngredients') {
-      burgerConstructorSelector.style.opacity = '.8';
-      burgerConstructorSelector.style.boxShadow = '0px 0px 10px 4px rgba(76, 76, 255, .4) inset';
     }
   }
 

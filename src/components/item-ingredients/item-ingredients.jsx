@@ -27,9 +27,9 @@ const ItemIngredients = ({ children, ingredient }) => {
   };
 
   function handleDragStart() {
-    burgerConstructorSelector.style.opacity = '.8';
+    burgerConstructorSelector.style.opacity = '.7';
     burgerConstructorSelector.style.borderRadius = '3%';
-    burgerConstructorSelector.style.boxShadow = '0px 0px 8px 4px rgba(76, 76, 255, .4) inset';
+    burgerConstructorSelector.style.boxShadow = '0px 0px 8px 4px rgba(76, 76, 255, .6) inset';
   }
 
   function handleDragEnd() {
