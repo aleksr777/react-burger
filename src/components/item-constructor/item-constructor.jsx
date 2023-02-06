@@ -1,5 +1,4 @@
 import itemStyles from './item-constructor.module.css';
-import burgerConstructorStyles from '../burger-constructor/burger-constructor.module.css';
 import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -18,8 +17,6 @@ import {
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
 const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
-
-  const burgerConstructorSelector = [...document.getElementsByClassName(burgerConstructorStyles.section)][0];
 
   const dispatch = useDispatch();
 

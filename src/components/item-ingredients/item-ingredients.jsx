@@ -28,8 +28,8 @@ const ItemIngredients = ({ children, ingredient }) => {
 
   function handleDragStart() {
     burgerConstructorSelector.style.opacity = '.7';
-    burgerConstructorSelector.style.borderRadius = '3%';
-    burgerConstructorSelector.style.boxShadow = '0px 0px 8px 4px rgba(76, 76, 255, .6) inset';
+    burgerConstructorSelector.style.borderRadius = '1.5%';
+    burgerConstructorSelector.style.boxShadow = '0px 0px 1px 2px rgba(76, 76, 255, .9) inset';
   }
 
   function handleDragEnd() {
