@@ -5,3 +5,11 @@
   padding: 40px;
   background-color: rgba(19, 19, 22, 1);
 }
+
+.main {
+  overflow: hidden;
+  max-width: 1240px;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+}
