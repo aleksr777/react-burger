@@ -4,12 +4,12 @@ import AppHeader from '../app-header/app-header';
 import {
   NotFound404,
   HomePage,
-  loginPage,
-  registerPage,
-  forgotPasswordPage,
-  resetPasswordPage,
-  profilePage,
-  ingredientPage
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ProfilePage,
+  IngredientPage
 } from '../../pages/index';
 
 const App = () => {
@@ -22,18 +22,18 @@ const App = () => {
 
       <main className={appStyles.main}>
 
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<NotFound404 />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<loginPage />} />
-          <Route path="/register" element={<registerPage />} />
-          <Route path="/forgot-password" element={<forgotPasswordPage />} />
-          <Route path="/reset-password" element={<resetPasswordPage />} />
-          <Route path="/profile" element={<profilePage />} />
-          <Route path="/ingredients/:id" element={<ingredientPage />} />
-        </Routes>
-      </BrowserRouter >
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<NotFound404 />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/ingredients/:id" element={<IngredientPage />} />
+          </Routes>
+        </BrowserRouter >
 
       </main>
 
