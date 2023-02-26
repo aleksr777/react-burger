@@ -1,44 +1,53 @@
-import loginStyles from './login.module.css';
-import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useRef } from 'react';
+import FormTitle from '../../components/form-title/form-title';
+import FormInput from '../../components/form-input/form-input';
+import FormLink from '../../components/form-link/form-link';
+import FormButton from '../../components/form-button/form-button';
+import FormСontainer from '../../components/form-container/form-container';
+import { useState } from 'react';
 
 const LoginPage = () => {
 
-  const inputEmailRef = useRef(null);
   const [valueEmail, setValueEmail] = useState('')
   const onChangeEmail = e => {
     setValueEmail(e.target.value)
   }
 
-  const inputPasswordRef = useRef(null);
   const [valuePassword, setValuePassword] = useState('')
   const onChangePassword = e => {
     setValuePassword(e.target.value)
   }
 
   return (
-    <div className={loginStyles.container}>
 
-      <EmailInput
-        ref={inputEmailRef}
+    <FormСontainer>
+
+      <FormTitle text='Вход' />
+
+      <FormInput
+        inputType='email'
         onChange={onChangeEmail}
         value={valueEmail}
-        name={'email'}
+        name='loginEmail'
+        placeholder='E-mail'
         isIcon={false}
-        placeholder={'E-mail'}
       />
 
-      <PasswordInput
-        ref={inputPasswordRef}
+      <FormInput
+        inputType='password'
         onChange={onChangePassword}
         value={valuePassword}
-        name={'password'}
-        extraClass="mb-2"
-        placeholder={'Пароль'}
+        name='loginPassword'
+        placeholder='Пароль'
+        icon={undefined}
       />
 
-    </div>
+      <FormButton text='Войти' />
+
+      <FormLink text='Вы — новый пользователь? ' linkPath='/register' linkText='Зарегистрироваться' />
+      <FormLink text='Забыли пароль? ' linkPath='/forgot-password' linkText='Восстановить пароль' />
+
+    </FormСontainer>
   )
 }
 
-export { LoginPage };
+export default LoginPage;

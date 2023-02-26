@@ -1,64 +1,66 @@
-import registerStyles from './register.module.css';
-import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useRef } from 'react';
+import FormTitle from '../../components/form-title/form-title';
+import FormInput from '../../components/form-input/form-input';
+import FormButton from '../../components/form-button/form-button';
+import FormLink from '../../components/form-link/form-link';
+import FormСontainer from '../../components/form-container/form-container';
+import { useState } from 'react';
 
 const RegisterPage = () => {
 
-  const inputNameRef = useRef(null);
   const [valueName, setValueName] = useState('');
-  const onChangeName = e => {
-    setValueName(e.target.value)
+  const onChangeName = evt => {
+    setValueName(evt.target.value)
   }
 
-  const inputEmailRef = useRef(null);
   const [valueEmail, setValueEmail] = useState('');
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
+  const onChangeEmail = evt => {
+    setValueEmail(evt.target.value)
   }
 
-  const inputPasswordRef = useRef(null);
   const [valuePassword, setValuePassword] = useState('');
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
+  const onChangePassword = evt => {
+    setValuePassword(evt.target.value)
   }
 
   return (
 
-    <div className={registerStyles.container}>
+    <FormСontainer>
 
-      <Input
-        ref={inputNameRef}
-        type={'text'}
-        onChange={onChangeName}
+      <FormTitle text='Регистрация' />
+
+      <FormInput
+        inputType='default'
         value={valueName}
-        name={'name'}
-        error={false}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass="ml-1"
-        placeholder={'Имя'}
+        name='registerName'
+        placeholder='Имя'
+        onChange={onChangeName}
+        icon={undefined}
+        onIconClick={undefined}
       />
 
-      <EmailInput
-        ref={inputEmailRef}
+      <FormInput
+        inputType='email'
         onChange={onChangeEmail}
         value={valueEmail}
-        name={'email'}
+        name='registerEmail'
+        placeholder='E-mail'
         isIcon={false}
-        placeholder={'E-mail'}
       />
 
-      <PasswordInput
-        ref={inputPasswordRef}
+      <FormInput
+        inputType='password'
         onChange={onChangePassword}
         value={valuePassword}
-        name={'password'}
-        extraClass="mb-2"
-        placeholder={'Пароль'}
+        name='registerPassword'
+        placeholder='Пароль'
+        icon={undefined}
       />
 
-    </div>
+      <FormButton text='Зарегистрироваться' />
+      <FormLink text='Уже зарегистрированы? ' linkPath='/login' linkText='Войти' />
+
+    </FormСontainer>
   )
 };
 
-export { RegisterPage };
+export default RegisterPage;

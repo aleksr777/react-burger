@@ -10,7 +10,7 @@ import {
   ResetPasswordPage,
   ProfilePage,
   IngredientPage
-} from '../../pages/index';
+} from '../../pages/pages';
 
 const App = () => {
 

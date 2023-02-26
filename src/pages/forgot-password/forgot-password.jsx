@@ -1,31 +1,38 @@
-import forgotPasswordStyles from './forgot-password.module.css';
-import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useRef } from 'react';
+import FormTitle from '../../components/form-title/form-title';
+import FormInput from '../../components/form-input/form-input';
+import FormButton from '../../components/form-button/form-button';
+import FormLink from '../../components/form-link/form-link';
+import FormСontainer from '../../components/form-container/form-container';
+import { useState } from 'react';
 
 const ForgotPasswordPage = () => {
 
-  const inputPasswordRef = useRef(null);
   const [valueEmail, setValueEmail] = useState('');
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
+  const onChangeEmail = evt => {
+    setValueEmail(evt.target.value)
   }
 
   return (
 
-    <div className={forgotPasswordStyles.container}>
+    <FormСontainer>
 
-      <EmailInput
-        ref={inputPasswordRef}
+      <FormTitle text='Восстановление пароля' />
+
+      <FormInput
+        inputType='email'
         onChange={onChangeEmail}
         value={valueEmail}
-        name={'email'}
+        name='forgotEmail'
+        placeholder='Укажите e-mail'
         isIcon={false}
-        placeholder={'Укажите e-mail'}
       />
 
-    </div >
+      <FormButton text='Восстановить' />
+      <FormLink text='Вспомнили пароль? ' linkPath='/login' linkText='Войти' />
+
+    </FormСontainer >
 
   )
 };
 
-export { ForgotPasswordPage };
+export default ForgotPasswordPage;

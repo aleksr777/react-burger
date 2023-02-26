@@ -1,0 +1,6 @@
+.box {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  composes: pb-20 from global;
+}

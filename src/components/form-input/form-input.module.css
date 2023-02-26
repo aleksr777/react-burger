@@ -1,0 +1,15 @@
+/* Эти стили нужны, чтобы не было смещения инпутов при появлении сообщения об ошибке 
+(либо надо изменять сам компонент)*/
+
+.box>div {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.box>div>p {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: -38px;
+  left: 0;
+  white-space: nowrap;
+}
