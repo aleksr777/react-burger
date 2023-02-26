@@ -27,7 +27,7 @@ const ForgotPasswordPage = () => {
         isIcon={false}
       />
 
-      <FormButton text='Восстановить' />
+      <FormButton text='Восстановить' valueEmail={valueEmail} />
       <FormLink text='Вспомнили пароль? ' linkPath='/login' linkText='Войти' />
 
     </FormСontainer >

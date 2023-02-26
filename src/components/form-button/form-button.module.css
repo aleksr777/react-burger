@@ -2,5 +2,9 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
   composes: pb-20 from global;
 }

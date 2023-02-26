@@ -27,3 +27,14 @@ export const postOrder = async (apiConfig, arrId) => {
     })
   })
 };
+
+//Отправка адреса email для сброса пароля
+export const postResetEmailRequest = async (apiConfig, valueEmail) => {
+  return request(`${apiConfig.baseUrl}/api/password-reset`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'email': valueEmail
+    })
+  })
+};
