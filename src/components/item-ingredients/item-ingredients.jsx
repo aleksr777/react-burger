@@ -42,8 +42,8 @@ const ItemIngredients = ({ children, ingredient }) => {
     <li
       ref={dragRef}
       className={ItemStyles.item}
-      onDragStart={(evt) => handleDragStart(evt)}
-      onDragEnd={(evt) => handleDragEnd(evt)}
+      onDragStart={(e) => handleDragStart(e)}
+      onDragEnd={(e) => handleDragEnd(e)}
       onClick={() => { handleOpenModal(ingredient) }}
       style={{
         transition: dragItemTransition,

@@ -21,6 +21,9 @@ export function getIngredients() {
           });
         };
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: GET_DATA_INGREDIENTS_ERROR });
+      });
   };
 };

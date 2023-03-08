@@ -28,17 +28,17 @@ const orderIdReducer = (state = defaultState, action) => {
         loadingState: false,
       };
 
-    case GET_ORDER_ID_ERROR:
-      return defaultState;
-
     case REMOVE_ORDER_ID:
       return {
         ...state,
         id: null
       };
 
+    case GET_ORDER_ID_ERROR:
+      return defaultState;
+
     default:
-      return state;
+      return defaultState;
   }
 };
 

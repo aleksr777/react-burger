@@ -22,7 +22,7 @@ const ingredientDetailsReducer = (state = defaultState, action) => {
       };
 
     default:
-      return state;
+      return defaultState;
   }
 };
 

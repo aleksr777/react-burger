@@ -69,25 +69,25 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
   };
 
 
-  function dragOverSetOpacity(evt) {
-    evt.preventDefault();
+  function dragOverSetOpacity(e) {
+     e.preventDefault();
     /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
-    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.currentTarget.style.opacity = '.6';
+    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+       e.currentTarget.style.opacity = '.6';
     }
   }
 
-  function dragLeaveSetOpacity(evt) {
-    evt.preventDefault();
-    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.currentTarget.style.opacity = '1';
+  function dragLeaveSetOpacity(e) {
+     e.preventDefault();
+    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+       e.currentTarget.style.opacity = '1';
     }
   }
 
-  function dropSetOpacity(evt) {
-    evt.preventDefault();
-    if (evt.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-      evt.currentTarget.style.opacity = '1';
+  function dropSetOpacity(e) {
+     e.preventDefault();
+    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+       e.currentTarget.style.opacity = '1';
     }
   }
 
@@ -99,9 +99,9 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
     <li
       className={itemStyles.item_scroll}
       ref={allowDrag ? dragDropRef : dropRef}
-      onDragOver={(evt) => dragOverSetOpacity(evt)}
-      onDragLeave={(evt) => dragLeaveSetOpacity(evt)}
-      onDrop={(evt) => dropSetOpacity(evt)}
+      onDragOver={(e) => dragOverSetOpacity(e)}
+      onDragLeave={(e) => dragLeaveSetOpacity(e)}
+      onDrop={(e) => dropSetOpacity(e)}
       style={{
         cursor: allowDrag ? '' : 'default',
         transition: dragItemTransition,

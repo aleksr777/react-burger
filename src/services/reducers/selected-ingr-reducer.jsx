@@ -10,13 +10,13 @@ import {
   REMOVE_BUN,
 } from '../actions/selected-ingr-actions';
 
-const initialIngrState = {
+const defaultState = {
   totalPrice: 0,
   bun: noBunObj,
   ingredients: [],
 };
 
-const selectedIngrReducer = (state = initialIngrState, action) => {
+const selectedIngrReducer = (state = defaultState, action) => {
 
   let newArr = null;
   let newObj = null;
@@ -76,7 +76,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       };
       
     default:
-      return state;
+      return defaultState;
   };
 };
 

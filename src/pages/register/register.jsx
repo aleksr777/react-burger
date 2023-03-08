@@ -3,63 +3,102 @@ import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import FormLink from '../../components/form-link/form-link';
 import FormСontainer from '../../components/form-container/form-container';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { registerNewUser } from '../../services/actions/register-user-actions';
+import Preloader from '../../ui/preloader/preloader';
+
+const registerUserState = state => state.registerUser;
 
 const RegisterPage = () => {
 
+  const userState = useSelector(registerUserState);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const [valueName, setValueName] = useState('');
-  const onChangeName = evt => {
-    setValueName(evt.target.value)
-  }
 
   const [valueEmail, setValueEmail] = useState('');
-  const onChangeEmail = evt => {
-    setValueEmail(evt.target.value)
-  }
 
   const [valuePassword, setValuePassword] = useState('');
-  const onChangePassword = evt => {
-    setValuePassword(evt.target.value)
+
+  function goToLoginPage() {
+    navigate('/login')
+  };
+
+  useEffect(() => {
+    if (userState.success) {
+      return goToLoginPage()
+    }
+  }, [userState.success]);
+
+  const onChangeName = e => {
+    setValueName(e.target.value)
+  }
+
+  const onChangeEmail = e => {
+    setValueEmail(e.target.value)
+  }
+
+  const onChangePassword = e => {
+    setValuePassword(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(registerNewUser(valueName, valueEmail, valuePassword));
   }
 
   return (
+    <>
+      {userState.loadingState ? <Preloader /> : null}
 
-    <FormСontainer>
+      <FormСontainer>
 
-      <FormTitle text='Регистрация' />
+        <FormTitle text='Регистрация' />
 
-      <FormInput
-        inputType='default'
-        value={valueName}
-        name='registerName'
-        placeholder='Имя'
-        onChange={onChangeName}
-        icon={undefined}
-        onIconClick={undefined}
-      />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-      <FormInput
-        inputType='email'
-        onChange={onChangeEmail}
-        value={valueEmail}
-        name='registerEmail'
-        placeholder='E-mail'
-        isIcon={false}
-      />
+          <FormInput
+            inputType='default'
+            value={valueName}
+            name='registerName'
+            placeholder='Имя'
+            onChange={onChangeName}
+            icon={undefined}
+            onIconClick={undefined}
+          />
 
-      <FormInput
-        inputType='password'
-        onChange={onChangePassword}
-        value={valuePassword}
-        name='registerPassword'
-        placeholder='Пароль'
-        icon={undefined}
-      />
+          <FormInput
+            inputType='email'
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name='registerEmail'
+            placeholder='E-mail'
+            isIcon={false}
+          />
 
-      <FormButton text='Зарегистрироваться' />
-      <FormLink text='Уже зарегистрированы? ' linkPath='/login' linkText='Войти' />
+          <FormInput
+            inputType='password'
+            onChange={onChangePassword}
+            value={valuePassword}
+            name='registerPassword'
+            placeholder='Пароль'
+            icon={undefined}
+          />
 
-    </FormСontainer>
+          <FormButton text='Зарегистрироваться' />
+
+        </form>
+
+        <FormLink text='Уже зарегистрированы? ' linkPath='/login' linkText='Войти' />
+
+      </FormСontainer>
+
+    </>
   )
 };
 

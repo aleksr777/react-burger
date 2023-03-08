@@ -33,7 +33,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     };
 
     default:
-      return state;
+      return defaultState;
   };
 };
 

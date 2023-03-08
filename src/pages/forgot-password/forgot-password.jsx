@@ -3,35 +3,72 @@ import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import FormLink from '../../components/form-link/form-link';
 import FormСontainer from '../../components/form-container/form-container';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { resetEmailRequest } from '../../services/actions/reset-email-actions';
+import Preloader from '../../ui/preloader/preloader';
+
+
+const resetEmailState = state => state.resetEmail;
 
 const ForgotPasswordPage = () => {
 
+  const emailState = useSelector(resetEmailState);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const [valueEmail, setValueEmail] = useState('');
-  const onChangeEmail = evt => {
-    setValueEmail(evt.target.value)
+
+  function goToResetPasswordPage() {
+    navigate('/reset-password')
+  }
+
+  useEffect(() => {
+    if (emailState.success) {
+      return goToResetPasswordPage();
+    }
+  }, [emailState.success]);
+
+  const onChangeEmail = e => {
+    setValueEmail(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(resetEmailRequest(valueEmail));
   }
 
   return (
+    <>
+      {emailState.loadingState ? <Preloader /> : null}
 
-    <FormСontainer>
+      <FormСontainer>
 
-      <FormTitle text='Восстановление пароля' />
+        <FormTitle text='Восстановление пароля' />
 
-      <FormInput
-        inputType='email'
-        onChange={onChangeEmail}
-        value={valueEmail}
-        name='forgotEmail'
-        placeholder='Укажите e-mail'
-        isIcon={false}
-      />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-      <FormButton text='Восстановить' valueEmail={valueEmail} />
-      <FormLink text='Вспомнили пароль? ' linkPath='/login' linkText='Войти' />
+          <FormInput
+            inputType='email'
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name='forgotEmail'
+            placeholder='Укажите e-mail'
+            isIcon={false}
+          />
 
-    </FormСontainer >
+          <FormButton text='Восстановить' />
 
+        </form>
+
+        <FormLink text='Вспомнили пароль? ' linkPath='/login' linkText='Войти' />
+
+      </FormСontainer >
+
+    </>
   )
 };
 

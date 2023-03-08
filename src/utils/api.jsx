@@ -23,7 +23,20 @@ export const postOrder = async (apiConfig, arrId) => {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      'ingredients': arrId
+      "ingredients": arrId
+    })
+  })
+};
+
+//Отправка данных для регистрации
+export const postRegisterUserRequest = async (apiConfig, valueName, valueEmail, valuePassword) => {
+  return request(`${apiConfig.baseUrl}/api/auth/register`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      "email": valueEmail,
+      "password": valuePassword,
+      "name": valueName 
     })
   })
 };
@@ -34,7 +47,19 @@ export const postResetEmailRequest = async (apiConfig, valueEmail) => {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      'email': valueEmail
+      "email": valueEmail
+    })
+  })
+};
+
+//Отправка нового пароля и проверочного кода
+export const postResetPasswordRequest = async (apiConfig, valuePassword, valueCode) => {
+  return request(`${apiConfig.baseUrl}/api/password-reset/reset`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      "password": valuePassword,
+      "token": valueCode
     })
   })
 };
