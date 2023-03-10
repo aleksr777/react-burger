@@ -31,7 +31,7 @@ const registerUserReducer = (state = defaultState, action) => {
       return defaultState;
 
     default:
-      return defaultState;
+      return state;
   }
 };
 

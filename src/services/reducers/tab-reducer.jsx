@@ -13,7 +13,7 @@ const currentTabReducer = (state = defaultState, action) => {
         currentTab: action.payload.currentTab
       };
     default:
-      return defaultState;
+      return state;
   }
 };
 

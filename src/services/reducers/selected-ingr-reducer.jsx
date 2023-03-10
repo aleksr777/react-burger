@@ -10,24 +10,24 @@ import {
   REMOVE_BUN,
 } from '../actions/selected-ingr-actions';
 
-const defaultState = {
+const initialIngrState = {
   totalPrice: 0,
   bun: noBunObj,
   ingredients: [],
 };
 
-const selectedIngrReducer = (state = defaultState, action) => {
+const selectedIngrReducer = (state = initialIngrState, action) => {
 
   let newArr = null;
   let newObj = null;
 
   switch (action.type) {
 
-    case ADD_PRICE: 
-    return {
-      ...state,
-      totalPrice: state.totalPrice + action.payload.price
-    };
+    case ADD_PRICE:
+      return {
+        ...state,
+        totalPrice: state.totalPrice + action.payload.price
+      };
 
     case REDUCE_PRICE:
       return {
@@ -38,7 +38,6 @@ const selectedIngrReducer = (state = defaultState, action) => {
     case ADD_INGREDIENT:
       newObj = { ...action.payload.ingredientObj };
       newObj._uKey = uniqid.process();
-      newObj.component = 'BurgerConstructor';
       newArr = [...state.ingredients];
       newArr.splice(action.payload.toPosition, 0, newObj);
       return {
@@ -74,9 +73,9 @@ const selectedIngrReducer = (state = defaultState, action) => {
         ...state,
         bun: noBunObj,
       };
-      
+
     default:
-      return defaultState;
+      return state;
   };
 };
 
