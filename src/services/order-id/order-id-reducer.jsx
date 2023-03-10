@@ -3,7 +3,7 @@ import {
   GET_ORDER_ID_SUCCESS,
   GET_ORDER_ID_ERROR,
   REMOVE_ORDER_ID
-} from '../actions/order-id-actions';
+} from './order-id-actions';
 
 const defaultState = {
   loadingState: false,

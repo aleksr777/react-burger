@@ -1,6 +1,6 @@
 import { useEffect, useMemo, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/actions/ingredients-data-actions';
+import { getIngredients } from '../../services/ingredients-data/ingredients-data-actions';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';

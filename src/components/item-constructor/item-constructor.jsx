@@ -6,7 +6,7 @@ import {
   REDUCE_PRICE,
   REMOVE_INGREDIENT,
   SWAP_INGREDIENTS
-} from '../../services/actions/selected-ingr-actions';
+} from '../../services/selected-ingr/selected-ingr-actions';
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,

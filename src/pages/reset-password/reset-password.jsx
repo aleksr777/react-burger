@@ -6,7 +6,7 @@ import FormСontainer from '../../components/form-container/form-container';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { resetPasswordRequest } from '../../services/actions/reset-password-actions';
+import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Preloader from '../../ui/preloader/preloader';
 
 

@@ -6,7 +6,7 @@ import FormСontainer from '../../components/form-container/form-container';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { registerNewUser } from '../../services/actions/register-user-actions';
+import { registerNewUser } from '../../services/register-user/register-user-actions';
 import Preloader from '../../ui/preloader/preloader';
 
 const registerUserState = state => state.registerUser;

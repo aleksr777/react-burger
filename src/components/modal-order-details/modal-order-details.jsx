@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { REMOVE_ORDER_ID } from '../../services/actions/order-id-actions';
+import { REMOVE_ORDER_ID } from '../../services/order-id/order-id-actions';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 

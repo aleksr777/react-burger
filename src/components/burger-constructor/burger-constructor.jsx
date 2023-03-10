@@ -7,7 +7,7 @@ import {
   ADD_INGREDIENT,
   ADD_BUN,
   REMOVE_BUN,
-} from '../../services/actions/selected-ingr-actions';
+} from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';

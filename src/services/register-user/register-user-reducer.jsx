@@ -1,33 +1,33 @@
 import {
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR
-} from '../actions/reset-password-actions';
+  REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_ERROR
+} from './register-user-actions';
 
 const defaultState = {
   loadingState: false,
   success: false
 };
 
-const resetPasswordReducer = (state = defaultState, action) => {
+const registerUserReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case RESET_PASSWORD_REQUEST: {
+    case REGISTER_USER_REQUEST: {
       return {
         ...state,
         loadingState: true
       };
     };
 
-    case RESET_PASSWORD_SUCCESS:
+    case REGISTER_USER_SUCCESS:
       return {
         ...state,
         loadingState: false,
         success: true
       };
 
-    case RESET_PASSWORD_ERROR:
+    case REGISTER_USER_ERROR:
       return defaultState;
 
     default:
@@ -35,4 +35,4 @@ const resetPasswordReducer = (state = defaultState, action) => {
   }
 };
 
-export { resetPasswordReducer };
+export { registerUserReducer };

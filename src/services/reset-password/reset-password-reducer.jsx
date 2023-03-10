@@ -1,33 +1,33 @@
 import {
-  RESET_EMAIL_REQUEST,
-  RESET_EMAIL_SUCCESS,
-  RESET_EMAIL_ERROR
-} from '../actions/reset-email-actions';
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR
+} from './reset-password-actions';
 
 const defaultState = {
   loadingState: false,
   success: false
 };
 
-const resetEmailReducer = (state = defaultState, action) => {
-  
+const resetPasswordReducer = (state = defaultState, action) => {
+
   switch (action.type) {
 
-    case RESET_EMAIL_REQUEST: {
+    case RESET_PASSWORD_REQUEST: {
       return {
         ...state,
         loadingState: true
       };
     };
 
-    case RESET_EMAIL_SUCCESS:
+    case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         loadingState: false,
         success: true
       };
 
-    case RESET_EMAIL_ERROR:
+    case RESET_PASSWORD_ERROR:
       return defaultState;
 
     default:
@@ -35,4 +35,4 @@ const resetEmailReducer = (state = defaultState, action) => {
   }
 };
 
-export { resetEmailReducer };
+export { resetPasswordReducer };

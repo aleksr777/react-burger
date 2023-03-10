@@ -6,7 +6,7 @@ import FormСontainer from '../../components/form-container/form-container';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { resetEmailRequest } from '../../services/actions/reset-email-actions';
+import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
 import Preloader from '../../ui/preloader/preloader';
 
 

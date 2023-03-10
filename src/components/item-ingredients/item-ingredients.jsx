@@ -3,7 +3,7 @@ import burgerConstructorStyles from '../burger-constructor/burger-constructor.mo
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
-import { SET_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
+import { SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
 import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 

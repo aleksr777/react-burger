@@ -4,7 +4,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/actions/ingredients-data-actions';
+import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/ingredients-data/ingredients-data-actions';
 import Preloader from '../../ui/preloader/preloader';
 
 const getIngredientsDataState = state => state.ingredientsData;

@@ -1,33 +1,33 @@
 import {
-  REGISTER_USER_REQUEST,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR
-} from '../actions/register-user-actions';
+  RESET_EMAIL_REQUEST,
+  RESET_EMAIL_SUCCESS,
+  RESET_EMAIL_ERROR
+} from './reset-email-actions';
 
 const defaultState = {
   loadingState: false,
   success: false
 };
 
-const registerUserReducer = (state = defaultState, action) => {
-
+const resetEmailReducer = (state = defaultState, action) => {
+  
   switch (action.type) {
 
-    case REGISTER_USER_REQUEST: {
+    case RESET_EMAIL_REQUEST: {
       return {
         ...state,
         loadingState: true
       };
     };
 
-    case REGISTER_USER_SUCCESS:
+    case RESET_EMAIL_SUCCESS:
       return {
         ...state,
         loadingState: false,
         success: true
       };
 
-    case REGISTER_USER_ERROR:
+    case RESET_EMAIL_ERROR:
       return defaultState;
 
     default:
@@ -35,4 +35,4 @@ const registerUserReducer = (state = defaultState, action) => {
   }
 };
 
-export { registerUserReducer };
+export { resetEmailReducer };

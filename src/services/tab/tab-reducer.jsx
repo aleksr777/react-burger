@@ -1,6 +1,6 @@
 import {
   SET_CURRENT_TAB,
-} from '../actions/tab-actions';
+} from './tab-actions';
 
 const defaultState = {
   currentTab: 'buns'

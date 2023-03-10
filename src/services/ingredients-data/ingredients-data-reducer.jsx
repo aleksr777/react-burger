@@ -2,7 +2,7 @@ import {
   GET_DATA_INGREDIENTS_ERROR,
   GET_DATA_INGREDIENTS_REQUEST,
   GET_DATA_INGREDIENTS_SUCCESS,
-} from '../actions/ingredients-data-actions';
+} from './ingredients-data-actions';
 
 const defaultState = {
   loadingState: false,

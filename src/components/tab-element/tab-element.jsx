@@ -1,6 +1,6 @@
 import { Link } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
-import { SET_CURRENT_TAB } from '../../services/actions/tab-actions';
+import { SET_CURRENT_TAB } from '../../services/tab/tab-actions';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 

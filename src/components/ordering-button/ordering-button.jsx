@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderId } from '../../services/actions/order-id-actions';
+import { getOrderId } from '../../services/order-id/order-id-actions';
 import Preloader from '../../ui/preloader/preloader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 

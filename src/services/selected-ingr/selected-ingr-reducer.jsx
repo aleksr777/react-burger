@@ -8,7 +8,7 @@ import {
   SWAP_INGREDIENTS,
   ADD_BUN,
   REMOVE_BUN,
-} from '../actions/selected-ingr-actions';
+} from './selected-ingr-actions';
 
 const initialIngrState = {
   totalPrice: 0,

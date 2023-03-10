@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/reducers/root-reducer';
+import { rootReducer } from './services/root-reducer';
 
 const store = configureStore({
   reducer: rootReducer,

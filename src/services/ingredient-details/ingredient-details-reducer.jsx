@@ -1,7 +1,7 @@
 import {
   SET_INGREDIENT_DETAILS,
   REMOVE_INGREDIENT_DETAILS
-} from '../actions/ingredient-details-actions';
+} from './ingredient-details-actions';
 
 const defaultState = {
   ingredient: null
