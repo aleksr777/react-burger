@@ -4,7 +4,7 @@ import FormLink from '../../components/form-link/form-link';
 import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
 import { useState } from 'react';
-import Preloader from '../../ui/preloader/preloader';
+import Preloader from '../../components/preloader/preloader';
 
 
 const LoginPage = () => {

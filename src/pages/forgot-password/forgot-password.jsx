@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
-import Preloader from '../../ui/preloader/preloader';
+import Preloader from '../../components/preloader/preloader';
 
 
 const resetEmailState = state => state.resetEmail;

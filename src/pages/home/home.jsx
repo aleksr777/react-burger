@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/ingredients-data/ingredients-data-actions';
-import Preloader from '../../ui/preloader/preloader';
+import Preloader from '../../components/preloader/preloader';
 
 const getIngredientsDataState = state => state.ingredientsData;
 

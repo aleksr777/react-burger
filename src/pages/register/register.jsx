@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from '../../services/register-user/register-user-actions';
-import Preloader from '../../ui/preloader/preloader';
+import Preloader from '../../components/preloader/preloader';
 
 const registerUserState = state => state.registerUser;
 
