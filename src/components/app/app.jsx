@@ -1,4 +1,5 @@
 import appStyles from './app.module.css';
+import AppMain from '../app-main/app-main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import {
@@ -20,7 +21,7 @@ const App = () => {
 
       <AppHeader />
 
-      <main className={appStyles.main}>
+      <AppMain>
 
         <BrowserRouter>
           <Routes>
@@ -35,7 +36,7 @@ const App = () => {
           </Routes>
         </BrowserRouter >
 
-      </main>
+      </AppMain>
 
     </div >
 

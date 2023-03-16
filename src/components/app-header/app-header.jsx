@@ -1,4 +1,4 @@
-import headerStyles from './app-header.module.css';
+import appHeaderStyles from './app-header.module.css';
 import NavLink from '../nav-link/nav-link';
 import {
   Logo,
@@ -9,9 +9,9 @@ import {
 
 const AppHeader = () => {
   return (
-    <header className={headerStyles.header}>
-      <nav className={headerStyles.nav}>
-        <div className={headerStyles.nav__box}>
+    <header className={appHeaderStyles.header}>
+      <nav className={appHeaderStyles.nav}>
+        <div className={appHeaderStyles.nav__box}>
           <NavLink navText="Конструктор"><BurgerIcon type="primary" /></NavLink>
           <NavLink navText="Лента заказов"><ListIcon type="primary" /></NavLink>
           <Logo />
