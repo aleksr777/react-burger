@@ -1,6 +1,7 @@
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormLink from '../../components/form-link/form-link';
+import FormText from '../../components/form-text/form-text';
 import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
 import { useState } from 'react';
@@ -49,8 +50,14 @@ const LoginPage = () => {
         />
 
         <FormButton text='Войти' />
-        <FormLink text='Вы — новый пользователь? ' linkPath='/register' linkText='Зарегистрироваться' />
-        <FormLink text='Забыли пароль? ' linkPath='/forgot-password' linkText='Восстановить пароль' />
+
+        <FormText>
+          Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
+        </FormText>
+
+        <FormText>
+          Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
+        </FormText>
 
       </FormСontainer>
 
