@@ -7,4 +7,7 @@ const FormText = ({ children }) => {
   )
 }
 
-export default memo(FormText);
+export default memo(FormText, (prevProps, nextProps) => {
+  if (nextProps.children[0] !== prevProps.children[0] && nextProps.children[1] !== prevProps.children[1]) { return false }
+  else { return true }
+});
