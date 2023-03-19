@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppHeader from '../../components/app-header/app-header';
+import AppMainBlock from '../../components/app-main/app-main';
 
 
 const resetEmailState = state => state.resetEmail;
@@ -43,33 +45,41 @@ const ForgotPasswordPage = () => {
   }
 
   return (
+
     <>
-      {emailState.loadingState ? <Preloader /> : null}
 
-      <FormСontainer>
+      <AppHeader />
 
-        <FormTitle text='Восстановление пароля' />
+      <AppMainBlock>
 
-        <form onSubmit={handleSubmit} autoComplete='off'>
+        {emailState.loadingState ? <Preloader /> : null}
 
-          <FormInput
-            inputType='email'
-            onChange={onChangeEmail}
-            value={valueEmail}
-            name='forgotEmail'
-            placeholder='Укажите e-mail'
-            isIcon={false}
-          />
+        <FormСontainer>
 
-          <FormButton text='Восстановить' />
+          <FormTitle text='Восстановление пароля' />
 
-        </form>
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-        <FormText>
-          Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-        </FormText>
+            <FormInput
+              inputType='email'
+              onChange={onChangeEmail}
+              value={valueEmail}
+              name='forgotEmail'
+              placeholder='Укажите e-mail'
+              isIcon={false}
+            />
 
-      </FormСontainer >
+            <FormButton text='Восстановить' />
+
+          </form>
+
+          <FormText>
+            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
+
+        </FormСontainer >
+
+      </AppMainBlock>
 
     </>
   )

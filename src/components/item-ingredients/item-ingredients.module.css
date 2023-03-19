@@ -10,7 +10,11 @@
   /* логичнее использовать gap, но по заданию использую систему отступов */
 }
 
-.item:hover {
+.item * {
+  transition: all .3s ease 0s;
+}
+
+.item:hover * {
   opacity: 0.8;
 }
 

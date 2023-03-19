@@ -1,7 +1,5 @@
 import appStyles from './app.module.css';
-import AppMain from '../app-main/app-main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AppHeader from '../app-header/app-header';
 import {
   NotFound404,
   HomePage,
@@ -19,10 +17,6 @@ const App = () => {
 
     <div className={appStyles.app}>
 
-      <AppHeader />
-
-      <AppMain>
-
         <BrowserRouter>
           <Routes>
             <Route path="*" element={<NotFound404 />} />
@@ -35,8 +29,6 @@ const App = () => {
             <Route path="/ingredients/:id" element={<IngredientPage />} />
           </Routes>
         </BrowserRouter >
-
-      </AppMain>
 
     </div >
 

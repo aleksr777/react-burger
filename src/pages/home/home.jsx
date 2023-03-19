@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/ingredients-data/ingredients-data-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppHeader from '../../components/app-header/app-header';
+import AppMainBlock from '../../components/app-main/app-main';
 
 const getIngredientsDataState = state => state.ingredientsData;
 
@@ -22,15 +24,24 @@ const HomePage = () => {
   useEffect(() => { startLoading() }, []);
 
   return (
+
     <>
-      {loadingState
-        ? <Preloader />
-        : (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        )}
+
+      <AppHeader />
+
+      <AppMainBlock>
+
+        {loadingState
+          ? <Preloader />
+          : (
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
+          )}
+
+      </AppMainBlock>
+
     </>
   )
 };

@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from '../../services/register-user/register-user-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppHeader from '../../components/app-header/app-header';
+import AppMainBlock from '../../components/app-main/app-main';
 
 const registerUserState = state => state.registerUser;
 
@@ -54,52 +56,60 @@ const RegisterPage = () => {
   }
 
   return (
+
     <>
-      {userState.loadingState ? <Preloader /> : null}
 
-      <FormСontainer>
+      <AppHeader />
 
-        <FormTitle text='Регистрация' />
+      <AppMainBlock>
 
-        <form onSubmit={handleSubmit} autoComplete='off'>
+        {userState.loadingState ? <Preloader /> : null}
 
-          <FormInput
-            inputType='default'
-            value={valueName}
-            name='registerName'
-            placeholder='Имя'
-            onChange={onChangeName}
-            icon={undefined}
-            onIconClick={undefined}
-          />
+        <FormСontainer>
 
-          <FormInput
-            inputType='email'
-            onChange={onChangeEmail}
-            value={valueEmail}
-            name='registerEmail'
-            placeholder='E-mail'
-            isIcon={false}
-          />
+          <FormTitle text='Регистрация' />
 
-          <FormInput
-            inputType='password'
-            onChange={onChangePassword}
-            value={valuePassword}
-            name='registerPassword'
-            placeholder='Пароль'
-            icon={undefined}
-          />
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-          <FormButton text='Зарегистрироваться' />
+            <FormInput
+              inputType='default'
+              value={valueName}
+              name='registerName'
+              placeholder='Имя'
+              onChange={onChangeName}
+              icon={undefined}
+              onIconClick={undefined}
+            />
 
-        </form>
+            <FormInput
+              inputType='email'
+              onChange={onChangeEmail}
+              value={valueEmail}
+              name='registerEmail'
+              placeholder='E-mail'
+              isIcon={false}
+            />
 
-        <FormText>
-          Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
-        </FormText>
+            <FormInput
+              inputType='password'
+              onChange={onChangePassword}
+              value={valuePassword}
+              name='registerPassword'
+              placeholder='Пароль'
+              icon={undefined}
+            />
 
-      </FormСontainer>
+            <FormButton text='Зарегистрироваться' />
+
+          </form>
+
+          <FormText>
+            Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
+
+        </FormСontainer>
+
+      </AppMainBlock>
 
     </>
   )

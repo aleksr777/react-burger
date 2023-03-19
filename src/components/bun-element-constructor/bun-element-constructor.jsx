@@ -20,7 +20,7 @@ function BunElementConstructor({ type, positionText }) {
     positionTxt = positionText;
   }
   else {
-    nameTxt = 'Выберите булку';
+    nameTxt = 'Выберите и перенесите сюда булку ';
     positionTxt = '';
   }
 

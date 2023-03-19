@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppHeader from '../../components/app-header/app-header';
+import AppMainBlock from '../../components/app-main/app-main';
 
 
 const resetPasswordState = state => state.resetPassword;
@@ -50,43 +52,51 @@ const ResetPasswordPage = () => {
   }
 
   return (
+
     <>
-      {passwordState.loadingState ? <Preloader /> : null}
 
-      <FormСontainer>
+      <AppHeader />
 
-        <FormTitle text='Восстановление пароля' />
+      <AppMainBlock>
 
-        <form onSubmit={handleSubmit} autoComplete='off'>
+        {passwordState.loadingState ? <Preloader /> : null}
 
-          <FormInput
-            inputType='password'
-            onChange={onChangePassword}
-            value={valuePassword}
-            name='resetPassword'
-            placeholder='Введите новый пароль'
-            icon={undefined}
-          />
+        <FormСontainer>
 
-          <FormInput
-            inputType='default'
-            value={valueCode}
-            name='resetCodeEmail'
-            placeholder='Введите код из письма'
-            onChange={onChangeCode}
-            icon={undefined}
-            onIconClick={undefined}
-          />
+          <FormTitle text='Восстановление пароля' />
 
-          <FormButton text='Сохранить' />
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-        </form>
+            <FormInput
+              inputType='password'
+              onChange={onChangePassword}
+              value={valuePassword}
+              name='resetPassword'
+              placeholder='Введите новый пароль'
+              icon={undefined}
+            />
 
-        <FormText>
-          Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-        </FormText>
+            <FormInput
+              inputType='default'
+              value={valueCode}
+              name='resetCodeEmail'
+              placeholder='Введите код из письма'
+              onChange={onChangeCode}
+              icon={undefined}
+              onIconClick={undefined}
+            />
 
-      </FormСontainer >
+            <FormButton text='Сохранить' />
+
+          </form>
+
+          <FormText>
+            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
+
+        </FormСontainer >
+
+      </AppMainBlock>
 
     </>
   )

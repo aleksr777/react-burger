@@ -6,6 +6,8 @@ import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
 import { useState } from 'react';
 import Preloader from '../../components/preloader/preloader';
+import AppHeader from '../../components/app-header/app-header';
+import AppMainBlock from '../../components/app-main/app-main';
 
 
 const LoginPage = () => {
@@ -24,42 +26,50 @@ const LoginPage = () => {
   }
 
   return (
+
     <>
-      {/* {loadingState ? <Preloader /> : null} */}
 
-      <FormСontainer>
+      <AppHeader />
 
-        <FormTitle text='Вход' />
+      <AppMainBlock>
 
-        <FormInput
-          inputType='email'
-          onChange={onChangeEmail}
-          value={valueEmail}
-          name='loginEmail'
-          placeholder='E-mail'
-          isIcon={false}
-        />
+        {/* {loadingState ? <Preloader /> : null} */}
 
-        <FormInput
-          inputType='password'
-          onChange={onChangePassword}
-          value={valuePassword}
-          name='loginPassword'
-          placeholder='Пароль'
-          icon={undefined}
-        />
+        <FormСontainer>
 
-        <FormButton text='Войти' />
+          <FormTitle text='Вход' />
 
-        <FormText>
-          Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
-        </FormText>
+          <FormInput
+            inputType='email'
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name='loginEmail'
+            placeholder='E-mail'
+            isIcon={false}
+          />
 
-        <FormText>
-          Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
-        </FormText>
+          <FormInput
+            inputType='password'
+            onChange={onChangePassword}
+            value={valuePassword}
+            name='loginPassword'
+            placeholder='Пароль'
+            icon={undefined}
+          />
 
-      </FormСontainer>
+          <FormButton text='Войти' />
+
+          <FormText>
+            Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
+          </FormText>
+
+          <FormText>
+            Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
+          </FormText>
+
+        </FormСontainer>
+
+      </AppMainBlock>
 
     </>
   )

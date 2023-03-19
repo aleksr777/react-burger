@@ -2,6 +2,9 @@
   border: none;
   outline: none;
   margin: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
   flex: 0 0 auto;
   max-width: 600px;
