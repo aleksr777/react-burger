@@ -15,6 +15,16 @@
   opacity: .8;
 }
 
+.link:last-of-type {
+  margin-right: 5px;
+}
+
+.link_active {
+  cursor: default;
+  pointer-events: none;
+  color: #BDBDFF;
+}
+
 .text {
   box-sizing: border-box;
   overflow: hidden;
@@ -24,8 +34,4 @@
   padding-top: 0;
   padding-bottom: 0;
   composes: text text_type_main-default pl-2 from global;
-}
-
-.link:last-of-type {
-  margin-right: 5px;
 }

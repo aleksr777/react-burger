@@ -14,10 +14,10 @@ const AppHeader = () => {
       <nav className={appHeaderStyles.nav}>
         <div className={appHeaderStyles.nav__box}>
           <HeaderLink navText='Конструктор' path='/'><BurgerIcon type='primary' /></HeaderLink>
-          <HeaderLink navText='Лента заказов' path='/'><ListIcon type='primary' /></HeaderLink>
+          <HeaderLink navText='Лента заказов' path='/feed'><ListIcon type='primary' /></HeaderLink>
           <HeaderLogo />
         </div>
-        <HeaderLink navText='Личный кабинет' path='/login'><ProfileIcon type='primary' /></HeaderLink>
+        <HeaderLink navText='Личный кабинет' path='/profile'><ProfileIcon type='primary' /></HeaderLink>
       </nav>
     </header >
   );

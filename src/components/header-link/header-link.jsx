@@ -5,8 +5,13 @@ import { memo } from 'react';
 
 
 const HeaderLink = ({ children, navText, path }) => {
+
+  const setActive = ({ isActive }) => isActive
+    ? `${headerLinkStyles.link} ${headerLinkStyles.link_active}`
+    : headerLinkStyles.link;
+
   return (
-    <NavLink className={headerLinkStyles.link} to={path}>
+    <NavLink className={setActive} to={path}>
       {children}
       <p className={headerLinkStyles.text}>{navText}</p>
     </NavLink>

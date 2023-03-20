@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-  NotFound404,
+  NotFoundPage,
   HomePage,
+  FeedPage,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
@@ -16,7 +17,7 @@ const App = () => {
 
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<NotFound404 />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/feed" element={<FeedPage />} />
       </Routes>
     </BrowserRouter >
 

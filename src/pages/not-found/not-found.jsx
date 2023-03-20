@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ImgPath from '../../images/ban.svg';
 
 
-const NotFound404 = () => {
+const NotFoundPage = () => {
 
   return (
     <div className={notFoundStyles.container}>
@@ -23,4 +23,4 @@ const NotFound404 = () => {
   );
 };
 
-export { NotFound404 };
+export default NotFoundPage;
