@@ -10,7 +10,8 @@ const FormText = ({ children }) => {
 
 export default memo(FormText, (prevProps, nextProps) => {
   /* Отключаем перерендер компонента */
-  if (nextProps.children !== prevProps.children) { return false }
+  if (nextProps.children[0] !== prevProps.children[0]
+    && nextProps.children[1] !== prevProps.children[1]) { return false }
   else { return true }
 });
 
