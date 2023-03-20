@@ -1,4 +1,5 @@
 import formTextStyles from './form-text.module.css';
+import PropTypes from 'prop-types';
 import { memo } from 'react';
 
 const FormText = ({ children }) => {
@@ -8,6 +9,11 @@ const FormText = ({ children }) => {
 }
 
 export default memo(FormText, (prevProps, nextProps) => {
-  if (nextProps.children[0] !== prevProps.children[0] && nextProps.children[1] !== prevProps.children[1]) { return false }
+  /* Отключаем перерендер компонента */
+  if (nextProps.children !== prevProps.children) { return false }
   else { return true }
 });
+
+FormText.propTypes = {
+  children: PropTypes.node.isRequired
+};

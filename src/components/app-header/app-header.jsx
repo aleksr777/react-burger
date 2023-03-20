@@ -1,7 +1,7 @@
 import appHeaderStyles from './app-header.module.css';
 import HeaderLink from '../header-link/header-link';
+import HeaderLogo from '../header-logo/header-logo';
 import {
-  Logo,
   BurgerIcon,
   ListIcon,
   ProfileIcon
@@ -14,11 +14,11 @@ const AppHeader = () => {
         <div className={appHeaderStyles.nav__box}>
           <HeaderLink navText='Конструктор' path='/'><BurgerIcon type='primary' /></HeaderLink>
           <HeaderLink navText='Лента заказов' path='/'><ListIcon type='primary' /></HeaderLink>
-          <Logo />
+          <HeaderLogo />
         </div>
         <HeaderLink navText='Личный кабинет' path='/login'><ProfileIcon type='primary' /></HeaderLink>
       </nav>
-    </header>
+    </header >
   );
 };
 
