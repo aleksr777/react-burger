@@ -6,6 +6,7 @@ import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
 import { useState } from 'react';
 import Preloader from '../../components/preloader/preloader';
+import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
@@ -27,7 +28,7 @@ const LoginPage = () => {
 
   return (
 
-    <>
+    <AppPage>
 
       <AppHeader />
 
@@ -71,7 +72,7 @@ const LoginPage = () => {
 
       </AppMainBlock>
 
-    </>
+    </AppPage>
   )
 }
 

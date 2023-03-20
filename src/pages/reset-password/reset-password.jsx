@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
@@ -53,7 +54,7 @@ const ResetPasswordPage = () => {
 
   return (
 
-    <>
+    <AppPage>
 
       <AppHeader />
 
@@ -98,7 +99,7 @@ const ResetPasswordPage = () => {
 
       </AppMainBlock>
 
-    </>
+    </AppPage>
   )
 };
 

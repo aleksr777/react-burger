@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/ingredients-data/ingredients-data-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
@@ -25,7 +26,7 @@ const HomePage = () => {
 
   return (
 
-    <>
+    <AppPage>
 
       <AppHeader />
 
@@ -42,7 +43,7 @@ const HomePage = () => {
 
       </AppMainBlock>
 
-    </>
+    </AppPage>
   )
 };
 

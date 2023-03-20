@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
 import Preloader from '../../components/preloader/preloader';
+import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
@@ -46,7 +47,7 @@ const ForgotPasswordPage = () => {
 
   return (
 
-    <>
+    <AppPage>
 
       <AppHeader />
 
@@ -81,7 +82,7 @@ const ForgotPasswordPage = () => {
 
       </AppMainBlock>
 
-    </>
+    </AppPage>
   )
 };
 
