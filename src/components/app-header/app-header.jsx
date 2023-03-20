@@ -1,4 +1,5 @@
 import appHeaderStyles from './app-header.module.css';
+import { memo } from 'react';
 import HeaderLink from '../header-link/header-link';
 import HeaderLogo from '../header-logo/header-logo';
 import {
@@ -22,4 +23,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default memo(AppHeader);
