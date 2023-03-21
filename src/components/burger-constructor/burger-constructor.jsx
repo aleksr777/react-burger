@@ -51,7 +51,7 @@ const BurgerConstructor = () => {
     }
     /* проверяем является ли инредиент новым по uKey 
     (иначе создаётся новый элемент при перетаскивании в selectedIngredients) */
-    else if (item.component === 'BurgerIngredients') {
+    else if (item.locationDnd === 'BurgerIngredients') {
       addIngredient(item, 0);
     }
   };

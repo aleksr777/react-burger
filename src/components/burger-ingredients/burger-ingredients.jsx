@@ -23,7 +23,7 @@ const BurgerIngredients = () => {
   function addLocationInfo(data) {
     const arr = [...data];
     for (let i = 0; i < arr.length; i += 1) {
-      arr[i] = { ...arr[i], component: 'BurgerIngredients' };
+      arr[i] = { ...arr[i], locationDnd: 'BurgerIngredients' };
     };
     return arr
   };
