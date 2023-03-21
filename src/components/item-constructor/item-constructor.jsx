@@ -70,24 +70,24 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
 
 
   function dragOverSetOpacity(e) {
-     e.preventDefault();
+    e.preventDefault();
     /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
-    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-       e.currentTarget.style.opacity = '.6';
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      e.currentTarget.style.opacity = '.6';
     }
   }
 
   function dragLeaveSetOpacity(e) {
-     e.preventDefault();
-    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-       e.currentTarget.style.opacity = '1';
+    e.preventDefault();
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      e.currentTarget.style.opacity = '1';
     }
   }
 
   function dropSetOpacity(e) {
-     e.preventDefault();
-    if ( e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
-       e.currentTarget.style.opacity = '1';
+    e.preventDefault();
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.component === 'BurgerConstructor') {
+      e.currentTarget.style.opacity = '1';
     }
   }
 

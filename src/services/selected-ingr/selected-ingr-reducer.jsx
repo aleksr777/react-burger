@@ -38,6 +38,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
     case ADD_INGREDIENT:
       newObj = { ...action.payload.ingredientObj };
       newObj._uKey = uniqid.process();
+      newObj.component = 'BurgerConstructor';
       newArr = [...state.ingredients];
       newArr.splice(action.payload.toPosition, 0, newObj);
       return {

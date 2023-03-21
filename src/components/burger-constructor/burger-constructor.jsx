@@ -26,10 +26,12 @@ const BurgerConstructor = () => {
     dispatch({ type: ADD_BUN, payload: { bunObj: item } });
     dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
   }
+
   function removeBun({ price }) {
     dispatch({ type: REMOVE_BUN, payload: {} });
     dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
   }
+
   function addIngredient(item, toPosition) {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
     dispatch({ type: ADD_PRICE, payload: { price: item.price } });
@@ -37,8 +39,6 @@ const BurgerConstructor = () => {
 
   // Добавление новой булки и ингредиента с добавлением цены в общую стоимость
   const dropHandler = (item, selectedBun) => {
-    /* burgerConstructorSelector.style.opacity = '';
-    burgerConstructorSelector.style.outline = ''; */
     if (item.type === 'bun') {
       if (!selectedBun._id) {
         addBun(item)
