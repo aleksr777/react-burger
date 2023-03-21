@@ -11,7 +11,7 @@ const HeaderLink = ({ children, navText, path }) => {
     : headerLinkStyles.link;
 
   return (
-    <NavLink className={setActive} to={path}>
+    <NavLink className={setActive} to={path} draggable='false'>
       {children}
       <p className={headerLinkStyles.text}>{navText}</p>
     </NavLink>

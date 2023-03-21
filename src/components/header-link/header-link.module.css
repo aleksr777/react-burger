@@ -7,8 +7,8 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  composes: p-5 mr-2 from global;
   transition: all .3s ease 0s;
+  composes: p-5 mr-2 from global;
 }
 
 .link:hover {
@@ -22,7 +22,6 @@
 .link_active {
   cursor: default;
   pointer-events: none;
-  color: #BDBDFF;
 }
 
 .text {
