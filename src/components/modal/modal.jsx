@@ -7,7 +7,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components/di
 
 const modalRootElement = document.getElementById('react-modals');
 
-const Modal = ({ handleCloseModal, children }) => {
+const Modal = ({ handleCloseModal, isModalOpened, children }) => {
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -23,13 +23,17 @@ const Modal = ({ handleCloseModal, children }) => {
 
   return ReactDOM.createPortal(
     <div>
-      <ModalOverlay handleCloseModal={handleCloseModal} />
-      <div className={modalStyles.modal}>
-        <div className={modalStyles.button} >
-          <CloseIcon type="primary" onClick={handleCloseModal} />
-        </div>
-        {children}
-      </div>
+      {isModalOpened
+        ? (<>
+          <ModalOverlay handleCloseModal={handleCloseModal} />
+          <div className={modalStyles.modal}>
+            <div className={modalStyles.button} >
+              <CloseIcon type="primary" onClick={handleCloseModal} />
+            </div>
+            {children}
+          </div>
+        </>)
+        : null}
     </div>,
     modalRootElement
   );

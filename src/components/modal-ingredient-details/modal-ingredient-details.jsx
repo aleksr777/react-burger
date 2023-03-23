@@ -4,26 +4,22 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
 
-const getIngredientDetailsState = state => state.ingredientDetails.ingredient;
+const getIngredientDetailsState = state => state.ingredientDetails;
 
 const ModalIngredientDetails = () => {
 
   const dispatch = useDispatch();
 
-  const currentIngredient = useSelector(getIngredientDetailsState);
+  const { ingredient, isModalOpened } = useSelector(getIngredientDetailsState);
 
   const handleCloseModal = () => {
     dispatch({ type: REMOVE_INGREDIENT_DETAILS, payload: {} });
   };
 
   return (
-    <>
-      {
-        currentIngredient
-          ? (<Modal handleCloseModal={handleCloseModal}><IngredientDetails ingredient={currentIngredient} /></Modal>)
-          : null
-      }
-    </>
+    <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
+      <IngredientDetails ingredient={ingredient} />
+    </Modal>
   )
 };
 

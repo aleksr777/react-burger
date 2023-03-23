@@ -4,26 +4,22 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 
 
-const getOrderIdState = state => state.orderId.id;
+const getOrderIdState = state => state.orderId;
 
 const ModalOrderDetails = () => {
 
   const dispatch = useDispatch();
 
-  const orderId = useSelector(getOrderIdState);
+  const { id, isModalOpened } = useSelector(getOrderIdState);
 
   const handleCloseModal = () => {
     dispatch({ type: REMOVE_ORDER_ID, payload: {} });
   };
 
   return (
-    <>
-      {
-        orderId
-          ? (<Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderId)} /></Modal>)
-          : null
-      }
-    </>
+    <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
+      <OrderDetails orderId={String(id)} />
+    </Modal>
   )
 };
 
