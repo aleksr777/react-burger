@@ -21,27 +21,27 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
     };
   }, [handleCloseModal]);
 
+  if (!isModalOpened) {
+    return null
+  }
+
   return ReactDOM.createPortal(
     <div>
-      {isModalOpened
-        ? (<>
-          <ModalOverlay handleCloseModal={handleCloseModal} />
-          <div className={modalStyles.modal}>
-            <div className={modalStyles.button} >
-              <CloseIcon type="primary" onClick={handleCloseModal} />
-            </div>
-            {children}
-          </div>
-        </>)
-        : null}
+      <ModalOverlay handleCloseModal={handleCloseModal} />
+      <div className={modalStyles.modal}>
+        <div className={modalStyles.button} >
+          <CloseIcon type="primary" onClick={handleCloseModal} />
+        </div>
+        {children}
+      </div>
     </div>,
     modalRootElement
   );
 };
 
-Modal.propTypes = {
+/* Modal.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
-};
+}; */
 
 export default Modal; 

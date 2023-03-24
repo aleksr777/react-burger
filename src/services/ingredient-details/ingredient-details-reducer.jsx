@@ -4,8 +4,7 @@ import {
 } from './ingredient-details-actions';
 
 const defaultState = {
-  ingredient: null,
-  isModalOpened: false,
+  ingredient: null
 };
 
 const ingredientDetailsReducer = (state = defaultState, action) => {
@@ -14,14 +13,14 @@ const ingredientDetailsReducer = (state = defaultState, action) => {
 
     case SET_INGREDIENT_DETAILS:
       return {
-        ingredient: action.payload.ingredient,
-        isModalOpened: true,
+        ...state,
+        ingredient: action.payload.ingredient
       };
 
     case REMOVE_INGREDIENT_DETAILS:
       return {
-        ingredient: null,
-        isModalOpened: false,
+        ...state,
+        ingredient: null
       };
 
     default:

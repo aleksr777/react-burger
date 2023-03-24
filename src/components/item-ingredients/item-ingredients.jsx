@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
+import { OPEN_MODAL } from '../../services/modal/modal-actions';
 import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -23,6 +24,7 @@ const ItemIngredients = ({ children, ingredient }) => {
   });
 
   const handleOpenModal = (ingredient) => {
+    dispatch({ type: OPEN_MODAL, payload: {} });
     dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
   };
 
@@ -69,7 +71,7 @@ const ItemIngredients = ({ children, ingredient }) => {
   )
 };
 
-ItemIngredients.propTypes = {
+/* ItemIngredients.propTypes = {
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
@@ -84,6 +86,6 @@ ItemIngredients.propTypes = {
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired
-};
+}; */
 
 export default memo(ItemIngredients);

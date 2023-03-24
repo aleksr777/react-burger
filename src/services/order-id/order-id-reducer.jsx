@@ -8,7 +8,6 @@ import {
 const defaultState = {
   loadingState: false,
   id: null,
-  isModalOpened: false,
 };
 
 const orderIdReducer = (state = defaultState, action) => {
@@ -27,7 +26,6 @@ const orderIdReducer = (state = defaultState, action) => {
         ...state,
         loadingState: false,
         id: action.payload.id,
-        isModalOpened: true,
       };
 
     case GET_ORDER_ID_ERROR:
@@ -36,8 +34,8 @@ const orderIdReducer = (state = defaultState, action) => {
     case REMOVE_ORDER_ID:
       return {
         ...state,
+        loadingState: false,
         id: null,
-        isModalOpened: false,
       };
 
     default:

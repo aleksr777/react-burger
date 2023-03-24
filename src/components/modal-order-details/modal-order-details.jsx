@@ -5,19 +5,21 @@ import Modal from '../modal/modal';
 
 
 const getOrderIdState = state => state.orderId;
+const getModalReducerState = state => state.modal;
 
 const ModalOrderDetails = () => {
 
   const dispatch = useDispatch();
 
-  const { id, isModalOpened } = useSelector(getOrderIdState);
+  const { id } = useSelector(getOrderIdState);
+  const { isOpened } = useSelector(getModalReducerState);
 
   const handleCloseModal = () => {
     dispatch({ type: REMOVE_ORDER_ID, payload: {} });
   };
 
   return (
-    <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
+    <Modal handleCloseModal={handleCloseModal} isOpened={isOpened}>
       <OrderDetails orderId={String(id)} />
     </Modal>
   )
