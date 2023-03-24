@@ -24,8 +24,8 @@ const ItemIngredients = ({ children, ingredient }) => {
   });
 
   const handleOpenModal = (ingredient) => {
-    dispatch({ type: OPEN_MODAL, payload: {} });
     dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
+    dispatch({ type: OPEN_MODAL, payload: {} });
   };
 
   function handleDragStart() {

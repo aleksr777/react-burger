@@ -1,5 +1,6 @@
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
+import { OPEN_MODAL } from '../modal/modal-actions';
 export const GET_ORDER_ID_REQUEST = 'GET_ORDER_ID_REQUEST';
 export const GET_ORDER_ID_SUCCESS = 'GET_ORDER_ID_SUCCESS';
 export const GET_ORDER_ID_ERROR = 'GET_ORDER_ID_SUCCESS';
@@ -12,7 +13,8 @@ export function getOrderId(arrId) {
     postOrder(apiConfig, arrId)
       .then(res => {
         if (res && res.success) {
-          dispatch({ type: GET_ORDER_ID_SUCCESS, payload: { id: res.order.number } })
+          dispatch({ type: GET_ORDER_ID_SUCCESS, payload: { id: res.order.number } });
+          dispatch({ type: OPEN_MODAL, payload: {} });
         }
         else {
           dispatch({ type: GET_ORDER_ID_ERROR, payload: {} });

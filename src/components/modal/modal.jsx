@@ -21,7 +21,8 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
     };
   }, [handleCloseModal]);
 
-  if (!isModalOpened) {
+  /* прерываем код, если isModalOpened или children не определены */
+  if (!isModalOpened || !children) {
     return null
   }
 
