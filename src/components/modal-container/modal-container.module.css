@@ -19,11 +19,11 @@
   transition: all .3s ease 0s;
 }
 
-.button>*:hover {
+.button:hover>* {
   opacity: 0.7;
 }
 
-.modal {
+.container {
   position: fixed;
   z-index: 101;
   top: 0;
@@ -39,5 +39,4 @@
   max-height: 95%;
   overflow: hidden;
   background: transparent;
-  transition: all .3s ease 0s;
 }

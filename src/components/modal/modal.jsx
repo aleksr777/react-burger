@@ -1,13 +1,25 @@
-import { useEffect } from 'react';
-import modalStyles from './modal.module.css';
-import ReactDOM from 'react-dom';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ModalOverlay from '../modal-overlay/modal-overlay'
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import ModalPortal from '../modal-portal/modal-portal';
+import ModalLayout from '../modal-layout/modal-layout';
+import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 
-const modalRootElement = document.getElementById('react-modals');
 
 const Modal = ({ handleCloseModal, isModalOpened, children }) => {
+
+  /* Стейт isModalMounted нужен, чтобы анимация успела сработать до закрытия окна */
+  const [isModalMounted, setModalMounted] = useState(false);
+
+  useEffect(() => {
+    if (isModalOpened && !isModalMounted) {
+      setModalMounted(true);
+    }
+    else if (!isModalOpened && isModalMounted) {
+      setTimeout(() => {
+        setModalMounted(false);
+      }, MODAL_ANIMATION_TIME);
+    }
+  }, [isModalOpened]);
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -21,28 +33,23 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
     };
   }, [handleCloseModal]);
 
-  /* прерываем код, если isModalOpened или children не определены */
-  if (!isModalOpened || !children) {
+  if (!isModalMounted) {
     return null
   }
 
-  return ReactDOM.createPortal(
-    <div>
-      <ModalOverlay handleCloseModal={handleCloseModal} />
-      <div className={modalStyles.modal}>
-        <div className={modalStyles.button} >
-          <CloseIcon type="primary" onClick={handleCloseModal} />
-        </div>
+  return (
+    <ModalPortal>
+      <ModalLayout handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
         {children}
-      </div>
-    </div>,
-    modalRootElement
+      </ModalLayout>
+    </ModalPortal>
   );
 };
 
-/* Modal.propTypes = {
+Modal.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
+  isModalOpened: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
-}; */
+};
 
 export default Modal; 

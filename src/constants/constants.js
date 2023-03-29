@@ -1,5 +1,12 @@
+/* Прозрачная картинка для  "пустой булки" и "пустого ингредиента"*/
 import transparentImgPath from '../images/transparent-picture.png';
 
+/* Продолжительность анимации для модальных окон */
+export const MODAL_ANIMATION_TIME = 1000;
+document.documentElement.style.setProperty('--modal-animation-time', `${Math.round(MODAL_ANIMATION_TIME / 2)}ms`);
+document.documentElement.style.setProperty('--modal-animation-delay', `${Math.round(MODAL_ANIMATION_TIME / 4)}ms`);
+
+/* Настройки API */
 export const apiConfig = {
   baseUrl: 'https://norma.nomoreparties.space',
   headers: {
@@ -8,7 +15,7 @@ export const apiConfig = {
   }
 };
 
-// Объект сделал для отображения "пустой" булки, если булка не выбрана
+// Объект для отображения "пустой булки", если булка не выбрана
 export const noBunObj = {
   calories: 0,
   carbohydrates: 0,
@@ -25,7 +32,7 @@ export const noBunObj = {
 };
 
 
-// Объект для отображения "пустого" ингредиента, если ингредиент не выбран
+// Объект для отображения "пустого ингредиента", если ингредиент не выбран
 export const noIngrObj = {
   calories: 0,
   carbohydrates: 0,

@@ -1,0 +1,77 @@
+.overlayEnterActive {
+  animation: overlayIn var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
+}
+
+.overlayExitActive {
+  animation: overlayOut var(--modal-animation-time) var(--modal-animation-delay) cubic-bezier(.165, .84, .44, 1) forwards;
+}
+
+@keyframes overlayIn {
+  0% {
+    transform: scaleY(.005) scaleX(0);
+  }
+
+  50% {
+    transform: scaleY(.005) scaleX(1);
+  }
+
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes overlayOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+
+  50% {
+    transform: scaleY(.005) scaleX(1);
+  }
+
+  100% {
+    transform: scaleY(.005) scaleX(0);
+  }
+}
+
+.containerEnterActive {
+  animation: containerIn var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
+}
+
+.containerExitActive {
+  animation: containerOut var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
+}
+
+@keyframes containerIn {
+  0% {
+    transform: scaleY(.5) scaleX(.5);
+    opacity: 0;
+  }
+
+  55% {
+    transform: scaleY(.5) scaleX(.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes containerOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scaleY(.5) scaleX(.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleY(.5) scaleX(.5);
+    opacity: 0;
+  }
+}
