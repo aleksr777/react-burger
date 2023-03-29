@@ -10,32 +10,43 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
   /* Стейт isModalMounted нужен, чтобы анимация успела сработать до закрытия окна */
   const [isModalMounted, setModalMounted] = useState(false);
 
+
   useEffect(() => {
+
     if (isModalOpened && !isModalMounted) {
       setModalMounted(true);
     }
+
     else if (!isModalOpened && isModalMounted) {
       setTimeout(() => {
         setModalMounted(false);
       }, MODAL_ANIMATION_TIME);
     }
+
   }, [isModalOpened]);
 
+
   useEffect(() => {
+
     const handleEsc = (e) => {
       if (e.key === 'Escape' || e.key === 'Esc') {
         handleCloseModal();
       }
     }
+
     document.addEventListener('keydown', handleEsc);
+
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
+
   }, [handleCloseModal]);
+
 
   if (!isModalMounted) {
     return null
   }
+
 
   return (
     <ModalPortal>

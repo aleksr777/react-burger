@@ -17,6 +17,9 @@ const containerAnimation = {
   exitActive: stylesLayout.containerExitActive,
 };
 
+const bodySelector = document.querySelector('body');
+
+
 const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
 
   const overlayRef = useRef();
@@ -26,6 +29,11 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
 
   function startAnimation() {
     setAnimationIn(isModalOpened);
+    /* на время срабатывания анимации отключаем взаимодействие с пользователем */
+    bodySelector.style.pointerEvents = 'none';
+    setTimeout(() => {
+      bodySelector.style.pointerEvents = '';
+    }, MODAL_ANIMATION_TIME);
   }
 
   useEffect(() => startAnimation(), [isModalOpened]);
@@ -56,6 +64,7 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
           {children}
         </ModalContainer>
       </CSSTransition>
+
     </>
   );
 };
