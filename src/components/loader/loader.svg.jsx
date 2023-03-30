@@ -1,4 +1,6 @@
-export const LoaderSvg = ({ color = '#3C39EC', size }) => {
+import PropTypes from 'prop-types';
+
+export const LoaderSvg = ({ color, size }) => {
   return (
     <svg
       width={size}
@@ -24,4 +26,9 @@ export const LoaderSvg = ({ color = '#3C39EC', size }) => {
       </g>
     </svg>
   );
+};
+
+LoaderSvg.propTypes = {
+  color: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
 };

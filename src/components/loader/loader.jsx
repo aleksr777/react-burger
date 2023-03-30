@@ -74,4 +74,9 @@ const Loader = ({ size, isLoading }) => {
   );
 };
 
+Loader.propTypes = {
+  size: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
 export default Loader;
