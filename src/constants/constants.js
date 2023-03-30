@@ -2,7 +2,7 @@
 import transparentImgPath from '../images/transparent-picture.png';
 
 /* Продолжительность анимации для модальных окон */
-export const MODAL_ANIMATION_TIME = 1000;
+export const MODAL_ANIMATION_TIME = 700;
 document.documentElement.style.setProperty('--modal-animation-time', `${Math.round(MODAL_ANIMATION_TIME / 2)}ms`);
 document.documentElement.style.setProperty('--modal-animation-delay', `${Math.round(MODAL_ANIMATION_TIME / 4)}ms`);
 

@@ -11,7 +11,7 @@
     transform: scaleY(.005) scaleX(0);
   }
 
-  50% {
+  80% {
     transform: scaleY(.005) scaleX(1);
   }
 
@@ -25,7 +25,7 @@
     transform: scaleY(1) scaleX(1);
   }
 
-  50% {
+  80% {
     transform: scaleY(.005) scaleX(1);
   }
 
@@ -35,7 +35,8 @@
 }
 
 .containerEnterActive {
-  animation: containerIn var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
+  opacity: 0;
+  animation: containerIn var(--modal-animation-time) var(--modal-animation-delay) cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 .containerExitActive {
@@ -48,7 +49,7 @@
     opacity: 0;
   }
 
-  55% {
+  60% {
     transform: scaleY(.5) scaleX(.5);
     opacity: 0;
   }
@@ -65,7 +66,7 @@
     opacity: 1;
   }
 
-  50% {
+  40% {
     transform: scaleY(.5) scaleX(.5);
     opacity: 0;
   }
