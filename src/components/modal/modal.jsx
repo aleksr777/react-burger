@@ -35,21 +35,9 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
 
   }, [handleCloseModal]);
 
-  useEffect(() => {
-    if (isModalMounted && isModalOpened) {
-      bodySelector.style.pointerEvents = 'none';
-      bodySelector.style.userSelect = 'none';
-    }
-    else if (!isModalMounted && !isModalOpened) {
-      bodySelector.style.pointerEvents = '';
-      bodySelector.style.userSelect = '';
-    }
-  }, [isModalMounted, isModalOpened]);
-
   if (!isModalMounted) {
     return null
   }
-
 
   return (
     <ModalPortal>
