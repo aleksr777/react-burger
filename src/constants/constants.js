@@ -1,10 +1,16 @@
 /* Прозрачная картинка для  "пустой булки" и "пустого ингредиента"*/
 import transparentImgPath from '../images/transparent-picture.png';
 
+export const bodySelector = document.querySelector('body');
+
 /* Продолжительность анимации для модальных окон */
 export const MODAL_ANIMATION_TIME = 700;
 document.documentElement.style.setProperty('--modal-animation-time', `${Math.round(MODAL_ANIMATION_TIME / 2)}ms`);
 document.documentElement.style.setProperty('--modal-animation-delay', `${Math.round(MODAL_ANIMATION_TIME / 4)}ms`);
+
+/* Продолжительность анимации для лоадера */
+export const LOADER_ANIMATION_TIME = 600;
+document.documentElement.style.setProperty('--loader-animation-time', `${Math.round(LOADER_ANIMATION_TIME / 2)}ms`);
 
 /* Настройки API */
 export const apiConfig = {

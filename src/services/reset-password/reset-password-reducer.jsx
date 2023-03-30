@@ -5,7 +5,7 @@ import {
 } from './reset-password-actions';
 
 const defaultState = {
-  loadingState: false,
+  isLoading: false,
   success: false
 };
 
@@ -16,14 +16,14 @@ const resetPasswordReducer = (state = defaultState, action) => {
     case RESET_PASSWORD_REQUEST: {
       return {
         ...state,
-        loadingState: true
+        isLoading: true
       };
     };
 
     case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
-        loadingState: false,
+        isLoading: false,
         success: true
       };
 

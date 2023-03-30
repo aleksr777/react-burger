@@ -6,7 +6,7 @@ import {
 } from './order-id-actions';
 
 const defaultState = {
-  loadingState: false,
+  isLoading: false,
   id: null,
 };
 
@@ -17,14 +17,14 @@ const orderIdReducer = (state = defaultState, action) => {
     case GET_ORDER_ID_REQUEST: {
       return {
         ...state,
-        loadingState: true,
+        isLoading: true,
       };
     };
 
     case GET_ORDER_ID_SUCCESS:
       return {
         ...state,
-        loadingState: false,
+        isLoading: false,
         id: action.payload.id,
       };
 
@@ -34,7 +34,7 @@ const orderIdReducer = (state = defaultState, action) => {
     case REMOVE_ORDER_ID:
       return {
         ...state,
-        loadingState: false,
+        isLoading: false,
         id: null,
       };
 

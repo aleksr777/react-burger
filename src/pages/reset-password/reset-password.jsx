@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
-import Preloader from '../../components/preloader/preloader';
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -60,7 +60,7 @@ const ResetPasswordPage = () => {
 
       <AppMainBlock>
 
-        {passwordState.loadingState ? <Preloader /> : null}
+        <Loader size='large' isLoading={passwordState.isLoading} />
 
         <FormСontainer>
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderId } from '../../services/order-id/order-id-actions';
-import Preloader from '../preloader/preloader';
+import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
@@ -14,7 +14,7 @@ const OrderingButton = () => {
 
   const dispatch = useDispatch();
 
-  const { loadingState } = useSelector(getOrderIdState);
+  const { isLoading } = useSelector(getOrderIdState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
@@ -42,10 +42,9 @@ const OrderingButton = () => {
 
   return (
     <>
-      {loadingState ? <Preloader /> : null}
-
+      <Loader size='large' isLoading={isLoading} />
       {(
-        isOrderActive && !loadingState
+        isOrderActive && !isLoading
       ) ? (
         <Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>Оформить заказ</Button>
       ) : (

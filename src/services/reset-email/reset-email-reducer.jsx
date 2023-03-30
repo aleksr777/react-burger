@@ -5,7 +5,7 @@ import {
 } from './reset-email-actions';
 
 const defaultState = {
-  loadingState: false,
+  isLoading: false,
   success: false
 };
 
@@ -16,14 +16,14 @@ const resetEmailReducer = (state = defaultState, action) => {
     case RESET_EMAIL_REQUEST: {
       return {
         ...state,
-        loadingState: true
+        isLoading: true
       };
     };
 
     case RESET_EMAIL_SUCCESS:
       return {
         ...state,
-        loadingState: false,
+        isLoading: false,
         success: true
       };
 

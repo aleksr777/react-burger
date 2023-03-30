@@ -5,7 +5,7 @@ import {
 } from './ingredients-data-actions';
 
 const defaultState = {
-  loadingState: false,
+  isLoading: false,
   ingredientsData: [],
 };
 
@@ -16,7 +16,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     case GET_DATA_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        loadingState: true,
+        isLoading: true,
       };
     };
 
@@ -24,7 +24,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         ingredientsData: action.data,
-        loadingState: false,
+        isLoading: false,
       };
     };
 

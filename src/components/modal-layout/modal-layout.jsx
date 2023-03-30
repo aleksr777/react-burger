@@ -1,10 +1,11 @@
 import stylesLayout from './modal-layout.module.css';
 import PropTypes from 'prop-types';
+import { bodySelector } from '../../constants/constants';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
+import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import ModalContainer from '../modal-container/modal-container';
-import { CSSTransition } from 'react-transition-group';
 
 
 const overlayAnimation = {
@@ -16,8 +17,6 @@ const containerAnimation = {
   enterActive: stylesLayout.containerEnterActive,
   exitActive: stylesLayout.containerExitActive,
 };
-
-const bodySelector = document.querySelector('body');
 
 
 const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
@@ -31,8 +30,10 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
     setAnimationIn(isModalOpened);
     /* на время срабатывания анимации отключаем взаимодействие с пользователем */
     bodySelector.style.pointerEvents = 'none';
+    bodySelector.style.userSelect = 'none';
     setTimeout(() => {
       bodySelector.style.pointerEvents = '';
+      bodySelector.style.userSelect = '';
     }, MODAL_ANIMATION_TIME);
   }
 

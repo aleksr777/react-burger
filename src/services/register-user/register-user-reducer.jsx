@@ -5,7 +5,7 @@ import {
 } from './register-user-actions';
 
 const defaultState = {
-  loadingState: false,
+  isLoading: false,
   success: false
 };
 
@@ -16,14 +16,14 @@ const registerUserReducer = (state = defaultState, action) => {
     case REGISTER_USER_REQUEST: {
       return {
         ...state,
-        loadingState: true
+        isLoading: true
       };
     };
 
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
-        loadingState: false,
+        isLoading: false,
         success: true
       };
 

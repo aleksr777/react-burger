@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
-import Preloader from '../../components/preloader/preloader';
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -51,9 +51,9 @@ const ForgotPasswordPage = () => {
 
       <AppHeader />
 
+      <Loader size='large' isLoading={emailState.isLoading} />
+      
       <AppMainBlock>
-
-        {emailState.loadingState ? <Preloader /> : null}
 
         <FormСontainer>
 

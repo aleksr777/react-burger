@@ -5,44 +5,41 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/ingredients-data/ingredients-data-actions';
-import Preloader from '../../components/preloader/preloader';
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
 const getIngredientsDataState = state => state.ingredientsData;
 
+
 const HomePage = () => {
 
   const dispatch = useDispatch();
 
-  const { loadingState } = useSelector(getIngredientsDataState);
+  const { isLoading } = useSelector(getIngredientsDataState);
 
-  function startLoading() {
+  useEffect(() => {
     dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} })
-  }
-
-  useEffect(() => { startLoading() }, []);
+  }, []);
 
   return (
 
     <AppPage>
-
       <AppHeader />
-
-      <AppMainBlock>
-
-        {loadingState
-          ? <Preloader />
-          : (
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
-          )}
-
-      </AppMainBlock>
-
+      <Loader size='large' isLoading={isLoading} />
+      {
+        !isLoading
+          ? (
+            <AppMainBlock>
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
+            </AppMainBlock>
+          )
+          : null
+      }
     </AppPage>
   )
 };

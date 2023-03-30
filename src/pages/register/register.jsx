@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from '../../services/register-user/register-user-actions';
-import Preloader from '../../components/preloader/preloader';
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -64,7 +64,7 @@ const RegisterPage = () => {
 
       <AppMainBlock>
 
-        {userState.loadingState ? <Preloader /> : null}
+        <Loader size='large' isLoading={userState.isLoading} />
 
         <FormСontainer>
 
