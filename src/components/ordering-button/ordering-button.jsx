@@ -43,13 +43,11 @@ const OrderingButton = () => {
   return (
     <>
       <Loader size='large' isLoading={isLoading} />
-      {(
-        isOrderActive && !isLoading
-      ) ? (
-        <Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>Оформить заказ</Button>
-      ) : (
-        <Button htmlType='button' type='primary' size='large' disabled>Оформить заказ</Button>
-      )}
+      {
+        (isOrderActive && !isLoading)
+          ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>Оформить заказ</Button>)
+          : (<Button htmlType='button' type='primary' size='large' disabled>Оформить заказ</Button>)
+      }
     </>
   )
 };
