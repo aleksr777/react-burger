@@ -1,11 +1,10 @@
 import ItemStyles from './item-ingredients.module.css';
+import PropTypes from 'prop-types';
 import burgerConstructorStyles from '../burger-constructor/burger-constructor.module.css';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
-import { SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
-import { OPEN_MODAL } from '../../services/modal/modal-actions';
-import PropTypes from 'prop-types';
+import { OPEN_MODAL_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const ItemIngredients = ({ children, ingredient }) => {
@@ -25,7 +24,7 @@ const ItemIngredients = ({ children, ingredient }) => {
 
   const handleOpenModal = (ingredient) => {
     dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
-    dispatch({ type: OPEN_MODAL, payload: {} });
+    dispatch({ type: OPEN_MODAL_INGREDIENT_DETAILS, payload: {} });
   };
 
   function handleDragStart() {

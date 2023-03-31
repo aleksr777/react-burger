@@ -7,7 +7,6 @@ import { resetEmailReducer } from './reset-email/reset-email-reducer';
 import { resetPasswordReducer } from './reset-password/reset-password-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
-import { modalReducer } from './modal/modal-reducer';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsDataReducer,
@@ -18,7 +17,6 @@ const rootReducer = combineReducers({
   resetPassword: resetPasswordReducer,
   ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,
-  modal: modalReducer,
 });
 
 export {rootReducer};
