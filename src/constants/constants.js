@@ -4,12 +4,12 @@ import transparentImgPath from '../images/transparent-picture.png';
 export const bodySelector = document.querySelector('body');
 
 /* Продолжительность анимации для модальных окон */
-export const MODAL_ANIMATION_TIME = 700;
-document.documentElement.style.setProperty('--modal-animation-time', `${Math.round(MODAL_ANIMATION_TIME / 2)}ms`);
-document.documentElement.style.setProperty('--modal-animation-delay', `${Math.round(MODAL_ANIMATION_TIME / 4)}ms`);
+export const MODAL_ANIMATION_TIME = 550;
+document.documentElement.style.setProperty('--modal-animation-time-open', `${Math.round(MODAL_ANIMATION_TIME / 1.4)}ms`);
+document.documentElement.style.setProperty('--modal-animation-time-close', `${Math.round(MODAL_ANIMATION_TIME / 1.2)}ms`);
 
 /* Продолжительность анимации для лоадера */
-export const LOADER_ANIMATION_TIME = 600;
+export const LOADER_ANIMATION_TIME = 300;
 document.documentElement.style.setProperty('--loader-animation-time', `${Math.round(LOADER_ANIMATION_TIME / 2)}ms`);
 
 /* Настройки API */
