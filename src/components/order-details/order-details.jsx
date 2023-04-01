@@ -8,11 +8,8 @@ const OrderDetails = ({ orderId }) => {
       <p className={stylesOrderDetails.id}>{orderId}</p>
       <p className={stylesOrderDetails.title}>идентификатор заказа</p>
       <picture className={stylesOrderDetails.imageBox}>
-        <source srcset={donePath}
-          type='image/svg+xml'
-          draggable='false'
-        />
-        <img className={stylesOrderDetails.image}
+        <img
+          className={stylesOrderDetails.image}
           src={donePath}
           alt='Иконка успешного заказа.'
           draggable='false'
