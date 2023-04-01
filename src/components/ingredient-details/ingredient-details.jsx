@@ -1,14 +1,18 @@
 import ingrDetailsStyles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails = ({ ingredient }) => {
   return (
     <div className={ingrDetailsStyles.container}>
 
       <p className={ingrDetailsStyles.title}>Детали ингредиента</p>
 
       <picture className={ingrDetailsStyles.imageBox}>
-        <img className={ingrDetailsStyles.image} src={ingredient.image_large} alt={ingredient.name} />
+        <img className={ingrDetailsStyles.image}
+          src={ingredient.image_large}
+          alt={ingredient.name}
+          draggable='false'
+        />
       </picture>
 
       <p className={ingrDetailsStyles.name}>{ingredient.name}</p>

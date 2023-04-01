@@ -8,7 +8,15 @@ const OrderDetails = ({ orderId }) => {
       <p className={stylesOrderDetails.id}>{orderId}</p>
       <p className={stylesOrderDetails.title}>идентификатор заказа</p>
       <picture className={stylesOrderDetails.imageBox}>
-        <img className={stylesOrderDetails.image} src={donePath} alt="Иконка успешного заказа." />
+        <source srcset={donePath}
+          type='image/svg+xml'
+          draggable='false'
+        />
+        <img className={stylesOrderDetails.image}
+          src={donePath}
+          alt='Иконка успешного заказа.'
+          draggable='false'
+        />
       </picture>
       <p className={stylesOrderDetails.info}>Ваш заказ начали готовить</p>
       <p className={stylesOrderDetails.instruction}>Дождитесь готовности на орбитальной станции</p>
