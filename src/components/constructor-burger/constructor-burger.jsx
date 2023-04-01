@@ -1,4 +1,4 @@
-import burgerConstructorStyles from './burger-constructor.module.css';
+import stylesConstructorBurger from './constructor-burger.module.css';
 import { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -11,12 +11,12 @@ import {
 import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingBlock from '../ordering-block/ordering-block';
-import ItemsListConstructor from '../items-list-constructor/items-list-constructor';
+import ConstructorItemsList from '../constructor-items-list/constructor-items-list';
 
 
 const getSelectedBunState = state => state.selectedIngr.bun;
 
-const BurgerConstructor = () => {
+const ConstructorBurger = () => {
 
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const BurgerConstructor = () => {
     }
     /* проверяем является ли инредиент новым по uKey 
     (иначе создаётся новый элемент при перетаскивании в selectedIngredients) */
-    else if (item.locationDnd === 'BurgerIngredients') {
+    else if (item.locationDnd === 'IngredientsBurger') {
       addIngredient(item, 0);
     }
   };
@@ -65,10 +65,10 @@ const BurgerConstructor = () => {
     <>
       <section
         ref={dropRef}
-        className={burgerConstructorStyles.section}
+        className={stylesConstructorBurger.section}
       >
 
-        <ItemsListConstructor />
+        <ConstructorItemsList />
 
         <OrderingBlock />
 
@@ -79,4 +79,4 @@ const BurgerConstructor = () => {
   );
 };
 
-export default memo(BurgerConstructor);
+export default memo(ConstructorBurger);

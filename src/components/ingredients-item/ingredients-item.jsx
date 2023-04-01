@@ -1,15 +1,15 @@
-import ItemStyles from './item-ingredients.module.css';
+import stylesIngredientsItem from './ingredients-item.module.css';
 import PropTypes from 'prop-types';
-import burgerConstructorStyles from '../burger-constructor/burger-constructor.module.css';
+import ConstructorBurgerStyles from '../constructor-burger/constructor-burger.module.css';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { OPEN_MODAL_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ItemIngredients = ({ children, ingredient }) => {
+const IngredientsItem = ({ children, ingredient }) => {
 
-  const burgerConstructorSelector = [...document.getElementsByClassName(burgerConstructorStyles.section)][0];
+  const ConstructorBurgerSelector = [...document.getElementsByClassName(ConstructorBurgerStyles.section)][0];
 
   const dispatch = useDispatch();
 
@@ -28,21 +28,21 @@ const ItemIngredients = ({ children, ingredient }) => {
   };
 
   function handleDragStart() {
-    burgerConstructorSelector.style.opacity = '.7';
-    burgerConstructorSelector.style.borderRadius = '1.5%';
-    burgerConstructorSelector.style.boxShadow = '0px 0px 1px 2px rgba(76, 76, 255, .9) inset';
+    ConstructorBurgerSelector.style.opacity = '.7';
+    ConstructorBurgerSelector.style.borderRadius = '1.5%';
+    ConstructorBurgerSelector.style.boxShadow = '0px 0px 1px 2px rgba(76, 76, 255, .9) inset';
   }
 
   function handleDragEnd() {
-    burgerConstructorSelector.style.opacity = '';
-    burgerConstructorSelector.style.borderRadius = '';
-    burgerConstructorSelector.style.boxShadow = '';
+    ConstructorBurgerSelector.style.opacity = '';
+    ConstructorBurgerSelector.style.borderRadius = '';
+    ConstructorBurgerSelector.style.boxShadow = '';
   }
 
   return (
     <li
       ref={dragRef}
-      className={ItemStyles.item}
+      className={stylesIngredientsItem.item}
       onDragStart={(e) => handleDragStart(e)}
       onDragEnd={(e) => handleDragEnd(e)}
       onClick={() => { handleOpenModal(ingredient) }}
@@ -55,22 +55,22 @@ const ItemIngredients = ({ children, ingredient }) => {
       {children}
 
       <img
-        className={ItemStyles.item__image}
+        className={stylesIngredientsItem.item__image}
         src={ingredient.image_large}
         alt={ingredient.name}
       />
 
-      <div className={ItemStyles.item__box}>
-        <p className={ItemStyles.item__price}>{ingredient.price}</p>
+      <div className={stylesIngredientsItem.item__box}>
+        <p className={stylesIngredientsItem.item__price}>{ingredient.price}</p>
         <CurrencyIcon type='primary' />
       </div>
 
-      <p className={ItemStyles.item__title}>{ingredient.name}</p>
+      <p className={stylesIngredientsItem.item__title}>{ingredient.name}</p>
     </li>
   )
 };
 
-/* ItemIngredients.propTypes = {
+/* IngredientsItem.propTypes = {
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
@@ -87,4 +87,4 @@ const ItemIngredients = ({ children, ingredient }) => {
   }).isRequired
 }; */
 
-export default memo(ItemIngredients);
+export default memo(IngredientsItem);

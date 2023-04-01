@@ -1,12 +1,12 @@
-import scrollListStyles from './scroll-list-constructor.module.css';
+import stylesScrollList from './constructor-scroll-list.module.css';
 import { useSelector } from 'react-redux';
-import ItemConstructor from '../item-constructor/item-constructor';
+import ConstructorItem from '../constructor-item/constructor-item';
 import { noIngrObj } from '../../constants/constants';
 
 
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
-const ScrollListConstructor = () => {
+const ConstructorScrollList = () => {
 
   const selectedIngredients = useSelector(getSelectedIngredientsState);
 
@@ -14,8 +14,8 @@ const ScrollListConstructor = () => {
     <>
       {!selectedIngredients.length
         ? (
-          <ul className={scrollListStyles.list_scroll} style={{ opacity: .6 }}>
-            <ItemConstructor
+          <ul className={stylesScrollList.list_scroll} style={{ opacity: .6 }}>
+            <ConstructorItem
               obj={noIngrObj}
               key={noIngrObj._uKey}
               isLocked={true}
@@ -23,9 +23,9 @@ const ScrollListConstructor = () => {
             />
           </ul>
         ) : (
-          <ul className={scrollListStyles.list_scroll}>
+          <ul className={stylesScrollList.list_scroll}>
             {selectedIngredients.map((obj) => (
-              <ItemConstructor
+              <ConstructorItem
                 obj={obj}
                 key={obj._uKey}
                 isLocked={false}
@@ -38,4 +38,4 @@ const ScrollListConstructor = () => {
   )
 };
 
-export default ScrollListConstructor;
+export default ConstructorScrollList;

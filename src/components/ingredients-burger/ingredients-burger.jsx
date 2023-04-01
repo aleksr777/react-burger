@@ -1,17 +1,17 @@
+import stylesIngredientsBurger from './ingredients-burger.module.css';
 import { useEffect, useMemo, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/ingredients-data/ingredients-data-actions';
-import burgerIngredientsStyles from './burger-ingredients.module.css';
-import TabBlockIngredients from '../tab-block-ingredients/tab-block-ingredients';
-import BlockIngredients from '../block-ingredients/block-ingredients';
-import ItemIngredients from '../item-ingredients/item-ingredients';
+import IngredientsTabBlock from '../ingredients-tab-block/ingredients-tab-block';
+import IngredientsBlock from '../ingredients-block/ingredients-block';
+import IngredientsItem from '../ingredients-item/ingredients-item';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import CounterItem from '../counter-item/counter-item';
 
 
 const getIngredientsDataState = state => state.ingredientsData;
 
-const BurgerIngredients = () => {
+const IngredientsBurger = () => {
 
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const BurgerIngredients = () => {
   function addLocationInfo(data) {
     const arr = [...data];
     for (let i = 0; i < arr.length; i += 1) {
-      arr[i] = { ...arr[i], locationDnd: 'BurgerIngredients' };
+      arr[i] = { ...arr[i], locationDnd: 'IngredientsBurger' };
     };
     return arr
   };
@@ -35,46 +35,46 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      <section className={burgerIngredientsStyles.section}>
+      <section className={stylesIngredientsBurger.section}>
 
-        <h2 className={burgerIngredientsStyles.section__title}>Соберите бургер</h2>
+        <h2 className={stylesIngredientsBurger.section__title}>Соберите бургер</h2>
 
-        <TabBlockIngredients />
+        <IngredientsTabBlock />
 
-        <div className={burgerIngredientsStyles.section__blocks} id='section-blocks'>
+        <div className={stylesIngredientsBurger.section__blocks} id='section-blocks'>
 
-          <BlockIngredients blockTitle='Булки' name='buns'>
+          <IngredientsBlock blockTitle='Булки' name='buns'>
             {buns.map((obj) => (
-              <ItemIngredients
+              <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
               >
                 <CounterItem obj={obj} />
-              </ItemIngredients>
+              </IngredientsItem>
             ))}
-          </BlockIngredients>
+          </IngredientsBlock>
 
-          <BlockIngredients blockTitle='Соусы' name='sauces'>
+          <IngredientsBlock blockTitle='Соусы' name='sauces'>
             {sauces.map((obj) => (
-              <ItemIngredients
+              <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
               >
                 <CounterItem obj={obj} />
-              </ItemIngredients>
+              </IngredientsItem>
             ))}
-          </BlockIngredients>
+          </IngredientsBlock>
 
-          <BlockIngredients blockTitle='Начинки' name='fillings'>
+          <IngredientsBlock blockTitle='Начинки' name='fillings'>
             {fillings.map((obj) => (
-              <ItemIngredients
+              <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
               >
                 <CounterItem obj={obj} />
-              </ItemIngredients>
+              </IngredientsItem>
             ))}
-          </BlockIngredients>
+          </IngredientsBlock>
         </div>
       </section>
 
@@ -84,4 +84,4 @@ const BurgerIngredients = () => {
   );
 };
 
-export default memo(BurgerIngredients);
+export default memo(IngredientsBurger);

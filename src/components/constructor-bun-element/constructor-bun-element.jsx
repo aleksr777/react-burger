@@ -1,4 +1,4 @@
-import BunElementStyle from './bun-element-constructor.module.css';
+import stylesBunElement from './constructor-bun-element.module.css';
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import {
 
 const getSelectedBunState = state => state.selectedIngr.bun;
 
-function BunElementConstructor({ type, positionText }) {
+function ConstructorBunElement({ type, positionText }) {
 
   const selectedBun = useSelector(getSelectedBunState);
 
@@ -25,7 +25,7 @@ function BunElementConstructor({ type, positionText }) {
   }
 
   return (
-    <div className={BunElementStyle.boxElement}
+    <div className={stylesBunElement.boxElement}
       style={{ opacity: selectedBun._id ? 1 : .6 }} >
       <ConstructorElement
         isLocked={true}
@@ -38,9 +38,9 @@ function BunElementConstructor({ type, positionText }) {
   )
 };
 
-BunElementConstructor.propTypes = {
+ConstructorBunElement.propTypes = {
   type: PropTypes.string.isRequired,
   positionText: PropTypes.string.isRequired
 };
 
-export default memo(BunElementConstructor);
+export default memo(ConstructorBunElement);

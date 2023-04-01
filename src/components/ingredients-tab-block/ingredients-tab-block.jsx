@@ -1,10 +1,10 @@
-import TabBlockStyles from './tab-block-ingredients.module.css';
+import stylesTabBlockStyles from './ingredients-tab-block.module.css';
 import TabElement from '../tab-element/tab-element';
 
-const TabBlockIngredients = () => {
+const IngredientsTabBlock = () => {
 
   return (
-    <div className={TabBlockStyles.tab}>
+    <div className={stylesTabBlockStyles.tab}>
       <TabElement ingredientText='buns'>Булки</TabElement >
       <TabElement ingredientText='sauces'>Соусы</TabElement >
       <TabElement ingredientText='fillings'>Начинки</TabElement >
@@ -12,4 +12,4 @@ const TabBlockIngredients = () => {
   )
 };
 
-export default TabBlockIngredients;
+export default IngredientsTabBlock;

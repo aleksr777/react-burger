@@ -1,5 +1,5 @@
-import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
-import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
+import ConstructorBurger from '../../components/constructor-burger/constructor-burger';
+import IngredientsBurger from '../../components/ingredients-burger/ingredients-burger';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect } from 'react';
@@ -33,8 +33,8 @@ const HomePage = () => {
           ? (
             <AppMainBlock>
               <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor />
+                <IngredientsBurger />
+                <ConstructorBurger />
               </DndProvider>
             </AppMainBlock>
           )

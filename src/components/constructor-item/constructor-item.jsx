@@ -1,4 +1,4 @@
-import itemStyles from './item-constructor.module.css';
+import stylesItem from './constructor-item.module.css';
 import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -16,7 +16,7 @@ import {
 
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
-const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
+const ConstructorItem = ({ obj, isLocked, allowDrag }) => {
 
   const dispatch = useDispatch();
 
@@ -60,7 +60,7 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
     const fromPosition = selectedIngredients.indexOf(dragObj);
     const toPosition = selectedIngredients.indexOf(dropObj);
     /* Проверяем, откуда перетаскиваемый объект*/
-    if (dragElementData.locationDnd === 'BurgerConstructor') {
+    if (dragElementData.locationDnd === 'ConstructorBurger') {
       /* исключаем перетаскивание на самого себя */
       if (dropObj._uKey !== dragObj._uKey) {
         swapIngredient(dragObj, fromPosition, toPosition);
@@ -72,21 +72,21 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
   function dragOverSetOpacity(e) {
     e.preventDefault();
     /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'BurgerConstructor') {
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
       e.currentTarget.style.opacity = '.6';
     }
   }
 
   function dragLeaveSetOpacity(e) {
     e.preventDefault();
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'BurgerConstructor') {
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
       e.currentTarget.style.opacity = '1';
     }
   }
 
   function dropSetOpacity(e) {
     e.preventDefault();
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'BurgerConstructor') {
+    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
       e.currentTarget.style.opacity = '1';
     }
   }
@@ -97,7 +97,7 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
   return (
 
     <li
-      className={itemStyles.item_scroll}
+      className={stylesItem.item_scroll}
       ref={allowDrag ? dragDropRef : dropRef}
       onDragOver={(e) => dragOverSetOpacity(e)}
       onDragLeave={(e) => dragLeaveSetOpacity(e)}
@@ -128,7 +128,7 @@ const ItemConstructor = ({ obj, isLocked, allowDrag }) => {
   )
 };
 
-ItemConstructor.propTypes = {
+ConstructorItem.propTypes = {
   obj: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
@@ -146,4 +146,4 @@ ItemConstructor.propTypes = {
   isLocked: PropTypes.bool.isRequired
 };
 
-export default memo(ItemConstructor);
+export default memo(ConstructorItem);
