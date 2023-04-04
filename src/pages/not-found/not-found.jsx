@@ -11,7 +11,10 @@ const NotFoundPage = () => {
         <p className={`text text_type_main-large ${notFoundStyles.text}`}>Упс... Страница не найдена!</p>
         <p className={`text text_type_digits-large ${notFoundStyles.text}`}>404 Error</p>
         <p className={`text text_type_main-medium ${notFoundStyles.text}`}>
-          Проверьте адрес ссылки или перейдите на <Link to='/' className={notFoundStyles.link}>главную страницу</Link>
+          Проверьте адрес ссылки
+        </p>
+        <p className={`text text_type_main-medium ${notFoundStyles.text}`}>
+          или перейдите на <Link to='/' className={notFoundStyles.link}>главную страницу</Link>
         </p>
       </div>
       <div className={notFoundStyles.pictureBox}>
