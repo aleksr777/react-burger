@@ -16,7 +16,7 @@ import {
 
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
-const ConstructorItem = ({ obj, isLocked, allowDrag }) => {
+const ConstructorItem = ({ obj, isLocked, isDragable }) => {
 
   const dispatch = useDispatch();
 
@@ -98,12 +98,12 @@ const ConstructorItem = ({ obj, isLocked, allowDrag }) => {
 
     <li
       className={stylesItem.item_scroll}
-      ref={allowDrag ? dragDropRef : dropRef}
+      ref={isDragable ? dragDropRef : dropRef}
       onDragOver={(e) => dragOverSetOpacity(e)}
       onDragLeave={(e) => dragLeaveSetOpacity(e)}
       onDrop={(e) => dropSetOpacity(e)}
       style={{
-        cursor: allowDrag ? '' : 'default',
+        cursor: isDragable ? '' : 'default',
         transition: dragItemTransition,
         opacity: dragItemOpacity,
       }}
@@ -111,8 +111,8 @@ const ConstructorItem = ({ obj, isLocked, allowDrag }) => {
 
       <div
         style={{
-          cursor: allowDrag ? '' : 'default',
-          opacity: allowDrag ? 1 : 0,
+          cursor: isDragable ? '' : 'default',
+          opacity: isDragable ? 1 : 0,
         }} >
         <DragIcon type='primary' />
       </div>

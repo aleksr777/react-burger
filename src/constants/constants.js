@@ -4,7 +4,7 @@ import transparentImgPath from '../images/transparent-picture.png';
 export const bodySelector = document.querySelector('body');
 
 /* Продолжительность анимации для модальных окон */
-export const MODAL_ANIMATION_TIME = 550;
+export const MODAL_ANIMATION_TIME = 600;
 document.documentElement.style.setProperty('--modal-animation-time-open', `${Math.round(MODAL_ANIMATION_TIME / 1.4)}ms`);
 document.documentElement.style.setProperty('--modal-animation-time-close', `${Math.round(MODAL_ANIMATION_TIME / 1.2)}ms`);
 

@@ -19,7 +19,7 @@ const ConstructorScrollList = () => {
               obj={noIngrObj}
               key={noIngrObj._uKey}
               isLocked={true}
-              allowDrag={false}
+              isDragable={false}
             />
           </ul>
         ) : (
@@ -29,7 +29,7 @@ const ConstructorScrollList = () => {
                 obj={obj}
                 key={obj._uKey}
                 isLocked={false}
-                allowDrag={true}
+                isDragable={true}
               />))}
           </ul>
         )

@@ -27,6 +27,7 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
       if (e.key === 'Escape' || e.key === 'Esc') {
         handleCloseModal();
       }
+      else return null;
     }
     document.addEventListener('keydown', handleEsc);
     return () => {
