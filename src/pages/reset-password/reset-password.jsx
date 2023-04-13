@@ -16,6 +16,7 @@ import AppMainBlock from '../../components/app-main/app-main';
 
 const resetPasswordState = state => state.resetPassword;
 
+
 const ResetPasswordPage = () => {
 
   const passwordState = useSelector(resetPasswordState);
@@ -34,22 +35,18 @@ const ResetPasswordPage = () => {
     }
   }, [passwordState.success]);
 
-  const [valuePassword, setValuePassword] = useState('');
+  const [inputsData, setInputsData] = useState({
+    valuePassword: '',
+    valueCode: '',
+  });
 
-  const [valueCode, setValueCode] = useState('');
-
-
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
-  }
-
-  const onChangeCode = e => {
-    setValueCode(e.target.value)
+  const handleInputChange = (e, value) => {
+    setInputsData({ ...inputsData, [value]: e.target.value })
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(resetPasswordRequest(valuePassword, valueCode));
+    dispatch(resetPasswordRequest(inputsData.valuePassword, inputsData.valueCode));
   }
 
   return (
@@ -70,19 +67,19 @@ const ResetPasswordPage = () => {
 
             <FormInput
               inputType='password'
-              onChange={onChangePassword}
-              value={valuePassword}
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
               name='resetPassword'
               placeholder='Введите новый пароль'
               icon={undefined}
             />
 
             <FormInput
-              inputType='default'
-              value={valueCode}
+              inputType='text'
+              value={inputsData.valueCode}
               name='resetCodeEmail'
               placeholder='Введите код из письма'
-              onChange={onChangeCode}
+              onChange={e => handleInputChange(e, 'valueCode')}
               icon={undefined}
               onIconClick={undefined}
             />

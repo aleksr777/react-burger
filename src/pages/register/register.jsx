@@ -23,11 +23,11 @@ const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
-  const [valueName, setValueName] = useState('');
-
-  const [valueEmail, setValueEmail] = useState('');
-
-  const [valuePassword, setValuePassword] = useState('');
+  const [inputsData, setInputsData] = useState({
+    valueName: '',
+    valueEmail: '',
+    valuePassword: '',
+  });
 
   function goToLoginPage() {
     navigate('/login')
@@ -39,21 +39,18 @@ const RegisterPage = () => {
     }
   }, [userState.success]);
 
-  const onChangeName = e => {
-    setValueName(e.target.value)
-  }
-
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
-  }
-
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
+  const handleInputChange = (e, value) => {
+    setInputsData({ ...inputsData, [value]: e.target.value })
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(registerNewUser(valueName, valueEmail, valuePassword));
+    dispatch(
+      registerNewUser(
+        inputsData.valueName,
+        inputsData.valueEmail,
+        inputsData.valuePassword
+      ));
   }
 
   return (
@@ -73,19 +70,19 @@ const RegisterPage = () => {
           <form onSubmit={handleSubmit} autoComplete='off'>
 
             <FormInput
-              inputType='default'
-              value={valueName}
+              inputType='text'
+              value={inputsData.valueName}
               name='registerName'
               placeholder='Имя'
-              onChange={onChangeName}
+              onChange={e => handleInputChange(e, 'valueName')}
               icon={undefined}
               onIconClick={undefined}
             />
 
             <FormInput
               inputType='email'
-              onChange={onChangeEmail}
-              value={valueEmail}
+              onChange={e => handleInputChange(e, 'valueEmail')}
+              value={inputsData.valueEmail}
               name='registerEmail'
               placeholder='E-mail'
               isIcon={false}
@@ -93,8 +90,8 @@ const RegisterPage = () => {
 
             <FormInput
               inputType='password'
-              onChange={onChangePassword}
-              value={valuePassword}
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
               name='registerPassword'
               placeholder='Пароль'
               icon={undefined}

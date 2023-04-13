@@ -13,17 +13,13 @@ import AppMainBlock from '../../components/app-main/app-main';
 
 const LoginPage = () => {
 
-  const [valueEmail, setValueEmail] = useState('');
+  const [inputsData, setInputsData] = useState({
+    valueEmail: '',
+    valuePassword: '',
+  });
 
-  const [valuePassword, setValuePassword] = useState('');
-
-
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
-  }
-
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
+  const handleInputChange = (e, value) => {
+    setInputsData({ ...inputsData, [value]: e.target.value })
   }
 
   return (
@@ -42,8 +38,8 @@ const LoginPage = () => {
 
           <FormInput
             inputType='email'
-            onChange={onChangeEmail}
-            value={valueEmail}
+            onChange={e => handleInputChange(e, 'valueEmail')}
+            value={inputsData.valueEmail}
             name='loginEmail'
             placeholder='E-mail'
             isIcon={false}
@@ -51,8 +47,8 @@ const LoginPage = () => {
 
           <FormInput
             inputType='password'
-            onChange={onChangePassword}
-            value={valuePassword}
+            onChange={e => handleInputChange(e, 'valuePassword')}
+            value={inputsData.valuePassword}
             name='loginPassword'
             placeholder='Пароль'
             icon={undefined}
