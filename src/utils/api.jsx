@@ -17,13 +17,13 @@ export const getIngredientsDataServer = (apiConfig) => {
   })
 };
 
-//Отправка запроса о заказе и получение от сервера ответа с данными
+//Отправка запроса о заказе и получение от сервера ответа с ID заказа
 export const postOrder = async (apiConfig, arrId) => {
   return request(`${apiConfig.baseUrl}/api/orders`, {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "ingredients": arrId
+      'ingredients': arrId
     })
   })
 };
@@ -34,9 +34,9 @@ export const postRegisterUserRequest = async (apiConfig, valueName, valueEmail, 
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "email": valueEmail,
-      "password": valuePassword,
-      "name": valueName 
+      'email': valueEmail,
+      'password': valuePassword,
+      'name': valueName 
     })
   })
 };
@@ -47,7 +47,7 @@ export const postResetEmailRequest = async (apiConfig, valueEmail) => {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "email": valueEmail
+      'email': valueEmail
     })
   })
 };
@@ -58,8 +58,8 @@ export const postResetPasswordRequest = async (apiConfig, valuePassword, valueCo
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "password": valuePassword,
-      "token": valueCode
+      'password': valuePassword,
+      'token': valueCode
     })
   })
 };

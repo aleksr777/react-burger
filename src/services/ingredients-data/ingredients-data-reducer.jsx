@@ -1,12 +1,15 @@
 import {
   GET_DATA_INGREDIENTS_ERROR,
   GET_DATA_INGREDIENTS_REQUEST,
-  GET_DATA_INGREDIENTS_SUCCESS,
+  GET_DATA_INGREDIENTS_SUCCESS, 
+  SET_DEFAULT_DATA_INGREDIENTS,
 } from './ingredients-data-actions';
 
 const defaultState = {
   isLoading: false,
   ingredientsData: [],
+  isError: false,
+  errorMessage: '',
 };
 
 const ingredientsDataReducer = (state = defaultState, action) => {
@@ -29,8 +32,15 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     };
 
     case GET_DATA_INGREDIENTS_ERROR: {
-      return defaultState;
+      return {
+        ...state,
+        isError: true,
+        errorMessage: action.payload.errorMessage,
+      };
     };
+
+    case SET_DEFAULT_DATA_INGREDIENTS:
+      return defaultState;
 
     default:
       return state;

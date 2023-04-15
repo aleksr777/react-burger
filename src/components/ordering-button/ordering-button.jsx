@@ -10,11 +10,10 @@ const getTotalPriceState = state => state.selectedIngr.totalPrice;
 const getSelectedBunState = state => state.selectedIngr.bun;
 const getIngredientsState = state => state.selectedIngr.ingredients;
 
+
 const OrderingButton = () => {
 
-  const dispatch = useDispatch();
-
-  const { isLoading } = useSelector(getOrderIdState);
+  const { isLoading, isError, errorMessage } = useSelector(getOrderIdState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
@@ -23,6 +22,8 @@ const OrderingButton = () => {
   const selectedBun = useSelector(getSelectedBunState);
 
   const selectedIngredients = useSelector(getIngredientsState);
+
+  const dispatch = useDispatch();
 
   // Проверка для активировации/дезактивации кнопки заказа.
   useEffect(() => {
@@ -42,9 +43,16 @@ const OrderingButton = () => {
 
   return (
     <>
-      <Loader size='large' isLoading={isLoading} />
+
+      <Loader
+        size={100}
+        isLoading={isLoading}
+        isError={isError}
+        errorMessage={errorMessage}
+      />
+
       {
-        (isOrderActive && !isLoading)
+        isOrderActive && !isLoading
           ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>Оформить заказ</Button>)
           : (<Button htmlType='button' type='primary' size='large' disabled>Оформить заказ</Button>)
       }

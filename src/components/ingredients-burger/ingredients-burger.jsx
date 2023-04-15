@@ -1,7 +1,6 @@
 import stylesIngredientsBurger from './ingredients-burger.module.css';
-import { useEffect, useMemo, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/ingredients-data/ingredients-data-actions';
+import { useMemo, memo } from 'react';
+import { useSelector } from 'react-redux';
 import IngredientsTabBlock from '../ingredients-tab-block/ingredients-tab-block';
 import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';
@@ -11,13 +10,10 @@ import CounterItem from '../counter-item/counter-item';
 
 const getIngredientsDataState = state => state.ingredientsData;
 
+
 const IngredientsBurger = () => {
 
-  const dispatch = useDispatch();
-
   const { ingredientsData } = useSelector(getIngredientsDataState);
-
-  useEffect(() => { dispatch(getIngredients()) }, [dispatch]);
 
   /* Добавляем информацию о react-компоненте (нужно для функционала DnD) */
   function addLocationInfo(data) {

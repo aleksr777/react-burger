@@ -9,7 +9,7 @@ document.documentElement.style.setProperty('--modal-animation-time-open', `${Mat
 document.documentElement.style.setProperty('--modal-animation-time-close', `${Math.round(MODAL_ANIMATION_TIME / 1.2)}ms`);
 
 /* Продолжительность анимации для лоадера */
-export const LOADER_ANIMATION_TIME = 300;
+export const LOADER_ANIMATION_TIME = 400;
 document.documentElement.style.setProperty('--loader-animation-time', `${Math.round(LOADER_ANIMATION_TIME / 2)}ms`);
 
 /* Настройки API */

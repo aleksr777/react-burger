@@ -5,12 +5,15 @@ import {
   REMOVE_ORDER_ID,
   OPEN_MODAL_ORDER_ID,
   CLOSE_MODAL_ORDER_ID,
+  SET_DEFAULT_ORDER_ID,
 } from './order-id-actions';
 
 const defaultState = {
   isLoading: false,
   id: null,
   isModalOpened: false,
+  isError: false,
+  errorMessage: '',
 };
 
 const orderIdReducer = (state = defaultState, action) => {
@@ -43,15 +46,22 @@ const orderIdReducer = (state = defaultState, action) => {
         id: action.payload.id,
       };
 
-    case GET_ORDER_ID_ERROR:
-      return defaultState;
-
     case REMOVE_ORDER_ID:
       return {
         ...state,
         isLoading: false,
         id: null,
       };
+
+    case GET_ORDER_ID_ERROR:
+      return {
+        ...state,
+        isError: true,
+        errorMessage: action.payload.errorMessage,
+      };
+
+    case SET_DEFAULT_ORDER_ID:
+      return defaultState;
 
     default:
       return state;

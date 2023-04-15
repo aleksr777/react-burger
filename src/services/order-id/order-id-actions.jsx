@@ -4,13 +4,25 @@ export const OPEN_MODAL_ORDER_ID = 'OPEN_MODAL_ORDER_ID';
 export const CLOSE_MODAL_ORDER_ID = 'CLOSE_MODAL_ORDER_ID';
 export const GET_ORDER_ID_REQUEST = 'GET_ORDER_ID_REQUEST';
 export const GET_ORDER_ID_SUCCESS = 'GET_ORDER_ID_SUCCESS';
-export const GET_ORDER_ID_ERROR = 'GET_ORDER_ID_SUCCESS';
-export const REMOVE_ORDER_ID = 'GET_ORDER_ID';
+export const GET_ORDER_ID_ERROR = 'GET_ORDER_ID_ERROR';
+export const REMOVE_ORDER_ID = 'REMOVE_ORDER_ID';
+export const SET_DEFAULT_ORDER_ID = 'SET_DEFAULT_ORDER_ID';
 
 
 export function getOrderId(arrId) {
+
   return function (dispatch) {
+
+    function handleError(response) {
+      console.log(response);
+      dispatch({ type: GET_ORDER_ID_ERROR, payload: { errorMessage: response } });
+      setTimeout(() => {
+        dispatch({ type: SET_DEFAULT_ORDER_ID, payload: {} });
+      }, 2000);
+    }
+
     dispatch({ type: GET_ORDER_ID_REQUEST, payload: {} });
+
     postOrder(apiConfig, arrId)
       .then(res => {
         if (res && res.success) {
@@ -18,12 +30,11 @@ export function getOrderId(arrId) {
           dispatch({ type: OPEN_MODAL_ORDER_ID, payload: {} });
         }
         else {
-          dispatch({ type: GET_ORDER_ID_ERROR, payload: {} });
+          handleError(res);
         };
       })
       .catch(err => {
-        console.log(err);
-        dispatch({ type: GET_ORDER_ID_ERROR, payload: {} });
+        handleError(err);
       });
   };
 };

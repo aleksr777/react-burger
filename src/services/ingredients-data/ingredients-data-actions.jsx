@@ -4,9 +4,22 @@ import { getIngredientsDataServer } from '../../utils/api';
 export const GET_DATA_INGREDIENTS_REQUEST = 'GET_DATA_INGREDIENTS';
 export const GET_DATA_INGREDIENTS_SUCCESS = 'GET_DATA_INGREDIENTS_SUCCESS';
 export const GET_DATA_INGREDIENTS_ERROR = 'GET_DATA_INGREDIENTS_ERROR';
+export const SET_DEFAULT_DATA_INGREDIENTS = 'SET_DEFAULT_DATA_INGREDIENTS';
 
-export function getIngredients() {
+export function getIngredientsData() {
+
   return function (dispatch) {
+
+    function handleError(response) {
+      console.log(response);
+      dispatch({ type: GET_DATA_INGREDIENTS_ERROR, payload: { errorMessage: response } });
+      setTimeout(() => {
+        dispatch({ type: SET_DEFAULT_DATA_INGREDIENTS, payload: {} });
+      }, 2000);
+    }
+
+    dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} });
+
     getIngredientsDataServer(apiConfig)
       .then(res => {
         if (res && res.success) {
@@ -16,14 +29,11 @@ export function getIngredients() {
           });
         }
         else {
-          dispatch({
-            type: GET_DATA_INGREDIENTS_ERROR
-          });
+          handleError(res);
         };
       })
       .catch(err => {
-        console.log(err);
-        dispatch({ type: GET_DATA_INGREDIENTS_ERROR });
+        handleError(err);
       });
   };
 };
