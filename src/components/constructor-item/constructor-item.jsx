@@ -2,9 +2,8 @@ import stylesItem from './constructor-item.module.css';
 import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
+import { removeIngredient } from '../../services/selected-ingr/selected-ingr-actions';
 import {
-  REDUCE_PRICE,
-  REMOVE_INGREDIENT,
   SWAP_INGREDIENTS
 } from '../../services/selected-ingr/selected-ingr-actions';
 import PropTypes from 'prop-types';
@@ -36,12 +35,6 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
     accept: 'selectedIngr',
     drop(item) { dropHandler(obj, item) },
   });
-
-  // Удаление ингридиента с вычетом цены из общей стоимости
-  function removeIngredient({ _uKey, price }) {
-    dispatch({ type: REMOVE_INGREDIENT, payload: { uKey: _uKey } });
-    dispatch({ type: REDUCE_PRICE, payload: { price: price } });
-  };
 
   // Изменение позиции элемента в списке
   function swapIngredient(dragObj, fromPosition, toPosition) {
@@ -122,7 +115,7 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
         text={obj.name}
         price={obj.price}
         thumbnail={obj.image}
-        handleClose={() => removeIngredient(obj)}
+        handleClose={() => dispatch(removeIngredient(obj._uKey, obj.price, selectedIngredients))}
       />
     </li>
   )

@@ -57,10 +57,10 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       };
 
     case REMOVE_INGREDIENT:
-      newArr = state.ingredients.filter((ingredient) => ingredient._uKey !== action.payload.uKey);
       return {
         ...state,
-        ingredients: newArr,
+        ingredients: action.payload.arr,
+        totalPrice: state.totalPrice - action.payload.price
       };
 
     case ADD_BUN:
