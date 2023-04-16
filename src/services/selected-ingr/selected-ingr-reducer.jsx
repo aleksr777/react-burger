@@ -73,6 +73,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       return {
         ...state,
         bun: noBunObj,
+        totalPrice: state.totalPrice - action.payload.price,
       };
 
     default:

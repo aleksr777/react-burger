@@ -14,3 +14,10 @@ export function removeIngredient(uKey, price, ingredients) {
     dispatch({ type: REMOVE_INGREDIENT, payload: { arr, price } });
   };
 };
+
+// Удаление булки с вычетом цены из общей стоимости(x2)
+export function removeBun(price) {
+  return function (dispatch) {
+    dispatch({ type: REMOVE_BUN, payload: { price: price * 2 } });
+  };
+};

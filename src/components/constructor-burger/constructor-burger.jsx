@@ -1,6 +1,7 @@
 import stylesConstructorBurger from './constructor-burger.module.css';
 import { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { removeBun } from '../../services/selected-ingr/selected-ingr-actions';
 import {
   ADD_PRICE,
   REDUCE_PRICE,
@@ -27,10 +28,10 @@ const ConstructorBurger = () => {
     dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
   }
 
-  function removeBun({ price }) {
+/*   function removeBun({ price }) {
     dispatch({ type: REMOVE_BUN, payload: {} });
     dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
-  }
+  } */
 
   function addIngredient(item, toPosition) {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
@@ -45,7 +46,7 @@ const ConstructorBurger = () => {
       }
       /* если булка ранее была выбрана, то ... */
       else if (selectedBun._id && selectedBun._id !== item._id) {
-        removeBun(selectedBun);
+        dispatch(removeBun(selectedBun.price));
         addBun(item);
       }
     }
