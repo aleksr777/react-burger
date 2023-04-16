@@ -67,6 +67,7 @@ const selectedIngrReducer = (state = initialIngrState, action) => {
       return {
         ...state,
         bun: action.payload.bunObj,
+        totalPrice: state.totalPrice + action.payload.price,
       };
 
     case REMOVE_BUN:

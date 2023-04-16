@@ -1,13 +1,10 @@
 import stylesConstructorBurger from './constructor-burger.module.css';
 import { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeBun } from '../../services/selected-ingr/selected-ingr-actions';
+import { addBun, removeBun } from '../../services/selected-ingr/selected-ingr-actions';
 import {
   ADD_PRICE,
-  REDUCE_PRICE,
   ADD_INGREDIENT,
-  ADD_BUN,
-  REMOVE_BUN,
 } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
@@ -23,16 +20,6 @@ const ConstructorBurger = () => {
 
   const selectedBun = useSelector(getSelectedBunState);
 
-  function addBun(item) {
-    dispatch({ type: ADD_BUN, payload: { bunObj: item } });
-    dispatch({ type: ADD_PRICE, payload: { price: item.price * 2 } });
-  }
-
-/*   function removeBun({ price }) {
-    dispatch({ type: REMOVE_BUN, payload: {} });
-    dispatch({ type: REDUCE_PRICE, payload: { price: price * 2 } });
-  } */
-
   function addIngredient(item, toPosition) {
     dispatch({ type: ADD_INGREDIENT, payload: { ingredientObj: item, toPosition: toPosition } });
     dispatch({ type: ADD_PRICE, payload: { price: item.price } });
@@ -42,12 +29,12 @@ const ConstructorBurger = () => {
   const dropHandler = (item, selectedBun) => {
     if (item.type === 'bun') {
       if (!selectedBun._id) {
-        addBun(item)
+        dispatch(addBun(item));
       }
       /* если булка ранее была выбрана, то ... */
       else if (selectedBun._id && selectedBun._id !== item._id) {
         dispatch(removeBun(selectedBun.price));
-        addBun(item);
+        dispatch(addBun(item));
       }
     }
     /* проверяем является ли инредиент новым по uKey 

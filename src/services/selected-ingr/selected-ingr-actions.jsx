@@ -15,6 +15,13 @@ export function removeIngredient(uKey, price, ingredients) {
   };
 };
 
+// Добавление булки с прибавлением цены к общей стоимости(x2)
+export function addBun(bunObj) {
+  return function (dispatch) {    
+    dispatch({ type: ADD_BUN, payload: { bunObj: bunObj, price: bunObj.price * 2 } });
+  };
+};
+
 // Удаление булки с вычетом цены из общей стоимости(x2)
 export function removeBun(price) {
   return function (dispatch) {
