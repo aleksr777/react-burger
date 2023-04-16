@@ -100,22 +100,24 @@ const Loader = ({ size, isLoading, isError, errorMessage }) => {
       <div className={stylesLoader.overlay} ref={loaderRef}>
         <div className={stylesLoader.wrapper}>
           {!errorState.isError
-            ? <LoaderSvg color={'#fff'} size={size} />
-            : <div className={stylesLoader.container}>
-              <div className={stylesLoader.textBox}>
-                <p className={`text text_type_main-large ${stylesLoader.text}`}>
-                  Ошибка сервера
-                </p>
-                <p className={`text text_type_main-medium ${stylesLoader.textMessage}`}>
-                  [{errorState.errorMessage}]
-                </p>
+            ? <LoaderSvg color={'#fff'} size={size} isLoading={isLoading}/>
+            : (
+              <div className={stylesLoader.container}>
+                <div className={stylesLoader.textBox}>
+                  <p className={`text text_type_main-large ${stylesLoader.text}`}>
+                    Ошибка сервера
+                  </p>
+                  <p className={`text text_type_main-medium ${stylesLoader.textMessage}`}>
+                    [{errorState.errorMessage}]
+                  </p>
+                </div>
+                <div className={stylesLoader.pictureBox}>
+                  <picture className={stylesLoader.imageBox}>
+                    <img className={stylesLoader.image} src={ImgPath} alt="Страница не найдена" />
+                  </picture>
+                </div>
               </div>
-              <div className={stylesLoader.pictureBox}>
-                <picture className={stylesLoader.imageBox}>
-                  <img className={stylesLoader.image} src={ImgPath} alt="Страница не найдена" />
-                </picture>
-              </div>
-            </div>
+            )
           }
         </div>
       </div>

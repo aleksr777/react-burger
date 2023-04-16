@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 
-export const LoaderSvg = ({ color, size }) => {
+export const LoaderSvg = ({ color, size, isLoading }) => {
+
+  if (!isLoading) {
+    return null
+  }
+
   return (
     <svg
       width={size}

@@ -20,8 +20,8 @@ document.documentElement.style.setProperty('--modal-animation-time-open', `${mod
 document.documentElement.style.setProperty('--modal-animation-time-close', `${modalCssTimeClose}ms`);
 
 /* Продолжительность анимации для лоадера */
-export const LOADER_ANIMATION_TIME = 400;
-const loaderCssTime = Math.round(MODAL_ANIMATION_TIME / 2);
+export const LOADER_ANIMATION_TIME = 450;
+const loaderCssTime = Math.round(LOADER_ANIMATION_TIME / 2);
 document.documentElement.style.setProperty('--loader-animation-time', `${loaderCssTime}ms`);
 
 // Объект для отображения "пустой булки", если булка не выбрана
