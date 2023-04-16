@@ -1,8 +1,5 @@
-import uniqid from 'uniqid'; /* uniqid нужен для генерации key */
 import { noBunObj } from '../../constants/constants';
 import {
-  ADD_PRICE,
-  REDUCE_PRICE,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   SWAP_INGREDIENTS,
@@ -10,50 +7,27 @@ import {
   REMOVE_BUN,
 } from './selected-ingr-actions';
 
-const initialIngrState = {
+const defaultState = {
   totalPrice: 0,
   bun: noBunObj,
   ingredients: [],
 };
 
-const selectedIngrReducer = (state = initialIngrState, action) => {
-
-  let newArr = null;
-  let newObj = null;
+const selectedIngrReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case ADD_PRICE:
-      return {
-        ...state,
-        totalPrice: state.totalPrice + action.payload.price
-      };
-
-    case REDUCE_PRICE:
-      return {
-        ...state,
-        totalPrice: state.totalPrice - action.payload.price
-      };
-
     case ADD_INGREDIENT:
-      newObj = { ...action.payload.ingredientObj };
-      newObj._uKey = uniqid.process();
-      newObj.locationDnd = 'ConstructorBurger';
-      newArr = [...state.ingredients];
-      newArr.splice(action.payload.toPosition, 0, newObj);
       return {
         ...state,
-        ingredients: newArr,
+        ingredients: action.payload.newArr,
+        totalPrice: state.totalPrice + action.payload.price,
       };
 
     case SWAP_INGREDIENTS:
-      newObj = { ...action.payload.ingredientObj };
-      newArr = [...state.ingredients];
-      newArr.splice(action.payload.fromPosition, 1); /* удаляем элемент со своей позиции*/
-      newArr.splice(action.payload.toPosition, 0, newObj); /* вставляем элемент в выбранную позицию */
       return {
         ...state,
-        ingredients: newArr,
+        ingredients: action.payload.newArr,
       };
 
     case REMOVE_INGREDIENT:

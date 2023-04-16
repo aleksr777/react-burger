@@ -2,10 +2,7 @@ import stylesItem from './constructor-item.module.css';
 import { memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
-import { removeIngredient } from '../../services/selected-ingr/selected-ingr-actions';
-import {
-  SWAP_INGREDIENTS
-} from '../../services/selected-ingr/selected-ingr-actions';
+import { removeIngredient, swapIngredients } from '../../services/selected-ingr/selected-ingr-actions';
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
@@ -36,18 +33,6 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
     drop(item) { dropHandler(obj, item) },
   });
 
-  // Изменение позиции элемента в списке
-  function swapIngredient(dragObj, fromPosition, toPosition) {
-    dispatch({
-      type: SWAP_INGREDIENTS,
-      payload: {
-        ingredientObj: dragObj,
-        fromPosition: fromPosition,
-        toPosition: toPosition
-      }
-    });
-  };
-
   function dropHandler(dropObj, dragObj) {
     /* определяем позицию в массиве */
     const fromPosition = selectedIngredients.indexOf(dragObj);
@@ -56,7 +41,7 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
     if (dragElementData.locationDnd === 'ConstructorBurger') {
       /* исключаем перетаскивание на самого себя */
       if (dropObj._uKey !== dragObj._uKey) {
-        swapIngredient(dragObj, fromPosition, toPosition);
+        dispatch(swapIngredients(dragObj, fromPosition, toPosition, selectedIngredients))
       }
     }
   };
@@ -64,7 +49,8 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
 
   function dragOverSetOpacity(e) {
     e.preventDefault();
-    /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0') и проверяем откуда элемент*/
+    /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0')
+     и проверяем откуда элемент*/
     if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
       e.currentTarget.style.opacity = '.6';
     }

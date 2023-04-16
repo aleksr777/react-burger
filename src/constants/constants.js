@@ -3,16 +3,7 @@ import transparentImgPath from '../images/transparent-picture.png';
 
 export const bodySelector = document.querySelector('body');
 
-/* Продолжительность анимации для модальных окон */
-export const MODAL_ANIMATION_TIME = 600;
-document.documentElement.style.setProperty('--modal-animation-time-open', `${Math.round(MODAL_ANIMATION_TIME / 1.4)}ms`);
-document.documentElement.style.setProperty('--modal-animation-time-close', `${Math.round(MODAL_ANIMATION_TIME / 1.2)}ms`);
-
-/* Продолжительность анимации для лоадера */
-export const LOADER_ANIMATION_TIME = 400;
-document.documentElement.style.setProperty('--loader-animation-time', `${Math.round(LOADER_ANIMATION_TIME / 2)}ms`);
-
-/* Настройки API */
+/* Настройка API */
 export const apiConfig = {
   baseUrl: 'https://norma.nomoreparties.space',
   headers: {
@@ -20,6 +11,18 @@ export const apiConfig = {
     'Content-Type': 'application/json'
   }
 };
+
+/* Продолжительность анимации для модальных окон */
+export const MODAL_ANIMATION_TIME = 600;
+const modalCssTimeOpen = Math.round(MODAL_ANIMATION_TIME / 1.4);
+const modalCssTimeClose = Math.round(MODAL_ANIMATION_TIME / 1.2);
+document.documentElement.style.setProperty('--modal-animation-time-open', `${modalCssTimeOpen}ms`);
+document.documentElement.style.setProperty('--modal-animation-time-close', `${modalCssTimeClose}ms`);
+
+/* Продолжительность анимации для лоадера */
+export const LOADER_ANIMATION_TIME = 400;
+const loaderCssTime = Math.round(MODAL_ANIMATION_TIME / 2);
+document.documentElement.style.setProperty('--loader-animation-time', `${loaderCssTime}ms`);
 
 // Объект для отображения "пустой булки", если булка не выбрана
 export const noBunObj = {
