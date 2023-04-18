@@ -11,6 +11,7 @@ const ModalOrderDetails = () => {
 
   const dispatch = useDispatch();
 
+  /* isModalOpened нужен для анимации */
   const { id, isModalOpened } = useSelector(getOrderIdState);
 
   const handleCloseModal = () => {
