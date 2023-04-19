@@ -14,15 +14,11 @@ export const apiConfig = {
 
 /* Продолжительность анимации для модальных окон */
 export const MODAL_ANIMATION_TIME = 600;
-const modalCssTimeOpen = Math.round(MODAL_ANIMATION_TIME / 1.4);
-const modalCssTimeClose = Math.round(MODAL_ANIMATION_TIME / 1.2);
-document.documentElement.style.setProperty('--modal-animation-time-open', `${modalCssTimeOpen}ms`);
-document.documentElement.style.setProperty('--modal-animation-time-close', `${modalCssTimeClose}ms`);
+document.documentElement.style.setProperty('--modal-animation-time', `${MODAL_ANIMATION_TIME}ms`);
 
 /* Продолжительность анимации для лоадера */
-export const LOADER_ANIMATION_TIME = 450;
-const loaderCssTime = Math.round(LOADER_ANIMATION_TIME / 2);
-document.documentElement.style.setProperty('--loader-animation-time', `${loaderCssTime}ms`);
+export const LOADER_ANIMATION_TIME = 400;
+document.documentElement.style.setProperty('--loader-animation-time', `${LOADER_ANIMATION_TIME}ms`);
 
 // Объект для отображения "пустой булки", если булка не выбрана
 export const noBunObj = {

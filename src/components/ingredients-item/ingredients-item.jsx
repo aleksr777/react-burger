@@ -4,7 +4,7 @@ import ConstructorBurgerStyles from '../constructor-burger/constructor-burger.mo
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
-import { OPEN_MODAL_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS } from '../../services/ingredient-details/ingredient-details-actions';
+import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const IngredientsItem = ({ children, ingredient }) => {
@@ -23,8 +23,7 @@ const IngredientsItem = ({ children, ingredient }) => {
   });
 
   const handleOpenModal = (ingredient) => {
-    dispatch({ type: SET_INGREDIENT_DETAILS, payload: { ingredient: ingredient } });
-    dispatch({ type: OPEN_MODAL_INGREDIENT_DETAILS, payload: {} });
+    dispatch(openIngredientDetailsModal(ingredient));
   };
 
   function handleDragStart() {
@@ -70,7 +69,7 @@ const IngredientsItem = ({ children, ingredient }) => {
   )
 };
 
-/* IngredientsItem.propTypes = {
+IngredientsItem.propTypes = {
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
@@ -85,6 +84,6 @@ const IngredientsItem = ({ children, ingredient }) => {
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired
-}; */
+};
 
 export default memo(IngredientsItem);

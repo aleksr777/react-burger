@@ -1,5 +1,6 @@
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
+import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 export const OPEN_MODAL_ORDER_ID = 'OPEN_MODAL_ORDER_ID';
 export const CLOSE_MODAL_ORDER_ID = 'CLOSE_MODAL_ORDER_ID';
 export const GET_ORDER_ID_REQUEST = 'GET_ORDER_ID_REQUEST';
@@ -37,4 +38,13 @@ export function getOrderId(arrId) {
         handleError(err);
       });
   };
+};
+
+export function closeOrderDetailsModal() {
+  return function (dispatch) {
+    dispatch({ type: CLOSE_MODAL_ORDER_ID, payload: {} });
+    setTimeout(() => {
+      dispatch({ type: REMOVE_ORDER_ID, payload: {} });
+    }, MODAL_ANIMATION_TIME);
+  }
 };

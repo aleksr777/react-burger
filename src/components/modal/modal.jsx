@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ModalPortal from '../modal-portal/modal-portal';
 import ModalLayout from '../modal-layout/modal-layout';
-import { bodySelector } from '../../constants/constants';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 
 
@@ -36,6 +35,7 @@ const Modal = ({ handleCloseModal, isModalOpened, children }) => {
 
   }, [handleCloseModal]);
 
+  /* удаляем окно после срабатывания анимации */
   if (!isModalMounted) {
     return null
   }

@@ -1,9 +1,9 @@
 .overlayEnterActive {
-  animation: overlayIn var(--modal-animation-time-open) cubic-bezier(.165, .84, .44, 1) forwards;
+  animation: overlayIn var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 .overlayExitActive {
-  animation: overlayOut var(--modal-animation-time-close) cubic-bezier(.165, .84, .44, 1) forwards;
+  animation: overlayOut var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 @keyframes overlayIn {
@@ -36,11 +36,11 @@
 
 .containerEnterActive {
   opacity: 0;
-  animation: containerIn var(--modal-animation-time-open) cubic-bezier(.165, .84, .44, 1) forwards;
+  animation: containerIn var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 .containerExitActive {
-  animation: containerOut var(--modal-animation-time-close) cubic-bezier(.165, .84, .44, 1) forwards;
+  animation: containerOut var(--modal-animation-time) cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 @keyframes containerIn {
