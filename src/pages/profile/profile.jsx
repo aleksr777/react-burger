@@ -8,7 +8,7 @@ import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
-/* import Loader from '../../components/loader/loader'; */
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -18,7 +18,7 @@ const getLoginState = state => state.login;
 
 const ProfilePage = () => {
 
-  const { user, isLoading, isError, errorMessage } = useSelector(getLoginState);
+  const { user, isLoading, isError } = useSelector(getLoginState);
 
   const dispatch = useDispatch();
 
@@ -30,6 +30,8 @@ const ProfilePage = () => {
   return (
 
     <AppPage>
+
+      <Loader size={100} isLoading={isLoading} isError={isError} />
 
       <AppHeader />
 

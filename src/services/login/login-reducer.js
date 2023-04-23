@@ -3,6 +3,7 @@ import {
   GET_DATA_LOGIN_SUCCESS,
   GET_DATA_LOGIN_ERROR,
   SET_DEFAULT_DATA_LOGIN,
+  SET_DEFAULT_ERROR_STATE_LOGIN,
 } from './login-actions';
 
 const defaultState = {
@@ -16,7 +17,7 @@ const defaultState = {
   },
   isError: {
     state: false,
-    title: 'Ошибка авторизации',
+    title: '',
     message: '',
   },
 };
@@ -47,7 +48,20 @@ const loginReducer = (state = defaultState, action) => {
         isError: {
           ...state.isError,
           state: true,
+          title: action.payload.title,
           message: `[${action.payload.message}]`,
+        },
+      };
+
+    case SET_DEFAULT_ERROR_STATE_LOGIN:
+      return {
+        ...state,
+        isLoading: false,
+        isError: {
+          ...state.isError,
+          state: false,
+          title: '',
+          message: '',
         },
       };
 

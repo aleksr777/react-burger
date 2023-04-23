@@ -13,7 +13,7 @@ const getIngredientsState = state => state.selectedIngr.ingredients;
 
 const OrderingButton = () => {
 
-  const { isLoading, isError, errorMessage } = useSelector(getOrderIdState);
+  const { isLoading, isError } = useSelector(getOrderIdState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
@@ -41,21 +41,19 @@ const OrderingButton = () => {
     dispatch(getOrderId(arrId));
   };
 
+  const isButtonDisabled = (!isOrderActive || isLoading) ? true : false;
+
   return (
     <>
-
-{/*       <Loader
-        size={100}
-        isLoading={isLoading}
-        isError={isError}
-        errorMessage={errorMessage}
-      /> */}
-
-      {
-        isOrderActive && !isLoading
-          ? (<Button htmlType='button' type='primary' size='large' onClick={sendOrderRequest}>Оформить заказ</Button>)
-          : (<Button htmlType='button' type='primary' size='large' disabled>Оформить заказ</Button>)
-      }
+      <Loader size={100} isLoading={isLoading} isError={isError} />
+      <Button
+        htmlType='button'
+        type='primary'
+        size='large'
+        onClick={sendOrderRequest}
+        disabled={isButtonDisabled}
+      >Оформить заказ
+      </Button>
     </>
   )
 };

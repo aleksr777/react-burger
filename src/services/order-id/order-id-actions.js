@@ -9,14 +9,15 @@ export const GET_ORDER_ID_ERROR = 'GET_ORDER_ID_ERROR';
 export const REMOVE_ORDER_ID = 'REMOVE_ORDER_ID';
 export const SET_DEFAULT_ORDER_ID = 'SET_DEFAULT_ORDER_ID';
 
-
+/* Запрос на сервер о формировании заказа 
+с открытием модального окна и отображением номера заказа*/
 export function getOrderId(arrId) {
 
   return function (dispatch) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_ORDER_ID_ERROR, payload: { errorMessage: response } });
+      dispatch({ type: GET_ORDER_ID_ERROR, payload: { message: response } });
       setTimeout(() => {
         dispatch({ type: SET_DEFAULT_ORDER_ID, payload: {} });
       }, 2000);
@@ -40,6 +41,7 @@ export function getOrderId(arrId) {
   };
 };
 
+/* Закрытие модального окна с удалением информации о заказе */
 export function closeOrderDetailsModal() {
   return function (dispatch) {
     dispatch({ type: CLOSE_MODAL_ORDER_ID, payload: {} });

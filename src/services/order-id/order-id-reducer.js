@@ -9,11 +9,14 @@ import {
 } from './order-id-actions';
 
 const defaultState = {
-  isLoading: false,
   id: null,
+  isLoading: false,
   isModalOpened: false,
-  isError: false,
-  errorMessage: '',
+  isError: {
+    state: false,
+    title: 'Ошибка запроса к серверу',
+    message: '',
+  },
 };
 
 const orderIdReducer = (state = defaultState, action) => {
@@ -56,8 +59,11 @@ const orderIdReducer = (state = defaultState, action) => {
     case GET_ORDER_ID_ERROR:
       return {
         ...state,
-        isError: true,
-        errorMessage: action.payload.errorMessage,
+        isError: {
+          ...state.isError,
+          state: true,
+          message: `[${action.payload.message}]`,
+        },
       };
 
     case SET_DEFAULT_ORDER_ID:

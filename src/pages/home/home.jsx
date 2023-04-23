@@ -10,7 +10,6 @@ import AppMainBlock from '../../components/app-main/app-main';
 import ConstructorBurger from '../../components/constructor-burger/constructor-burger';
 import IngredientsBurger from '../../components/ingredients-burger/ingredients-burger';
 
-
 const getIngredientsDataState = state => state.ingredientsData;
 
 

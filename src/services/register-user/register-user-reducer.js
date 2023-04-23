@@ -1,12 +1,18 @@
 import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR
+  REGISTER_USER_ERROR,
+  SET_DEFAULT_STATE_REGISTER_USER,
 } from './register-user-actions';
 
 const defaultState = {
   isLoading: false,
-  success: false
+  success: false,
+  isError: {
+    state: false,
+    title: '',
+    message: '',
+  },
 };
 
 const registerUserReducer = (state = defaultState, action) => {
@@ -28,6 +34,17 @@ const registerUserReducer = (state = defaultState, action) => {
       };
 
     case REGISTER_USER_ERROR:
+      return {
+        ...state,
+        isError: {
+          ...state.isError,
+          state: true,
+          title: action.payload.title,
+          message: `[${action.payload.message}]`,
+        },
+      };
+
+    case SET_DEFAULT_STATE_REGISTER_USER:
       return defaultState;
 
     default:

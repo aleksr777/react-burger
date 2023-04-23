@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from '../../services/register-user/register-user-actions';
-/* import Loader from '../../components/loader/loader'; */
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -17,7 +17,7 @@ const registerUserState = state => state.registerUser;
 
 const RegisterPage = () => {
 
-  const userState = useSelector(registerUserState);
+  const { isLoading, isError } = useSelector(registerUserState);
 
   const navigate = useNavigate();
 
@@ -30,14 +30,8 @@ const RegisterPage = () => {
   });
 
   function goToLoginPage() {
-    navigate('/login')
+    navigate('/login');
   };
-
-  useEffect(() => {
-    if (userState.success) {
-      return goToLoginPage()
-    }
-  }, [userState.success]);
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value })
@@ -45,23 +39,23 @@ const RegisterPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(
-      registerNewUser(
-        inputsData.valueName,
-        inputsData.valueEmail,
-        inputsData.valuePassword
-      ));
+    dispatch(registerNewUser(
+      goToLoginPage,
+      inputsData.valueName,
+      inputsData.valueEmail,
+      inputsData.valuePassword
+    ));
   }
 
   return (
 
     <AppPage>
 
+      <Loader size={100} isLoading={isLoading} isError={isError} />
+
       <AppHeader />
 
       <AppMainBlock>
-
-        {/* <Loader size='large' isLoading={userState.isLoading} /> */}
 
         <FormСontainer>
 

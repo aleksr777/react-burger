@@ -3,8 +3,8 @@ import { closeOrderDetailsModal } from '../../services/order-id/order-id-actions
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 
-
 const getOrderIdState = state => state.orderId;
+
 
 const ModalOrderDetails = () => {
 

@@ -64,7 +64,7 @@ export const postResetPasswordRequest = async (apiConfig, valuePassword, valueCo
   })
 };
 
-//Отправка запроса на авторизацию
+//Запрос входа в аккаунт
 export const requestLoginServer = async (apiConfig, email, password) => {
   return request(`${apiConfig.baseUrl}/api/auth/login`, {
     method: 'POST',
@@ -76,8 +76,7 @@ export const requestLoginServer = async (apiConfig, email, password) => {
   })
 };
 
-
-//Отправка запроса на разлогирование
+// Запрос выхода из аккаунта
 export const requestLogoutServer = async (apiConfig, refreshToken) => {
   return request(`${apiConfig.baseUrl}/api/auth/logout`, {
     method: 'POST',

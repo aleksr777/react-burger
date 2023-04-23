@@ -4,8 +4,9 @@ export const SEND_LOGIN_REQUEST = 'SEND_LOGIN_REQUEST';
 export const GET_DATA_LOGIN_SUCCESS = 'GET_DATA_LOGIN_SUCCESS';
 export const GET_DATA_LOGIN_ERROR = 'GET_DATA_LOGIN_ERROR';
 export const SET_DEFAULT_DATA_LOGIN = 'SET_DEFAULT_DATA_LOGIN';
+export const SET_DEFAULT_ERROR_STATE_LOGIN = 'SET_DEFAULT_ERROR_STATE_LOGIN';
 
-
+/* Запрос входа в аккаунт */
 export function requestLogin(goBackToPage, email, password) {
 
   return function (dispatch) {
@@ -16,10 +17,16 @@ export function requestLogin(goBackToPage, email, password) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_DATA_LOGIN_ERROR, payload: { message: response } });
+      dispatch({
+        type: GET_DATA_LOGIN_ERROR,
+        payload: {
+          message: response,
+          title: 'Ошибка входа в аккаунт',
+        }
+      });
       setTimeout(() => {
         dispatch({ type: SET_DEFAULT_DATA_LOGIN, payload: {} });
-      }, 800);
+      }, 1500);
     };
 
     dispatch({ type: SEND_LOGIN_REQUEST, payload: {} });
@@ -41,7 +48,7 @@ export function requestLogin(goBackToPage, email, password) {
           });
           saveRefreshToken(res.refreshToken);
           setTimeout(() => { goBackToPage() }, LOADER_ANIMATION_TIME);
-          
+
         }
         else {
           handleError(res);
@@ -53,7 +60,7 @@ export function requestLogin(goBackToPage, email, password) {
   };
 };
 
-
+/* Запрос выхода из аккаунта */
 export function requestLogout() {
 
   return function (dispatch) {
@@ -66,7 +73,16 @@ export function requestLogout() {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_DATA_LOGIN_ERROR, payload: { errorMessage: response } });
+      dispatch({
+        type: GET_DATA_LOGIN_ERROR,
+        payload: {
+          message: response,
+          title: 'Ошибка выхода из аккаунта',
+        }
+      });
+      setTimeout(() => {
+        dispatch({ type: SET_DEFAULT_ERROR_STATE_LOGIN, payload: {} });
+      }, 1500);
     };
 
     dispatch({ type: SEND_LOGIN_REQUEST, payload: {} });
@@ -74,9 +90,11 @@ export function requestLogout() {
     requestLogoutServer(apiConfig, refreshToken)
       .then(res => {
         if (res && res.success) {
-          console.log(res);
-          dispatch({ type: SET_DEFAULT_DATA_LOGIN, payload: {} });
-          removeRefreshToken();
+          dispatch({ type: SET_DEFAULT_ERROR_STATE_LOGIN, payload: {} });
+          setTimeout(() => {
+            removeRefreshToken();
+            dispatch({ type: SET_DEFAULT_DATA_LOGIN, payload: {} });
+          }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);
