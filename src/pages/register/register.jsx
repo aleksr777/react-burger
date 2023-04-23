@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from '../../services/register-user/register-user-actions';
-import Loader from '../../components/loader/loader';
+/* import Loader from '../../components/loader/loader'; */
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -61,7 +61,7 @@ const RegisterPage = () => {
 
       <AppMainBlock>
 
-        <Loader size='large' isLoading={userState.isLoading} />
+        {/* <Loader size='large' isLoading={userState.isLoading} /> */}
 
         <FormСontainer>
 

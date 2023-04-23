@@ -1,11 +1,11 @@
 import stylesLoader from './loader.module.css';
-import PropTypes from 'prop-types';
-import { LoaderSvg } from './loader.svg';
-import ImgPath from '../../images/ban.svg';
-import { bodySelector } from '../../constants/constants';
-import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { LoaderSvg } from './loader.svg';
+import { bodySelector } from '../../constants/constants';
+import { LOADER_ANIMATION_TIME } from '../../constants/constants';
+import ErrorInfo from '../../components/error-info/error-info';
 
 
 const loaderAnimation = {
@@ -14,7 +14,7 @@ const loaderAnimation = {
 };
 
 
-const Loader = ({ size, isLoading, isError, errorMessage }) => {
+const Loader = ({ size, isLoading, isError }) => {
 
 
   const loaderRef = useRef();
@@ -23,54 +23,30 @@ const Loader = ({ size, isLoading, isError, errorMessage }) => {
   const [animationIn, setAnimationIn] = useState(false);
 
   /* Этот стейт нужен, чтобы сообщение об ошибке сервера не закрывалось раньше лоадера*/
-  const [errorState, setErrorState] = useState({
-    isError: false,
-    errorMessage: errorMessage,
-  });
+  const [errorState, setErrorState] = useState(isError);
 
   /* Этот стейт нужен, чтобы анимация успела сработать до закрытия лоадера */
   const [isMounted, setMounted] = useState(false);
 
 
   useEffect(() => {
-    if (isLoading && !isMounted) {
-      setMounted(true);
-    }
+    if (isLoading && !isMounted) { setMounted(true) }
     else if (!isLoading && isMounted) {
-      setTimeout(() => {
-        setMounted(false);
-      }, LOADER_ANIMATION_TIME);
+      setTimeout(() => { setMounted(false) }, LOADER_ANIMATION_TIME);
     }
   }, [isLoading]);
 
 
   useEffect(() => {
-    if (!isError) {
-      setTimeout(() => {
-        setErrorState({
-          ...errorState,
-          isError: false,
-        })
-      }, LOADER_ANIMATION_TIME);
-    }
-    else if (isError) {
-      setErrorState({
-        ...errorState,
-        isError: true,
-        errorMessage: errorMessage,
-      });
-    }
-  }, [isError]);
+    isMounted && setAnimationIn(true);
+    !isLoading && setAnimationIn(false);
+  }, [isLoading, isMounted]);
 
 
   useEffect(() => {
-    if (isMounted) {
-      setAnimationIn(true)
-    }
-    if (!isLoading) {
-      setAnimationIn(false)
-    }
-  }, [isLoading, isMounted]);
+    isError.state && setErrorState(isError);
+  }, [isError.state]);
+
 
   /* На время запроса к серверу отключаем взаимодействие с пользователем (клики мышью)*/
   useEffect(() => {
@@ -78,12 +54,15 @@ const Loader = ({ size, isLoading, isError, errorMessage }) => {
       bodySelector.style.pointerEvents = 'none';
       bodySelector.style.userSelect = 'none';
     }
-    if (!isLoading && !isMounted) {
-      bodySelector.style.pointerEvents = '';
-      bodySelector.style.userSelect = '';
+    else if (!isLoading) {
+      setTimeout(() => {
+        bodySelector.style.pointerEvents = '';
+        bodySelector.style.userSelect = '';
+      }, LOADER_ANIMATION_TIME);
     }
-  }, [isLoading, isMounted]);
+  }, [isLoading]);
 
+  /* Закрываем лоадер после срабатывания анимации */
   if (!isMounted) {
     return null
   };
@@ -99,25 +78,9 @@ const Loader = ({ size, isLoading, isError, errorMessage }) => {
     >
       <div className={stylesLoader.overlay} ref={loaderRef}>
         <div className={stylesLoader.wrapper}>
-          {!errorState.isError
-            ? <LoaderSvg color={'#fff'} size={size} isLoading={isLoading}/>
-            : (
-              <div className={stylesLoader.container}>
-                <div className={stylesLoader.textBox}>
-                  <p className={`text text_type_main-large ${stylesLoader.text}`}>
-                    Ошибка сервера
-                  </p>
-                  <p className={`text text_type_main-medium ${stylesLoader.textMessage}`}>
-                    [{errorState.errorMessage}]
-                  </p>
-                </div>
-                <div className={stylesLoader.pictureBox}>
-                  <picture className={stylesLoader.imageBox}>
-                    <img className={stylesLoader.image} src={ImgPath} alt="Страница не найдена" />
-                  </picture>
-                </div>
-              </div>
-            )
+          {errorState.state && isMounted
+            ? <ErrorInfo title={errorState.title} message={errorState.message} />
+            : <LoaderSvg color={'#fff'} size={size} isLoading={isLoading} />
           }
         </div>
       </div>
@@ -128,7 +91,11 @@ const Loader = ({ size, isLoading, isError, errorMessage }) => {
 Loader.propTypes = {
   size: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.shape({
+    state: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default Loader;

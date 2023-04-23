@@ -16,7 +16,7 @@ const getIngredientsDataState = state => state.ingredientsData;
 
 const HomePage = () => {
 
-  const { isLoading, isError, errorMessage } = useSelector(getIngredientsDataState);
+  const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   const dispatch = useDispatch();
 
@@ -26,14 +26,9 @@ const HomePage = () => {
 
     <AppPage>
 
-      <AppHeader />
+      <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <Loader
-        size={100}
-        isLoading={isLoading}
-        isError={isError}
-        errorMessage={errorMessage}
-      />
+      <AppHeader />
 
       {
         !isLoading

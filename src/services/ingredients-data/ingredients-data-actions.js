@@ -12,7 +12,7 @@ export function getIngredientsData() {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_DATA_INGREDIENTS_ERROR, payload: { errorMessage: response } });
+      dispatch({ type: GET_DATA_INGREDIENTS_ERROR, payload: { message: response } });
       setTimeout(() => {
         dispatch({ type: SET_DEFAULT_DATA_INGREDIENTS, payload: {} });
       }, 2000);

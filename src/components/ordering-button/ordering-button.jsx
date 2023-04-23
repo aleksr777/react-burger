@@ -44,12 +44,12 @@ const OrderingButton = () => {
   return (
     <>
 
-      <Loader
+{/*       <Loader
         size={100}
         isLoading={isLoading}
         isError={isError}
         errorMessage={errorMessage}
-      />
+      /> */}
 
       {
         isOrderActive && !isLoading

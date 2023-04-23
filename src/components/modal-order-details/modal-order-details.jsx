@@ -14,6 +14,10 @@ const ModalOrderDetails = () => {
   (иначе надпись ID заказа в модальном окне исчезает раньше, чем окно успевает закрыться) */
   const { id, isModalOpened } = useSelector(getOrderIdState);
 
+  if (!id) {
+    return null
+  }
+
   const handleCloseModal = () => {
     dispatch(closeOrderDetailsModal());
   };

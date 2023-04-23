@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
-import Loader from '../../components/loader/loader';
+/* import Loader from '../../components/loader/loader'; */
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
@@ -41,7 +41,7 @@ const ResetPasswordPage = () => {
   });
 
   const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value })
+    setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
   function handleSubmit(e) {
@@ -57,7 +57,7 @@ const ResetPasswordPage = () => {
 
       <AppMainBlock>
 
-        <Loader size='large' isLoading={passwordState.isLoading} />
+        {/* <Loader size='large' isLoading={passwordState.isLoading} /> */}
 
         <FormСontainer>
 

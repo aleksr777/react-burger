@@ -63,3 +63,27 @@ export const postResetPasswordRequest = async (apiConfig, valuePassword, valueCo
     })
   })
 };
+
+//Отправка запроса на авторизацию
+export const requestLoginServer = async (apiConfig, email, password) => {
+  return request(`${apiConfig.baseUrl}/api/auth/login`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'email': email,
+      'password': password
+    })
+  })
+};
+
+
+//Отправка запроса на разлогирование
+export const requestLogoutServer = async (apiConfig, refreshToken) => {
+  return request(`${apiConfig.baseUrl}/api/auth/logout`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'token': refreshToken
+    })
+  })
+};
