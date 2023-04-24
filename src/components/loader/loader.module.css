@@ -31,11 +31,11 @@
 }
 
 .enterActive {
-  animation: loaderIn var(--loader-animation-time) linear normal forwards running;
+  animation: loaderIn var(--loader-animation-time) ease-out normal forwards running;
 }
 
 .exitActive {
-  animation: loaderOut var(--loader-animation-time) linear normal forwards running;
+  animation: loaderOut var(--loader-animation-time) ease-out normal forwards running;
 }
 
 @keyframes loaderIn {
