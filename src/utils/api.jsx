@@ -29,7 +29,7 @@ export const postOrder = async (apiConfig, arrId) => {
 };
 
 //Отправка данных для регистрации
-export const postRegisterUserRequest = async (apiConfig, valueName, valueEmail, valuePassword) => {
+export const registerUserRequestServer = async (apiConfig, valueName, valueEmail, valuePassword) => {
   return request(`${apiConfig.baseUrl}/api/auth/register`, {
     method: 'POST',
     headers: apiConfig.headers,
@@ -42,7 +42,7 @@ export const postRegisterUserRequest = async (apiConfig, valueName, valueEmail, 
 };
 
 //Отправка адреса email для сброса пароля
-export const postResetEmailRequest = async (apiConfig, valueEmail) => {
+export const forgotPasswordRequestServer = async (apiConfig, valueEmail) => {
   return request(`${apiConfig.baseUrl}/api/password-reset`, {
     method: 'POST',
     headers: apiConfig.headers,
@@ -53,7 +53,7 @@ export const postResetEmailRequest = async (apiConfig, valueEmail) => {
 };
 
 //Отправка нового пароля и проверочного кода
-export const postResetPasswordRequest = async (apiConfig, valuePassword, valueCode) => {
+export const resetPasswordRequestServer = async (apiConfig, valuePassword, valueCode) => {
   return request(`${apiConfig.baseUrl}/api/password-reset/reset`, {
     method: 'POST',
     headers: apiConfig.headers,

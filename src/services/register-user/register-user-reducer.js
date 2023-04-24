@@ -2,7 +2,7 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
-  SET_DEFAULT_STATE_REGISTER_USER,
+  REGISTER_USER_SET_DEFAULT_STATE,
 } from './register-user-actions';
 
 const defaultState = {
@@ -44,7 +44,7 @@ const registerUserReducer = (state = defaultState, action) => {
         },
       };
 
-    case SET_DEFAULT_STATE_REGISTER_USER:
+    case REGISTER_USER_SET_DEFAULT_STATE:
       return defaultState;
 
     default:

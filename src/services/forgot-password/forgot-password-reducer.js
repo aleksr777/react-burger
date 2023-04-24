@@ -1,9 +1,9 @@
 import {
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR,
-  RESET_PASSWORD_SET_DEFAULT_STATE,
-} from './reset-password-actions';
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_ERROR,
+  FORGOT_PASSWORD_SET_DEFAULT_STATE,
+} from './forgot-password-actions';
 
 const defaultState = {
   success: false,
@@ -15,25 +15,25 @@ const defaultState = {
   },
 };
 
-const resetPasswordReducer = (state = defaultState, action) => {
+const forgotPasswordReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case RESET_PASSWORD_REQUEST: {
+    case FORGOT_PASSWORD_REQUEST: {
       return {
         ...state,
         isLoading: true
       };
     };
 
-    case RESET_PASSWORD_SUCCESS:
+    case FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         isLoading: false,
         success: true
       };
 
-    case RESET_PASSWORD_ERROR:
+    case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
         isError: {
@@ -44,7 +44,7 @@ const resetPasswordReducer = (state = defaultState, action) => {
         },
       };
 
-    case RESET_PASSWORD_SET_DEFAULT_STATE:
+    case FORGOT_PASSWORD_SET_DEFAULT_STATE:
       return defaultState;
 
     default:
@@ -52,4 +52,4 @@ const resetPasswordReducer = (state = defaultState, action) => {
   }
 };
 
-export { resetPasswordReducer };
+export { forgotPasswordReducer };

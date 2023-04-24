@@ -4,7 +4,7 @@ import { ingredientsDataReducer } from './ingredients-data/ingredients-data-redu
 import { orderIdReducer } from './order-id/order-id-reducer';
 import { loginReducer } from './login/login-reducer';
 import { registerUserReducer } from './register-user/register-user-reducer';
-import { resetEmailReducer } from './reset-email/reset-email-reducer';
+import { forgotPasswordReducer } from './forgot-password/forgot-password-reducer';
 import { resetPasswordReducer } from './reset-password/reset-password-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   orderId: orderIdReducer,
   login: loginReducer,
   registerUser: registerUserReducer,
-  resetEmail: resetEmailReducer,
+  forgotPassword: forgotPasswordReducer,
   resetPassword: resetPasswordReducer,
   ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,

@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
-import { resetEmailRequest } from '../../services/reset-email/reset-email-actions';
-/* import Loader from '../../components/loader/loader'; */
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
+const forgotPasswordState = state => state.forgotPassword;
 
-const resetEmailState = state => state.resetEmail;
 
 const ForgotPasswordPage = () => {
 
-  const emailState = useSelector(resetEmailState);
+  const { isLoading, isError } = useSelector(forgotPasswordState);
 
   const navigate = useNavigate();
 
@@ -26,15 +26,7 @@ const ForgotPasswordPage = () => {
 
   const [valueEmail, setValueEmail] = useState('');
 
-  function goToResetPasswordPage() {
-    navigate('/reset-password')
-  }
-
-  useEffect(() => {
-    if (emailState.success) {
-      return goToResetPasswordPage();
-    }
-  }, [emailState.success]);
+  const goToResetPasswordPage = () => navigate('/reset-password');
 
   const onChangeEmail = e => {
     setValueEmail(e.target.value);
@@ -42,7 +34,7 @@ const ForgotPasswordPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(resetEmailRequest(valueEmail));
+    dispatch(forgotPasswordRequest(goToResetPasswordPage, valueEmail));
   }
 
   return (
@@ -51,8 +43,8 @@ const ForgotPasswordPage = () => {
 
       <AppHeader />
 
-      {/* <Loader size='large' isLoading={emailState.isLoading} /> */}
-      
+      <Loader size={100} isLoading={isLoading} isError={isError} />
+
       <AppMainBlock>
 
         <FormСontainer>

@@ -1,19 +1,20 @@
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { registerUserRequest } from '../../services/register-user/register-user-actions';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import { registerNewUser } from '../../services/register-user/register-user-actions';
 import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
 const registerUserState = state => state.registerUser;
+
 
 const RegisterPage = () => {
 
@@ -39,7 +40,7 @@ const RegisterPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(registerNewUser(
+    dispatch(registerUserRequest(
       goToLoginPage,
       inputsData.valueName,
       inputsData.valueEmail,

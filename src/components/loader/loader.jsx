@@ -23,7 +23,11 @@ const Loader = ({ size, isLoading, isError }) => {
   const [animationIn, setAnimationIn] = useState(false);
 
   /* Этот стейт нужен, чтобы сообщение об ошибке сервера не закрывалось раньше лоадера*/
-  const [errorState, setErrorState] = useState(isError);
+  const [errorState, setErrorState] = useState({
+    state: false,
+    title: '',
+    message: '',
+  });
 
   /* Этот стейт нужен, чтобы анимация успела сработать до закрытия лоадера */
   const [isMounted, setMounted] = useState(false);
@@ -32,7 +36,14 @@ const Loader = ({ size, isLoading, isError }) => {
   useEffect(() => {
     if (isLoading && !isMounted) { setMounted(true) }
     else if (!isLoading && isMounted) {
-      setTimeout(() => { setMounted(false) }, LOADER_ANIMATION_TIME);
+      setTimeout(() => {
+        setMounted(false);
+        setErrorState({
+          state: false,
+          title: '',
+          message: '',
+        });
+      }, LOADER_ANIMATION_TIME);
     }
   }, [isLoading]);
 

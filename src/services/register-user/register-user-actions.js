@@ -1,12 +1,12 @@
 import { apiConfig, LOADER_ANIMATION_TIME } from '../../constants/constants';
-import { postRegisterUserRequest } from '../../utils/api';
+import { registerUserRequestServer } from '../../utils/api';
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
-export const SET_DEFAULT_STATE_REGISTER_USER = 'SET_DEFAULT_STATE_REGISTER_USER';
+export const REGISTER_USER_SET_DEFAULT_STATE = 'REGISTER_USER_SET_DEFAULT_STATE';
 
 
-export function registerNewUser(goToLoginPage, valueName, valueEmail, valuePassword) {
+export function registerUserRequest(goToLoginPage, valueName, valueEmail, valuePassword) {
 
   return function (dispatch) {
 
@@ -20,27 +20,23 @@ export function registerNewUser(goToLoginPage, valueName, valueEmail, valuePassw
         }
       });
       setTimeout(() => {
-        dispatch({ type: SET_DEFAULT_STATE_REGISTER_USER, payload: {} });
+        dispatch({ type: REGISTER_USER_SET_DEFAULT_STATE, payload: {} });
       }, 1500);
     };
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });
 
-    postRegisterUserRequest(apiConfig, valueName, valueEmail, valuePassword)
+    registerUserRequestServer(apiConfig, valueName, valueEmail, valuePassword)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });
           setTimeout(() => {
-            dispatch({ type: SET_DEFAULT_STATE_REGISTER_USER, payload: {} });
+            dispatch({ type: REGISTER_USER_SET_DEFAULT_STATE, payload: {} });
             goToLoginPage();
           }, LOADER_ANIMATION_TIME);
         }
-        else {
-          handleError(res);
-        };
+        else { handleError(res) };
       })
-      .catch(err => {
-        handleError(err);
-      });
+      .catch(err => handleError(err));
   };
 };

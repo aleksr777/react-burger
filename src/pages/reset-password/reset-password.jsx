@@ -1,44 +1,42 @@
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
-/* import Loader from '../../components/loader/loader'; */
+import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
-
+const forgotPasswordState = state => state.forgotPassword;
 const resetPasswordState = state => state.resetPassword;
 
 
 const ResetPasswordPage = () => {
 
-  const passwordState = useSelector(resetPasswordState);
+  const { isLoading, isError } = useSelector(resetPasswordState);
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  function goToLoginPage() {
-    navigate('/login')
-  };
-
-  useEffect(() => {
-    if (passwordState.success) {
-      return goToLoginPage()
-    }
-  }, [passwordState.success]);
-
   const [inputsData, setInputsData] = useState({
     valuePassword: '',
     valueCode: '',
   });
+
+  const { success } = useSelector(forgotPasswordState);
+  useEffect(() => {
+    !success && navigate('/forgot-password')
+  }, []);
+  if (!success) { return null };
+
+  const goToLoginPage = () => navigate('/login');
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
@@ -46,7 +44,11 @@ const ResetPasswordPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(resetPasswordRequest(inputsData.valuePassword, inputsData.valueCode));
+    dispatch(resetPasswordRequest(
+      goToLoginPage,
+      inputsData.valuePassword,
+      inputsData.valueCode
+    ));
   }
 
   return (
@@ -57,7 +59,7 @@ const ResetPasswordPage = () => {
 
       <AppMainBlock>
 
-        {/* <Loader size='large' isLoading={passwordState.isLoading} /> */}
+        <Loader size={100} isLoading={isLoading} isError={isError} />
 
         <FormСontainer>
 
