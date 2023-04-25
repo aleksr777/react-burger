@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  padding: 118px 0 0 0;
+}
+
+.navBlock {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 19px 0 0 2px;
+}
+
+.editingBlock {
+  flex: 0 1 auto;
+  padding-bottom: 0;
+  padding-right: 0;
+  padding-top: 0;
+  composes: pl-15 from global;
+}
+
+.buttonsBlock {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.cancelButton {
+  border: 0;
+  padding: 0;
+  margin: 17px 0 0 0;
+  cursor: pointer;
+  color: #4C4CFF;
+  background: transparent;
+  transition: all .3s ease 0s;
+  composes: text text_type_main-default from global;
+}
+
+.cancelButton:hover {
+  opacity: .7;
+}
+
+.navLink {
+  color: #8585AD;
+  margin: 0;
+  padding: 0;
+  transition: all .3s ease 0s;
+  composes: text text_type_main-medium from global;
+}
+
+.navLink:hover {
+  opacity: .7;
+}
+
+.navLink_active {
+  color: #F2F2F3;
+}

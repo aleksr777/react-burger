@@ -12,6 +12,7 @@ const FormInput = ({ inputType, ...otherProps }) => {
         <EmailInput
           {...otherProps}
           extraClass='mb-6'
+          size='default'
         />
       break;
 
@@ -20,6 +21,7 @@ const FormInput = ({ inputType, ...otherProps }) => {
         <PasswordInput
           {...otherProps}
           extraClass='mb-6'
+          size='default'
         />
       break;
 

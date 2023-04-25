@@ -1,65 +1,116 @@
+import stylesProfile from './profile.module.css';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from "react-router-dom";
-import { requestLogout } from '../../services/login/login-actions';
-import FormTitle from '../../components/form-title/form-title';
-/* import FormInput from '../../components/form-input/form-input'; */
-import FormLink from '../../components/form-link/form-link';
-import FormText from '../../components/form-text/form-text';
+import { useSelector/* , useDispatch */ } from 'react-redux';
+import { NavLink } from "react-router-dom";
+/* import { requestLogout } from '../../services/login/login-actions'; */
+import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
-import FormСontainer from '../../components/form-container/form-container';
-import Loader from '../../components/loader/loader';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
-
 const getLoginState = state => state.login;
+
 
 const ProfilePage = () => {
 
-  const { user, isLoading, isError } = useSelector(getLoginState);
+  const { user } = useSelector(getLoginState);
 
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch(); */
+
+  const [inputsData, setInputsData] = useState({
+    valueName: user.name,
+    valueLogin: user.email,
+    valuePassword: user.password,
+  });
+
+  const handleInputChange = (e, value) => {
+    setInputsData({ ...inputsData, [value]: e.target.value })
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(requestLogout());
   }
 
   return (
 
     <AppPage>
 
-      <Loader size={100} isLoading={isLoading} isError={isError} />
-
       <AppHeader />
 
       <AppMainBlock>
 
-        <FormСontainer>
+        <form
+          className={stylesProfile.form}
+          onSubmit={handleSubmit}
+          autoComplete='off'
+        >
 
-          <FormTitle text='Личный кабинет' />
+          <div className={stylesProfile.navBlock}>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+            <NavLink
+              className={`${stylesProfile.navLink} ${stylesProfile.navLink_active}`}
+              to='/profile'
+            >Профиль
+            </NavLink>
 
-            <FormText>
-              Ваше имя: {user.name}
-            </FormText>
+            <NavLink
+              className={stylesProfile.navLink}
+              to='/profile'
+            >История заказов
+            </NavLink>
 
-            <FormText>
-              Ваш email: {user.email}
-            </FormText>
+            <NavLink
+              className={stylesProfile.navLink}
+              to='/profile'
+            >Выход
+            </NavLink>
 
-            <FormText>
-              Ваш пароль: {user.password}
-            </FormText>
+          </div>
 
-            <FormButton text='Выход' />
+          <div className={stylesProfile.editingBlock}>
 
-          </form>
+            <FormInput
+              inputType='text'
+              placeholder='Имя'
+              name='name'
+              icon='EditIcon'
+              value={inputsData.valueName}
+              onChange={e => handleInputChange(e, 'valueName')}
+            />
 
-        </FormСontainer >
+            <FormInput
+              inputType='email'
+              onChange={e => handleInputChange(e, 'valueLogin')}
+              value={inputsData.valueLogin}
+              name='login'
+              placeholder='Логин'
+              icon='EditIcon'
+              isIcon={true}
+            />
+
+            <FormInput
+              inputType='password'
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
+              name='password'
+              placeholder='Пароль'
+              icon="EditIcon"
+            />
+
+            <div className={stylesProfile.buttonsBlock}>
+
+              <button className={stylesProfile.cancelButton}>Отмена</button>
+              <FormButton text='Сохранить' />
+
+            </div>
+
+            {/* Временная кнопка для проверки разлогирования (пока не знаю, как надо будет реализовывать разлогирование) */}
+            {/* <button onClick={() => dispatch(requestLogout())}>Выйти из аккаунта</button> */}
+
+          </div>
+
+        </form>
 
       </AppMainBlock>
 
