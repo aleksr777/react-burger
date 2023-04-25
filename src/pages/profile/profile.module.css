@@ -63,3 +63,16 @@
 .navLink_active {
   color: #F2F2F3;
 }
+
+.blockAbout {
+  padding: 60px 0 0 0;
+  margin: 0;
+}
+
+.blockAbout__text {
+  color: #8585AD;
+  opacity: 0.4;
+  padding: 0;
+  margin: 0;
+  composes: text text_type_main-default from global;
+}

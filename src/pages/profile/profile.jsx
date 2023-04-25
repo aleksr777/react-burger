@@ -8,6 +8,7 @@ import FormButton from '../../components/form-button/form-button';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
+import FormText from '../../components/form-text/form-text';
 
 const getLoginState = state => state.login;
 
@@ -65,6 +66,11 @@ const ProfilePage = () => {
               to='/profile'
             >Выход
             </NavLink>
+
+            <div className={stylesProfile.blockAbout}>
+              <p className={stylesProfile.blockAbout__text}>В этом разделе вы можете</p>
+              <p className={stylesProfile.blockAbout__text}>изменить свои персональные данные</p>
+            </div>
 
           </div>
 
