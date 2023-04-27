@@ -10,13 +10,13 @@ import { ingredientDetailsReducer } from './ingredient-details/ingredient-detail
 import { currentTabReducer } from './tab/tab-reducer';
 
 const rootReducer = combineReducers({
-  ingredientsData: ingredientsDataReducer,
-  selectedIngr: selectedIngrReducer,
-  orderId: orderIdReducer,
   login: loginReducer,
   registerUser: registerUserReducer,
   forgotPassword: forgotPasswordReducer,
   resetPassword: resetPasswordReducer,
+  ingredientsData: ingredientsDataReducer,
+  selectedIngr: selectedIngrReducer,
+  orderId: orderIdReducer,
   ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,
 });

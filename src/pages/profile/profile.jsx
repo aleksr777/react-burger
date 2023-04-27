@@ -1,14 +1,13 @@
 import stylesProfile from './profile.module.css';
 import { useState } from 'react';
-import { useSelector/* , useDispatch */ } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
-/* import { requestLogout } from '../../services/login/login-actions'; */
+import { requestLogout } from '../../services/login/login-actions';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
-import FormText from '../../components/form-text/form-text';
 
 const getLoginState = state => state.login;
 
@@ -17,7 +16,7 @@ const ProfilePage = () => {
 
   const { user } = useSelector(getLoginState);
 
-  /* const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
     valueName: user.name,
@@ -62,6 +61,8 @@ const ProfilePage = () => {
             </NavLink>
 
             <NavLink
+            /* Сделал простое разлогирование для проверки функционала, потом сделаю, как потребуется */
+              onClick={() => dispatch(requestLogout())}
               className={stylesProfile.navLink}
               to='/profile'
             >Выход
@@ -110,9 +111,6 @@ const ProfilePage = () => {
               <FormButton text='Сохранить' />
 
             </div>
-
-            {/* Временная кнопка для проверки разлогирования (пока не знаю, как надо будет реализовывать разлогирование) */}
-            {/* <button onClick={() => dispatch(requestLogout())}>Выйти из аккаунта</button> */}
 
           </div>
 
