@@ -10,6 +10,7 @@ const defaultState = {
   isLoading: false,
   success: false,
   accessToken: '',
+  refreshToken: '',
   user: {
     name: '',
     email: '',
@@ -39,6 +40,7 @@ const loginReducer = (state = defaultState, action) => {
         isLoading: false,
         success: true,
         accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
         user: action.payload.user
       };
 

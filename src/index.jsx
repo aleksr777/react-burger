@@ -20,18 +20,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
 import { rootReducer } from './services/root-reducer';
 
-const blacklist = [
-  'ingredientsData', 
-  'selectedIngr',
-  'orderId', 
-  'ingredientDetails',
-  'currentTab',
+const authWhitelist = [
+  'login',
+  'registerUser',
+  'forgotPassword',
+  'resetPassword',
 ];
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist,
+  whitelist: authWhitelist,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

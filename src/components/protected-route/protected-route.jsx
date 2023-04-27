@@ -6,13 +6,11 @@ const getLoginState = state => state.login;
 
 const ProtectedRouteElement = ({ children }) => {
 
-  const { success } = useSelector(getLoginState);
-
-  /* const success = true; */
+  const { success, accessToken, refreshToken } = useSelector(getLoginState);
 
   const location = useLocation();
 
-  if (!success) {
+  if (!success || !accessToken || !refreshToken) {
     return <Navigate to='/login' state={{ from: location }} />
   }
 

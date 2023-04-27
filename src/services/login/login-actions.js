@@ -11,10 +11,6 @@ export function requestLogin(goBackToPage, email, password) {
 
   return function (dispatch) {
 
-    function saveRefreshToken(refreshToken) {
-      localStorage.setItem('ReactBurgerRefreshToken', refreshToken);
-    }
-
     function handleError(response) {
       console.log(response);
       dispatch({
@@ -46,7 +42,6 @@ export function requestLogin(goBackToPage, email, password) {
               }
             }
           });
-          saveRefreshToken(res.refreshToken);
           setTimeout(() => { goBackToPage() }, LOADER_ANIMATION_TIME);
 
         }
