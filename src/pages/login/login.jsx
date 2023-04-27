@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
-import { requestLogin } from '../../services/login/login-actions';
+import { requestLogin } from '../../services/authorization/auth-actions';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormLink from '../../components/form-link/form-link';
@@ -13,18 +13,14 @@ import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
+const getAuthState = state => state.authorization;
 
-const getLoginState = state => state.login;
 
 const LoginPage = () => {
-
-  const { isLoading, isError } = useSelector(getLoginState);
 
   const navigate = useNavigate();
 
   const location = useLocation();
-
-  const fromPage = location.state?.from?.pathname || '/';
 
   const dispatch = useDispatch();
 
@@ -33,12 +29,24 @@ const LoginPage = () => {
     valuePassword: '',
   });
 
+  const { isLoading, isError, success, accessToken, refreshToken } = useSelector(getAuthState);
+
+  const isAuth = (success && accessToken && refreshToken) ? true : false;
+
+  useEffect(() => {
+    if (isAuth) {
+      return navigate('/profile', { replace: true })
+    }
+  }, [isAuth]);
+
+  const fromPage = location.state?.from?.pathname || '/';
+
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
   const goBackToPage = () => {
-      navigate(`${fromPage}`);
+    navigate(`${fromPage}`);
   }
 
   function handleSubmit(e) {
@@ -57,43 +65,46 @@ const LoginPage = () => {
 
       <AppMainBlock>
 
-        <FormСontainer>
+        {!isAuth && (
 
-          <FormTitle text='Вход' />
+          <FormСontainer>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormTitle text='Вход' />
 
-            <FormInput
-              inputType='email'
-              onChange={e => handleInputChange(e, 'valueEmail')}
-              value={inputsData.valueEmail}
-              name='loginEmail'
-              placeholder='E-mail'
-              isIcon={false}
-            />
+            <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='loginPassword'
-              placeholder='Пароль'
-              icon={undefined}
-            />
+              <FormInput
+                inputType='email'
+                onChange={e => handleInputChange(e, 'valueEmail')}
+                value={inputsData.valueEmail}
+                name='loginEmail'
+                placeholder='E-mail'
+                isIcon={false}
+              />
 
-            <FormButton text='Войти' />
+              <FormInput
+                inputType='password'
+                onChange={e => handleInputChange(e, 'valuePassword')}
+                value={inputsData.valuePassword}
+                name='loginPassword'
+                placeholder='Пароль'
+                icon={undefined}
+              />
 
-          </form>
+              <FormButton text='Войти' />
 
-          <FormText>
-            Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
-          </FormText>
+            </form>
 
-          <FormText>
-            Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
-          </FormText>
+            <FormText>
+              Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
+            </FormText>
 
-        </FormСontainer>
+            <FormText>
+              Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
+            </FormText>
+
+          </FormСontainer>
+        )}
 
       </AppMainBlock>
 

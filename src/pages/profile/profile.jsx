@@ -2,19 +2,19 @@ import stylesProfile from './profile.module.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { requestLogout } from '../../services/login/login-actions';
+import { requestLogout } from '../../services/authorization/auth-actions';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
-const getLoginState = state => state.login;
+const getAuthState = state => state.authorization;
 
 
 const ProfilePage = () => {
 
-  const { user } = useSelector(getLoginState);
+  const { user, refreshToken } = useSelector(getAuthState);
 
   const dispatch = useDispatch();
 
@@ -61,8 +61,8 @@ const ProfilePage = () => {
             </NavLink>
 
             <NavLink
-            /* Сделал простое разлогирование для проверки функционала, потом сделаю, как потребуется */
-              onClick={() => dispatch(requestLogout())}
+              /* Сделал простое разлогирование для проверки функционала, потом сделаю, как потребуется */
+              onClick={() => dispatch(requestLogout(refreshToken))}
               className={stylesProfile.navLink}
               to='/profile'
             >Выход

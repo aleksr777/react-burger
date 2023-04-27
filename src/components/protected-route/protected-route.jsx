@@ -1,12 +1,12 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const getLoginState = state => state.login;
+const getAuthState = state => state.authorization;
 
 
 const ProtectedRouteElement = ({ children }) => {
 
-  const { success, accessToken, refreshToken } = useSelector(getLoginState);
+  const { success, accessToken, refreshToken } = useSelector(getAuthState);
 
   const location = useLocation();
 

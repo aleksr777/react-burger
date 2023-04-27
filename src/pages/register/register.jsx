@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
@@ -14,11 +14,11 @@ import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
 const registerUserState = state => state.registerUser;
+const getAuthState = state => state.authorization;
 
 
 const RegisterPage = () => {
 
-  const { isLoading, isError } = useSelector(registerUserState);
 
   const navigate = useNavigate();
 
@@ -29,6 +29,18 @@ const RegisterPage = () => {
     valueEmail: '',
     valuePassword: '',
   });
+
+  const { isLoading, isError } = useSelector(registerUserState);
+
+  const { success, accessToken, refreshToken } = useSelector(getAuthState);
+
+  const isAuth = (success && accessToken && refreshToken) ? true : false;
+
+  useEffect(() => {
+    if (isAuth) {
+      return navigate('/profile', { replace: true })
+    }
+  }, [isAuth]);
 
   function goToLoginPage() {
     navigate('/login');
@@ -58,49 +70,52 @@ const RegisterPage = () => {
 
       <AppMainBlock>
 
-        <FormСontainer>
+        {!isAuth && (
 
-          <FormTitle text='Регистрация' />
+          <FormСontainer>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormTitle text='Регистрация' />
 
-            <FormInput
-              inputType='text'
-              value={inputsData.valueName}
-              name='registerName'
-              placeholder='Имя'
-              onChange={e => handleInputChange(e, 'valueName')}
-              icon={undefined}
-              onIconClick={undefined}
-            />
+            <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormInput
-              inputType='email'
-              onChange={e => handleInputChange(e, 'valueEmail')}
-              value={inputsData.valueEmail}
-              name='registerEmail'
-              placeholder='E-mail'
-              isIcon={false}
-            />
+              <FormInput
+                inputType='text'
+                value={inputsData.valueName}
+                name='registerName'
+                placeholder='Имя'
+                onChange={e => handleInputChange(e, 'valueName')}
+                icon={undefined}
+                onIconClick={undefined}
+              />
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='registerPassword'
-              placeholder='Пароль'
-              icon={undefined}
-            />
+              <FormInput
+                inputType='email'
+                onChange={e => handleInputChange(e, 'valueEmail')}
+                value={inputsData.valueEmail}
+                name='registerEmail'
+                placeholder='E-mail'
+                isIcon={false}
+              />
 
-            <FormButton text='Зарегистрироваться' />
+              <FormInput
+                inputType='password'
+                onChange={e => handleInputChange(e, 'valuePassword')}
+                value={inputsData.valuePassword}
+                name='registerPassword'
+                placeholder='Пароль'
+                icon={undefined}
+              />
 
-          </form>
+              <FormButton text='Зарегистрироваться' />
 
-          <FormText>
-            Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
+            </form>
 
-        </FormСontainer>
+            <FormText>
+              Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
+            </FormText>
+
+          </FormСontainer>
+        )}
 
       </AppMainBlock>
 

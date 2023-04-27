@@ -15,6 +15,7 @@ import AppMainBlock from '../../components/app-main/app-main';
 
 const forgotPasswordState = state => state.forgotPassword;
 const resetPasswordState = state => state.resetPassword;
+const getAuthState = state => state.authorization;
 
 
 const ResetPasswordPage = () => {
@@ -30,13 +31,26 @@ const ResetPasswordPage = () => {
     valueCode: '',
   });
 
-  const { success } = useSelector(forgotPasswordState);
-  useEffect(() => {
-    !success && navigate('/forgot-password')
-  }, []);
-  if (!success) { return null };
+  const forgotPassword = useSelector(forgotPasswordState);
+  const resetPassword = useSelector(forgotPasswordState);
+  const authState = useSelector(getAuthState);
 
-  const goToLoginPage = () => navigate('/login');
+
+  const isAuth = (authState.success && authState.accessToken && authState.refreshToken) ? true : false;
+
+  useEffect(() => {
+    if (isAuth) {
+      return navigate('/profile', { replace: true })
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
+    if (!forgotPassword.success && !resetPassword.success && !isAuth) {
+      navigate('/forgot-password', { replace: true });
+    }
+  }, []);
+
+  const goToAuthPage = () => navigate('/login');
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
@@ -45,7 +59,7 @@ const ResetPasswordPage = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(resetPasswordRequest(
-      goToLoginPage,
+      goToAuthPage,
       inputsData.valuePassword,
       inputsData.valueCode
     ));
@@ -61,40 +75,43 @@ const ResetPasswordPage = () => {
 
         <Loader size={100} isLoading={isLoading} isError={isError} />
 
-        <FormСontainer>
+        {!isAuth && forgotPassword.success && (
 
-          <FormTitle text='Восстановление пароля' />
+          <FormСontainer>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormTitle text='Восстановление пароля' />
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='resetPassword'
-              placeholder='Введите новый пароль'
-              icon={undefined}
-            />
+            <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormInput
-              inputType='text'
-              value={inputsData.valueCode}
-              name='resetCodeEmail'
-              placeholder='Введите код из письма'
-              onChange={e => handleInputChange(e, 'valueCode')}
-              icon={undefined}
-              onIconClick={undefined}
-            />
+              <FormInput
+                inputType='password'
+                onChange={e => handleInputChange(e, 'valuePassword')}
+                value={inputsData.valuePassword}
+                name='resetPassword'
+                placeholder='Введите новый пароль'
+                icon={undefined}
+              />
 
-            <FormButton text='Сохранить' />
+              <FormInput
+                inputType='text'
+                value={inputsData.valueCode}
+                name='resetCodeEmail'
+                placeholder='Введите код из письма'
+                onChange={e => handleInputChange(e, 'valueCode')}
+                icon={undefined}
+                onIconClick={undefined}
+              />
 
-          </form>
+              <FormButton text='Сохранить' />
 
-          <FormText>
-            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
+            </form>
 
-        </FormСontainer >
+            <FormText>
+              Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+            </FormText>
+
+          </FormСontainer >
+        )}
 
       </AppMainBlock>
 

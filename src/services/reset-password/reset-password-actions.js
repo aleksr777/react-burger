@@ -7,7 +7,7 @@ export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 export const RESET_PASSWORD_SET_DEFAULT_STATE = 'RESET_PASSWORD_SET_DEFAULT_STATE';
 
 
-export function resetPasswordRequest(goToLoginPage, valuePassword, valueCode) {
+export function resetPasswordRequest(goToAuthPage, valuePassword, valueCode) {
 
   return function (dispatch) {
 
@@ -34,7 +34,7 @@ export function resetPasswordRequest(goToLoginPage, valuePassword, valueCode) {
           setTimeout(() => {
             dispatch({ type: RESET_PASSWORD_SET_DEFAULT_STATE, payload: {} });
             dispatch({ type: FORGOT_PASSWORD_SET_DEFAULT_STATE, payload: {} });
-            goToLoginPage();
+            goToAuthPage();
           }, LOADER_ANIMATION_TIME);
         }
         else { handleError(res) };

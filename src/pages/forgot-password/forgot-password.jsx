@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
@@ -14,17 +14,28 @@ import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
 
 const forgotPasswordState = state => state.forgotPassword;
+const getAuthState = state => state.authorization;
 
 
 const ForgotPasswordPage = () => {
-
-  const { isLoading, isError } = useSelector(forgotPasswordState);
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const [valueEmail, setValueEmail] = useState('');
+
+  const { isLoading, isError } = useSelector(forgotPasswordState);
+
+  const { success, accessToken, refreshToken } = useSelector(getAuthState);
+
+  const isAuth = (success && accessToken && refreshToken) ? true : false;
+
+  useEffect(() => {
+    if (isAuth) {
+      return navigate('/profile', { replace: true })
+    }
+  }, [isAuth]);
 
   const goToResetPasswordPage = () => navigate('/reset-password');
 
@@ -47,30 +58,33 @@ const ForgotPasswordPage = () => {
 
       <AppMainBlock>
 
-        <FormСontainer>
+        {!isAuth && (
 
-          <FormTitle text='Восстановление пароля' />
+          <FormСontainer>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormTitle text='Восстановление пароля' />
 
-            <FormInput
-              inputType='email'
-              onChange={onChangeEmail}
-              value={valueEmail}
-              name='forgotEmail'
-              placeholder='Укажите e-mail'
-              isIcon={false}
-            />
+            <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormButton text='Восстановить' />
+              <FormInput
+                inputType='email'
+                onChange={onChangeEmail}
+                value={valueEmail}
+                name='forgotEmail'
+                placeholder='Укажите e-mail'
+                isIcon={false}
+              />
 
-          </form>
+              <FormButton text='Восстановить' />
 
-          <FormText>
-            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
+            </form>
 
-        </FormСontainer >
+            <FormText>
+              Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+            </FormText>
+
+          </FormСontainer >
+        )}
 
       </AppMainBlock>
 

@@ -1,14 +1,14 @@
 import {
-  SEND_LOGIN_REQUEST,
-  GET_DATA_LOGIN_SUCCESS,
-  GET_DATA_LOGIN_ERROR,
-  SET_DEFAULT_DATA_LOGIN,
-  SET_DEFAULT_ERROR_STATE_LOGIN,
-} from './login-actions';
+  SEND_AUTH_REQUEST,
+  GET_DATA_AUTH_SUCCESS,
+  GET_DATA_AUTH_ERROR,
+  SET_DEFAULT_DATA_AUTH,
+  SET_DEFAULT_ERROR_STATE_AUTH,
+} from './auth-actions';
 
 const defaultState = {
-  isLoading: false,
   success: false,
+  isLoading: false,
   accessToken: '',
   refreshToken: '',
   user: {
@@ -23,28 +23,28 @@ const defaultState = {
   },
 };
 
-const loginReducer = (state = defaultState, action) => {
+const authReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case SEND_LOGIN_REQUEST: {
+    case SEND_AUTH_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
     };
 
-    case GET_DATA_LOGIN_SUCCESS:
+    case GET_DATA_AUTH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         success: true,
+        isLoading: false,
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
         user: action.payload.user
       };
 
-    case GET_DATA_LOGIN_ERROR:
+    case GET_DATA_AUTH_ERROR:
       return {
         ...state,
         isError: {
@@ -55,7 +55,7 @@ const loginReducer = (state = defaultState, action) => {
         },
       };
 
-    case SET_DEFAULT_ERROR_STATE_LOGIN:
+    case SET_DEFAULT_ERROR_STATE_AUTH:
       return {
         ...state,
         isLoading: false,
@@ -67,7 +67,7 @@ const loginReducer = (state = defaultState, action) => {
         },
       };
 
-    case SET_DEFAULT_DATA_LOGIN:
+    case SET_DEFAULT_DATA_AUTH:
       return defaultState;
 
     default:
@@ -75,4 +75,4 @@ const loginReducer = (state = defaultState, action) => {
   }
 };
 
-export { loginReducer };
+export { authReducer };

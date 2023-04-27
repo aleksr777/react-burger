@@ -21,10 +21,7 @@ import App from './components/app/app';
 import { rootReducer } from './services/root-reducer';
 
 const authWhitelist = [
-  'login',
-  'registerUser',
-  'forgotPassword',
-  'resetPassword',
+  'authorization',
 ];
 
 const persistConfig = {
@@ -53,7 +50,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={null}  persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
       </Provider>
