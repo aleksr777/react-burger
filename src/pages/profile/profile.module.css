@@ -48,19 +48,28 @@
   opacity: .7;
 }
 
-.navLink {
+.navBlock__link,
+.navBlock__button {
   color: #8585AD;
+  width: fit-content;
   margin: 0;
   padding: 0;
   transition: all .3s ease 0s;
   composes: text text_type_main-medium from global;
 }
 
-.navLink:hover {
+.navBlock__button {
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.navBlock__link:hover,
+.navBlock__button:hover {
   opacity: .7;
 }
 
-.navLink_active {
+.navBlock__link_active {
   color: #F2F2F3;
 }
 

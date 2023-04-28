@@ -49,24 +49,24 @@ const ProfilePage = () => {
           <div className={stylesProfile.navBlock}>
 
             <NavLink
-              className={`${stylesProfile.navLink} ${stylesProfile.navLink_active}`}
+              className={`${stylesProfile.navBlock__link} ${stylesProfile.navBlock__link_active}`}
               to='/profile'
             >Профиль
             </NavLink>
 
             <NavLink
-              className={stylesProfile.navLink}
-              to='/profile'
+              className={stylesProfile.navBlock__link}
+              to='#'
             >История заказов
             </NavLink>
 
-            <NavLink
-              /* Сделал простое разлогирование для проверки функционала, потом сделаю, как потребуется */
+            <button
+              /* Сделал простое разлогирование для проверки функционала.
+              Потом сделаю, как потребуется, в следующем спринте*/
               onClick={() => dispatch(requestLogout(refreshToken))}
-              className={stylesProfile.navLink}
-              to='/profile'
+              className={stylesProfile.navBlock__button}
             >Выход
-            </NavLink>
+            </button>
 
             <div className={stylesProfile.blockAbout}>
               <p className={stylesProfile.blockAbout__text}>В этом разделе вы можете</p>
