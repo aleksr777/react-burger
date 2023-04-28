@@ -2,18 +2,16 @@
   box-sizing: border-box;
 }
 
-.form {
+.container {
+  padding: 118px 0 0 0;
+  margin: 0;
   width: 100%;
   display: flex;
-  padding: 118px 0 0 0;
 }
 
-.navBlock {
-  flex: 0 0 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  padding: 19px 0 0 2px;
+.form {
+  padding: 0;
+  margin: 0;
 }
 
 .editingBlock {
@@ -48,40 +46,18 @@
   opacity: .7;
 }
 
-.navBlock__link,
-.navBlock__button {
+.logoutButton {
   color: #8585AD;
+  cursor: pointer;
   width: fit-content;
+  background: transparent;
+  border: 0;
   margin: 0;
   padding: 0;
   transition: all .3s ease 0s;
   composes: text text_type_main-medium from global;
 }
 
-.navBlock__button {
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-}
-
-.navBlock__link:hover,
-.navBlock__button:hover {
+.logoutButton:hover {
   opacity: .7;
-}
-
-.navBlock__link_active {
-  color: #F2F2F3;
-}
-
-.blockAbout {
-  padding: 60px 0 0 0;
-  margin: 0;
-}
-
-.blockAbout__text {
-  color: #8585AD;
-  opacity: 0.4;
-  padding: 0;
-  margin: 0;
-  composes: text text_type_main-default from global;
 }

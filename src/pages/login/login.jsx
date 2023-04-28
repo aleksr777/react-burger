@@ -33,13 +33,14 @@ const LoginPage = () => {
 
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 
+  const fromPage = location.state?.from?.pathname || '/';
+
+/* Возвращаем на предыдущую страницу, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
-      return navigate('/profile', { replace: true })
+      return navigate(-1, { replace: true })
     }
   }, [isAuth]);
-
-  const fromPage = location.state?.from?.pathname || '/';
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });

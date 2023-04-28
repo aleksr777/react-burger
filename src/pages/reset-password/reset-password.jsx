@@ -38,6 +38,7 @@ const ResetPasswordPage = () => {
 
   const isAuth = (authState.success && authState.accessToken && authState.refreshToken) ? true : false;
 
+  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
       return navigate('/profile', { replace: true })

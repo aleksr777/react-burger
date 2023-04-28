@@ -19,7 +19,6 @@ const getAuthState = state => state.authorization;
 
 const RegisterPage = () => {
 
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -36,6 +35,7 @@ const RegisterPage = () => {
 
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 
+  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
       return navigate('/profile', { replace: true })

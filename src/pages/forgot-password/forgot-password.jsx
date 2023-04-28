@@ -31,6 +31,7 @@ const ForgotPasswordPage = () => {
 
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 
+  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
       return navigate('/profile', { replace: true })

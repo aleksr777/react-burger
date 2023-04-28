@@ -9,6 +9,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  OrdersPage,
   IngredientPage
 } from '../../pages/pages';
 
@@ -29,6 +30,11 @@ const App = () => {
       <Route path="/profile" element={
         <ProtectedRouteElement>
           <ProfilePage />
+        </ProtectedRouteElement>
+      } />
+      <Route path="/orders" element={
+        <ProtectedRouteElement>
+          <OrdersPage />
         </ProtectedRouteElement>
       } />
       <Route path="/ingredients/:id" element={
