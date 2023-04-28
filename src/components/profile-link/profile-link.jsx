@@ -17,12 +17,7 @@ const ProfileLink = ({ navText, path }) => {
   );
 };
 
-export default memo(ProfileLink, (prevProps, nextProps) => {
-  /* Отключаем перерендер компонента */
-  if (nextProps.navText !== prevProps.navText
-    && nextProps.path !== prevProps.path) { return false }
-  else { return true }
-});
+export default memo(ProfileLink);
 
 ProfileLink.propTypes = {
   navText: PropTypes.string,

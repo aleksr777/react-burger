@@ -1,5 +1,6 @@
 import stylesProfileTextAbout from './profile-text-about.module.css';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 
 
 const ProfileTextAbout = ({ children }) => {
@@ -9,7 +10,7 @@ const ProfileTextAbout = ({ children }) => {
   );
 };
 
-export default ProfileTextAbout;
+export default memo(ProfileTextAbout);
 
 ProfileTextAbout.propTypes = {
   children: PropTypes.string.isRequired,
