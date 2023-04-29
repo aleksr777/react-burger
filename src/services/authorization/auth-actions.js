@@ -1,4 +1,4 @@
-import { apiConfig, LOADER_ANIMATION_TIME } from '../../constants/constants';
+import { LOADER_ANIMATION_TIME, STORAGE_KEY_PREFIX } from '../../constants/constants';
 import { requestLoginServer, requestLogoutServer, requestUpdateTokenServer } from '../../utils/api';
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS_LOGIN = 'AUTH_SUCCESS_LOGIN';
@@ -14,6 +14,8 @@ export function requestLogin(goBackToPage, email, password) {
 
     function handleError(response) {
       console.log(response);
+      localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, '');
+      localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, '');
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -28,14 +30,14 @@ export function requestLogin(goBackToPage, email, password) {
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
-    requestLoginServer(apiConfig, email, password)
+    requestLoginServer(email, password)
       .then(res => {
         if (res && res.success) {
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, res.refreshToken);
           dispatch({
             type: AUTH_SUCCESS_LOGIN,
             payload: {
-              accessToken: res.accessToken,
-              refreshToken: res.refreshToken,
               user: {
                 name: res.user.name,
                 email: res.user.email,
@@ -77,7 +79,7 @@ export function requestLogout(refreshToken) {
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
-    requestLogoutServer(apiConfig, refreshToken)
+    requestLogoutServer(refreshToken)
       .then(res => {
         if (res && res.success) {
           setTimeout(() => {
@@ -101,6 +103,8 @@ export function requestUpdateToken(goToLoginPage, refreshToken) {
 
     function handleError(response) {
       console.log(response);
+      localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, '');
+      localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, '');
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -115,18 +119,13 @@ export function requestUpdateToken(goToLoginPage, refreshToken) {
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
-    requestUpdateTokenServer(apiConfig, refreshToken)
+    requestUpdateTokenServer(refreshToken)
       .then(res => {
         if (res && res.success) {
-          dispatch({
-            type: AUTH_SUCCESS_UPDATE_TOKEN,
-            payload: {
-              accessToken: res.accessToken,
-              refreshToken: res.refreshToken,
-            }
-          });
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, res.refreshToken);
+          dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });
           setTimeout(() => { goToLoginPage() }, LOADER_ANIMATION_TIME);
-
         }
         else {
           handleError(res);

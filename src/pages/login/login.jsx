@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { requestLogin } from '../../services/authorization/auth-actions';
+import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormLink from '../../components/form-link/form-link';
@@ -29,16 +30,23 @@ const LoginPage = () => {
     valuePassword: '',
   });
 
-  const { isLoading, isError, success, accessToken, refreshToken } = useSelector(getAuthState);
+  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+
+  const { isLoading, isError, success } = useSelector(getAuthState);
 
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 
   const fromPage = location.state?.from?.pathname || '/';
 
-/* Возвращаем на предыдущую страницу, если пользователь уже авторизован */
+  const goBackToPage = () => {
+    navigate(`${fromPage}`, { replace: true });
+  }
+
+  /* Возвращаем на предыдущую страницу, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
-      return navigate('/', { replace: true })
+      return goBackToPage();
     }
   }, [isAuth]);
 
@@ -46,15 +54,10 @@ const LoginPage = () => {
     setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
-  const goBackToPage = () => {
-    navigate(`${fromPage}`);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(requestLogin(goBackToPage, inputsData.valueEmail, inputsData.valuePassword));
   }
-
 
   return (
 

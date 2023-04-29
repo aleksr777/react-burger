@@ -10,8 +10,6 @@ import {
 const defaultState = {
   isLoading: false,
   success: false,
-  accessToken: '',
-  refreshToken: '',
   user: {
     name: '',
     email: '',
@@ -40,8 +38,6 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         success: true,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
         user: action.payload.user
       };
 
@@ -50,8 +46,6 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         success: true,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken
       };
 
     case AUTH_SHOW_ERROR:

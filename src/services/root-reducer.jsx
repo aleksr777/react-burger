@@ -21,4 +21,4 @@ const rootReducer = combineReducers({
   currentTab: currentTabReducer,
 });
 
-export { rootReducer };
+export default rootReducer;

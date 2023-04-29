@@ -2,6 +2,7 @@ import stylesProfile from './profile.module.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogout } from '../../services/authorization/auth-actions';
+import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import ProfileLink from '../../components/profile-link/profile-link';
 import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
 import ProfileBlockAbout from '../../components/profile-block-about/profile-block-about';
@@ -17,7 +18,9 @@ const getAuthState = state => state.authorization;
 
 const ProfilePage = () => {
 
-  const { user, refreshToken } = useSelector(getAuthState);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+
+  const { user } = useSelector(getAuthState);
 
   const dispatch = useDispatch();
 

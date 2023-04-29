@@ -3,14 +3,7 @@ import transparentImgPath from '../images/transparent-picture.png';
 
 export const bodySelector = document.querySelector('body');
 
-/* Настройка API */
-export const apiConfig = {
-  baseUrl: 'https://norma.nomoreparties.space',
-  headers: {
-    authorization: '',
-    'Content-Type': 'application/json'
-  }
-};
+export const STORAGE_KEY_PREFIX = 'react-burger_application_';
 
 /* Продолжительность анимации для модальных окон */
 export const MODAL_ANIMATION_TIME = 560;

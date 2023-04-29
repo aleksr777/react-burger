@@ -1,12 +1,16 @@
 import { useLocation, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'; 
+import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 
 const getAuthState = state => state.authorization;
 
 
 const ProtectedRouteElement = ({ children }) => {
 
-  const { success, accessToken, refreshToken } = useSelector(getAuthState);
+  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+
+  const { success } = useSelector(getAuthState);
 
   const location = useLocation();
 

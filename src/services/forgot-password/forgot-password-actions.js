@@ -1,4 +1,4 @@
-import { apiConfig, LOADER_ANIMATION_TIME } from '../../constants/constants';
+import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import { forgotPasswordRequestServer } from '../../utils/api';
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
@@ -26,7 +26,7 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
 
     dispatch({ type: FORGOT_PASSWORD_REQUEST, payload: {} });
 
-    forgotPasswordRequestServer(apiConfig, valueEmail)
+    forgotPasswordRequestServer(valueEmail)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: {} });

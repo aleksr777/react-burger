@@ -18,7 +18,7 @@ import logger from 'redux-logger';
 import { createRoot } from 'react-dom/client';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
-import { rootReducer } from './services/root-reducer';
+import rootReducer from './services/root-reducer';
 
 const authWhitelist = [
   'authorization',
@@ -57,3 +57,5 @@ root.render(
     </BrowserRouter >
   </React.StrictMode>,
 );
+
+export { store };

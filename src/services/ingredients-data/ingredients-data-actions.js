@@ -1,4 +1,3 @@
-import { apiConfig } from '../../constants/constants';
 import { getIngredientsDataServer } from '../../utils/api';
 
 export const INGREDIENTS_DATA_REQUEST = 'GET_DATA_INGREDIENTS';
@@ -20,7 +19,7 @@ export function getIngredientsData() {
 
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
 
-    getIngredientsDataServer(apiConfig)
+    getIngredientsDataServer()
       .then(res => {
         if (res && res.success) {
           dispatch({

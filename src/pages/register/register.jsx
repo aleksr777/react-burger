@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
+import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
@@ -31,7 +32,10 @@ const RegisterPage = () => {
 
   const { isLoading, isError } = useSelector(registerUserState);
 
-  const { success, accessToken, refreshToken } = useSelector(getAuthState);
+  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+
+  const { success } = useSelector(getAuthState);
 
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 

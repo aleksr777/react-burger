@@ -1,4 +1,4 @@
-import { apiConfig, LOADER_ANIMATION_TIME } from '../../constants/constants';
+import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import { registerUserRequestServer } from '../../utils/api';
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -26,7 +26,7 @@ export function registerUserRequest(goToLoginPage, valueName, valueEmail, valueP
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });
 
-    registerUserRequestServer(apiConfig, valueName, valueEmail, valuePassword)
+    registerUserRequestServer(valueName, valueEmail, valuePassword)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });

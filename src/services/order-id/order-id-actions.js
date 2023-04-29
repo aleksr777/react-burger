@@ -1,4 +1,3 @@
-import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
@@ -25,7 +24,7 @@ export function getOrderId(arrId) {
 
     dispatch({ type: ORDER_ID_REQUEST, payload: {} });
 
-    postOrder(apiConfig, arrId)
+    postOrder(arrId)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: ORDER_ID_SUCCESS, payload: { id: res.order.number } });
