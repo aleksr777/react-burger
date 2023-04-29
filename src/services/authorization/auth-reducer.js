@@ -1,14 +1,15 @@
 import {
   AUTH_REQUEST,
-  AUTH_SUCCESS,
+  AUTH_SUCCESS_LOGIN,
   AUTH_SHOW_ERROR,
   AUTH_DEFAULT,
   AUTH_HIDE_ERROR,
+  AUTH_SUCCESS_UPDATE_TOKEN,
 } from './auth-actions';
 
 const defaultState = {
-  success: false,
   isLoading: false,
+  success: false,
   accessToken: '',
   refreshToken: '',
   user: {
@@ -34,14 +35,23 @@ const authReducer = (state = defaultState, action) => {
       };
     };
 
-    case AUTH_SUCCESS:
+    case AUTH_SUCCESS_LOGIN:
       return {
         ...state,
-        success: true,
         isLoading: false,
+        success: true,
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
         user: action.payload.user
+      };
+
+    case AUTH_SUCCESS_UPDATE_TOKEN:
+      return {
+        ...state,
+        isLoading: false,
+        success: true,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken
       };
 
     case AUTH_SHOW_ERROR:

@@ -28,6 +28,40 @@ export const postOrder = async (apiConfig, arrId) => {
   })
 };
 
+//Запрос входа в аккаунт
+export const requestLoginServer = async (apiConfig, email, password) => {
+  return request(`${apiConfig.baseUrl}/api/auth/login`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'email': email,
+      'password': password
+    })
+  })
+};
+
+// Запрос выхода из аккаунта
+export const requestLogoutServer = async (apiConfig, refreshToken) => {
+  return request(`${apiConfig.baseUrl}/api/auth/logout`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'token': refreshToken
+    })
+  })
+};
+
+// Запрос на обновление токена
+export const requestUpdateTokenServer = async (apiConfig, refreshToken) => {
+  return request(`${apiConfig.baseUrl}/api/auth/token`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'token': refreshToken
+    })
+  })
+};
+
 //Отправка данных для регистрации
 export const registerUserRequestServer = async (apiConfig, valueName, valueEmail, valuePassword) => {
   return request(`${apiConfig.baseUrl}/api/auth/register`, {
@@ -60,29 +94,6 @@ export const resetPasswordRequestServer = async (apiConfig, valuePassword, value
     body: JSON.stringify({
       'password': valuePassword,
       'token': valueCode
-    })
-  })
-};
-
-//Запрос входа в аккаунт
-export const requestLoginServer = async (apiConfig, email, password) => {
-  return request(`${apiConfig.baseUrl}/api/auth/login`, {
-    method: 'POST',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      'email': email,
-      'password': password
-    })
-  })
-};
-
-// Запрос выхода из аккаунта
-export const requestLogoutServer = async (apiConfig, refreshToken) => {
-  return request(`${apiConfig.baseUrl}/api/auth/logout`, {
-    method: 'POST',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      'token': refreshToken
     })
   })
 };
