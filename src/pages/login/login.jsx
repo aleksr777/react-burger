@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { requestLogin } from '../../services/authorization/auth-actions';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
@@ -38,7 +38,7 @@ const LoginPage = () => {
 /* Возвращаем на предыдущую страницу, если пользователь уже авторизован */
   useEffect(() => {
     if (isAuth) {
-      return navigate(-1, { replace: true })
+      return navigate('/', { replace: true })
     }
   }, [isAuth]);
 
