@@ -1,13 +1,13 @@
 import { apiConfig } from '../../constants/constants';
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
-export const OPEN_MODAL_ORDER_ID = 'OPEN_MODAL_ORDER_ID';
-export const CLOSE_MODAL_ORDER_ID = 'CLOSE_MODAL_ORDER_ID';
-export const GET_ORDER_ID_REQUEST = 'GET_ORDER_ID_REQUEST';
-export const GET_ORDER_ID_SUCCESS = 'GET_ORDER_ID_SUCCESS';
-export const GET_ORDER_ID_ERROR = 'GET_ORDER_ID_ERROR';
-export const REMOVE_ORDER_ID = 'REMOVE_ORDER_ID';
-export const SET_DEFAULT_ORDER_ID = 'SET_DEFAULT_ORDER_ID';
+export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
+export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
+export const ORDER_ID_REQUEST = 'ORDER_ID_REQUEST';
+export const ORDER_ID_SUCCESS = 'ORDER_ID_SUCCESS';
+export const ORDER_ID_ERROR = 'ORDER_ID_ERROR';
+export const ORDER_ID_REMOVE = 'ORDER_ID_REMOVE';
+export const ORDER_ID_SET_DEFAULT = 'ORDER_ID_SET_DEFAULT';
 
 /* Запрос на сервер о формировании заказа 
 с открытием модального окна и отображением номера заказа*/
@@ -17,19 +17,19 @@ export function getOrderId(arrId) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_ORDER_ID_ERROR, payload: { message: response } });
+      dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
       setTimeout(() => {
-        dispatch({ type: SET_DEFAULT_ORDER_ID, payload: {} });
+        dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
       }, 2000);
     }
 
-    dispatch({ type: GET_ORDER_ID_REQUEST, payload: {} });
+    dispatch({ type: ORDER_ID_REQUEST, payload: {} });
 
     postOrder(apiConfig, arrId)
       .then(res => {
         if (res && res.success) {
-          dispatch({ type: GET_ORDER_ID_SUCCESS, payload: { id: res.order.number } });
-          dispatch({ type: OPEN_MODAL_ORDER_ID, payload: {} });
+          dispatch({ type: ORDER_ID_SUCCESS, payload: { id: res.order.number } });
+          dispatch({ type: ORDER_ID_OPEN_MODAL, payload: {} });
         }
         else {
           handleError(res);
@@ -44,9 +44,9 @@ export function getOrderId(arrId) {
 /* Закрытие модального окна с удалением информации о заказе */
 export function closeOrderDetailsModal() {
   return function (dispatch) {
-    dispatch({ type: CLOSE_MODAL_ORDER_ID, payload: {} });
+    dispatch({ type: ORDER_ID_CLOSE_MODAL, payload: {} });
     setTimeout(() => {
-      dispatch({ type: REMOVE_ORDER_ID, payload: {} });
+      dispatch({ type: ORDER_ID_REMOVE, payload: {} });
     }, MODAL_ANIMATION_TIME);
   }
 };

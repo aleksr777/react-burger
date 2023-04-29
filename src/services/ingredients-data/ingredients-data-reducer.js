@@ -1,8 +1,8 @@
 import {
-  GET_DATA_INGREDIENTS_ERROR,
-  GET_DATA_INGREDIENTS_REQUEST,
-  GET_DATA_INGREDIENTS_SUCCESS,
-  SET_DEFAULT_DATA_INGREDIENTS,
+  INGREDIENTS_DATA_ERROR,
+  INGREDIENTS_DATA_REQUEST,
+  INGREDIENTS_DATA_SUCCESS,
+  INGREDIENTS_DATA_SET_DEFAULT,
 } from './ingredients-data-actions';
 
 const defaultState = {
@@ -19,14 +19,14 @@ const ingredientsDataReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case GET_DATA_INGREDIENTS_REQUEST: {
+    case INGREDIENTS_DATA_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
     };
 
-    case GET_DATA_INGREDIENTS_SUCCESS: {
+    case INGREDIENTS_DATA_SUCCESS: {
       return {
         ...state,
         ingredientsData: action.data,
@@ -34,7 +34,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
       };
     };
 
-    case GET_DATA_INGREDIENTS_ERROR: {
+    case INGREDIENTS_DATA_ERROR: {
       return {
         ...state,
         isError: {
@@ -45,7 +45,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
       };
     };
 
-    case SET_DEFAULT_DATA_INGREDIENTS:
+    case INGREDIENTS_DATA_SET_DEFAULT:
       return defaultState;
 
     default:

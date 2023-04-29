@@ -1,10 +1,10 @@
 import { noBunObj } from '../../constants/constants';
 import {
-  ADD_INGREDIENT,
-  REMOVE_INGREDIENT,
-  SWAP_INGREDIENTS,
-  ADD_BUN,
-  REMOVE_BUN,
+  SELECTED_INGREDIENTS_ADD_ITEM,
+  SELECTED_INGREDIENTS_REMOVE_ITEM,
+  SELECTED_INGREDIENTS_SWAP_ITEM,
+  SELECTED_INGREDIENTS_ADD_BUNS,
+  SELECTED_INGREDIENTS_REMOVE_BUNS,
 } from './selected-ingr-actions';
 
 const defaultState = {
@@ -17,34 +17,34 @@ const selectedIngrReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case ADD_INGREDIENT:
+    case SELECTED_INGREDIENTS_ADD_ITEM:
       return {
         ...state,
         ingredients: action.payload.newArr,
         totalPrice: state.totalPrice + action.payload.price,
       };
 
-    case SWAP_INGREDIENTS:
+    case SELECTED_INGREDIENTS_SWAP_ITEM:
       return {
         ...state,
         ingredients: action.payload.newArr,
       };
 
-    case REMOVE_INGREDIENT:
+    case SELECTED_INGREDIENTS_REMOVE_ITEM:
       return {
         ...state,
         ingredients: action.payload.arr,
         totalPrice: state.totalPrice - action.payload.price
       };
 
-    case ADD_BUN:
+    case SELECTED_INGREDIENTS_ADD_BUNS:
       return {
         ...state,
         bun: action.payload.bunObj,
         totalPrice: state.totalPrice + action.payload.price,
       };
 
-    case REMOVE_BUN:
+    case SELECTED_INGREDIENTS_REMOVE_BUNS:
       return {
         ...state,
         bun: noBunObj,

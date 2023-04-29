@@ -1,10 +1,10 @@
 import uniqid from 'uniqid'; /* uniqid нужен для генерации key */
 
-export const ADD_INGREDIENT = 'ADD_INGREDIENT';
-export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
-export const SWAP_INGREDIENTS = 'SWAP_INGREDIENTS';
-export const ADD_BUN = 'ADD_BUN';
-export const REMOVE_BUN = 'REMOVE_BUN';
+export const SELECTED_INGREDIENTS_ADD_ITEM = 'SELECTED_INGREDIENTS_ADD_ITEM';
+export const SELECTED_INGREDIENTS_REMOVE_ITEM = 'SELECTED_INGREDIENTS_REMOVE_ITEM';
+export const SELECTED_INGREDIENTS_SWAP_ITEM = 'SELECTED_INGREDIENTS_SWAP_ITEM';
+export const SELECTED_INGREDIENTS_ADD_BUNS = 'SELECTED_INGREDIENTS_ADD_BUNS';
+export const SELECTED_INGREDIENTS_REMOVE_BUNS = 'SELECTED_INGREDIENTS_REMOVE_BUNS';
 
 
 // Добавление ингредиента с прибавлением цены к общей стоимости
@@ -16,7 +16,7 @@ export function addIngredient(ingredientObj, toPosition, ingredientsArr) {
   newArr.splice(toPosition, 0, newObj);
   return function (dispatch) {
     dispatch({
-      type: ADD_INGREDIENT,
+      type: SELECTED_INGREDIENTS_ADD_ITEM,
       payload: {
         newArr,
         price: ingredientObj.price,
@@ -29,21 +29,21 @@ export function addIngredient(ingredientObj, toPosition, ingredientsArr) {
 export function removeIngredient(uKey, price, ingredients) {
   const arr = ingredients.filter((ingredient) => ingredient._uKey !== uKey);
   return function (dispatch) {
-    dispatch({ type: REMOVE_INGREDIENT, payload: { arr, price } });
+    dispatch({ type: SELECTED_INGREDIENTS_REMOVE_ITEM, payload: { arr, price } });
   };
 };
 
 // Добавление булки с прибавлением цены к общей стоимости(x2)
 export function addBun(bunObj) {
   return function (dispatch) {
-    dispatch({ type: ADD_BUN, payload: { bunObj, price: bunObj.price * 2 } });
+    dispatch({ type: SELECTED_INGREDIENTS_ADD_BUNS, payload: { bunObj, price: bunObj.price * 2 } });
   };
 };
 
 // Удаление булки с вычетом цены из общей стоимости(x2)
 export function removeBun(price) {
   return function (dispatch) {
-    dispatch({ type: REMOVE_BUN, payload: { price: price * 2 } });
+    dispatch({ type: SELECTED_INGREDIENTS_REMOVE_BUNS, payload: { price: price * 2 } });
   };
 };
 
@@ -54,6 +54,6 @@ export function swapIngredients(dragObj, fromPosition, toPosition, ingredients) 
   newArr.splice(fromPosition, 1); /* удаляем элемент со своей позиции*/
   newArr.splice(toPosition, 0, newObj); /* вставляем элемент в выбранную позицию */
   return function (dispatch) {
-    dispatch({ type: SWAP_INGREDIENTS, payload: { newArr } });
+    dispatch({ type: SELECTED_INGREDIENTS_SWAP_ITEM, payload: { newArr } });
   };
 };

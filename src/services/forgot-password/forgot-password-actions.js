@@ -3,7 +3,7 @@ import { forgotPasswordRequestServer } from '../../utils/api';
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
-export const FORGOT_PASSWORD_SET_DEFAULT_STATE = 'FORGOT_PASSWORD_SET_DEFAULT_STATE';
+export const FORGOT_PASSWORD_DEFAULT = 'FORGOT_PASSWORD_DEFAULT';
 
 
 export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
@@ -20,7 +20,7 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
         }
       });
       setTimeout(() => {
-        dispatch({ type: FORGOT_PASSWORD_SET_DEFAULT_STATE, payload: {} });
+        dispatch({ type: FORGOT_PASSWORD_DEFAULT, payload: {} });
       }, 1500);
     };
 

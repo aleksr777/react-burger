@@ -2,7 +2,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
-  RESET_PASSWORD_SET_DEFAULT_STATE,
+  RESET_PASSWORD_SET_DEFAULT,
 } from './reset-password-actions';
 
 const defaultState = {
@@ -44,7 +44,7 @@ const resetPasswordReducer = (state = defaultState, action) => {
         },
       };
 
-    case RESET_PASSWORD_SET_DEFAULT_STATE:
+    case RESET_PASSWORD_SET_DEFAULT:
       return defaultState;
 
     default:

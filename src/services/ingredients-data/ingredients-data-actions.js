@@ -1,10 +1,10 @@
 import { apiConfig } from '../../constants/constants';
 import { getIngredientsDataServer } from '../../utils/api';
 
-export const GET_DATA_INGREDIENTS_REQUEST = 'GET_DATA_INGREDIENTS';
-export const GET_DATA_INGREDIENTS_SUCCESS = 'GET_DATA_INGREDIENTS_SUCCESS';
-export const GET_DATA_INGREDIENTS_ERROR = 'GET_DATA_INGREDIENTS_ERROR';
-export const SET_DEFAULT_DATA_INGREDIENTS = 'SET_DEFAULT_DATA_INGREDIENTS';
+export const INGREDIENTS_DATA_REQUEST = 'GET_DATA_INGREDIENTS';
+export const INGREDIENTS_DATA_SUCCESS = 'INGREDIENTS_DATA_SUCCESS';
+export const INGREDIENTS_DATA_ERROR = 'INGREDIENTS_DATA_ERROR';
+export const INGREDIENTS_DATA_SET_DEFAULT = 'INGREDIENTS_DATA_SET_DEFAULT';
 
 export function getIngredientsData() {
 
@@ -12,19 +12,19 @@ export function getIngredientsData() {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: GET_DATA_INGREDIENTS_ERROR, payload: { message: response } });
+      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
       setTimeout(() => {
-        dispatch({ type: SET_DEFAULT_DATA_INGREDIENTS, payload: {} });
+        dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
       }, 2000);
     }
 
-    dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} });
+    dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
 
     getIngredientsDataServer(apiConfig)
       .then(res => {
         if (res && res.success) {
           dispatch({
-            type: GET_DATA_INGREDIENTS_SUCCESS,
+            type: INGREDIENTS_DATA_SUCCESS,
             data: res.data
           });
         }

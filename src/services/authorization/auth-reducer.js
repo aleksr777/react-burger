@@ -1,9 +1,9 @@
 import {
-  SEND_AUTH_REQUEST,
-  GET_DATA_AUTH_SUCCESS,
-  GET_DATA_AUTH_ERROR,
-  SET_DEFAULT_DATA_AUTH,
-  SET_DEFAULT_ERROR_STATE_AUTH,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_SHOW_ERROR,
+  AUTH_DEFAULT,
+  AUTH_HIDE_ERROR,
 } from './auth-actions';
 
 const defaultState = {
@@ -27,14 +27,14 @@ const authReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case SEND_AUTH_REQUEST: {
+    case AUTH_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
     };
 
-    case GET_DATA_AUTH_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         success: true,
@@ -44,7 +44,7 @@ const authReducer = (state = defaultState, action) => {
         user: action.payload.user
       };
 
-    case GET_DATA_AUTH_ERROR:
+    case AUTH_SHOW_ERROR:
       return {
         ...state,
         isError: {
@@ -55,7 +55,7 @@ const authReducer = (state = defaultState, action) => {
         },
       };
 
-    case SET_DEFAULT_ERROR_STATE_AUTH:
+    case AUTH_HIDE_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -67,7 +67,7 @@ const authReducer = (state = defaultState, action) => {
         },
       };
 
-    case SET_DEFAULT_DATA_AUTH:
+    case AUTH_DEFAULT:
       return defaultState;
 
     default:

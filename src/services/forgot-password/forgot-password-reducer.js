@@ -2,7 +2,7 @@ import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_ERROR,
-  FORGOT_PASSWORD_SET_DEFAULT_STATE,
+  FORGOT_PASSWORD_DEFAULT,
 } from './forgot-password-actions';
 
 const defaultState = {
@@ -44,7 +44,7 @@ const forgotPasswordReducer = (state = defaultState, action) => {
         },
       };
 
-    case FORGOT_PASSWORD_SET_DEFAULT_STATE:
+    case FORGOT_PASSWORD_DEFAULT:
       return defaultState;
 
     default:
