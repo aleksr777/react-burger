@@ -2,7 +2,7 @@ import uniqid from 'uniqid'; /* uniqid нужен для генерации key 
 
 export const SELECTED_INGREDIENTS_ADD_ITEM = 'SELECTED_INGREDIENTS_ADD_ITEM';
 export const SELECTED_INGREDIENTS_REMOVE_ITEM = 'SELECTED_INGREDIENTS_REMOVE_ITEM';
-export const SELECTED_INGREDIENTS_SWAP_ITEM = 'SELECTED_INGREDIENTS_SWAP_ITEM';
+export const SELECTED_INGREDIENTS_SWAP_ITEMS = 'SELECTED_INGREDIENTS_SWAP_ITEMS';
 export const SELECTED_INGREDIENTS_ADD_BUNS = 'SELECTED_INGREDIENTS_ADD_BUNS';
 export const SELECTED_INGREDIENTS_REMOVE_BUNS = 'SELECTED_INGREDIENTS_REMOVE_BUNS';
 
@@ -54,6 +54,6 @@ export function swapIngredients(dragObj, fromPosition, toPosition, ingredients) 
   newArr.splice(fromPosition, 1); /* удаляем элемент со своей позиции*/
   newArr.splice(toPosition, 0, newObj); /* вставляем элемент в выбранную позицию */
   return function (dispatch) {
-    dispatch({ type: SELECTED_INGREDIENTS_SWAP_ITEM, payload: { newArr } });
+    dispatch({ type: SELECTED_INGREDIENTS_SWAP_ITEMS, payload: { newArr } });
   };
 };
