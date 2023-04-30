@@ -1,6 +1,7 @@
 import {
   AUTH_REQUEST,
   AUTH_SUCCESS_LOGIN,
+  AUTH_SUCCESS_USER,
   AUTH_SHOW_ERROR,
   AUTH_DEFAULT,
   AUTH_HIDE_ERROR,
@@ -38,6 +39,11 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         success: true,
+      };
+
+    case AUTH_SUCCESS_USER:
+      return {
+        ...state,
         user: action.payload.user
       };
 

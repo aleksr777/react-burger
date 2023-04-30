@@ -5,10 +5,12 @@ import {
 import {
   requestLoginServer,
   requestLogoutServer,
-  requestUpdateTokenServer
+  requestUpdateTokenServer,
+  requestGetUserDataServer,
 } from '../../utils/api';
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS_LOGIN = 'AUTH_SUCCESS_LOGIN';
+export const AUTH_SUCCESS_USER = 'AUTH_SUCCESS_USER';
 export const AUTH_SUCCESS_UPDATE_TOKEN = 'AUTH_SUCCESS_UPDATE_TOKEN';
 export const AUTH_SHOW_ERROR = 'AUTH_SHOW_ERROR';
 export const AUTH_DEFAULT = 'AUTH_DEFAULT';
@@ -83,20 +85,20 @@ export function requestLogin(goBackToPage, email, password) {
     requestLoginServer(email, password)
       .then(res => {
         if (res && res.success) {
+          console.log(res);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, res.refreshToken);
+          dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
           dispatch({
-            type: AUTH_SUCCESS_LOGIN,
-            payload: {
+            type: AUTH_SUCCESS_USER, payload: {
               user: {
                 name: res.user.name,
                 email: res.user.email,
                 password: password,
-              }
+              },
             }
           });
           setTimeout(() => { goBackToPage() }, LOADER_ANIMATION_TIME);
-
         }
         else {
           handleError(res);
@@ -140,6 +142,51 @@ export function requestLogout(refreshToken) {
           setTimeout(() => {
             dispatch({ type: AUTH_DEFAULT, payload: {} });
           }, LOADER_ANIMATION_TIME);
+        }
+        else {
+          handleError(res);
+        };
+      })
+      .catch(err => {
+        handleError(err);
+      });
+  };
+};
+
+
+/* Запрос на получение данных о пользователе */
+export function requestGetUserData(password) {
+
+  return function (dispatch) {
+
+    function handleError(response) {
+      console.log(response);
+      dispatch({
+        type: AUTH_SHOW_ERROR,
+        payload: {
+          message: response,
+          title: 'Ошибка сервера',
+        }
+      });
+      setTimeout(() => {
+        dispatch({ type: AUTH_DEFAULT, payload: {} });
+      }, 1500);
+    };
+
+    dispatch({ type: AUTH_REQUEST, payload: {} });
+
+    requestGetUserDataServer()
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: AUTH_SUCCESS_USER, payload: {
+              user: {
+                name: res.user.name,
+                email: res.user.email,
+                password: password,
+              },
+            }
+          });
         }
         else {
           handleError(res);
