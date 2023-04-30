@@ -1,4 +1,5 @@
 import { getIngredientsDataServer } from '../../utils/api';
+import { requestUpdateToken } from '../authorization/auth-actions';
 
 export const INGREDIENTS_DATA_REQUEST = 'GET_DATA_INGREDIENTS';
 export const INGREDIENTS_DATA_SUCCESS = 'INGREDIENTS_DATA_SUCCESS';
@@ -11,6 +12,10 @@ export function getIngredientsData() {
 
     function handleError(response) {
       console.log(response);
+      /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+      if (response.indexOf('401') !== -1) {
+        return dispatch(requestUpdateToken(getIngredientsData()));
+      }
       dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
       setTimeout(() => {
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });

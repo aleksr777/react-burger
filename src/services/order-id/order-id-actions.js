@@ -1,5 +1,7 @@
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
+import { requestUpdateToken } from '../authorization/auth-actions';
+
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
 export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
 export const ORDER_ID_REQUEST = 'ORDER_ID_REQUEST';
@@ -14,8 +16,13 @@ export function getOrderId(arrId) {
 
   return function (dispatch) {
 
+    /* const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`); */
+
     function handleError(response) {
-      console.log(response);
+      /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+      if (response.indexOf('401') !== -1) {
+        return dispatch(requestUpdateToken(getOrderId(arrId)));
+      }
       dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
       setTimeout(() => {
         dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
