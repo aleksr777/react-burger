@@ -1,5 +1,5 @@
 import stylesProfile from './profile.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogout, requestChangeUserData } from '../../services/authorization/auth-actions';
 import { STORAGE_KEY_PREFIX } from '../../constants/constants';
@@ -25,44 +25,38 @@ const ProfilePage = () => {
 
   const dispatch = useDispatch();
 
-  const [inputsData, setInputsData] = useState({
-    valueName: user.name,
-    valueLogin: user.email,
-    valuePassword: user.password,
-  });
+  const [inputsData, setInputsData] = useState(user);
+
+  const [isFormChanged, setIsFormChanged] = useState(false);
 
   const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value })
+    setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
-  const isInputsValueChanged = (
-    inputsData.valueName === user.name
-    && inputsData.valueLogin === user.email
-    && inputsData.valuePassword === user.password)
-    ? false
-    : true;
+  useEffect(() => {
+    for (const key in user) {
+      if (user[key] !== inputsData[key]) {
+        return setIsFormChanged(true)
+      }
+    }
+    setIsFormChanged(false);
+  }, [inputsData]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!isInputsValueChanged) {
+    if (!isFormChanged) {
       return null
     }
-    dispatch(requestChangeUserData(
-      inputsData.valueLogin,
-      inputsData.valueName,
-      inputsData.valuePassword
-    ));
+    dispatch(requestChangeUserData(inputsData, setIsFormChanged));
   }
 
-  function cancelInputChange() {
-    if (!isInputsValueChanged) {
+  function cancelInputChange(e) {
+    e.preventDefault();
+    if (!isFormChanged) {
       return null
     }
-    setInputsData({
-      valueName: user.name,
-      valueLogin: user.email,
-      valuePassword: user.password,
-    });
+    setInputsData(user);
+    setIsFormChanged(false);
   }
 
   return (
@@ -111,27 +105,27 @@ const ProfilePage = () => {
                 placeholder='Имя'
                 name='name'
                 icon='EditIcon'
-                value={inputsData.valueName}
-                onChange={e => handleInputChange(e, 'valueName')}
+                value={inputsData.name}
+                onChange={e => handleInputChange(e, 'name')}
               />
 
               <FormInput
                 inputType='email'
-                onChange={e => handleInputChange(e, 'valueLogin')}
-                value={inputsData.valueLogin}
-                name='login'
+                value={inputsData.email}
+                name='email'
                 placeholder='Логин'
                 icon='EditIcon'
                 isIcon={true}
+                onChange={e => handleInputChange(e, 'email')}
               />
 
               <FormInput
                 inputType='password'
-                onChange={e => handleInputChange(e, 'valuePassword')}
-                value={inputsData.valuePassword}
                 name='password'
+                value={inputsData.password}
                 placeholder='Пароль'
                 icon="EditIcon"
+                onChange={e => handleInputChange(e, 'password')}
               />
 
               <div
@@ -140,14 +134,14 @@ const ProfilePage = () => {
 
                 <button
                   className={stylesProfile.cancelButton}
-                  onClick={cancelInputChange}
-                  disabled={!isInputsValueChanged}
+                  onClick={e => cancelInputChange(e)}
+                  disabled={!isFormChanged}
                 >Отмена
                 </button>
 
                 <FormButton
                   text='Сохранить'
-                  disabled={!isInputsValueChanged}
+                  disabled={!isFormChanged}
                 />
 
               </div>

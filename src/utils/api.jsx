@@ -63,13 +63,13 @@ export const requestGetUserDataServer = async () => {
 };
 
 //Запрос на изменение данных о пользователе
-export const requestChangeUserDataServer = async (email, userName) => {
+export const requestChangeUserDataServer = async (name, email) => {
   return request(`${apiConfig.baseUrl}/api/auth/user`, {
     method: 'PATCH',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      'email': email,
-      'name': userName
+      'name': name,
+      'email': email
     })
   })
 };
@@ -99,14 +99,14 @@ export const requestUpdateTokenServer = async (refreshToken) => {
 
 
 //Отправка данных для регистрации
-export const registerUserRequestServer = async (valueName, valueEmail, valuePassword) => {
+export const registerUserRequestServer = async (name, email, password) => {
   return request(`${apiConfig.baseUrl}/api/auth/register`, {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      'email': valueEmail,
-      'password': valuePassword,
-      'name': valueName 
+      'email': email,
+      'password': password,
+      'name': name 
     })
   })
 };

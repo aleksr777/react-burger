@@ -201,7 +201,7 @@ export function requestGetUserData(password) {
 
 
 /* Запрос на изменение данных о пользователе */
-export function requestChangeUserData(email, userName, password) {
+export function requestChangeUserData({ name, email, password }, setIsFormChanged) {
 
   return function (dispatch) {
 
@@ -221,7 +221,7 @@ export function requestChangeUserData(email, userName, password) {
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
-    requestChangeUserDataServer(email, userName)
+    requestChangeUserDataServer(name, email)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -233,6 +233,7 @@ export function requestChangeUserData(email, userName, password) {
               },
             }
           });
+          setIsFormChanged(false);
         }
         else {
           handleError(res);
