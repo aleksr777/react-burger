@@ -9,7 +9,7 @@
 .box>div>p {
   box-sizing: border-box;
   position: absolute;
-  bottom: -38px;
+  bottom: -23px;
   left: 0;
   white-space: nowrap;
 }
