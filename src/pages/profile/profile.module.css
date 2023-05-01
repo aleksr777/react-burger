@@ -48,6 +48,7 @@
 
 .cancelButton:disabled {
   opacity: 0;
+  cursor: default;
 }
 
 .logoutButton {
