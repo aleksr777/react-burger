@@ -30,7 +30,11 @@ const forgotPasswordReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true
+        success: true,
+        isError: {
+          ...state.isError,
+          state: false,
+        },
       };
 
     case FORGOT_PASSWORD_ERROR:

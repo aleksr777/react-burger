@@ -39,12 +39,22 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         success: true,
+        isError: {
+          ...state.isError,
+          state: false,
+        }
       };
 
     case AUTH_SUCCESS_USER:
       return {
         ...state,
-        user: action.payload.user
+        isLoading: false,
+        success: true,
+        user: action.payload.user,
+        isError: {
+          ...state.isError,
+          state: false,
+        }
       };
 
     case AUTH_SUCCESS_UPDATE_TOKEN:
@@ -52,6 +62,10 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         success: true,
+        isError: {
+          ...state.isError,
+          state: false,
+        }
       };
 
     case AUTH_SHOW_ERROR:

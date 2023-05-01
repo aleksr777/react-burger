@@ -1,7 +1,7 @@
 import { getIngredientsDataServer } from '../../utils/api';
 import { requestUpdateToken } from '../authorization/auth-actions';
 
-export const INGREDIENTS_DATA_REQUEST = 'GET_DATA_INGREDIENTS';
+export const INGREDIENTS_DATA_REQUEST = 'INGREDIENTS_DATA_REQUEST';
 export const INGREDIENTS_DATA_SUCCESS = 'INGREDIENTS_DATA_SUCCESS';
 export const INGREDIENTS_DATA_ERROR = 'INGREDIENTS_DATA_ERROR';
 export const INGREDIENTS_DATA_SET_DEFAULT = 'INGREDIENTS_DATA_SET_DEFAULT';

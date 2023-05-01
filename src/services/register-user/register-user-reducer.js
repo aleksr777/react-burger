@@ -30,7 +30,11 @@ const registerUserReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true
+        success: true,
+        isError: {
+          ...state.isError,
+          state: false,
+        },
       };
 
     case REGISTER_USER_ERROR:

@@ -7,6 +7,7 @@ import {
   requestLogoutServer,
   requestUpdateTokenServer,
   requestGetUserDataServer,
+  requestChangeUserDataServer,
 } from '../../utils/api';
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS_LOGIN = 'AUTH_SUCCESS_LOGIN';
@@ -169,13 +170,58 @@ export function requestGetUserData(password) {
         }
       });
       setTimeout(() => {
-        dispatch({ type: AUTH_DEFAULT, payload: {} });
+        dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
       }, 1500);
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
     requestGetUserDataServer()
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: AUTH_SUCCESS_USER, payload: {
+              user: {
+                name: res.user.name,
+                email: res.user.email,
+                password: password,
+              },
+            }
+          });
+        }
+        else {
+          handleError(res);
+        };
+      })
+      .catch(err => {
+        handleError(err);
+      });
+  };
+};
+
+
+/* Запрос на изменение данных о пользователе */
+export function requestChangeUserData(email, userName, password) {
+
+  return function (dispatch) {
+
+    function handleError(response) {
+      console.log(response);
+      dispatch({
+        type: AUTH_SHOW_ERROR,
+        payload: {
+          message: response,
+          title: 'Ошибка сервера',
+        }
+      });
+      setTimeout(() => {
+        dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+      }, 1500);
+    };
+
+    dispatch({ type: AUTH_REQUEST, payload: {} });
+
+    requestChangeUserDataServer(email, userName)
       .then(res => {
         if (res && res.success) {
           dispatch({

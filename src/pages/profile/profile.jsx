@@ -1,7 +1,7 @@
 import stylesProfile from './profile.module.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestLogout } from '../../services/authorization/auth-actions';
+import { requestLogout, requestChangeUserData } from '../../services/authorization/auth-actions';
 import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import ProfileLink from '../../components/profile-link/profile-link';
 import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
@@ -12,6 +12,7 @@ import FormButton from '../../components/form-button/form-button';
 import AppPage from '../../components/app-page/app-page';
 import AppHeader from '../../components/app-header/app-header';
 import AppMainBlock from '../../components/app-main/app-main';
+import Loader from '../../components/loader/loader';
 
 const getAuthState = state => state.authorization;
 
@@ -20,7 +21,7 @@ const ProfilePage = () => {
 
   const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
 
-  const { user } = useSelector(getAuthState);
+  const { isLoading, isError, user } = useSelector(getAuthState);
 
   const dispatch = useDispatch();
 
@@ -34,13 +35,41 @@ const ProfilePage = () => {
     setInputsData({ ...inputsData, [value]: e.target.value })
   }
 
+  const isInputsValueChanged = (
+    inputsData.valueName === user.name
+    && inputsData.valueLogin === user.email
+    && inputsData.valuePassword === user.password)
+    ? false
+    : true;
+
   function handleSubmit(e) {
     e.preventDefault();
+    if (!isInputsValueChanged) {
+      return null
+    }
+    dispatch(requestChangeUserData(
+      inputsData.valueLogin,
+      inputsData.valueName,
+      inputsData.valuePassword
+    ));
+  }
+
+  function cancelInputChange() {
+    if (!isInputsValueChanged) {
+      return null
+    }
+    setInputsData({
+      valueName: user.name,
+      valueLogin: user.email,
+      valuePassword: user.password,
+    });
   }
 
   return (
 
     <AppPage>
+
+      <Loader size={100} isLoading={isLoading} isError={isError} />
 
       <AppHeader />
 
@@ -105,10 +134,21 @@ const ProfilePage = () => {
                 icon="EditIcon"
               />
 
-              <div className={stylesProfile.buttonsBlock}>
+              <div
+                className={stylesProfile.buttonsBlock}
+              >
 
-                <button className={stylesProfile.cancelButton}>Отмена</button>
-                <FormButton text='Сохранить' />
+                <button
+                  className={stylesProfile.cancelButton}
+                  onClick={cancelInputChange}
+                  disabled={!isInputsValueChanged}
+                >Отмена
+                </button>
+
+                <FormButton
+                  text='Сохранить'
+                  disabled={!isInputsValueChanged}
+                />
 
               </div>
 

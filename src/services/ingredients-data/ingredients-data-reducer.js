@@ -31,6 +31,10 @@ const ingredientsDataReducer = (state = defaultState, action) => {
         ...state,
         ingredientsData: action.data,
         isLoading: false,
+        isError: {
+          ...state.isError,
+          state: false,
+        },
       };
     };
 

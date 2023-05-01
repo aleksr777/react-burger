@@ -54,7 +54,7 @@ export const requestLoginServer = async (email, password) => {
   })
 };
 
-//Запрос данных о пользователе
+//Запрос на получение данных о пользователе
 export const requestGetUserDataServer = async () => {
   return request(`${apiConfig.baseUrl}/api/auth/user`, {
     method: 'GET',
@@ -62,6 +62,17 @@ export const requestGetUserDataServer = async () => {
   })
 };
 
+//Запрос на изменение данных о пользователе
+export const requestChangeUserDataServer = async (email, userName) => {
+  return request(`${apiConfig.baseUrl}/api/auth/user`, {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      'email': email,
+      'name': userName
+    })
+  })
+};
 
 // Запрос выхода из аккаунта
 export const requestLogoutServer = async (refreshToken) => {

@@ -46,6 +46,10 @@
   opacity: .7;
 }
 
+.cancelButton:disabled {
+  opacity: 0;
+}
+
 .logoutButton {
   color: #8585AD;
   cursor: pointer;

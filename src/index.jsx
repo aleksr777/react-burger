@@ -3,15 +3,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage';
+} from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import logger from 'redux-logger';
@@ -20,20 +18,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
 import rootReducer from './services/root-reducer';
 
-const authWhitelist = [
-  'authorization',
-];
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: authWhitelist,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
