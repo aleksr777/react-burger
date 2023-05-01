@@ -1,17 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route/protected-route';
-import {
-  NotFoundPage,
-  HomePage,
-  FeedPage,
-  LoginPage,
-  RegisterPage,
-  ForgotPasswordPage,
-  ResetPasswordPage,
-  ProfilePage,
-  OrdersPage,
-  IngredientPage
-} from '../../pages/pages';
+
+import NotFoundPage from '../../pages/not-found/not-found';
+import HomePage from '../../pages/home/home';
+import FeedPage from '../../pages/feed/feed';
+import ProfilePage from '../../pages/profile/profile';
+import OrdersPage from '../../pages/orders/orders';
+import IngredientPage from '../../pages/ingredient/ingredient';
+import LoginPage from '../../pages/login/login';
+import RegisterPage from '../../pages/register/register';
+import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
+import ResetPasswordPage from '../../pages/reset-password/reset-password';
 
 const App = () => {
 
