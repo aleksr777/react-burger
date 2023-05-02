@@ -2,7 +2,6 @@ import stylesProfile from './profile.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogout, requestChangeUserData } from '../../services/authorization/auth-actions';
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import ProfileLink from '../../components/profile-link/profile-link';
 import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
 import ProfileBlockAbout from '../../components/profile-block-about/profile-block-about';
@@ -18,8 +17,6 @@ const getAuthState = state => state.authorization;
 
 
 const ProfilePage = () => {
-
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
 
   const { isLoading, isError, user } = useSelector(getAuthState);
 
@@ -80,7 +77,7 @@ const ProfilePage = () => {
             <button
               /* Сделал простую кнопку для разлогирования (для проверки функционала).
               Потом сделаю, как потребуется, в следующем спринте*/
-              onClick={() => dispatch(requestLogout(refreshToken))}
+              onClick={() => dispatch(requestLogout())}
               className={stylesProfile.logoutButton}
             >Выход
             </button>

@@ -7,12 +7,14 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  background-color: transparent;
+  opacity: .7;
   transition: all .3s ease 0s;
   composes: p-5 mr-2 from global;
 }
 
 .link:hover {
-  opacity: .8;
+  opacity: .9;
 }
 
 .link:last-of-type {
@@ -22,6 +24,7 @@
 .link_active {
   cursor: default;
   pointer-events: none;
+  opacity: 1;
 }
 
 .text {

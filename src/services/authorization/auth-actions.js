@@ -23,12 +23,10 @@ export function requestUpdateToken(repeatRequest) {
 
   return function (dispatch) {
 
-    const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-
     function handleError(response) {
       console.log(response);
-      localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, '');
-      localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, '');
+      localStorage.removeItem(`${STORAGE_KEY_PREFIX}accessToken`);
+      localStorage.removeItem(`${STORAGE_KEY_PREFIX}refreshToken`);
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -41,7 +39,7 @@ export function requestUpdateToken(repeatRequest) {
       }, 1500);
     };
     dispatch({ type: AUTH_REQUEST, payload: {} });
-    requestUpdateTokenServer(refreshToken)
+    requestUpdateTokenServer()
       .then(res => {
         if (res && res.success) {
           localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
@@ -67,8 +65,8 @@ export function requestLogin(goBackToPage, email, password) {
 
     function handleError(response) {
       console.log(response);
-      localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, '');
-      localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, '');
+      localStorage.removeItem(`${STORAGE_KEY_PREFIX}accessToken`);
+      localStorage.removeItem(`${STORAGE_KEY_PREFIX}refreshToken`);
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -113,7 +111,7 @@ export function requestLogin(goBackToPage, email, password) {
 
 
 /* Запрос выхода из аккаунта */
-export function requestLogout(refreshToken) {
+export function requestLogout() {
 
   return function (dispatch) {
 
@@ -121,7 +119,7 @@ export function requestLogout(refreshToken) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
       if (response.indexOf('401') !== -1) {
-        dispatch(requestUpdateToken(requestLogout(refreshToken)));
+        dispatch(requestUpdateToken(requestLogout()));
       }
       dispatch({
         type: AUTH_SHOW_ERROR,
@@ -137,7 +135,7 @@ export function requestLogout(refreshToken) {
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
 
-    requestLogoutServer(refreshToken)
+    requestLogoutServer()
       .then(res => {
         if (res && res.success) {
           setTimeout(() => {

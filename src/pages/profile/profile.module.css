@@ -38,12 +38,12 @@
   cursor: pointer;
   color: #4C4CFF;
   background: transparent;
-  transition: all .3s ease 0s;
+  transition: all .4s ease 0s;
   composes: text text_type_main-default from global;
 }
 
 .cancelButton:hover {
-  opacity: .7;
+  color: #b6b6ff;
 }
 
 .cancelButton:disabled {
@@ -64,5 +64,5 @@
 }
 
 .logoutButton:hover {
-  opacity: .7;
+  color: hsla(240, 4%, 95%, 0.7);
 }

@@ -1,5 +1,5 @@
 import stylesOrders from './orders.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { requestLogout } from '../../services/authorization/auth-actions';
 import ProfileLink from '../../components/profile-link/profile-link';
 import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
@@ -13,8 +13,6 @@ const getAuthState = state => state.authorization;
 
 
 const OrdersPage = () => {
-
-  const { refreshToken } = useSelector(getAuthState);
 
   const dispatch = useDispatch();
 
@@ -37,7 +35,7 @@ const OrdersPage = () => {
             <button
               /* Сделал простую кнопку для разлогирования (для проверки функционала).
               Потом сделаю, как потребуется, в следующем спринте*/
-              onClick={() => dispatch(requestLogout(refreshToken))}
+              onClick={() => dispatch(requestLogout())}
               className={stylesOrders.logoutButton}
             >Выход
             </button>

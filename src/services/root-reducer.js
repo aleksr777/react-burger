@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
+import sessionStorage from 'redux-persist/lib/storage/session';
 import { persistReducer } from 'redux-persist'
 
 import { authReducer } from './authorization/auth-reducer';
@@ -13,22 +14,50 @@ import { ingredientDetailsReducer } from './ingredient-details/ingredient-detail
 import { currentTabReducer } from './tab/tab-reducer';
 
 const authPersistConfig = {
-  key: 'auth',
+  key: 'react-burger-auth',
   storage,
   whitelist: ['success', 'user'],
 };
-
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const forgotPasswordPersistConfig = {
+  key: 'react-burger-forgotPassword',
+  storage: sessionStorage,
+  whitelist: ['success'],
+};
+const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
+
+const selectedIngrPersistConfig = {
+  key: 'react-burger-selectedIngr',
+  storage: sessionStorage,
+  whitelist: ['totalPrice', 'bun', 'ingredients'],
+};
+const persistedSelectedIngrReducer = persistReducer(selectedIngrPersistConfig, selectedIngrReducer);
+
+const orderIdPersistConfig = {
+  key: 'react-burger-orderId',
+  storage: sessionStorage,
+  whitelist: ['id'],
+};
+const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
+
+const ingredientDetailsConfig = {
+  key: 'react-burger-ingredientDetails',
+  storage: sessionStorage,
+  whitelist: ['ingredient'],
+};
+const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsConfig, ingredientDetailsReducer);
+
 
 const rootReducer = combineReducers({
   authorization: persistedAuthReducer,
   registerUser: registerUserReducer,
-  forgotPassword: forgotPasswordReducer,
+  forgotPassword: persistedForgotPasswordReducer,
   resetPassword: resetPasswordReducer,
   ingredientsData: ingredientsDataReducer,
-  selectedIngr: selectedIngrReducer,
-  orderId: orderIdReducer,
-  ingredientDetails: ingredientDetailsReducer,
+  selectedIngr: persistedSelectedIngrReducer,
+  orderId: persistedOrderIdReducer,
+  ingredientDetails: persistedIngredientDetailsReducer,
   currentTab: currentTabReducer,
 });
 
