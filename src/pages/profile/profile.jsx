@@ -1,157 +1,59 @@
 import stylesProfile from './profile.module.css';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { requestLogout, requestChangeUserData } from '../../services/authorization/auth-actions';
+import { useLocation, Outlet } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { requestLogout } from '../../services/authorization/auth-actions';
 import ProfileLink from '../../components/profile-link/profile-link';
 import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
 import ProfileBlockAbout from '../../components/profile-block-about/profile-block-about';
 import ProfileTextAbout from '../../components/profile-text-about/profile-text-about';
-import FormInput from '../../components/form-input/form-input';
-import FormButton from '../../components/form-button/form-button';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
-import Loader from '../../components/loader/loader';
-
-const getAuthState = state => state.authorization;
 
 
 const ProfilePage = () => {
 
-  const { isLoading, isError, user } = useSelector(getAuthState);
-
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const [inputsData, setInputsData] = useState(user);
-
-  const [isFormChanged, setIsFormChanged] = useState(false);
-
-  const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value });
-  }
-
-  useEffect(() => {
-    for (const key in user) {
-      if (user[key] !== inputsData[key]) {
-        return setIsFormChanged(true)
-      }
-    }
-    setIsFormChanged(false);
-  }, [inputsData]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!isFormChanged) {
-      return null
-    }
-    dispatch(requestChangeUserData(inputsData, setIsFormChanged));
-  }
-
-  function cancelInputChange(e) {
-    e.preventDefault();
-    if (!isFormChanged) {
-      return null
-    }
-    setInputsData(user);
-    setIsFormChanged(false);
+  let textAbout = '';
+  switch (location.pathname) {
+    case '/profile':
+      textAbout = 'изменить свои персональные данные';
+      break;
+    case '/profile/orders':
+      textAbout = 'просмотреть свою историю заказов';
+      break;
+    default:
+      break;
   }
 
   return (
+    <>
+      <div className={stylesProfile.container}>
 
-    <AppPage>
+        <ProfileNavBlock>
 
-      <Loader size={100} isLoading={isLoading} isError={isError} />
+          <ProfileLink text='Профиль' path='/profile' />
 
-      <AppHeader />
+          <ProfileLink text='История заказов' path='/profile/orders' />
 
-      <AppMainBlock>
+          <button
+            /* Сделал простую кнопку для разлогирования (для проверки функционала).
+            Потом сделаю, как потребуется, в следующем спринте*/
+            onClick={() => dispatch(requestLogout())}
+            className={stylesProfile.logoutButton}
+          >Выход
+          </button>
 
-        <div className={stylesProfile.container}>
+          <ProfileBlockAbout>
+            <ProfileTextAbout>В этом разделе вы можете</ProfileTextAbout>
+            <ProfileTextAbout>{textAbout}</ProfileTextAbout>
+          </ProfileBlockAbout>
 
-          <ProfileNavBlock>
+        </ProfileNavBlock>
 
-            <ProfileLink navText='Профиль' path='/profile' />
+        <Outlet />
 
-            <ProfileLink navText='История заказов' path='/orders' />
-
-            <button
-              /* Сделал простую кнопку для разлогирования (для проверки функционала).
-              Потом сделаю, как потребуется, в следующем спринте*/
-              onClick={() => dispatch(requestLogout())}
-              className={stylesProfile.logoutButton}
-            >Выход
-            </button>
-
-            <ProfileBlockAbout>
-              <ProfileTextAbout>В этом разделе вы можете</ProfileTextAbout>
-              <ProfileTextAbout>изменить свои персональные данные</ProfileTextAbout>
-            </ProfileBlockAbout>
-
-          </ProfileNavBlock>
-
-          <form
-            className={stylesProfile.form}
-            onSubmit={handleSubmit}
-            autoComplete='off'
-          >
-
-            <div className={stylesProfile.editingBlock}>
-
-              <FormInput
-                inputType='text'
-                placeholder='Имя'
-                name='name'
-                icon='EditIcon'
-                value={inputsData.name}
-                onChange={e => handleInputChange(e, 'name')}
-              />
-
-              <FormInput
-                inputType='email'
-                value={inputsData.email}
-                name='email'
-                placeholder='Логин'
-                icon='EditIcon'
-                isIcon={true}
-                onChange={e => handleInputChange(e, 'email')}
-              />
-
-              <FormInput
-                inputType='password'
-                name='password'
-                value={inputsData.password}
-                placeholder='Пароль'
-                icon="EditIcon"
-                onChange={e => handleInputChange(e, 'password')}
-              />
-
-              <div
-                className={stylesProfile.buttonsBlock}
-              >
-
-                <button
-                  className={stylesProfile.cancelButton}
-                  onClick={e => cancelInputChange(e)}
-                  disabled={!isFormChanged}
-                >Отмена
-                </button>
-
-                <FormButton
-                  text='Сохранить'
-                  disabled={!isFormChanged}
-                />
-
-              </div>
-
-            </div>
-
-          </form>
-
-        </div>
-
-      </AppMainBlock>
-
-    </AppPage>
+      </div>
+    </>
   )
 };
 

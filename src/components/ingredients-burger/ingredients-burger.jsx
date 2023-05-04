@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import IngredientsTabBlock from '../ingredients-tab-block/ingredients-tab-block';
 import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import CounterItem from '../counter-item/counter-item';
 
 
@@ -73,8 +72,6 @@ const IngredientsBurger = () => {
           </IngredientsBlock>
         </div>
       </section>
-
-      <ModalIngredientDetails />
 
     </>
   );

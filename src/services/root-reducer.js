@@ -13,12 +13,14 @@ import { orderIdReducer } from './order-id/order-id-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
 
+
 const authPersistConfig = {
   key: 'react-burger-auth',
   storage,
   whitelist: ['success', 'user'],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
 
 const forgotPasswordPersistConfig = {
   key: 'react-burger-forgotPassword',
@@ -27,6 +29,7 @@ const forgotPasswordPersistConfig = {
 };
 const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
 
+
 const selectedIngrPersistConfig = {
   key: 'react-burger-selectedIngr',
   storage: sessionStorage,
@@ -34,19 +37,29 @@ const selectedIngrPersistConfig = {
 };
 const persistedSelectedIngrReducer = persistReducer(selectedIngrPersistConfig, selectedIngrReducer);
 
+
 const orderIdPersistConfig = {
   key: 'react-burger-orderId',
   storage: sessionStorage,
-  whitelist: ['id'],
+  whitelist: ['id', 'isModalOpened'],
 };
 const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
+
 
 const ingredientDetailsConfig = {
   key: 'react-burger-ingredientDetails',
   storage: sessionStorage,
-  whitelist: ['ingredient'],
+  whitelist: ['ingredient', 'isModalOpened'],
 };
 const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsConfig, ingredientDetailsReducer);
+
+
+const ingredientsDataConfig = {
+  key: 'react-burger-ingredientsData',
+  storage: sessionStorage,
+  whitelist: ['ingredientsData', 'ingredientInfo'],
+};
+const persistedIngredientsDataReducer = persistReducer(ingredientsDataConfig, ingredientsDataReducer);
 
 
 const rootReducer = combineReducers({
@@ -54,7 +67,7 @@ const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   forgotPassword: persistedForgotPasswordReducer,
   resetPassword: resetPasswordReducer,
-  ingredientsData: ingredientsDataReducer,
+  ingredientsData: persistedIngredientsDataReducer,
   selectedIngr: persistedSelectedIngrReducer,
   orderId: persistedOrderIdReducer,
   ingredientDetails: persistedIngredientDetailsReducer,

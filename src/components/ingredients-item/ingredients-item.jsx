@@ -1,17 +1,21 @@
 import stylesIngredientsItem from './ingredients-item.module.css';
 import PropTypes from 'prop-types';
-import ConstructorBurgerStyles from '../constructor-burger/constructor-burger.module.css';
+import { useLocation, Link, useParams } from 'react-router-dom';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+
 const IngredientsItem = ({ children, ingredient }) => {
 
-  const ConstructorBurgerSelector = [...document.getElementsByClassName(ConstructorBurgerStyles.section)][0];
-
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  const handleOpenModal = (ingredient) => {
+    dispatch(openIngredientDetailsModal(ingredient));
+  };
 
   const [{ dragItemOpacity, dragItemTransition }, dragRef] = useDrag({
     type: 'selectedIngr',
@@ -22,49 +26,41 @@ const IngredientsItem = ({ children, ingredient }) => {
     }),
   });
 
-  const handleOpenModal = (ingredient) => {
-    dispatch(openIngredientDetailsModal(ingredient));
-  };
-
-  function handleDragStart() {
-    ConstructorBurgerSelector.style.opacity = '.7';
-    ConstructorBurgerSelector.style.borderRadius = '1.5%';
-    ConstructorBurgerSelector.style.boxShadow = '0px 0px 1px 2px rgba(76, 76, 255, .9) inset';
-  }
-
-  function handleDragEnd() {
-    ConstructorBurgerSelector.style.opacity = '';
-    ConstructorBurgerSelector.style.borderRadius = '';
-    ConstructorBurgerSelector.style.boxShadow = '';
-  }
-
   return (
     <li
       ref={dragRef}
       className={stylesIngredientsItem.item}
-      onDragStart={(e) => handleDragStart(e)}
-      onDragEnd={(e) => handleDragEnd(e)}
-      onClick={() => { handleOpenModal(ingredient) }}
       style={{
         transition: dragItemTransition,
         opacity: dragItemOpacity
       }}
     >
+      <Link
+        className={stylesIngredientsItem.link}
+        to={`/ingredients/${ingredient._id}`}
+        state={{ from: location }}
+        draggable='false'
+        onClick={() => { handleOpenModal(ingredient) }}
+        replace
+      >
 
-      {children}
+        {children}
 
-      <img
-        className={stylesIngredientsItem.item__image}
-        src={ingredient.image_large}
-        alt={ingredient.name}
-      />
+        <img
+          className={stylesIngredientsItem.item__image}
+          src={ingredient.image_large}
+          alt={ingredient.name}
+        />
 
-      <div className={stylesIngredientsItem.item__box}>
-        <p className={stylesIngredientsItem.item__price}>{ingredient.price}</p>
-        <CurrencyIcon type='primary' />
-      </div>
+        <div className={stylesIngredientsItem.item__box}>
+          <p className={stylesIngredientsItem.item__price}>{ingredient.price}</p>
+          <CurrencyIcon type='primary' />
+        </div>
 
-      <p className={stylesIngredientsItem.item__title}>{ingredient.name}</p>
+        <p className={stylesIngredientsItem.item__title}>{ingredient.name}</p>
+
+      </Link>
+
     </li>
   )
 };

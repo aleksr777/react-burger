@@ -10,9 +10,6 @@ import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
 
 const registerUserState = state => state.registerUser;
 const getAuthState = state => state.authorization;
@@ -21,7 +18,6 @@ const getAuthState = state => state.authorization;
 const RegisterPage = () => {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
@@ -65,65 +61,56 @@ const RegisterPage = () => {
   }
 
   return (
-
-    <AppPage>
-
+    <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <AppHeader />
+      {!isAuth && (
 
-      <AppMainBlock>
+        <FormСontainer>
 
-        {!isAuth && (
+          <FormTitle text='Регистрация' />
 
-          <FormСontainer>
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormTitle text='Регистрация' />
+            <FormInput
+              inputType='text'
+              value={inputsData.valueName}
+              name='registerName'
+              placeholder='Имя'
+              onChange={e => handleInputChange(e, 'valueName')}
+              icon={undefined}
+              onIconClick={undefined}
+            />
 
-            <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormInput
+              inputType='email'
+              onChange={e => handleInputChange(e, 'valueEmail')}
+              value={inputsData.valueEmail}
+              name='registerEmail'
+              placeholder='E-mail'
+              isIcon={false}
+            />
 
-              <FormInput
-                inputType='text'
-                value={inputsData.valueName}
-                name='registerName'
-                placeholder='Имя'
-                onChange={e => handleInputChange(e, 'valueName')}
-                icon={undefined}
-                onIconClick={undefined}
-              />
+            <FormInput
+              inputType='password'
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
+              name='registerPassword'
+              placeholder='Пароль'
+              icon={undefined}
+            />
 
-              <FormInput
-                inputType='email'
-                onChange={e => handleInputChange(e, 'valueEmail')}
-                value={inputsData.valueEmail}
-                name='registerEmail'
-                placeholder='E-mail'
-                isIcon={false}
-              />
+            <FormButton text='Зарегистрироваться' />
 
-              <FormInput
-                inputType='password'
-                onChange={e => handleInputChange(e, 'valuePassword')}
-                value={inputsData.valuePassword}
-                name='registerPassword'
-                placeholder='Пароль'
-                icon={undefined}
-              />
+          </form>
 
-              <FormButton text='Зарегистрироваться' />
+          <FormText>
+            Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
 
-            </form>
-
-            <FormText>
-              Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
-            </FormText>
-
-          </FormСontainer>
-        )}
-
-      </AppMainBlock>
-
-    </AppPage>
+        </FormСontainer>
+      )}
+    </>
   )
 };
 

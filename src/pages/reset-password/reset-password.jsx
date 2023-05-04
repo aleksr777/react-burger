@@ -10,9 +10,6 @@ import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Loader from '../../components/loader/loader';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
 
 const forgotPasswordState = state => state.forgotPassword;
 const resetPasswordState = state => state.resetPassword;
@@ -24,7 +21,6 @@ const ResetPasswordPage = () => {
   const { isLoading, isError } = useSelector(resetPasswordState);
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
@@ -71,56 +67,47 @@ const ResetPasswordPage = () => {
   }
 
   return (
+    <>
+      <Loader size={100} isLoading={isLoading} isError={isError} />
 
-    <AppPage>
+      {!isAuth && forgotPassword.success && (
 
-      <AppHeader />
+        <FormСontainer>
 
-      <AppMainBlock>
+          <FormTitle text='Восстановление пароля' />
 
-        <Loader size={100} isLoading={isLoading} isError={isError} />
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-        {!isAuth && forgotPassword.success && (
+            <FormInput
+              inputType='password'
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
+              name='resetPassword'
+              placeholder='Введите новый пароль'
+              icon={undefined}
+            />
 
-          <FormСontainer>
+            <FormInput
+              inputType='text'
+              value={inputsData.valueCode}
+              name='resetCodeEmail'
+              placeholder='Введите код из письма'
+              onChange={e => handleInputChange(e, 'valueCode')}
+              icon={undefined}
+              onIconClick={undefined}
+            />
 
-            <FormTitle text='Восстановление пароля' />
+            <FormButton text='Сохранить' />
 
-            <form onSubmit={handleSubmit} autoComplete='off'>
+          </form>
 
-              <FormInput
-                inputType='password'
-                onChange={e => handleInputChange(e, 'valuePassword')}
-                value={inputsData.valuePassword}
-                name='resetPassword'
-                placeholder='Введите новый пароль'
-                icon={undefined}
-              />
+          <FormText>
+            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
 
-              <FormInput
-                inputType='text'
-                value={inputsData.valueCode}
-                name='resetCodeEmail'
-                placeholder='Введите код из письма'
-                onChange={e => handleInputChange(e, 'valueCode')}
-                icon={undefined}
-                onIconClick={undefined}
-              />
-
-              <FormButton text='Сохранить' />
-
-            </form>
-
-            <FormText>
-              Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-            </FormText>
-
-          </FormСontainer >
-        )}
-
-      </AppMainBlock>
-
-    </AppPage>
+        </FormСontainer >
+      )}
+    </>
   )
 };
 

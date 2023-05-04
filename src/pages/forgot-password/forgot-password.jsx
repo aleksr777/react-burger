@@ -10,9 +10,6 @@ import FormLink from '../../components/form-link/form-link';
 import FormText from '../../components/form-text/form-text';
 import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
 
 const forgotPasswordState = state => state.forgotPassword;
 const getAuthState = state => state.authorization;
@@ -21,7 +18,6 @@ const getAuthState = state => state.authorization;
 const ForgotPasswordPage = () => {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const [valueEmail, setValueEmail] = useState('');
@@ -54,46 +50,37 @@ const ForgotPasswordPage = () => {
   }
 
   return (
-
-    <AppPage>
-
-      <AppHeader />
-
+    <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <AppMainBlock>
+      {!isAuth && (
 
-        {!isAuth && (
+        <FormСontainer>
 
-          <FormСontainer>
+          <FormTitle text='Восстановление пароля' />
 
-            <FormTitle text='Восстановление пароля' />
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormInput
+              inputType='email'
+              onChange={onChangeEmail}
+              value={valueEmail}
+              name='forgotEmail'
+              placeholder='Укажите e-mail'
+              isIcon={false}
+            />
 
-              <FormInput
-                inputType='email'
-                onChange={onChangeEmail}
-                value={valueEmail}
-                name='forgotEmail'
-                placeholder='Укажите e-mail'
-                isIcon={false}
-              />
+            <FormButton text='Восстановить' />
 
-              <FormButton text='Восстановить' />
+          </form>
 
-            </form>
+          <FormText>
+            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+          </FormText>
 
-            <FormText>
-              Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-            </FormText>
-
-          </FormСontainer >
-        )}
-
-      </AppMainBlock>
-
-    </AppPage>
+        </FormСontainer >
+      )}
+    </>
   )
 };
 

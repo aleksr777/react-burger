@@ -10,9 +10,6 @@ import FormText from '../../components/form-text/form-text';
 import FormButton from '../../components/form-button/form-button';
 import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
 
 const getAuthState = state => state.authorization;
 
@@ -20,9 +17,7 @@ const getAuthState = state => state.authorization;
 const LoginPage = () => {
 
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
@@ -38,6 +33,7 @@ const LoginPage = () => {
   const isAuth = (success && accessToken && refreshToken) ? true : false;
 
   const fromPage = location.state?.from?.pathname || '/';
+  console.log(location.pathname);
 
   const goBackToPage = () => {
     navigate(`${fromPage}`, { replace: true });
@@ -60,59 +56,50 @@ const LoginPage = () => {
   }
 
   return (
-
-    <AppPage>
-
+    <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <AppHeader />
+      {!isAuth && (
 
-      <AppMainBlock>
+        <FormСontainer>
 
-        {!isAuth && (
+          <FormTitle text='Вход' />
 
-          <FormСontainer>
+          <form onSubmit={handleSubmit} autoComplete='off'>
 
-            <FormTitle text='Вход' />
+            <FormInput
+              inputType='email'
+              onChange={e => handleInputChange(e, 'valueEmail')}
+              value={inputsData.valueEmail}
+              name='loginEmail'
+              placeholder='E-mail'
+              isIcon={false}
+            />
 
-            <form onSubmit={handleSubmit} autoComplete='off'>
+            <FormInput
+              inputType='password'
+              onChange={e => handleInputChange(e, 'valuePassword')}
+              value={inputsData.valuePassword}
+              name='loginPassword'
+              placeholder='Пароль'
+              icon={undefined}
+            />
 
-              <FormInput
-                inputType='email'
-                onChange={e => handleInputChange(e, 'valueEmail')}
-                value={inputsData.valueEmail}
-                name='loginEmail'
-                placeholder='E-mail'
-                isIcon={false}
-              />
+            <FormButton text='Войти' />
 
-              <FormInput
-                inputType='password'
-                onChange={e => handleInputChange(e, 'valuePassword')}
-                value={inputsData.valuePassword}
-                name='loginPassword'
-                placeholder='Пароль'
-                icon={undefined}
-              />
+          </form>
 
-              <FormButton text='Войти' />
+          <FormText>
+            Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
+          </FormText>
 
-            </form>
+          <FormText>
+            Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
+          </FormText>
 
-            <FormText>
-              Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
-            </FormText>
-
-            <FormText>
-              Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
-            </FormText>
-
-          </FormСontainer>
-        )}
-
-      </AppMainBlock>
-
-    </AppPage>
+        </FormСontainer>
+      )}
+    </>
   )
 }
 

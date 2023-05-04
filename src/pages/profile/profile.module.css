@@ -9,48 +9,6 @@
   display: flex;
 }
 
-.form {
-  padding: 0;
-  margin: 0;
-}
-
-.editingBlock {
-  flex: 0 1 auto;
-  padding-bottom: 0;
-  padding-right: 0;
-  padding-top: 0;
-  composes: pl-15 from global;
-}
-
-.buttonsBlock {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 28px;
-}
-
-.cancelButton {
-  border: 0;
-  padding: 0;
-  margin: 17px 0 0 0;
-  cursor: pointer;
-  color: #4C4CFF;
-  background: transparent;
-  transition: all .4s ease 0s;
-  composes: text text_type_main-default from global;
-}
-
-.cancelButton:hover {
-  color: #b6b6ff;
-}
-
-.cancelButton:disabled {
-  opacity: 0;
-  cursor: default;
-}
-
 .logoutButton {
   color: #8585AD;
   cursor: pointer;
@@ -64,5 +22,5 @@
 }
 
 .logoutButton:hover {
-  color: hsla(240, 4%, 95%, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }

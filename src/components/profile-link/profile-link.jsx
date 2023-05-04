@@ -2,17 +2,22 @@ import stylesProfileLink from './profile-link.module.css';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { memo } from 'react';
+import { useLocation } from "react-router-dom";
 
 
-const ProfileLink = ({ navText, path }) => {
+const ProfileLink = ({ text, path }) => {
 
-  const setActive = ({ isActive }) => isActive
-    ? `${stylesProfileLink.link} ${stylesProfileLink.link_active}`
-    : stylesProfileLink.link;
+  const { pathname } = useLocation();
+
+  function setActive() {
+    return (pathname === path)
+      ? `${stylesProfileLink.link} ${stylesProfileLink.link_active}`
+      : stylesProfileLink.link;
+  }
 
   return (
     <NavLink className={setActive} to={path} draggable='false'>
-      <p className={stylesProfileLink.text}>{navText}</p>
+      <p className={stylesProfileLink.text}>{text}</p>
     </NavLink>
   );
 };

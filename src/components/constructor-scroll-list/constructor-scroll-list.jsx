@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import ConstructorItem from '../constructor-item/constructor-item';
 import { noIngrObj } from '../../constants/constants';
 
-
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+
 
 const ConstructorScrollList = () => {
 

@@ -9,8 +9,8 @@ import {
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+
 
 const ConstructorItem = ({ obj, isLocked, isDragable }) => {
 

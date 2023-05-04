@@ -1,11 +1,15 @@
 import ingrDetailsStyles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = ({ ingredient, titleAlign }) => {
   return (
-    <div className={ingrDetailsStyles.container}>
-
-      <p className={ingrDetailsStyles.title}>Детали ингредиента</p>
+    <>
+      <p 
+      className={ingrDetailsStyles.title}
+        style={{ textAlign: titleAlign }}
+      >
+        Детали ингредиента
+      </p>
 
       <picture className={ingrDetailsStyles.imageBox}>
         <img className={ingrDetailsStyles.image}
@@ -35,7 +39,7 @@ const IngredientDetails = ({ ingredient }) => {
           <p className={ingrDetailsStyles.composition__number}>{ingredient.carbohydrates}</p>
         </div>
       </div>
-    </div>
+    </>
   )
 };
 
@@ -53,7 +57,8 @@ IngredientDetails.propTypes = {
     type: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired,
-  }).isRequired
+  }).isRequired,
+  titleAlign: PropTypes.string.isRequired,
 };
 
 export default IngredientDetails;

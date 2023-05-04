@@ -1,22 +1,42 @@
-import ingredientStyles from './ingredient.module.css';
-import AppPage from '../../components/app-page/app-page';
-import AppHeader from '../../components/app-header/app-header';
-import AppMainBlock from '../../components/app-main/app-main';
+import stylesIngredient from './ingredient.module.css';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from "react-router-dom";
+import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions';
+import IngredientDetails from '../../components/ingredient-details/ingredient-details';
+import Loader from '../../components/loader/loader';
 
+const getIngredientsDataState = state => state.ingredientsData;
+
+/* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
 const IngredientPage = () => {
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const { isLoading, isError, ingredientInfo } = useSelector(getIngredientsDataState);
+
+  /* достаём id из строки адреса*/
+  const url = new URL(`https://${location.pathname}`);
+  const currentPath = url.pathname;
+  const id = currentPath.split('/').pop();
+
+  useEffect(() => {
+    if (!ingredientInfo._id || ingredientInfo.path !== currentPath) {
+      dispatch(getIngredientInfo(navigate, id, currentPath))
+    }
+  }, []);
+
+  if (!ingredientInfo) {
+    return null
+  }
+
   return (
-
-    <AppPage>
-
-      <AppHeader />
-
-      <AppMainBlock>
-
-      </AppMainBlock>
-
-    </AppPage>
-
+    <div className={stylesIngredient.container}>
+      <Loader size={100} isLoading={isLoading} isError={isError} />
+      {!isLoading && <IngredientDetails ingredient={ingredientInfo} titleAlign='center' />}
+    </div>
   )
 };
 

@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+.form {
+  padding: 0;
+  margin: 0;
+}
+
+.editingBlock {
+  flex: 0 1 auto;
+  padding-bottom: 0;
+  padding-right: 0;
+  padding-top: 2px;
+  composes: pl-15 from global;
+}
+
+.buttonsBlock {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.cancelButton {
+  border: 0;
+  padding: 0;
+  margin: 17px 0 0 0;
+  cursor: pointer;
+  color: #4C4CFF;
+  background: transparent;
+  transition: all .4s ease 0s;
+  composes: text text_type_main-default from global;
+}
+
+.cancelButton:hover {
+  color: #fff;
+}
+
+.cancelButton:disabled {
+  opacity: 0;
+  cursor: default;
+}

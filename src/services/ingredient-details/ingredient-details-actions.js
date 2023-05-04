@@ -11,11 +11,13 @@ export function openIngredientDetailsModal(ingredient) {
   }
 };
 
-export function closeIngredientDetailsModal() {
+export function closeIngredientDetailsModal(navigate, fromPage) {
   return function (dispatch) {
+    const path = fromPage ? fromPage : '/';
     dispatch({ type: INGREDIENT_DETAILS_CLOSE_MODAL, payload: {} });
     setTimeout(() => {
       dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
+      navigate(path, { replace: true });
     }, MODAL_ANIMATION_TIME);
   }
 };
