@@ -6,7 +6,7 @@ import {
 } from './forgot-password-actions';
 
 const defaultState = {
-  success: false,
+  isSuccess: false,
   isLoading: false,
   isError: {
     state: false,
@@ -30,7 +30,7 @@ const forgotPasswordReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        isSuccess: true,
         isError: {
           ...state.isError,
           state: false,

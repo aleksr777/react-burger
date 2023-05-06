@@ -5,6 +5,13 @@ export const bodySelector = document.querySelector('body');
 
 export const STORAGE_KEY_PREFIX = 'react-burger_application_';
 
+export const unauthRoutesPaths = [
+  '/login',
+  '/register',
+  '/forgot-password',
+  '/reset-password',
+];
+
 /* Продолжительность анимации для модальных окон */
 export const MODAL_ANIMATION_TIME = 560;
 document.documentElement.style.setProperty('--modal-animation-time', `${MODAL_ANIMATION_TIME}ms`);

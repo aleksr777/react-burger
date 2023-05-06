@@ -19,7 +19,7 @@ import NotFoundPage from '../../pages/not-found/not-found';
 const App = () => {
 
   const location = useLocation();
-  const background = location.state && location.state.from;
+  const background = location.state?.from || '';
 
   return (
     <>
@@ -29,27 +29,47 @@ const App = () => {
 
           <Route index element={<HomePage />} />
 
-          <Route path='login' element={<LoginPage />} />
+          <Route path='login' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <LoginPage />
+            </ProtectedRouteElement>
+          } />
 
-          <Route path='register' element={<RegisterPage />} />
+          <Route path='register' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <RegisterPage />
+            </ProtectedRouteElement>
+          } />
 
-          <Route path='forgot-password' element={<ForgotPasswordPage />} />
+          <Route path='forgot-password' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <ForgotPasswordPage />
+            </ProtectedRouteElement>
+          } />
 
-          <Route path='reset-password' element={<ResetPasswordPage />} />
+          <Route path='reset-password' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <ResetPasswordPage />
+            </ProtectedRouteElement>
+          } />
 
           <Route path='ingredients/:id' element={<IngredientPage />} />
 
           <Route path='profile/' element={
-            <ProtectedRouteElement>
+            <ProtectedRouteElement forUnauthUser={false}>
               <ProfilePage />
             </ProtectedRouteElement>
           }>
-            <Route index element={<ProfileEditUserBlock />} />
-            <Route path='orders' element={<ProfileOdersBlock />} />
+            <Route index element={
+              <ProfileEditUserBlock />
+            } />
+            <Route path='orders' element={
+              <ProfileOdersBlock />
+            } />
           </Route>
 
           <Route path='feed' element={
-            <ProtectedRouteElement>
+            <ProtectedRouteElement forUnauthUser={false}>
               <FeedPage />
             </ProtectedRouteElement>
           } />
@@ -57,7 +77,7 @@ const App = () => {
         </Route>
 
         <Route path='*' element={<NotFoundPage />} />
-        <Route path='404' element={<NotFoundPage />} />
+        <Route path='not-found-page' element={<NotFoundPage />} />
 
       </Routes>
 

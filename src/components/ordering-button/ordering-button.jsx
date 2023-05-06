@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getOrderId } from '../../services/order-id/order-id-actions';
 import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { checkAuth } from '../../services/authorization/check-auth';
 
 
 const getOrderIdState = state => state.orderId;
 const getTotalPriceState = state => state.selectedIngr.totalPrice;
 const getSelectedBunState = state => state.selectedIngr.bun;
 const getIngredientsState = state => state.selectedIngr.ingredients;
+const getAuthState = state => state.authorization;
 
 
 const OrderingButton = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isLoading, isError } = useSelector(getOrderIdState);
 
@@ -23,7 +29,8 @@ const OrderingButton = () => {
 
   const selectedIngredients = useSelector(getIngredientsState);
 
-  const dispatch = useDispatch();
+  const { isSuccess, user } = useSelector(getAuthState);
+  const isAuth = checkAuth(isSuccess, user.email);
 
   // Проверка для активировации/дезактивации кнопки заказа.
   useEffect(() => {
@@ -37,8 +44,11 @@ const OrderingButton = () => {
 
   /* отправка запроса после нажатия кнопки */
   function sendOrderRequest() {
-    const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
-    dispatch(getOrderId(arrId));
+    if (isAuth) {
+      const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
+      dispatch(getOrderId(arrId));
+    }
+    else { navigate('/login') }
   };
 
   const isButtonDisabled = (!isOrderActive || isLoading) ? true : false;

@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from "react-router-dom";
 import { requestLogin } from '../../services/authorization/auth-actions';
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormLink from '../../components/form-link/form-link';
@@ -16,8 +14,6 @@ const getAuthState = state => state.authorization;
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
@@ -25,26 +21,7 @@ const LoginPage = () => {
     valuePassword: '',
   });
 
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-
-  const { isLoading, isError, success } = useSelector(getAuthState);
-
-  const isAuth = (success && accessToken && refreshToken) ? true : false;
-
-  const fromPage = location.state?.from?.pathname || '/';
-  console.log(location.pathname);
-
-  const goBackToPage = () => {
-    navigate(`${fromPage}`, { replace: true });
-  }
-
-  /* Возвращаем на предыдущую страницу, если пользователь уже авторизован */
-  useEffect(() => {
-    if (isAuth) {
-      return goBackToPage();
-    }
-  }, [isAuth]);
+  const { isLoading, isError } = useSelector(getAuthState);
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
@@ -52,53 +29,50 @@ const LoginPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(requestLogin(goBackToPage, inputsData.valueEmail, inputsData.valuePassword));
+    dispatch(requestLogin(inputsData.valueEmail, inputsData.valuePassword));
   }
 
   return (
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      {!isAuth && (
+      <FormСontainer>
 
-        <FormСontainer>
+        <FormTitle text='Вход' />
 
-          <FormTitle text='Вход' />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <FormInput
+            inputType='email'
+            onChange={e => handleInputChange(e, 'valueEmail')}
+            value={inputsData.valueEmail}
+            name='loginEmail'
+            placeholder='E-mail'
+            isIcon={false}
+          />
 
-            <FormInput
-              inputType='email'
-              onChange={e => handleInputChange(e, 'valueEmail')}
-              value={inputsData.valueEmail}
-              name='loginEmail'
-              placeholder='E-mail'
-              isIcon={false}
-            />
+          <FormInput
+            inputType='password'
+            onChange={e => handleInputChange(e, 'valuePassword')}
+            value={inputsData.valuePassword}
+            name='loginPassword'
+            placeholder='Пароль'
+            icon={undefined}
+          />
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='loginPassword'
-              placeholder='Пароль'
-              icon={undefined}
-            />
+          <FormButton text='Войти' />
 
-            <FormButton text='Войти' />
+        </form>
 
-          </form>
+        <FormText>
+          Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
+        </FormText>
 
-          <FormText>
-            Вы — новый пользователь? <FormLink linkPath='/register'>Зарегистрироваться</FormLink>
-          </FormText>
+        <FormText>
+          Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
+        </FormText>
 
-          <FormText>
-            Забыли пароль? <FormLink linkPath='/forgot-password'>Восстановить пароль</FormLink>
-          </FormText>
-
-        </FormСontainer>
-      )}
+      </FormСontainer>
     </>
   )
 }

@@ -17,7 +17,7 @@ import { currentTabReducer } from './tab/tab-reducer';
 const authPersistConfig = {
   key: 'react-burger-auth',
   storage,
-  whitelist: ['success', 'user'],
+  whitelist: ['isSuccess', 'user'],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
@@ -25,7 +25,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const forgotPasswordPersistConfig = {
   key: 'react-burger-forgotPassword',
   storage: sessionStorage,
-  whitelist: ['success'],
+  whitelist: ['isSuccess'],
 };
 const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
 

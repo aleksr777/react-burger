@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
@@ -12,7 +11,6 @@ import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
 
 const forgotPasswordState = state => state.forgotPassword;
-const getAuthState = state => state.authorization;
 
 
 const ForgotPasswordPage = () => {
@@ -23,20 +21,6 @@ const ForgotPasswordPage = () => {
   const [valueEmail, setValueEmail] = useState('');
 
   const { isLoading, isError } = useSelector(forgotPasswordState);
-
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-
-  const { success } = useSelector(getAuthState);
-
-  const isAuth = (success && accessToken && refreshToken) ? true : false;
-
-  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
-  useEffect(() => {
-    if (isAuth) {
-      return navigate('/profile', { replace: true })
-    }
-  }, [isAuth]);
 
   const goToResetPasswordPage = () => navigate('/reset-password');
 
@@ -53,33 +37,30 @@ const ForgotPasswordPage = () => {
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      {!isAuth && (
+      <FormСontainer>
 
-        <FormСontainer>
+        <FormTitle text='Восстановление пароля' />
 
-          <FormTitle text='Восстановление пароля' />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <FormInput
+            inputType='email'
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name='forgotEmail'
+            placeholder='Укажите e-mail'
+            isIcon={false}
+          />
 
-            <FormInput
-              inputType='email'
-              onChange={onChangeEmail}
-              value={valueEmail}
-              name='forgotEmail'
-              placeholder='Укажите e-mail'
-              isIcon={false}
-            />
+          <FormButton text='Восстановить' />
 
-            <FormButton text='Восстановить' />
+        </form>
 
-          </form>
+        <FormText>
+          Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
+        </FormText>
 
-          <FormText>
-            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
-
-        </FormСontainer >
-      )}
+      </FormСontainer >
     </>
   )
 };

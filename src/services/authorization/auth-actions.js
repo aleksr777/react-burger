@@ -2,6 +2,7 @@ import {
   LOADER_ANIMATION_TIME,
   STORAGE_KEY_PREFIX,
 } from '../../constants/constants';
+import { checkAuth } from '../../services/authorization/check-auth';
 import {
   requestLoginServer,
   requestLogoutServer,
@@ -18,55 +19,76 @@ export const AUTH_DEFAULT = 'AUTH_DEFAULT';
 export const AUTH_HIDE_ERROR = 'AUTH_HIDE_ERROR';
 
 
+export function deleteAuthData() {
+  return function (dispatch) {
+    dispatch({ type: AUTH_DEFAULT, payload: {} });
+    localStorage.removeItem(`${STORAGE_KEY_PREFIX}access-token`);
+    localStorage.removeItem(`${STORAGE_KEY_PREFIX}refresh-token`);
+  }
+}
+
+
+/* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+export function handleAuthErrors(response, request) {
+  return function (dispatch) {
+    if (response.indexOf('401') !== -1) {
+      /* Сделал счётчик, чтобы не было зацикливания (не более 3х попыток запроса) */
+      let countRequest = Number(sessionStorage.getItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`));
+      console.log(countRequest);
+      (countRequest < 1 || !countRequest) ? countRequest = 1 : countRequest = ++countRequest;
+      if (countRequest > 3) {
+        sessionStorage.removeItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`);
+        dispatch({
+          type: AUTH_SHOW_ERROR,
+          payload: {
+            message: response,
+            title: 'Ошибка авторизации',
+          }
+        });
+        setTimeout(() => {
+          dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+          dispatch(deleteAuthData()); /* автоматически переходим на '/login' */
+        }, 1500);
+      }
+      else {
+        sessionStorage.setItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`, countRequest);
+        dispatch(requestUpdateToken(request));
+      };
+    }
+  }
+};
+
+
 /* Запрос на обновление токена */
 export function requestUpdateToken(repeatRequest) {
-
   return function (dispatch) {
-
-    function handleError(response) {
-      console.log(response);
-      localStorage.removeItem(`${STORAGE_KEY_PREFIX}accessToken`);
-      localStorage.removeItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-      dispatch({
-        type: AUTH_SHOW_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка авторизации',
-        }
-      });
-      setTimeout(() => {
-        dispatch({ type: AUTH_DEFAULT, payload: {} });
-      }, 1500);
-    };
     dispatch({ type: AUTH_REQUEST, payload: {} });
     requestUpdateTokenServer()
       .then(res => {
         if (res && res.success) {
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, res.refreshToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });
           dispatch(repeatRequest);
         }
         else {
-          handleError(res);
+          console.log(res);
         };
       })
       .catch(err => {
-        handleError(err);
+        console.log(err);
       });
   };
 };
 
 
 /* Запрос входа в аккаунт */
-export function requestLogin(goBackToPage, email, password) {
+export function requestLogin(email, password) {
 
   return function (dispatch) {
 
     function handleError(response) {
       console.log(response);
-      localStorage.removeItem(`${STORAGE_KEY_PREFIX}accessToken`);
-      localStorage.removeItem(`${STORAGE_KEY_PREFIX}refreshToken`);
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -75,7 +97,7 @@ export function requestLogin(goBackToPage, email, password) {
         }
       });
       setTimeout(() => {
-        dispatch({ type: AUTH_DEFAULT, payload: {} });
+        dispatch(deleteAuthData())
       }, 1500);
     };
 
@@ -84,9 +106,8 @@ export function requestLogin(goBackToPage, email, password) {
     requestLoginServer(email, password)
       .then(res => {
         if (res && res.success) {
-          console.log(res);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}accessToken`, res.accessToken);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}refreshToken`, res.refreshToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
+          localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
@@ -97,7 +118,6 @@ export function requestLogin(goBackToPage, email, password) {
               },
             }
           });
-          setTimeout(() => { goBackToPage() }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);
@@ -115,21 +135,13 @@ export function requestLogout() {
 
   return function (dispatch) {
 
-    function handleError(response) {
+    async function handleError(response) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
-      if (response.indexOf('401') !== -1) {
-        dispatch(requestUpdateToken(requestLogout()));
-      }
-      dispatch({
-        type: AUTH_SHOW_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка авторизации',
-        }
-      });
-      setTimeout(() => {
-        dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+      await dispatch(handleAuthErrors(response, requestLogout()));
+      const isAuth = checkAuth();
+      isAuth && setTimeout(() => {
+        dispatch(deleteAuthData());
       }, 1500);
     };
 
@@ -139,7 +151,7 @@ export function requestLogout() {
       .then(res => {
         if (res && res.success) {
           setTimeout(() => {
-            dispatch({ type: AUTH_DEFAULT, payload: {} });
+            dispatch(deleteAuthData());
           }, LOADER_ANIMATION_TIME);
         }
         else {
@@ -158,16 +170,19 @@ export function requestGetUserData(password) {
 
   return function (dispatch) {
 
-    function handleError(response) {
+    async function handleError(response) {
       console.log(response);
-      dispatch({
+      /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+      await dispatch(handleAuthErrors(response, requestGetUserData(password)));
+      const isAuth = checkAuth();
+      isAuth && dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
           message: response,
           title: 'Ошибка сервера',
         }
       });
-      setTimeout(() => {
+      isAuth && setTimeout(() => {
         dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
       }, 1500);
     };
@@ -199,20 +214,25 @@ export function requestGetUserData(password) {
 
 
 /* Запрос на изменение данных о пользователе */
-export function requestChangeUserData({ name, email, password }, setIsFormChanged) {
+export function requestChangeUserData(user, setIsFormChanged) {
+
+  const { name, email, password } = user;
 
   return function (dispatch) {
 
-    function handleError(response) {
+    async function handleError(response) {
       console.log(response);
-      dispatch({
+      /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+      await dispatch(handleAuthErrors(response, requestChangeUserData(user, setIsFormChanged)));
+      const isAuth = checkAuth();
+      isAuth && dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
           message: response,
           title: 'Ошибка сервера',
         }
       });
-      setTimeout(() => {
+      isAuth && setTimeout(() => {
         dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
       }, 1500);
     };

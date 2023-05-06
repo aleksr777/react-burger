@@ -1,6 +1,6 @@
 import stylesIngredientsItem from './ingredients-item.module.css';
 import PropTypes from 'prop-types';
-import { useLocation, Link, useParams } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
@@ -38,7 +38,7 @@ const IngredientsItem = ({ children, ingredient }) => {
       <Link
         className={stylesIngredientsItem.link}
         to={`/ingredients/${ingredient._id}`}
-        state={{ from: location }}
+        state={{ from: location.pathname }}
         draggable='false'
         onClick={() => { handleOpenModal(ingredient) }}
         replace
@@ -61,7 +61,7 @@ const IngredientsItem = ({ children, ingredient }) => {
 
       </Link>
 
-    </li>
+    </li >
   )
 };
 

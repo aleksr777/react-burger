@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
@@ -12,12 +10,10 @@ import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
 
 const registerUserState = state => state.registerUser;
-const getAuthState = state => state.authorization;
 
 
 const RegisterPage = () => {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [inputsData, setInputsData] = useState({
@@ -28,24 +24,6 @@ const RegisterPage = () => {
 
   const { isLoading, isError } = useSelector(registerUserState);
 
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-
-  const { success } = useSelector(getAuthState);
-
-  const isAuth = (success && accessToken && refreshToken) ? true : false;
-
-  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
-  useEffect(() => {
-    if (isAuth) {
-      return navigate('/profile', { replace: true })
-    }
-  }, [isAuth]);
-
-  function goToLoginPage() {
-    navigate('/login');
-  };
-
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value })
   }
@@ -53,7 +31,6 @@ const RegisterPage = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(registerUserRequest(
-      goToLoginPage,
       inputsData.valueName,
       inputsData.valueEmail,
       inputsData.valuePassword
@@ -64,52 +41,49 @@ const RegisterPage = () => {
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      {!isAuth && (
+      <FormСontainer>
 
-        <FormСontainer>
+        <FormTitle text='Регистрация' />
 
-          <FormTitle text='Регистрация' />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <FormInput
+            inputType='text'
+            value={inputsData.valueName}
+            name='registerName'
+            placeholder='Имя'
+            onChange={e => handleInputChange(e, 'valueName')}
+            icon={undefined}
+            onIconClick={undefined}
+          />
 
-            <FormInput
-              inputType='text'
-              value={inputsData.valueName}
-              name='registerName'
-              placeholder='Имя'
-              onChange={e => handleInputChange(e, 'valueName')}
-              icon={undefined}
-              onIconClick={undefined}
-            />
+          <FormInput
+            inputType='email'
+            onChange={e => handleInputChange(e, 'valueEmail')}
+            value={inputsData.valueEmail}
+            name='registerEmail'
+            placeholder='E-mail'
+            isIcon={false}
+          />
 
-            <FormInput
-              inputType='email'
-              onChange={e => handleInputChange(e, 'valueEmail')}
-              value={inputsData.valueEmail}
-              name='registerEmail'
-              placeholder='E-mail'
-              isIcon={false}
-            />
+          <FormInput
+            inputType='password'
+            onChange={e => handleInputChange(e, 'valuePassword')}
+            value={inputsData.valuePassword}
+            name='registerPassword'
+            placeholder='Пароль'
+            icon={undefined}
+          />
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='registerPassword'
-              placeholder='Пароль'
-              icon={undefined}
-            />
+          <FormButton text='Зарегистрироваться' />
 
-            <FormButton text='Зарегистрироваться' />
+        </form>
 
-          </form>
+        <FormText>
+          Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
+        </FormText>
 
-          <FormText>
-            Уже зарегистрированы? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
-
-        </FormСontainer>
-      )}
+      </FormСontainer>
     </>
   )
 };

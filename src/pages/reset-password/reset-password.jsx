@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
 import FormButton from '../../components/form-button/form-button';
@@ -13,45 +12,29 @@ import Loader from '../../components/loader/loader';
 
 const forgotPasswordState = state => state.forgotPassword;
 const resetPasswordState = state => state.resetPassword;
-const getAuthState = state => state.authorization;
 
 
 const ResetPasswordPage = () => {
 
-  const { isLoading, isError } = useSelector(resetPasswordState);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { isLoading, isError } = useSelector(resetPasswordState);
+  const forgotPassword = useSelector(forgotPasswordState);
+  const resetPassword = useSelector(forgotPasswordState);
 
   const [inputsData, setInputsData] = useState({
     valuePassword: '',
     valueCode: '',
   });
 
-  const forgotPassword = useSelector(forgotPasswordState);
-  const resetPassword = useSelector(forgotPasswordState);
-  const authState = useSelector(getAuthState);
-
-
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-
-  const isAuth = (authState.success && accessToken && refreshToken) ? true : false;
-
-  /* Перенаправляем на ProfilePage, если пользователь уже авторизован */
   useEffect(() => {
-    if (isAuth) {
-      return navigate('/profile', { replace: true })
-    }
-  }, [isAuth]);
-
-  useEffect(() => {
-    if (!forgotPassword.success && !resetPassword.success && !isAuth) {
+    if (!forgotPassword.isSuccess && !resetPassword.isSuccess) {
       navigate('/forgot-password', { replace: true });
     }
   }, []);
 
-  const goToAuthPage = () => navigate('/login');
+  const goToLoginPage = () => navigate('/login');
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
@@ -60,7 +43,7 @@ const ResetPasswordPage = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(resetPasswordRequest(
-      goToAuthPage,
+      goToLoginPage,
       inputsData.valuePassword,
       inputsData.valueCode
     ));
@@ -70,7 +53,7 @@ const ResetPasswordPage = () => {
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      {!isAuth && forgotPassword.success && (
+      {forgotPassword.isSuccess && (
 
         <FormСontainer>
 

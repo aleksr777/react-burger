@@ -13,7 +13,6 @@ const ModalIngredientDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const fromPage = location.state?.from?.pathname || '/';
 
   /* isModalOpened нужен для анимации 
   (иначе информация об ингредиенте в модальном окне исчезает раньше, чем окно успевает закрыться) */
@@ -23,8 +22,14 @@ const ModalIngredientDetails = () => {
     return null
   }
 
+  const fromPage = location.state?.from || '/';
+
+  function goToPage() {
+    navigate(fromPage, { replace: true });
+  };
+
   const handleCloseModal = () => {
-    dispatch(closeIngredientDetailsModal(navigate, fromPage));
+    dispatch(closeIngredientDetailsModal(goToPage));
   };
 
   return (

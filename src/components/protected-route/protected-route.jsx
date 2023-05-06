@@ -1,29 +1,37 @@
-import { useLocation, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
-import { AUTH_DEFAULT } from '../../services/authorization/auth-actions';
+import { checkAuth } from '../../services/authorization/check-auth';
+import { deleteAuthData } from '../../services/authorization/auth-actions';
 
 const getAuthState = state => state.authorization;
 
 
-const ProtectedRouteElement = ({ children }) => {
+const ProtectedRouteElement = ({ children, forUnauthUser }) => {
 
-  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-  const { success } = useSelector(getAuthState);
+  const { isSuccess, user } = useSelector(getAuthState);
+  const isAuth = checkAuth(isSuccess, user.email);
 
-  if (!success || !accessToken || !refreshToken) {
-    success && dispatch({ type: AUTH_DEFAULT, payload: {} });
-    accessToken && localStorage.removeItem(`${STORAGE_KEY_PREFIX}accessToken`);
-    refreshToken && localStorage.removeItem(`${STORAGE_KEY_PREFIX}refreshToken`);
-    return <Navigate to='/login' state={{ from: location }} />
-  }
+  useEffect(() => {
+    if (!isAuth) {
+      dispatch(deleteAuthData());
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
+    if (!isAuth && !forUnauthUser) {
+      navigate('/login');
+    }
+    else if (isAuth && forUnauthUser) {
+      navigate('/');
+    }
+  }, [isAuth, forUnauthUser]);
 
   return (
-    children
+    (isAuth && !forUnauthUser || !isAuth && forUnauthUser) && children
   );
 };
 

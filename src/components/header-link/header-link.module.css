@@ -13,18 +13,24 @@
   composes: p-5 mr-2 from global;
 }
 
-.link:hover {
+.link_active,
+.link_disable {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+.link_active {
+  opacity: 1;
+}
+
+.link:hover,
+.link_disable:hover {
   opacity: .9;
 }
 
 .link:last-of-type {
   margin-right: 5px;
-}
-
-.link_active {
-  cursor: default;
-  pointer-events: none;
-  opacity: 1;
 }
 
 .text {

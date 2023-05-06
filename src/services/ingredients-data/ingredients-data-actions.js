@@ -40,14 +40,18 @@ export function getIngredientsData() {
 
 
 /* Получение информации об ингредиенте */
-export function getIngredientInfo(navigate, id, path) {
+export function getIngredientInfo(goToNotFoundPage, id, path) {
 
   return function (dispatch) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
-      navigate('/404', { replace: true });
+      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
+      setTimeout(() => {
+        dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
+        dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
+        goToNotFoundPage();
+      }, 1500);
     }
 
     /* Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.*/
@@ -62,18 +66,18 @@ export function getIngredientInfo(navigate, id, path) {
           const [ingredient] = res.data.filter((obj) => obj._id === id);
           if (ingredient) {
             dispatch({
-              type: INGREDIENTS_SET_INGREDIENT_INFO, 
-              payload: { 
+              type: INGREDIENTS_SET_INGREDIENT_INFO,
+              payload: {
                 ingredientInfo: {
                   ...ingredient,
                   path: path
-                }, 
+                },
               }
             })
           }
           else {
             dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
-            navigate('/404', { replace: true });
+            goToNotFoundPage();
           }
         }
         else {

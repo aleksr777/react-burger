@@ -7,7 +7,7 @@ import {
 
 const defaultState = {
   isLoading: false,
-  success: false,
+  isSuccess: false,
   isError: {
     state: false,
     title: '',
@@ -30,7 +30,7 @@ const registerUserReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        isSuccess: true,
         isError: {
           ...state.isError,
           state: false,

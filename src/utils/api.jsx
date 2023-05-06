@@ -1,9 +1,9 @@
 import { STORAGE_KEY_PREFIX } from '../constants/constants';
 
 /* КонКонфигурация API */
-/* Сделал функцию, чтобы токены считывались напрямую из памяти при каждом обращении к серверу*/
+/* Сделал функцию, чтобы accessToken считывался напрямую из памяти при каждом обращении к серверу*/
 function getApiConfig() {
-  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}accessToken`);
+  const accessToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}access-token`);
   const apiConfig = {
     baseUrl: 'https://norma.nomoreparties.space',
     headers: {
@@ -86,7 +86,7 @@ export const requestChangeUserDataServer = async (name, email) => {
 
 // Запрос выхода из аккаунта
 export const requestLogoutServer = async () => {
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refresh-token`);
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/logout`, {
     method: 'POST',
@@ -100,7 +100,7 @@ export const requestLogoutServer = async () => {
 
 // Запрос на обновление токена
 export const requestUpdateTokenServer = async () => {
-  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refreshToken`);
+  const refreshToken = localStorage.getItem(`${STORAGE_KEY_PREFIX}refresh-token`);
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/token`, {
     method: 'POST',

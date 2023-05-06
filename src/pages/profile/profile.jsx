@@ -13,12 +13,16 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const pathProfile = '/profile';
+  const pathOrders = '/profile/orders';
+
   let textAbout = '';
+
   switch (location.pathname) {
-    case '/profile':
+    case pathProfile:
       textAbout = 'изменить свои персональные данные';
       break;
-    case '/profile/orders':
+    case pathOrders:
       textAbout = 'просмотреть свою историю заказов';
       break;
     default:
@@ -26,34 +30,33 @@ const ProfilePage = () => {
   }
 
   return (
-    <>
-      <div className={stylesProfile.container}>
 
-        <ProfileNavBlock>
+    <div className={stylesProfile.container}>
 
-          <ProfileLink text='Профиль' path='/profile' />
+      <ProfileNavBlock>
 
-          <ProfileLink text='История заказов' path='/profile/orders' />
+        <ProfileLink text='Профиль' path={pathProfile} />
 
-          <button
-            /* Сделал простую кнопку для разлогирования (для проверки функционала).
-            Потом сделаю, как потребуется, в следующем спринте*/
-            onClick={() => dispatch(requestLogout())}
-            className={stylesProfile.logoutButton}
-          >Выход
-          </button>
+        <ProfileLink text='История заказов' path={pathOrders} />
 
-          <ProfileBlockAbout>
-            <ProfileTextAbout>В этом разделе вы можете</ProfileTextAbout>
-            <ProfileTextAbout>{textAbout}</ProfileTextAbout>
-          </ProfileBlockAbout>
+        <button
+          /* Сделал простой сценарий для кнопки разлогирования.
+          Потом сделаю, как потребуется, в следующем спринте*/
+          onClick={() => dispatch(requestLogout())}
+          className={stylesProfile.logoutButton}
+        >Выход
+        </button>
 
-        </ProfileNavBlock>
+        <ProfileBlockAbout>
+          <ProfileTextAbout>В этом разделе вы можете</ProfileTextAbout>
+          <ProfileTextAbout>{textAbout}</ProfileTextAbout>
+        </ProfileBlockAbout>
 
-        <Outlet />
+      </ProfileNavBlock>
 
-      </div>
-    </>
+      <Outlet />
+
+    </div>
   )
 };
 

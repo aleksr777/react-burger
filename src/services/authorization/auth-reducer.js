@@ -10,7 +10,7 @@ import {
 
 const defaultState = {
   isLoading: false,
-  success: false,
+  isSuccess: false,
   user: {
     name: '',
     email: '',
@@ -38,7 +38,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        isSuccess: true,
         isError: {
           ...state.isError,
           state: false,
@@ -49,7 +49,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        isSuccess: true,
         user: action.payload.user,
         isError: {
           ...state.isError,
@@ -61,7 +61,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        isSuccess: true,
         isError: {
           ...state.isError,
           state: false,

@@ -1,14 +1,33 @@
 import headerLinkStyles from './header-link.module.css';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import { memo } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { unauthRoutesPaths } from '../../constants/constants';
 
 
 const HeaderLink = ({ children, navText, path }) => {
 
-  const setActive = ({ isActive }) => isActive
-    ? `${headerLinkStyles.link} ${headerLinkStyles.link_active}`
-    : headerLinkStyles.link;
+  const location = useLocation();
+
+  function isUnauthRoute(locationPath) {
+    let isUnauth = false;
+    unauthRoutesPaths.map((routePath) => {
+      if (locationPath === routePath) { isUnauth = true }
+    });
+    return isUnauth;
+  }
+
+  function setActive() {
+    if (isUnauthRoute(location.pathname)) {
+      return (path === '/')
+        ? headerLinkStyles.link
+        : `${headerLinkStyles.link} ${headerLinkStyles.link_disable}`;
+    }
+    else {
+      return (location.pathname.indexOf(path) !== -1)
+        ? `${headerLinkStyles.link} ${headerLinkStyles.link_active}`
+        : headerLinkStyles.link;
+    }
+  }
 
   return (
     <NavLink className={setActive} to={path} draggable='false'>
@@ -18,13 +37,7 @@ const HeaderLink = ({ children, navText, path }) => {
   );
 };
 
-export default memo(HeaderLink, (prevProps, nextProps) => {
-  /* Отключаем перерендер компонента */
-  if (nextProps.children !== prevProps.children
-    && nextProps.navText !== prevProps.navText
-    && nextProps.path !== prevProps.path) { return false }
-  else { return true }
-});
+export default HeaderLink;
 
 HeaderLink.propTypes = {
   children: PropTypes.node.isRequired,
