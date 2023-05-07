@@ -16,46 +16,46 @@ const HeaderLink = ({ icon, text, path }) => {
   const defaultStyle = headerLinkStyles.link;
   const activeStyle = `${headerLinkStyles.link} ${headerLinkStyles.link_active}`;
 
-  function checkIsMatch(locationPath, path) {
-    /* Пробовал проверять через хук useMatch, но возвращается почему-то всегда "null".
+  function checkIsMatch() {
+    /* Пробовал проверять через хук useMatch, но возвращается почему-то всегда 'null'.
     Решил сделать пока так. */
-    if (locationPath === '/' && path === '/') {
+    if (location.pathname === '/' && path === '/') {
       return true
     }
-    else if (locationPath === '/' && path !== '/' || locationPath !== '/' && path === '/') {
+    else if (location.pathname === '/' && path !== '/' || location.pathname !== '/' && path === '/') {
       return false
     }
     else {
-      return locationPath.indexOf(path) !== -1 ? true : false
+      return location.pathname.indexOf(path) !== -1 ? true : false
     }
   }
 
   /* Функция нужна, чтобы сделать ссылки неактивными на некоторых роутах */
-  function checkIsUnauthRoute(locationPath) {
+  function checkIsUnauthRoute() {
     let isUnauth = false;
     unauthRoutesPaths.map((routePath) => {
-      if (locationPath === routePath) { isUnauth = true }
+      if (location.pathname === routePath) { isUnauth = true }
     });
     return isUnauth;
   }
 
-  const isUnauth = checkIsUnauthRoute(location.pathname);
-  const IsMatch = checkIsMatch(location.pathname, path);
+  const isUnauth = checkIsUnauthRoute();
+  const IsMatch = checkIsMatch();
 
-  function setActivity() {
+  function checkActiv() {
     if (IsMatch && !isUnauth) {
-      return activeStyle;
+      return true;
     }
-    else if (!IsMatch && isUnauth && path!=='/'){
-      return activeStyle; /* блокируем ссылку */
+    else if (!IsMatch && isUnauth && path !== '/') {
+      return true; /* блокируем ссылку */
     }
     else {
-      return defaultStyle;
+      return false;
     }
-  }
+  };
 
-  function setIconType(locationPath, path) {
-    if (checkIsMatch(locationPath, path)) {
+  function setIconType() {
+    if (IsMatch) {
       return 'primary';
     }
     return 'secondary';
@@ -64,17 +64,22 @@ const HeaderLink = ({ icon, text, path }) => {
   function setIconElement() {
     switch (icon) {
       case 'burger':
-        return <BurgerIcon type={setIconType(location.pathname, path)} />;
+        return <BurgerIcon type={setIconType()} />;
       case 'list':
-        return <ListIcon type={setIconType(location.pathname, path)} />;
+        return <ListIcon type={setIconType()} />;
       case 'profile':
-        return <ProfileIcon type={setIconType(location.pathname, path)} />;
+        return <ProfileIcon type={setIconType()} />;
       default: return null;
     }
   };
 
   return (
-    <NavLink className={setActivity()} to={path} draggable='false'>
+    <NavLink
+      className={checkActiv() ? activeStyle : defaultStyle}
+      tabIndex={checkActiv() ? '-1' : ''}
+      to={path}
+      draggable='false'
+    >
       {setIconElement()}
       <p className={headerLinkStyles.text}>{text}</p>
     </NavLink>
