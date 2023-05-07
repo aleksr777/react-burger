@@ -16,10 +16,12 @@ const HeaderLink = ({ icon, text, path }) => {
 
   const location = useLocation();
 
+  console.log(location.pathname + ' - ' + path);
+
   const match = useMatch(path);
 
   function checkIsMatch() {
-    if (match) {
+    if (match || location.pathname.indexOf(path) !== -1 && path !== '/') {
       return true
     }
     return false
