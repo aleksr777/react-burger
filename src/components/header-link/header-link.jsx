@@ -1,6 +1,6 @@
 import headerLinkStyles from './header-link.module.css';
 import PropTypes from 'prop-types';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useMatch } from 'react-router-dom';
 import { unauthRoutesPaths } from '../../constants/constants';
 import {
   BurgerIcon,
@@ -11,23 +11,18 @@ import {
 
 const HeaderLink = ({ icon, text, path }) => {
 
-  const location = useLocation();
-
   const defaultStyle = headerLinkStyles.link;
   const activeStyle = `${headerLinkStyles.link} ${headerLinkStyles.link_active}`;
 
+  const location = useLocation();
+
+  const match = useMatch(path);
+
   function checkIsMatch() {
-    /* Пробовал проверять через хук useMatch, но возвращается почему-то всегда 'null'.
-    Решил сделать пока так. */
-    if (location.pathname === '/' && path === '/') {
+    if (match) {
       return true
     }
-    else if (location.pathname === '/' && path !== '/' || location.pathname !== '/' && path === '/') {
-      return false
-    }
-    else {
-      return location.pathname.indexOf(path) !== -1 ? true : false
-    }
+    return false
   }
 
   /* Функция нужна, чтобы сделать ссылки неактивными на некоторых роутах */
@@ -42,7 +37,7 @@ const HeaderLink = ({ icon, text, path }) => {
   const isUnauth = checkIsUnauthRoute();
   const IsMatch = checkIsMatch();
 
-  function checkActiv() {
+  function checkActive() {
     if (IsMatch && !isUnauth) {
       return true;
     }
@@ -75,8 +70,8 @@ const HeaderLink = ({ icon, text, path }) => {
 
   return (
     <NavLink
-      className={checkActiv() ? activeStyle : defaultStyle}
-      tabIndex={checkActiv() ? '-1' : ''}
+      className={checkActive() ? activeStyle : defaultStyle}
+      tabIndex={checkActive() ? '-1' : ''}
       to={path}
       draggable='false'
     >

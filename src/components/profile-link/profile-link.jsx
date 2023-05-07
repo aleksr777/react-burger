@@ -1,22 +1,30 @@
 import stylesProfileLink from './profile-link.module.css';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useMatch } from 'react-router-dom';
 import { memo } from 'react';
-import { useLocation } from "react-router-dom";
 
 
 const ProfileLink = ({ text, path }) => {
 
-  const { pathname } = useLocation();
+  const defaultStyle = stylesProfileLink.link;
+  const activeStyle = `${stylesProfileLink.link} ${stylesProfileLink.link_active}`;
 
-  function setActive() {
-    return (pathname === path)
-      ? `${stylesProfileLink.link} ${stylesProfileLink.link_active}`
-      : stylesProfileLink.link;
-  }
+  const match = useMatch(path);  
+
+  function checkIsMatch() {
+    if (match) {
+      return true
+    }
+    return false
+  };
 
   return (
-    <NavLink className={setActive} to={path} draggable='false'>
+    <NavLink
+      className={checkIsMatch() ? activeStyle : defaultStyle}
+      tabIndex={checkIsMatch() ? '-1' : ''}
+      to={path}
+      draggable='false'
+    >
       <p className={stylesProfileLink.text}>{text}</p>
     </NavLink>
   );
