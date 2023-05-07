@@ -1,5 +1,5 @@
 import stylesProfileEditUserBlock from './profile-edit-user-block.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestChangeUserData } from '../../services/authorization/auth-actions';
 import FormInput from '../form-input/form-input';
@@ -39,7 +39,7 @@ const ProfileEditUserBlock = () => {
       }
     }
     setIsFormChanged(false);
-  }, [inputsData]);
+  }, [inputsData, userData]);
 
   function checkSubmitButton() {
     return isFormChanged && inputsData.name && inputsData.email && inputsData.password ? true : false;
@@ -121,6 +121,8 @@ const ProfileEditUserBlock = () => {
             <FormButton
               text='Сохранить'
               disabled={!isSubmitActive}
+              isVisible={isSubmitActive}
+
             />
 
           </div>

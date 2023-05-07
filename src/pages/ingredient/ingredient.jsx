@@ -23,7 +23,6 @@ const IngredientPage = () => {
 
   /* достаём id из строки адреса*/
   const id = pathname.split('/').pop();
-  console.log(id);
 
   useEffect(() => {
     if (!ingredientInfo._id || ingredientInfo.path !== pathname) {

@@ -32,7 +32,7 @@ const ProtectedRouteElement = ({ children, forUnauthUser }) => {
   }, [isAuth, forUnauthUser]);
 
   return (
-    (isAuth && !forUnauthUser || !isAuth && forUnauthUser) && children
+    ((isAuth && !forUnauthUser) || (!isAuth && forUnauthUser)) && children
   );
 };
 

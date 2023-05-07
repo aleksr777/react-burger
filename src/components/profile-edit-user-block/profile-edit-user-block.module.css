@@ -42,4 +42,6 @@
 .cancelButton:disabled {
   opacity: 0;
   cursor: default;
+  user-select: none;
+  pointer-events: none;
 }

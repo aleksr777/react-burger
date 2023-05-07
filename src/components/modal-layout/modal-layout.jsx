@@ -37,7 +37,7 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
     }, MODAL_ANIMATION_TIME);
   }
 
-  useEffect(() => startAnimation(), [isModalOpened]);
+  useEffect(() => {startAnimation()}, [isModalOpened]);
 
   return (
     <>

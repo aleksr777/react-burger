@@ -6,5 +6,13 @@
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
+  transition: all .3s ease 0s;
   composes: pb-20 from global;
+}
+
+.box_hidden {
+  opacity: 0;
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
 }

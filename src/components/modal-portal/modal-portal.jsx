@@ -11,7 +11,7 @@ const ModalPortal = ({ children }) => {
     return () => {
       document.body.removeChild(modalElement);
     };
-  }, []);
+  }, [modalElement]);
 
   return ReactDOM.createPortal(children, modalElement);
 }
