@@ -8,25 +8,18 @@
   text-decoration: none;
   color: inherit;
   background-color: transparent;
-  opacity: .7;
   transition: all .3s ease 0s;
   composes: p-5 mr-2 from global;
 }
 
-.link_active,
-.link_disable {
+.link_active {
   cursor: default;
   pointer-events: none;
   user-select: none;
 }
 
-.link_active {
-  opacity: 1;
-}
-
-.link:hover,
-.link_disable:hover {
-  opacity: .9;
+.link:hover {
+  opacity: .6;
 }
 
 .link:last-of-type {

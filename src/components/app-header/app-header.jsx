@@ -2,22 +2,18 @@ import appHeaderStyles from './app-header.module.css';
 import { memo } from 'react';
 import HeaderLink from '../header-link/header-link';
 import HeaderLogo from '../header-logo/header-logo';
-import {
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
+
   return (
     <header className={appHeaderStyles.header}>
       <nav className={appHeaderStyles.nav}>
         <div className={appHeaderStyles.nav__box}>
-          <HeaderLink navText='Конструктор' path='/'><BurgerIcon type='primary' /></HeaderLink>
-          <HeaderLink navText='Лента заказов' path='/feed'><ListIcon type='primary' /></HeaderLink>
+          <HeaderLink icon='burger' text='Конструктор' path='/' />
+          <HeaderLink icon='list' text='Лента заказов' path='/feed' />
           <HeaderLogo />
         </div>
-        <HeaderLink navText='Личный кабинет' path='/profile'><ProfileIcon type='primary' /></HeaderLink>
+        <HeaderLink icon='profile' text='Личный кабинет' path='/profile' />
       </nav>
     </header >
   );

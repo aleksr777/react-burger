@@ -11,7 +11,7 @@ const getIngredientsDataState = state => state.ingredientsData;
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
 const IngredientPage = () => {
 
-  const location = useLocation();
+  const {pathname} = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,14 +22,12 @@ const IngredientPage = () => {
   const { isLoading, isError, ingredientInfo } = useSelector(getIngredientsDataState);
 
   /* достаём id из строки адреса*/
-  const url = new URL(`https://${location.pathname}`);
-  const currentPath = url.pathname;
-  const id = currentPath.split('/').pop();
-
+  const id = pathname.split('/').pop();
+  console.log(id);
 
   useEffect(() => {
-    if (!ingredientInfo._id || ingredientInfo.path !== currentPath) {
-      dispatch(getIngredientInfo(goToNotFoundPage, id, currentPath))
+    if (!ingredientInfo._id || ingredientInfo.path !== pathname) {
+      dispatch(getIngredientInfo(goToNotFoundPage, id, pathname))
     }
   }, []);
 

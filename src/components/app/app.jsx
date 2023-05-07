@@ -7,7 +7,6 @@ import ProfileOdersBlock from '../profile-orders-block/profile-orders-block';
 import HomePage from '../../pages/home/home';
 import FeedPage from '../../pages/feed/feed';
 import ProfilePage from '../../pages/profile/profile';
-import OrdersPage from '../profile-orders-block/profile-orders-block';
 import IngredientPage from '../../pages/ingredient/ingredient';
 import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
 import LoginPage from '../../pages/login/login';
