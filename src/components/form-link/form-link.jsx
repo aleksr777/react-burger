@@ -1,6 +1,7 @@
 import formLinkStyles from './form-link.module.css';
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const FormLink = ({ children, linkPath }) => {
   return (
@@ -9,3 +10,8 @@ const FormLink = ({ children, linkPath }) => {
 }
 
 export default memo(FormLink);
+
+FormLink.propTypes = {
+  children: PropTypes.node.isRequired,
+  linkPath: PropTypes.string.isRequired
+};

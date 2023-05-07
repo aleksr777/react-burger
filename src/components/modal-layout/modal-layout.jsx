@@ -70,10 +70,11 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
   );
 };
 
+export default ModalLayout;
+
 ModalLayout.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
   isModalOpened: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
 };
 
-export default ModalLayout;

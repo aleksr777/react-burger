@@ -16,7 +16,6 @@ const loaderAnimation = {
 
 const Loader = ({ size, isLoading, isError }) => {
 
-
   const loaderRef = useRef();
 
   /* Этот стейт нужен для запуска анимации */
@@ -99,6 +98,8 @@ const Loader = ({ size, isLoading, isError }) => {
   );
 };
 
+export default Loader;
+
 Loader.propTypes = {
   size: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -108,5 +109,3 @@ Loader.propTypes = {
     message: PropTypes.string.isRequired
   }).isRequired
 };
-
-export default Loader;

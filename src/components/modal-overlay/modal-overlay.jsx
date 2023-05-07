@@ -8,8 +8,9 @@ const ModalOverlay = forwardRef(({ handleCloseModal }, ref) => {
   );
 });
 
+export default ModalOverlay;
+
 ModalOverlay.propTypes = {
   handleCloseModal: PropTypes.func.isRequired
 };
 
-export default ModalOverlay;

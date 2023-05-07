@@ -1,9 +1,9 @@
 import stylesItem from './constructor-item.module.css';
 import { memo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient, swapIngredients } from '../../services/selected-ingr/selected-ingr-actions';
-import PropTypes from 'prop-types';
 import {
   ConstructorElement,
   DragIcon
@@ -122,7 +122,8 @@ ConstructorItem.propTypes = {
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired
   }).isRequired,
-  isLocked: PropTypes.bool.isRequired
+  isLocked: PropTypes.bool.isRequired,
+  isDragable: PropTypes.bool.isRequired,
 };
 
 export default memo(ConstructorItem);

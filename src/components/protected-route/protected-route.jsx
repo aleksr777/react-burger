@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { checkAuth } from '../../services/authorization/check-auth';
@@ -36,3 +37,7 @@ const ProtectedRouteElement = ({ children, forUnauthUser }) => {
 };
 
 export default ProtectedRouteElement;
+
+ProtectedRouteElement.propTypes = {
+  children: PropTypes.node.isRequired
+};

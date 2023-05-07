@@ -33,6 +33,6 @@ const ProfileLink = ({ text, path }) => {
 export default memo(ProfileLink);
 
 ProfileLink.propTypes = {
-  navText: PropTypes.string,
+  text: PropTypes.string,
   path: PropTypes.string
 };

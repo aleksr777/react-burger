@@ -2,9 +2,10 @@ import { Link } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_TAB } from '../../services/tab/tab-actions';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import PropTypes from 'prop-types';
 
 const getCurrentTabState = state => state.currentTab;
+
 
 const TabElement = ({ children, ingredientText }) => {
 
@@ -42,3 +43,8 @@ const TabElement = ({ children, ingredientText }) => {
 };
 
 export default TabElement;
+
+TabElement.propTypes = {
+  children: PropTypes.node.isRequired,
+  ingredientText: PropTypes.string.isRequired
+};

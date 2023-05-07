@@ -16,9 +16,10 @@ const ModalContainer = forwardRef(({ handleCloseModal, children }, ref) => {
   );
 });
 
+export default ModalContainer;
+
 ModalContainer.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
 };
 
-export default ModalContainer;

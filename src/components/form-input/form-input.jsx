@@ -1,4 +1,5 @@
 import formInputStyles from './form-input.module.css';
+import PropTypes from 'prop-types';
 import { PasswordInput, Input, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const FormInput = ({ inputType, ...otherProps }) => {
@@ -48,3 +49,7 @@ const FormInput = ({ inputType, ...otherProps }) => {
 }
 
 export default FormInput;
+
+FormInput.propTypes = {
+  inputType: PropTypes.string.isRequired
+};

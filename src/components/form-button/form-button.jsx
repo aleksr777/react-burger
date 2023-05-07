@@ -1,6 +1,7 @@
 import formButtonStyles from './form-button.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { memo } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const FormButton = ({ text, ...otherProps }) => {
@@ -22,3 +23,7 @@ const FormButton = ({ text, ...otherProps }) => {
 }
 
 export default memo(FormButton);
+
+FormButton.propTypes = {
+  text: PropTypes.string.isRequired
+};

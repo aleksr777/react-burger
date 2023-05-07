@@ -43,6 +43,8 @@ const IngredientDetails = ({ ingredient, titleAlign }) => {
   )
 };
 
+export default IngredientDetails;
+
 IngredientDetails.propTypes = {
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
@@ -60,5 +62,3 @@ IngredientDetails.propTypes = {
   }).isRequired,
   titleAlign: PropTypes.string.isRequired,
 };
-
-export default IngredientDetails;

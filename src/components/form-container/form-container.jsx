@@ -1,4 +1,5 @@
 import formСontainerStyles from './form-container.module.css';
+import PropTypes from 'prop-types';
 
 const FormСontainer = ({ children }) => {
   return (
@@ -9,3 +10,7 @@ const FormСontainer = ({ children }) => {
 }
 
 export default FormСontainer;
+
+FormСontainer.propTypes = {
+  children: PropTypes.node.isRequired
+};

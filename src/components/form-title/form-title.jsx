@@ -1,5 +1,6 @@
 import formTitleStyles from './form-title.module.css';
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const FormTitle = ({ text }) => {
   return (
@@ -8,3 +9,7 @@ const FormTitle = ({ text }) => {
 }
 
 export default memo(FormTitle);
+
+FormTitle.propTypes = {
+  text: PropTypes.string.isRequired
+};

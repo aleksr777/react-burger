@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const ModalPortal = ({ children }) => {
 
@@ -16,3 +17,6 @@ const ModalPortal = ({ children }) => {
 }
 export default ModalPortal;
 
+ModalPortal.propTypes = {
+  children: PropTypes.node.isRequired
+};

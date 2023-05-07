@@ -66,6 +66,7 @@ const IngredientsItem = ({ children, ingredient }) => {
 };
 
 IngredientsItem.propTypes = {
+  children: PropTypes.node.isRequired,
   ingredient: PropTypes.shape({
     calories: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
