@@ -1,7 +1,6 @@
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
-import { handleAuthErrors } from '../authorization/auth-actions';
-import { checkAuth } from '../../services/authorization/check-auth';
+import { matchNumErr, handleAuthError } from '../authorization/auth-actions';
 
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
 export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
@@ -17,14 +16,18 @@ export function getOrderId(arrId) {
 
   return function (dispatch) {
 
-    async function handleError(response) {
+    function handleError(response) {
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
-      await dispatch(handleAuthErrors(response, getOrderId(arrId)));
-      const isAuth = checkAuth();
-      isAuth && dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
-      isAuth && setTimeout(() => {
-        dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
-      }, 2000);
+      if (matchNumErr(response, 401)) {
+        dispatch(handleAuthError(response, getOrderId(arrId)));
+      }
+      else {
+        dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
+        setTimeout(() => {
+          dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
+        }, 2000);
+      }
+
     }
 
     dispatch({ type: ORDER_ID_REQUEST, payload: {} });

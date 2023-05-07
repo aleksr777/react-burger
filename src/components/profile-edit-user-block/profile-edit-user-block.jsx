@@ -1,11 +1,7 @@
 import stylesProfileEditUserBlock from './profile-edit-user-block.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  requestChangeUserData,
-  requestGetUserData
-} from '../../services/authorization/auth-actions';
-import { STORAGE_KEY_PREFIX } from '../../constants/constants';
+import { requestChangeUserData } from '../../services/authorization/auth-actions';
 import FormInput from '../form-input/form-input';
 import FormButton from '../form-button/form-button';
 import Loader from '../loader/loader';
@@ -19,19 +15,17 @@ const ProfileEditUserBlock = () => {
 
   const { isLoading, isError, user } = useSelector(getAuthState);
 
-  let password = sessionStorage.getItem(`${STORAGE_KEY_PREFIX}password`);
-
-  (!password || !user.email) && dispatch(requestGetUserData());
-
   const userData = {
     name: user.name,
     email: user.email,
-    password: password,
+    password: '',
   };
 
   const [inputsData, setInputsData] = useState(userData);
 
   const [isFormChanged, setIsFormChanged] = useState(false);
+
+  const [isSubmitActive, setIsSubmitActive] = useState(false);
 
 
   const handleInputChange = (e, value) => {
@@ -47,9 +41,17 @@ const ProfileEditUserBlock = () => {
     setIsFormChanged(false);
   }, [inputsData]);
 
+  function checkSubmitButton() {
+    return isFormChanged && inputsData.name && inputsData.email && inputsData.password ? true : false;
+  }
+
+  useEffect(() => {
+    setIsSubmitActive(checkSubmitButton())
+  }, [user, isFormChanged, inputsData]);
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (!isFormChanged) {
+    if (!isSubmitActive) {
       return null
     }
     dispatch(requestChangeUserData(inputsData, setIsFormChanged));
@@ -62,6 +64,7 @@ const ProfileEditUserBlock = () => {
     }
     setInputsData(userData);
     setIsFormChanged(false);
+    setIsSubmitActive(false);
   }
 
   return (
@@ -117,7 +120,7 @@ const ProfileEditUserBlock = () => {
 
             <FormButton
               text='Сохранить'
-              disabled={!isFormChanged}
+              disabled={!isSubmitActive}
             />
 
           </div>

@@ -72,7 +72,7 @@ export const requestGetUserDataServer = async () => {
 };
 
 //Запрос на изменение данных о пользователе
-export const requestChangeUserDataServer = async (name, email) => {
+export const requestChangeUserDataServer = async ({ name, email }) => {
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/user`, {
     method: 'PATCH',
