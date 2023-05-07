@@ -4,15 +4,11 @@ import PropTypes from 'prop-types';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-const FormButton = ({ text, isVisible, ...otherProps }) => {
+const FormButton = ({ text, ...otherProps }) => {
 
   return (
     <>
-      <div className={
-        isVisible
-          ? formButtonStyles.box
-          : `${formButtonStyles.box} ${formButtonStyles.box_hidden}`
-      }>
+      <div className={formButtonStyles.box}>
         <Button
           {...otherProps}
           htmlType="submit"
@@ -29,6 +25,5 @@ const FormButton = ({ text, isVisible, ...otherProps }) => {
 export default memo(FormButton);
 
 FormButton.propTypes = {
-  text: PropTypes.string.isRequired,
-  isVisible: PropTypes.bool.isRequired
+  text: PropTypes.string.isRequired
 };

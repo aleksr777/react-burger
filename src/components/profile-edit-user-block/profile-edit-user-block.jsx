@@ -119,10 +119,9 @@ const ProfileEditUserBlock = () => {
             </button>
 
             <FormButton
+              style={{ opacity: isSubmitActive ? '' : '0' }}
               text='Сохранить'
               disabled={!isSubmitActive}
-              isVisible={isSubmitActive}
-
             />
 
           </div>

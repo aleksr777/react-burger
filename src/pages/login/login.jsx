@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogin } from '../../services/authorization/auth-actions';
 import FormTitle from '../../components/form-title/form-title';
@@ -15,6 +16,14 @@ const getAuthState = state => state.authorization;
 const LoginPage = () => {
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const fromPage = location.state || '/';
+
+  function returnToPage() {
+    navigate(fromPage, { replace: true });
+  }
 
   const [inputsData, setInputsData] = useState({
     valueEmail: '',
@@ -29,7 +38,7 @@ const LoginPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(requestLogin(inputsData.valueEmail, inputsData.valuePassword));
+    dispatch(requestLogin(returnToPage, inputsData.valueEmail, inputsData.valuePassword));
   }
 
   return (
