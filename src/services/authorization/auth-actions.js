@@ -113,11 +113,11 @@ export function requestLogin(email, password) {
             type: AUTH_SUCCESS_USER, payload: {
               user: {
                 name: res.user.name,
-                email: res.user.email,
-                password: password,
+                email: res.user.email
               },
             }
           });
+          sessionStorage.setItem(`${STORAGE_KEY_PREFIX}password`, password);
         }
         else {
           handleError(res);
@@ -166,14 +166,14 @@ export function requestLogout() {
 
 
 /* Запрос на получение данных о пользователе */
-export function requestGetUserData(password) {
+export function requestGetUserData() {
 
   return function (dispatch) {
 
     async function handleError(response) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
-      await dispatch(handleAuthErrors(response, requestGetUserData(password)));
+      await dispatch(handleAuthErrors(response, requestGetUserData()));
       const isAuth = checkAuth();
       isAuth && dispatch({
         type: AUTH_SHOW_ERROR,
@@ -196,11 +196,12 @@ export function requestGetUserData(password) {
             type: AUTH_SUCCESS_USER, payload: {
               user: {
                 name: res.user.name,
-                email: res.user.email,
-                password: password,
+                email: res.user.email
               },
             }
           });
+          console.log(res);
+          sessionStorage.setItem(`${STORAGE_KEY_PREFIX}password`, 'password');
         }
         else {
           handleError(res);
@@ -246,11 +247,11 @@ export function requestChangeUserData(user, setIsFormChanged) {
             type: AUTH_SUCCESS_USER, payload: {
               user: {
                 name: res.user.name,
-                email: res.user.email,
-                password: password,
+                email: res.user.email
               },
             }
           });
+          sessionStorage.setItem(`${STORAGE_KEY_PREFIX}password`, password);
           setIsFormChanged(false);
         }
         else {

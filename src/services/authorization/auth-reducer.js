@@ -14,7 +14,6 @@ const defaultState = {
   user: {
     name: '',
     email: '',
-    password: '',
   },
   isError: {
     state: false,

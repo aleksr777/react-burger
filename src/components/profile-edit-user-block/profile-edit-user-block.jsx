@@ -1,7 +1,11 @@
 import stylesProfileEditUserBlock from './profile-edit-user-block.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestChangeUserData } from '../../services/authorization/auth-actions';
+import {
+  requestChangeUserData,
+  requestGetUserData
+} from '../../services/authorization/auth-actions';
+import { STORAGE_KEY_PREFIX } from '../../constants/constants';
 import FormInput from '../form-input/form-input';
 import FormButton from '../form-button/form-button';
 import Loader from '../loader/loader';
@@ -11,21 +15,32 @@ const getAuthState = state => state.authorization;
 
 const ProfileEditUserBlock = () => {
 
-  const { isLoading, isError, user } = useSelector(getAuthState);
-
   const dispatch = useDispatch();
 
-  const [inputsData, setInputsData] = useState(user);
+  const { isLoading, isError, user } = useSelector(getAuthState);
+
+  let password = sessionStorage.getItem(`${STORAGE_KEY_PREFIX}password`);
+
+  (!password || !user.email) && dispatch(requestGetUserData());
+
+  const userData = {
+    name: user.name,
+    email: user.email,
+    password: password,
+  };
+
+  const [inputsData, setInputsData] = useState(userData);
 
   const [isFormChanged, setIsFormChanged] = useState(false);
+
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
   useEffect(() => {
-    for (const key in user) {
-      if (user[key] !== inputsData[key]) {
+    for (const key in userData) {
+      if (userData[key] !== inputsData[key]) {
         return setIsFormChanged(true)
       }
     }
@@ -45,7 +60,7 @@ const ProfileEditUserBlock = () => {
     if (!isFormChanged) {
       return null
     }
-    setInputsData(user);
+    setInputsData(userData);
     setIsFormChanged(false);
   }
 
