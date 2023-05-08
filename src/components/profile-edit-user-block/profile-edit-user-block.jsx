@@ -1,5 +1,5 @@
 import stylesProfileEditUserBlock from './profile-edit-user-block.module.css';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestChangeUserData } from '../../services/authorization/auth-actions';
 import FormInput from '../form-input/form-input';

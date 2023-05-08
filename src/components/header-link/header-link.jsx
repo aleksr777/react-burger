@@ -1,4 +1,5 @@
 import headerLinkStyles from './header-link.module.css';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, useLocation, useMatch } from 'react-router-dom';
 import {
@@ -13,43 +14,32 @@ const HeaderLink = ({ icon, text, path }) => {
   const defaultStyle = headerLinkStyles.link;
   const activeStyle = `${headerLinkStyles.link} ${headerLinkStyles.link_active}`;
 
+  const match = useMatch(path);
   const location = useLocation();
 
-  const match = useMatch(path);
+  const [isActiveLink, setIsActiveLink] = useState(false);
 
-  function checkIsMatch(locationPath, path) {
-    if (match || (locationPath.indexOf(path) !== -1 && path !== '/')) {
-      return true
-    }
-    return false
-  }
+  useEffect(() => {
+    (match || (location.pathname.indexOf(path) !== -1 && path !== '/'))
+      ? setIsActiveLink(true)
+      : setIsActiveLink(false)
+  }, [location.pathname, match]);
 
-  function checkActive(isMatchLinks) {
-    if (isMatchLinks) {
-      return true;
-    }
-    return false;
-  };
-
-  function setIconType(isMatchLinks) {
-    if (isMatchLinks) {
+  function setIconType() {
+    if (isActiveLink) {
       return 'primary';
     }
     return 'secondary';
   }
 
-  const isMatchLinks = checkIsMatch(location.pathname, path);  
-  const isActiveLink = checkActive(isMatchLinks);
-  const iconType = setIconType(isMatchLinks);
-
-  function setIconElement(icon) {
+  function setIconElement() {
     switch (icon) {
       case 'burger':
-        return <BurgerIcon type={iconType} />;
+        return <BurgerIcon type={setIconType(isActiveLink)} />;
       case 'list':
-        return <ListIcon type={iconType} />;
+        return <ListIcon type={setIconType(isActiveLink)} />;
       case 'profile':
-        return <ProfileIcon type={iconType} />;
+        return <ProfileIcon type={setIconType(isActiveLink)} />;
       default: return null;
     }
   };
@@ -61,7 +51,7 @@ const HeaderLink = ({ icon, text, path }) => {
       to={path}
       draggable='false'
     >
-      {setIconElement(icon)}
+      {setIconElement()}
       <p className={headerLinkStyles.text}>{text}</p>
     </NavLink>
   );
