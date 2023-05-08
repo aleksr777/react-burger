@@ -1,4 +1,9 @@
 import { getIngredientsDataServer } from '../../utils/api';
+import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
+import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 
 export const INGREDIENTS_DATA_REQUEST = 'INGREDIENTS_DATA_REQUEST';
 export const INGREDIENTS_DATA_SUCCESS = 'INGREDIENTS_DATA_SUCCESS';
@@ -15,15 +20,18 @@ export function getIngredientsData() {
       console.log(response);
       dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
       }, 2000);
     }
 
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
+    blockUserInteraction();
 
     getIngredientsDataServer()
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: INGREDIENTS_DATA_SUCCESS, payload: { data: res.data }
           });
@@ -48,6 +56,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
       console.log(response);
       dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
         dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
         goToNotFoundPage();
@@ -57,9 +66,12 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     /* Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.*/
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
     dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
+    blockUserInteraction();
+
     getIngredientsDataServer()
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: INGREDIENTS_DATA_SUCCESS, payload: { data: res.data }
           });

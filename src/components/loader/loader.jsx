@@ -3,7 +3,6 @@ import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { LoaderSvg } from './loader.svg';
-import { bodySelector } from '../../constants/constants';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import ErrorInfo from '../../components/error-info/error-info';
 
@@ -57,20 +56,6 @@ const Loader = ({ size, isLoading, isError }) => {
     isError.state && setErrorState(isError);
   }, [isError.state]);
 
-
-  /* На время запроса к серверу отключаем взаимодействие с пользователем (клики мышью)*/
-  useEffect(() => {
-    if (isLoading) {
-      bodySelector.style.pointerEvents = 'none';
-      bodySelector.style.userSelect = 'none';
-    }
-    else if (!isLoading) {
-      setTimeout(() => {
-        bodySelector.style.pointerEvents = '';
-        bodySelector.style.userSelect = '';
-      }, LOADER_ANIMATION_TIME);
-    }
-  }, [isLoading]);
 
   /* Закрываем лоадер после срабатывания анимации */
   if (!isMounted) {

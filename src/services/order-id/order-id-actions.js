@@ -1,6 +1,10 @@
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { matchNumErr, handleAuthError } from '../authorization/auth-actions';
+import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
 
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
 export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
@@ -24,6 +28,7 @@ export function getOrderId(arrId) {
       else {
         dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
         setTimeout(() => {
+          unblockUserInteraction();
           dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
         }, 2000);
       }
@@ -31,10 +36,12 @@ export function getOrderId(arrId) {
     }
 
     dispatch({ type: ORDER_ID_REQUEST, payload: {} });
+    blockUserInteraction();
 
     postOrder(arrId)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, MODAL_ANIMATION_TIME);
           dispatch({ type: ORDER_ID_SUCCESS, payload: { id: res.order.number } });
           dispatch({ type: ORDER_ID_OPEN_MODAL, payload: {} });
         }

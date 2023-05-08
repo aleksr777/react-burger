@@ -1,5 +1,9 @@
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import { forgotPasswordRequestServer } from '../../utils/api';
+import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
@@ -20,6 +24,7 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
         }
       });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch({ type: FORGOT_PASSWORD_DEFAULT, payload: {} });
       }, 1500);
     };
@@ -29,6 +34,7 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
     forgotPasswordRequestServer(valueEmail)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: {} });
           setTimeout(() => {
             goToResetPasswordPage();

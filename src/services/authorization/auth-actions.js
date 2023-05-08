@@ -3,6 +3,10 @@ import {
   STORAGE_KEY_PREFIX,
 } from '../../constants/constants';
 import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
+import {
   requestLoginServer,
   requestLogoutServer,
   requestUpdateTokenServer,
@@ -36,7 +40,6 @@ export function handleAuthError(response, request) {
   return function (dispatch) {
     /* Сделал счётчик, чтобы не было зацикливания (не более 3х попыток запроса) */
     let countRequest = Number(sessionStorage.getItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`));
-    console.log(countRequest);
     (countRequest < 1 || !countRequest) ? countRequest = 1 : countRequest = ++countRequest;
     if (countRequest > 3) {
       sessionStorage.removeItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`);
@@ -49,6 +52,7 @@ export function handleAuthError(response, request) {
       });
       setTimeout(() => {
         dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+        unblockUserInteraction();
         dispatch(deleteAuthData()); /* автоматически переходим на '/login' */
       }, 1500);
     }
@@ -63,20 +67,24 @@ export function handleAuthError(response, request) {
 /* Запрос на обновление токена */
 export function requestUpdateToken(repeatRequest) {
   return function (dispatch) {
-    dispatch({ type: AUTH_REQUEST, payload: {} });
+    dispatch({ type: AUTH_REQUEST, payload: {} }); 
+    blockUserInteraction();
     requestUpdateTokenServer()
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });
           dispatch(repeatRequest);
         }
         else {
+          unblockUserInteraction();
           console.log(res);
         };
       })
       .catch(err => {
+        unblockUserInteraction();
         console.log(err);
       });
   };
@@ -98,15 +106,18 @@ export function requestLogin(email, password) {
         }
       });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch(deleteAuthData())
       }, 1500);
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
+    blockUserInteraction();
 
     requestLoginServer(email, password)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
@@ -151,16 +162,19 @@ export function requestLogout() {
         });
         setTimeout(() => {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+          unblockUserInteraction();
           dispatch(deleteAuthData());
         }, 1500);
       }
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
+    blockUserInteraction();
 
     requestLogoutServer()
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           setTimeout(() => {
             dispatch(deleteAuthData());
           }, LOADER_ANIMATION_TIME);
@@ -197,15 +211,18 @@ export function requestGetUserData() {
         });
         setTimeout(() => {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+          unblockUserInteraction();
         }, 1500);
       }
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
+    blockUserInteraction();
 
     requestGetUserDataServer()
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
               user: {
@@ -247,15 +264,18 @@ export function requestChangeUserData(user, setIsFormChanged) {
         });
         setTimeout(() => {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+          unblockUserInteraction();
         }, 1500);
       }
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
+    blockUserInteraction();
 
     requestChangeUserDataServer(user)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
               user: {

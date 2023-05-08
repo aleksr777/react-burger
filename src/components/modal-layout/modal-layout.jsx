@@ -1,6 +1,9 @@
 import stylesLayout from './modal-layout.module.css';
 import PropTypes from 'prop-types';
-import { bodySelector } from '../../constants/constants';
+import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../../services/blocking-user-interaction/blocking-user-interaction';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
@@ -29,11 +32,9 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
   function startAnimation() {
     setAnimationIn(isModalOpened);
     /* на время срабатывания анимации отключаем взаимодействие с пользователем */
-    bodySelector.style.pointerEvents = 'none';
-    bodySelector.style.userSelect = 'none';
+    blockUserInteraction();
     setTimeout(() => {
-      bodySelector.style.pointerEvents = '';
-      bodySelector.style.userSelect = '';
+      unblockUserInteraction();
     }, MODAL_ANIMATION_TIME);
   }
 

@@ -1,5 +1,9 @@
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import { resetPasswordRequestServer } from '../../utils/api';
+import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
 import { FORGOT_PASSWORD_DEFAULT } from '../forgot-password/forgot-password-actions';
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
@@ -21,15 +25,18 @@ export function resetPasswordRequest(goToAuthPage, valuePassword, valueCode) {
         }
       });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch({ type: RESET_PASSWORD_SET_DEFAULT, payload: {} });
       }, 1500);
     };
 
     dispatch({ type: RESET_PASSWORD_REQUEST, payload: {} });
+    blockUserInteraction();
 
     resetPasswordRequestServer(valuePassword, valueCode)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: RESET_PASSWORD_SUCCESS, payload: {} });
           setTimeout(() => {
             dispatch({ type: RESET_PASSWORD_SET_DEFAULT, payload: {} });

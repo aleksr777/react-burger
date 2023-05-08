@@ -4,6 +4,10 @@ import {
 } from '../../constants/constants';
 import { registerUserRequestServer } from '../../utils/api';
 import {
+  blockUserInteraction,
+  unblockUserInteraction,
+} from '../blocking-user-interaction/blocking-user-interaction';
+import {
   AUTH_SUCCESS_LOGIN,
   AUTH_SUCCESS_USER,
 } from '../authorization/auth-actions';
@@ -27,15 +31,18 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
         }
       });
       setTimeout(() => {
+        unblockUserInteraction();
         dispatch({ type: REGISTER_USER_SET_DEFAULT_STATE, payload: {} });
       }, 1500);
     };
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });
+    blockUserInteraction();
 
     registerUserRequestServer(valueName, valueEmail, valuePassword)
       .then(res => {
         if (res && res.success) {
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });
           localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
           localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
