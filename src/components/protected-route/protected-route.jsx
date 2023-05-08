@@ -17,23 +17,21 @@ const ProtectedRouteElement = ({ children, forUnauthUser }) => {
   const fromPage = location.state || '/';
 
   const { isSuccess, user } = useSelector(getAuthState);
-  const isAuth = checkAuth(isSuccess, user.email);
+
+  let isAuth = checkAuth(isSuccess, user.email);
 
   useEffect(() => {
     if (!isAuth) {
       dispatch(deleteAuthData());
     }
-  }, [isAuth]);
+  }, [isAuth, isSuccess, user]);
 
   useEffect(() => {
     if (!isAuth && !forUnauthUser) {
       return navigate('/login', { state: location.pathname });
     }
-    else if (isAuth && forUnauthUser && location.pathname === '/login') {
+    else if (isAuth && forUnauthUser) {
       return navigate(fromPage, { replace: true });
-    }
-    else if (isAuth && forUnauthUser && location.pathname !== '/login') {
-      return navigate(-1, { replace: true });
     }
   }, [isAuth, forUnauthUser, isSuccess, user]);
 
