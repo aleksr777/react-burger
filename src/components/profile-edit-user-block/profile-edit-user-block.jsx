@@ -42,7 +42,7 @@ const ProfileEditUserBlock = () => {
   }, [inputsData, userData]);
 
   function checkSubmitButton() {
-    return isFormChanged && inputsData.name && inputsData.email && inputsData.password ? true : false;
+    return isFormChanged && inputsData && inputsData.name && inputsData.email && inputsData.password ? true : false;
   }
 
   useEffect(() => {
