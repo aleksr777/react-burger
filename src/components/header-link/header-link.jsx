@@ -1,7 +1,6 @@
 import headerLinkStyles from './header-link.module.css';
 import PropTypes from 'prop-types';
 import { NavLink, useLocation, useMatch } from 'react-router-dom';
-import { unauthRoutesPaths } from '../../constants/constants';
 import {
   BurgerIcon,
   ListIcon,
@@ -18,64 +17,51 @@ const HeaderLink = ({ icon, text, path }) => {
 
   const match = useMatch(path);
 
-  function checkIsMatch() {
-    if (match || location.pathname.indexOf(path) !== -1 && path !== '/') {
+  function checkIsMatch(locationPath, path) {
+    if (match || (locationPath.indexOf(path) !== -1 && path !== '/')) {
       return true
     }
     return false
   }
 
-  /* Функция нужна, чтобы сделать ссылки неактивными на некоторых роутах */
-  function checkIsUnauthRoute() {
-    let isUnauth = false;
-    unauthRoutesPaths.map((routePath) => {
-      if (location.pathname === routePath) { isUnauth = true }
-    });
-    return isUnauth;
-  }
-
-  const isUnauth = checkIsUnauthRoute();
-  const IsMatch = checkIsMatch();
-
-  function checkActive() {
-    if (IsMatch && !isUnauth) {
+  function checkActive(IsMatchLinks) {
+    if (IsMatchLinks) {
       return true;
     }
-    else if (!IsMatch && isUnauth && path !== '/') {
-      return true; /* блокируем ссылку */
-    }
-    else {
-      return false;
-    }
+    return false;
   };
 
-  function setIconType() {
-    if (IsMatch) {
+  function setIconType(IsMatchLinks) {
+    if (IsMatchLinks) {
       return 'primary';
     }
     return 'secondary';
   }
 
-  function setIconElement() {
+  const IsMatchLinks = checkIsMatch(location.pathname, path);  
+  const IsActiveLink = checkActive(IsMatchLinks);
+  const iconType = setIconType(IsMatchLinks);
+
+  function setIconElement(icon) {
     switch (icon) {
       case 'burger':
-        return <BurgerIcon type={setIconType()} />;
+        return <BurgerIcon type={iconType} />;
       case 'list':
-        return <ListIcon type={setIconType()} />;
+        return <ListIcon type={iconType} />;
       case 'profile':
-        return <ProfileIcon type={setIconType()} />;
+        return <ProfileIcon type={iconType} />;
       default: return null;
     }
   };
 
   return (
     <NavLink
-      className={checkActive() ? activeStyle : defaultStyle}
-      tabIndex={checkActive() ? '-1' : ''}
+      className={IsActiveLink ? activeStyle : defaultStyle}
+      tabIndex={IsActiveLink ? '-1' : ''}
       to={path}
       draggable='false'
     >
-      {setIconElement()}
+      {setIconElement(icon)}
       <p className={headerLinkStyles.text}>{text}</p>
     </NavLink>
   );
