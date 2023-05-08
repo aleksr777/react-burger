@@ -24,23 +24,23 @@ const HeaderLink = ({ icon, text, path }) => {
     return false
   }
 
-  function checkActive(IsMatchLinks) {
-    if (IsMatchLinks) {
+  function checkActive(isMatchLinks) {
+    if (isMatchLinks) {
       return true;
     }
     return false;
   };
 
-  function setIconType(IsMatchLinks) {
-    if (IsMatchLinks) {
+  function setIconType(isMatchLinks) {
+    if (isMatchLinks) {
       return 'primary';
     }
     return 'secondary';
   }
 
-  const IsMatchLinks = checkIsMatch(location.pathname, path);  
-  const IsActiveLink = checkActive(IsMatchLinks);
-  const iconType = setIconType(IsMatchLinks);
+  const isMatchLinks = checkIsMatch(location.pathname, path);  
+  const isActiveLink = checkActive(isMatchLinks);
+  const iconType = setIconType(isMatchLinks);
 
   function setIconElement(icon) {
     switch (icon) {
@@ -56,8 +56,8 @@ const HeaderLink = ({ icon, text, path }) => {
 
   return (
     <NavLink
-      className={IsActiveLink ? activeStyle : defaultStyle}
-      tabIndex={IsActiveLink ? '-1' : ''}
+      className={isActiveLink ? activeStyle : defaultStyle}
+      tabIndex={isActiveLink ? '-1' : ''}
       to={path}
       draggable='false'
     >
