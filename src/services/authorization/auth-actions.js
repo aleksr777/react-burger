@@ -84,7 +84,7 @@ export function requestUpdateToken(repeatRequest) {
 
 
 /* Запрос входа в аккаунт */
-export function requestLogin(returnToPage, email, password) {
+export function requestLogin(email, password) {
 
   return function (dispatch) {
 
@@ -118,7 +118,6 @@ export function requestLogin(returnToPage, email, password) {
               },
             }
           });
-          returnToPage();
         }
         else {
           handleError(res);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogin } from '../../services/authorization/auth-actions';
@@ -16,14 +16,6 @@ const getAuthState = state => state.authorization;
 const LoginPage = () => {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const fromPage = location.state || '/';
-
-  function returnToPage() {
-    navigate(fromPage, { replace: true });
-  }
 
   const [inputsData, setInputsData] = useState({
     valueEmail: '',
@@ -38,7 +30,7 @@ const LoginPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(requestLogin(returnToPage, inputsData.valueEmail, inputsData.valuePassword));
+    dispatch(requestLogin(inputsData.valueEmail, inputsData.valuePassword));
   }
 
   return (
