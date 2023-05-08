@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { checkAuth } from '../../services/authorization/check-auth';
 import { deleteAuthData } from '../../services/authorization/auth-actions';
-import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 
 const getAuthState = state => state.authorization;
 
@@ -36,7 +35,7 @@ const ProtectedRouteElement = ({ children, forUnauthUser }) => {
     else if (isAuth && forUnauthUser && location.pathname !== '/login') {
       return navigate(-1, { replace: true });
     }
-  }, [isAuth, forUnauthUser]);
+  }, [isAuth, forUnauthUser, isSuccess, user]);
 
   return (
     ((isAuth && !forUnauthUser) || (!isAuth && forUnauthUser)) && children
