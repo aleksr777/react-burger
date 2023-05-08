@@ -8,6 +8,7 @@
   text-decoration: none;
   color: inherit;
   background-color: transparent;
+  color: #8585AD;
   transition: all .3s ease 0s;
   composes: p-5 mr-2 from global;
 }
@@ -16,10 +17,11 @@
   cursor: default;
   pointer-events: none;
   user-select: none;
+  color: #fff;
 }
 
 .link:hover {
-  opacity: .6;
+  opacity: .7;
 }
 
 .link:last-of-type {
