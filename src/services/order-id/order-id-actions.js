@@ -5,6 +5,9 @@ import {
   blockUserInteraction,
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
+import {
+  getAccessToken,
+} from '../authorization/tokens-service';
 
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
 export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
@@ -32,18 +35,20 @@ export function getOrderId(arrId) {
           dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
         }, 2000);
       }
-
     }
 
     dispatch({ type: ORDER_ID_REQUEST, payload: {} });
-    blockUserInteraction();
+    blockUserInteraction(); 
+    const accessToken = getAccessToken();
 
-    postOrder(arrId)
+    postOrder(arrId, accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, MODAL_ANIMATION_TIME);
           dispatch({ type: ORDER_ID_SUCCESS, payload: { id: res.order.number } });
           dispatch({ type: ORDER_ID_OPEN_MODAL, payload: {} });
+          setTimeout(() => {
+            unblockUserInteraction();
+          }, MODAL_ANIMATION_TIME);
         }
         else {
           handleError(res);

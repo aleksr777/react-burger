@@ -3,6 +3,9 @@ import {
   blockUserInteraction,
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
+import {
+  getAccessToken,
+} from '../authorization/tokens-service';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 
 export const INGREDIENTS_DATA_REQUEST = 'INGREDIENTS_DATA_REQUEST';
@@ -27,14 +30,15 @@ export function getIngredientsData() {
 
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
     blockUserInteraction();
+    const accessToken = getAccessToken();
 
-    getIngredientsDataServer()
+    getIngredientsDataServer(accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: INGREDIENTS_DATA_SUCCESS, payload: { data: res.data }
           });
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);
@@ -67,11 +71,11 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
     dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
     blockUserInteraction();
+    const accessToken = getAccessToken();
 
-    getIngredientsDataServer()
+    getIngredientsDataServer(accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: INGREDIENTS_DATA_SUCCESS, payload: { data: res.data }
           });
@@ -86,6 +90,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
                 },
               }
             })
+            setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           }
           else {
             dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });

@@ -1,12 +1,6 @@
-import {
-  getAccessToken,
-  getRefreshToken,
-} from '../services/authorization/tokens-service';
-
 /* КонКонфигурация API */
 /* Сделал функцию, чтобы accessToken считывался напрямую из памяти при каждом обращении к серверу*/
-function getApiConfig() {
-  const accessToken = getAccessToken();
+function getApiConfig(accessToken) {
   const apiConfig = {
     baseUrl: 'https://norma.nomoreparties.space',
     headers: {
@@ -30,8 +24,8 @@ function request(url, config) {
 
 
 //Получение от сервера данных об ингредиентах
-export const getIngredientsDataServer = () => {
-  const { baseUrl, headers } = getApiConfig();
+export const getIngredientsDataServer = (accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/ingredients`, {
     method: 'GET',
     headers,
@@ -40,8 +34,8 @@ export const getIngredientsDataServer = () => {
 
 
 //Отправка запроса о заказе и получение от сервера ответа с ID заказа
-export const postOrder = async (arrId) => {
-  const { baseUrl, headers } = getApiConfig();
+export const postOrder = async (arrId, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/orders`, {
     method: 'POST',
     headers,
@@ -53,8 +47,8 @@ export const postOrder = async (arrId) => {
 
 
 //Запрос входа в аккаунт
-export const requestLoginServer = async (email, password) => {
-  const { baseUrl, headers } = getApiConfig();
+export const requestLoginServer = async (email, password, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/login`, {
     method: 'POST',
     headers,
@@ -66,8 +60,8 @@ export const requestLoginServer = async (email, password) => {
 };
 
 //Запрос на получение данных о пользователе
-export const requestGetUserDataServer = async () => {
-  const { baseUrl, headers } = getApiConfig();
+export const requestGetUserDataServer = async(accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/user`, {
     method: 'GET',
     headers,
@@ -75,8 +69,8 @@ export const requestGetUserDataServer = async () => {
 };
 
 //Запрос на изменение данных о пользователе
-export const requestChangeUserDataServer = async ({ name, email, password }) => {
-  const { baseUrl, headers } = getApiConfig();
+export const requestChangeUserDataServer = async ({ name, email, password }, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/user`, {
     method: 'PATCH',
     headers,
@@ -89,9 +83,8 @@ export const requestChangeUserDataServer = async ({ name, email, password }) => 
 };
 
 // Запрос выхода из аккаунта
-export const requestLogoutServer = async () => {
-  const refreshToken = getRefreshToken();
-  const { baseUrl, headers } = getApiConfig();
+export const requestLogoutServer = async (accessToken, refreshToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/logout`, {
     method: 'POST',
     headers,
@@ -103,9 +96,8 @@ export const requestLogoutServer = async () => {
 
 
 // Запрос на обновление токена
-export const requestUpdateTokenServer = async () => {
-  const refreshToken = getRefreshToken();
-  const { baseUrl, headers } = getApiConfig();
+export const requestUpdateTokenServer = async (accessToken, refreshToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/token`, {
     method: 'POST',
     headers,
@@ -117,8 +109,8 @@ export const requestUpdateTokenServer = async () => {
 
 
 //Отправка данных для регистрации
-export const registerUserRequestServer = async (name, email, password) => {
-  const { baseUrl, headers } = getApiConfig();
+export const registerUserRequestServer = async (name, email, password, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/register`, {
     method: 'POST',
     headers,
@@ -132,8 +124,8 @@ export const registerUserRequestServer = async (name, email, password) => {
 
 
 //Отправка адреса email для сброса пароля
-export const forgotPasswordRequestServer = async (valueEmail) => {
-  const { baseUrl, headers } = getApiConfig();
+export const forgotPasswordRequestServer = async (valueEmail, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/password-reset`, {
     method: 'POST',
     headers,
@@ -145,8 +137,8 @@ export const forgotPasswordRequestServer = async (valueEmail) => {
 
 
 //Отправка нового пароля и проверочного кода
-export const resetPasswordRequestServer = async (valuePassword, valueCode) => {
-  const { baseUrl, headers } = getApiConfig();
+export const resetPasswordRequestServer = async (valuePassword, valueCode, accessToken) => {
+  const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/password-reset/reset`, {
     method: 'POST',
     headers,

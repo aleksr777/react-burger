@@ -4,6 +4,7 @@ import {
 import {
   saveAccessToken,
   saveRefreshToken,
+  getAccessToken,
 } from '../authorization/tokens-service';
 import {
   registerUserRequestServer,
@@ -43,11 +44,11 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });
     blockUserInteraction();
+    const accessToken = getAccessToken();
 
-    registerUserRequestServer(valueName, valueEmail, valuePassword)
+    registerUserRequestServer(valueName, valueEmail, valuePassword, accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });
           saveAccessToken(res.accessToken);
           saveRefreshToken(res.refreshToken);
@@ -62,6 +63,7 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
             }
           });
           setTimeout(() => {
+            unblockUserInteraction();
             dispatch({ type: REGISTER_USER_SET_DEFAULT_STATE, payload: {} });
           }, LOADER_ANIMATION_TIME);
         }

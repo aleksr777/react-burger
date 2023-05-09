@@ -7,9 +7,11 @@ import {
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
 import {
-  removeTokens,
+  getAccessToken,
+  getRefreshToken,
   saveAccessToken,
   saveRefreshToken,
+  removeTokens,
 } from './tokens-service';
 import {
   requestLoginServer,
@@ -43,10 +45,12 @@ export function deleteAuthData() {
 /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
 export function handleAuthError(response, request) {
   return function (dispatch) {
-    /* Сделал счётчик, чтобы не было зацикливания (не более 3х попыток запроса) */
+
     const nameCountStorage = `${STORAGE_KEY_PREFIX}count-request-catch-error-401`;
     let countRequest = Number(sessionStorage.getItem(nameCountStorage));
+
     (countRequest < 1 || !countRequest) ? countRequest = 1 : countRequest = ++countRequest;
+
     if (countRequest > 3) {
       sessionStorage.removeItem(nameCountStorage);
       dispatch({
@@ -59,7 +63,7 @@ export function handleAuthError(response, request) {
       setTimeout(() => {
         dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
         unblockUserInteraction();
-        dispatch(deleteAuthData()); /* автоматически переходим на '/login' */
+        dispatch(deleteAuthData());
       }, 1500);
     }
     else {
@@ -73,16 +77,22 @@ export function handleAuthError(response, request) {
 /* Запрос на обновление токена */
 export function requestUpdateToken(repeatRequest) {
   return function (dispatch) {
+
     dispatch({ type: AUTH_REQUEST, payload: {} });
+
     blockUserInteraction();
-    requestUpdateTokenServer()
+
+    const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
+
+    requestUpdateTokenServer(accessToken, refreshToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           saveAccessToken(res.accessToken);
           saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });
           dispatch(repeatRequest);
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
         else {
           unblockUserInteraction();
@@ -104,26 +114,33 @@ export function requestLogin(email, password) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({
-        type: AUTH_SHOW_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка авторизации',
-        }
-      });
-      setTimeout(() => {
-        unblockUserInteraction();
-        dispatch(deleteAuthData())
-      }, 1500);
+      /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+      if (matchNumErr(response, 401)) {
+        dispatch(handleAuthError(response, requestLogin(email, password)));
+      }
+      else {
+        dispatch({
+          type: AUTH_SHOW_ERROR,
+          payload: {
+            message: response,
+            title: 'Ошибка авторизации',
+          }
+        });
+        setTimeout(() => {
+          unblockUserInteraction();
+          dispatch(deleteAuthData())
+        }, 1500);
+      }
     };
 
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    requestLoginServer(email, password)
+    const accessToken = getAccessToken();
+
+    requestLoginServer(email, password, accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           saveAccessToken(res.accessToken);
           saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
@@ -135,6 +152,7 @@ export function requestLogin(email, password) {
               },
             }
           });
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);
@@ -177,12 +195,15 @@ export function requestLogout() {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    requestLogoutServer()
+    const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
+
+    requestLogoutServer(accessToken, refreshToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           setTimeout(() => {
             dispatch(deleteAuthData());
+            unblockUserInteraction();
           }, LOADER_ANIMATION_TIME);
         }
         else {
@@ -225,10 +246,12 @@ export function requestGetUserData() {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    requestGetUserDataServer()
+    const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
+
+    requestGetUserDataServer(accessToken, refreshToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
               user: {
@@ -237,6 +260,7 @@ export function requestGetUserData() {
               },
             }
           });
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);
@@ -278,10 +302,11 @@ export function requestChangeUserData(user, setInputsData) {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    requestChangeUserDataServer(user)
+    const accessToken = getAccessToken();
+
+    requestChangeUserDataServer(user, accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
               user: {
@@ -295,6 +320,7 @@ export function requestChangeUserData(user, setInputsData) {
             email: res.user.email,
             password: '',
           });
+          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
         else {
           handleError(res);

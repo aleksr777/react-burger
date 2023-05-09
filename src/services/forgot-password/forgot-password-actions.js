@@ -4,6 +4,9 @@ import {
   blockUserInteraction,
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
+import {
+  getAccessToken,
+} from '../authorization/tokens-service';
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
@@ -30,14 +33,16 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
     };
 
     dispatch({ type: FORGOT_PASSWORD_REQUEST, payload: {} });
+    blockUserInteraction();
+    const accessToken = getAccessToken();
 
-    forgotPasswordRequestServer(valueEmail)
+    forgotPasswordRequestServer(valueEmail, accessToken)
       .then(res => {
         if (res && res.success) {
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: {} });
           setTimeout(() => {
             goToResetPasswordPage();
+            unblockUserInteraction();
           }, LOADER_ANIMATION_TIME);
         }
         else { handleError(res) };
