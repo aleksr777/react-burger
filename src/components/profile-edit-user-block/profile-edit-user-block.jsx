@@ -25,6 +25,8 @@ const ProfileEditUserBlock = () => {
 
   const [isFormChanged, setIsFormChanged] = useState(false);
 
+  const [isInputsEmpty, setIsInputsEmpty] = useState(false);
+
   const [isSubmitActive, setIsSubmitActive] = useState(false);
 
 
@@ -32,22 +34,34 @@ const ProfileEditUserBlock = () => {
     setInputsData({ ...inputsData, [value]: e.target.value });
   }
 
+
+  /* Проверяем, внесены ли изменения */
   useEffect(() => {
     for (const key in userData) {
       if (userData[key] !== inputsData[key]) {
-        return setIsFormChanged(true)
+        return setIsFormChanged(true);
       }
     }
     setIsFormChanged(false);
-  }, [inputsData, userData]);
+  }, [inputsData, user]);
 
-  function checkSubmitButton() {
-    return isFormChanged && inputsData && inputsData.name && inputsData.email && inputsData.password ? true : false;
-  }
 
+  /* Проверяем, есть ли пустые инпуты в форме */
   useEffect(() => {
-    setIsSubmitActive(checkSubmitButton())
-  }, [user, isFormChanged, inputsData]);
+    for (const key in inputsData) {
+      if (!inputsData[key]) {
+        return setIsInputsEmpty(true);
+      }
+    }
+    setIsInputsEmpty(false);
+  }, [inputsData, user]);
+
+
+  /* Задаём асостояние кнопки Submit */
+  useEffect(() => {
+    setIsSubmitActive((isFormChanged && !isInputsEmpty) ? true : false)
+  }, [user, inputsData, isFormChanged, isInputsEmpty]);
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -57,6 +71,7 @@ const ProfileEditUserBlock = () => {
     dispatch(requestChangeUserData(inputsData, setIsFormChanged));
   }
 
+
   function cancelInputChange(e) {
     e.preventDefault();
     if (!isFormChanged) {
@@ -64,6 +79,7 @@ const ProfileEditUserBlock = () => {
     }
     setInputsData(userData);
     setIsFormChanged(false);
+    setIsInputsEmpty(false);
     setIsSubmitActive(false);
   }
 
