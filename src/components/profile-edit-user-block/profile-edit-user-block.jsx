@@ -54,10 +54,10 @@ const ProfileEditUserBlock = () => {
       }
     }
     setIsInputsEmpty(false);
-  }, [inputsData, user]);
+  }, [inputsData]);
 
 
-  /* Задаём асостояние кнопки Submit */
+  /* Задаём состояние кнопки Submit */
   useEffect(() => {
     setIsSubmitActive((isFormChanged && !isInputsEmpty) ? true : false)
   }, [user, inputsData, isFormChanged, isInputsEmpty]);
@@ -135,7 +135,7 @@ const ProfileEditUserBlock = () => {
             </button>
 
             <FormButton
-              style={{ opacity: isSubmitActive ? '' : '0' }}
+              style={{ opacity: isFormChanged ? '' : '0' }}
               text='Сохранить'
               disabled={!isSubmitActive}
             />
