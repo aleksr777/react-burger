@@ -2,7 +2,7 @@ import { getIngredientsDataServer } from '../../utils/api';
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../blocking-user-interaction/blocking-user-interaction';
+} from '../block-user-interaction-service/block-user-interaction-service';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 
 export const INGREDIENTS_DATA_REQUEST = 'INGREDIENTS_DATA_REQUEST';

@@ -22,11 +22,8 @@ const ProfileEditUserBlock = () => {
   };
 
   const [inputsData, setInputsData] = useState(userData);
-
   const [isFormChanged, setIsFormChanged] = useState(false);
-
   const [isInputsEmpty, setIsInputsEmpty] = useState(false);
-
   const [isSubmitActive, setIsSubmitActive] = useState(false);
 
 
@@ -68,7 +65,7 @@ const ProfileEditUserBlock = () => {
     if (!isSubmitActive) {
       return null
     }
-    dispatch(requestChangeUserData(inputsData, setIsFormChanged));
+    dispatch(requestChangeUserData(inputsData, setInputsData));
   }
 
 
@@ -78,9 +75,6 @@ const ProfileEditUserBlock = () => {
       return null
     }
     setInputsData(userData);
-    setIsFormChanged(false);
-    setIsInputsEmpty(false);
-    setIsSubmitActive(false);
   }
 
   return (

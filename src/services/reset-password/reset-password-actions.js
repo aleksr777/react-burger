@@ -3,7 +3,7 @@ import { resetPasswordRequestServer } from '../../utils/api';
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../blocking-user-interaction/blocking-user-interaction';
+} from '../block-user-interaction-service/block-user-interaction-service';
 import { FORGOT_PASSWORD_DEFAULT } from '../forgot-password/forgot-password-actions';
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';

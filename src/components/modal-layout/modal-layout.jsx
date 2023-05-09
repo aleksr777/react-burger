@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../../services/blocking-user-interaction/blocking-user-interaction';
+} from '../../services/block-user-interaction-service/block-user-interaction-service';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
@@ -38,7 +38,7 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
     }, MODAL_ANIMATION_TIME);
   }
 
-  useEffect(() => {startAnimation()}, [isModalOpened]);
+  useEffect(() => { startAnimation() }, [isModalOpened]);
 
   return (
     <>

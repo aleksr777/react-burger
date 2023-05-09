@@ -1,12 +1,17 @@
 import {
   LOADER_ANIMATION_TIME,
-  STORAGE_KEY_PREFIX,
 } from '../../constants/constants';
-import { registerUserRequestServer } from '../../utils/api';
+import {
+  saveAccessToken,
+  saveRefreshToken,
+} from '../authorization/tokens-service';
+import {
+  registerUserRequestServer,
+} from '../../utils/api';
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../blocking-user-interaction/blocking-user-interaction';
+} from '../block-user-interaction-service/block-user-interaction-service';
 import {
   AUTH_SUCCESS_LOGIN,
   AUTH_SUCCESS_USER,
@@ -44,8 +49,8 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
         if (res && res.success) {
           setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
+          saveAccessToken(res.accessToken);
+          saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {

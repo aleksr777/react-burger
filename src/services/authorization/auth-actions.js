@@ -5,7 +5,12 @@ import {
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../blocking-user-interaction/blocking-user-interaction';
+} from '../block-user-interaction-service/block-user-interaction-service';
+import {
+  removeTokens,
+  saveAccessToken,
+  saveRefreshToken,
+} from './tokens-service';
 import {
   requestLoginServer,
   requestLogoutServer,
@@ -21,7 +26,8 @@ export const AUTH_SHOW_ERROR = 'AUTH_SHOW_ERROR';
 export const AUTH_DEFAULT = 'AUTH_DEFAULT';
 export const AUTH_HIDE_ERROR = 'AUTH_HIDE_ERROR';
 
-/* сопоставляем номер ошибки из ответа с номером ошибки, которую ищем */
+
+/* сопоставляем номер ошибки из ответа сервера с номером ошибки, которую ищем */
 export function matchNumErr(response, number) {
   return response.indexOf(parseInt(number)) !== -1 ? true : false;
 }
@@ -29,8 +35,7 @@ export function matchNumErr(response, number) {
 export function deleteAuthData() {
   return function (dispatch) {
     dispatch({ type: AUTH_DEFAULT, payload: {} });
-    localStorage.removeItem(`${STORAGE_KEY_PREFIX}access-token`);
-    localStorage.removeItem(`${STORAGE_KEY_PREFIX}refresh-token`);
+    removeTokens();
   }
 }
 
@@ -39,10 +44,11 @@ export function deleteAuthData() {
 export function handleAuthError(response, request) {
   return function (dispatch) {
     /* Сделал счётчик, чтобы не было зацикливания (не более 3х попыток запроса) */
-    let countRequest = Number(sessionStorage.getItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`));
+    const nameCountStorage = `${STORAGE_KEY_PREFIX}count-request-catch-error-401`;
+    let countRequest = Number(sessionStorage.getItem(nameCountStorage));
     (countRequest < 1 || !countRequest) ? countRequest = 1 : countRequest = ++countRequest;
     if (countRequest > 3) {
-      sessionStorage.removeItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`);
+      sessionStorage.removeItem(nameCountStorage);
       dispatch({
         type: AUTH_SHOW_ERROR,
         payload: {
@@ -57,7 +63,7 @@ export function handleAuthError(response, request) {
       }, 1500);
     }
     else {
-      sessionStorage.setItem(`${STORAGE_KEY_PREFIX}count-request-catch-error-401`, countRequest);
+      sessionStorage.setItem(nameCountStorage, countRequest);
       dispatch(requestUpdateToken(request));
     };
   }
@@ -67,14 +73,14 @@ export function handleAuthError(response, request) {
 /* Запрос на обновление токена */
 export function requestUpdateToken(repeatRequest) {
   return function (dispatch) {
-    dispatch({ type: AUTH_REQUEST, payload: {} }); 
+    dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
     requestUpdateTokenServer()
       .then(res => {
         if (res && res.success) {
           setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
+          saveAccessToken(res.accessToken);
+          saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });
           dispatch(repeatRequest);
         }
@@ -118,8 +124,8 @@ export function requestLogin(email, password) {
       .then(res => {
         if (res && res.success) {
           setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}access-token`, res.accessToken);
-          localStorage.setItem(`${STORAGE_KEY_PREFIX}refresh-token`, res.refreshToken);
+          saveAccessToken(res.accessToken);
+          saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_LOGIN, payload: {} });
           dispatch({
             type: AUTH_SUCCESS_USER, payload: {
@@ -244,7 +250,7 @@ export function requestGetUserData() {
 
 
 /* Запрос на изменение данных о пользователе */
-export function requestChangeUserData(user, setIsFormChanged) {
+export function requestChangeUserData(user, setInputsData) {
 
   return function (dispatch) {
 
@@ -252,7 +258,7 @@ export function requestChangeUserData(user, setIsFormChanged) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
       if (matchNumErr(response, 401)) {
-        dispatch(handleAuthError(response, requestChangeUserData(user, setIsFormChanged)));
+        dispatch(handleAuthError(response, requestChangeUserData(user, setInputsData)));
       }
       else {
         dispatch({
@@ -284,7 +290,11 @@ export function requestChangeUserData(user, setIsFormChanged) {
               },
             }
           });
-          setIsFormChanged(false);
+          setInputsData({
+            name: res.user.name,
+            email: res.user.email,
+            password: '',
+          });
         }
         else {
           handleError(res);

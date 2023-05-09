@@ -4,7 +4,7 @@ import { matchNumErr, handleAuthError } from '../authorization/auth-actions';
 import {
   blockUserInteraction,
   unblockUserInteraction,
-} from '../blocking-user-interaction/blocking-user-interaction';
+} from '../block-user-interaction-service/block-user-interaction-service';
 
 export const ORDER_ID_OPEN_MODAL = 'ORDER_ID_OPEN_MODAL';
 export const ORDER_ID_CLOSE_MODAL = 'ORDER_ID_CLOSE_MODAL';
