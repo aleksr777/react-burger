@@ -76,6 +76,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     getIngredientsDataServer(accessToken)
       .then(res => {
         if (res && res.success) {
+          unblockUserInteraction();
           dispatch({
             type: INGREDIENTS_DATA_SUCCESS, payload: { data: res.data }
           });
@@ -90,7 +91,6 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
                 },
               }
             })
-            setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           }
           else {
             dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });

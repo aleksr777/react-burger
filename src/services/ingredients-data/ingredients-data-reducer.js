@@ -1,5 +1,3 @@
-import { noIngrObj } from '../../constants/constants';
-
 import {
   INGREDIENTS_DATA_ERROR,
   INGREDIENTS_DATA_REQUEST,
@@ -12,7 +10,7 @@ import {
 const defaultState = {
   isLoading: false,
   ingredientsData: [],
-  ingredientInfo: noIngrObj,
+  ingredientInfo: null,
   isError: {
     state: false,
     title: 'Ошибка сервера',
@@ -53,7 +51,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     case INGREDIENTS_REMOVE_INGREDIENT_INFO: {
       return {
         ...state,
-        ingredientInfo: noIngrObj,
+        ingredientInfo: null,
       };
     };
 

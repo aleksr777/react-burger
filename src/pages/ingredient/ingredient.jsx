@@ -11,30 +11,31 @@ const getIngredientsDataState = state => state.ingredientsData;
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
 const IngredientPage = () => {
 
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  /* достаём id из строки адреса*/
+  const id = pathname.split('/').pop();
+
+  const { isLoading, isError, ingredientInfo } = useSelector(getIngredientsDataState);
 
   function goToNotFoundPage() {
     navigate('/not-found-page', { replace: true });
   };
 
-  const { isLoading, isError, ingredientInfo } = useSelector(getIngredientsDataState);
-
-  /* достаём id из строки адреса*/
-  const id = pathname.split('/').pop();
-
   useEffect(() => {
-    if (!ingredientInfo._id || ingredientInfo.path !== pathname) {
+    if (!ingredientInfo || !ingredientInfo._id || ingredientInfo.path !== pathname) {
       dispatch(getIngredientInfo(goToNotFoundPage, id, pathname))
     }
   }, []);
 
   return (
-    <div className={stylesIngredient.container}>
+    ingredientInfo &&
+    (<div className={stylesIngredient.container}>
       <Loader size={100} isLoading={isLoading} isError={isError} />
       {!isLoading && <IngredientDetails ingredient={ingredientInfo} titleAlign='center' />}
-    </div>
+    </div>)
   )
 };
 

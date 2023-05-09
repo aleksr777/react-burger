@@ -17,9 +17,11 @@ export function saveRefreshToken(refreshToken) {
 }
 
 export function getAccessToken() {
-  return localStorage.getItem(accessTokenName);
+  const token = localStorage.getItem(accessTokenName);
+  return token ? token : '';
 }
 
 export function getRefreshToken() {
-  return localStorage.getItem(refreshTokenName);
+  const token = localStorage.getItem(refreshTokenName);
+  return token ? token : '';
 }
