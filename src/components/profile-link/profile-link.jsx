@@ -9,19 +9,12 @@ const ProfileLink = ({ text, path }) => {
   const defaultStyle = stylesProfileLink.link;
   const activeStyle = `${stylesProfileLink.link} ${stylesProfileLink.link_active}`;
 
-  const match = useMatch(path);  
-
-  function checkIsMatch() {
-    if (match) {
-      return true
-    }
-    return false
-  };
+  const match = useMatch(path);
 
   return (
     <NavLink
-      className={checkIsMatch() ? activeStyle : defaultStyle}
-      tabIndex={checkIsMatch() ? '-1' : ''}
+      className={match ? activeStyle : defaultStyle}
+      tabIndex={match ? '-1' : ''}
       to={path}
       draggable='false'
     >
@@ -33,6 +26,6 @@ const ProfileLink = ({ text, path }) => {
 export default memo(ProfileLink);
 
 ProfileLink.propTypes = {
-  text: PropTypes.string,
-  path: PropTypes.string
+  text: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };

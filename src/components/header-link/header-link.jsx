@@ -25,21 +25,14 @@ const HeaderLink = ({ icon, text, path }) => {
       : setIsActiveLink(false)
   }, [location.pathname, match]);
 
-  function setIconType() {
-    if (isActiveLink) {
-      return 'primary';
-    }
-    return 'secondary';
-  }
-
   function setIconElement() {
     switch (icon) {
       case 'burger':
-        return <BurgerIcon type={setIconType(isActiveLink)} />;
+        return <BurgerIcon type={isActiveLink ? 'primary' : 'secondary'} />;
       case 'list':
-        return <ListIcon type={setIconType(isActiveLink)} />;
+        return <ListIcon type={isActiveLink ? 'primary' : 'secondary'} />;
       case 'profile':
-        return <ProfileIcon type={setIconType(isActiveLink)} />;
+        return <ProfileIcon type={isActiveLink ? 'primary' : 'secondary'} />;
       default: return null;
     }
   };
@@ -60,7 +53,7 @@ const HeaderLink = ({ icon, text, path }) => {
 export default HeaderLink;
 
 HeaderLink.propTypes = {
-  icon: PropTypes.string,
-  text: PropTypes.string,
-  path: PropTypes.string
+  icon: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };

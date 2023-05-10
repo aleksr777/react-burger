@@ -21,10 +21,13 @@ const IngredientsBurger = () => {
     return arr
   };
 
-  const data = useMemo(() => addLocationInfo(ingredientsData), [ingredientsData]);
-  const fillings = useMemo(() => data.filter((obj) => obj.type === 'main'), [data]);
-  const sauces = useMemo(() => data.filter((obj) => obj.type === 'sauce'), [data]);
-  const buns = useMemo(() => data.filter((obj) => obj.type === 'bun'), [data]);
+  const [fillings, sauces, buns] = useMemo(() => {
+    const data = addLocationInfo(ingredientsData);
+    const fillings = data.filter((obj) => obj.type === 'main');
+    const sauces = data.filter((obj) => obj.type === 'sauce');
+    const buns = data.filter((obj) => obj.type === 'bun');
+    return [fillings, sauces, buns];
+  }, [ingredientsData]);
 
   return (
     <>

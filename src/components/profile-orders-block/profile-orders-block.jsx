@@ -1,6 +1,6 @@
 import stylesProfileOdersBlock from './profile-orders-block.module.css';
 
-const ProfileOdersBlock = () => {
+const ProfileOrdersBlock = () => {
 
   return (
     <div>
@@ -8,4 +8,4 @@ const ProfileOdersBlock = () => {
   )
 };
 
-export default ProfileOdersBlock;
+export default ProfileOrdersBlock;

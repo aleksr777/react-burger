@@ -26,8 +26,8 @@ const ProfileEditUserBlock = () => {
   const [isSubmitActive, setIsSubmitActive] = useState(false);
 
 
-  const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value });
+  const handleInputChange = (e) => {
+    setInputsData({ ...inputsData, [e.target.name]: e.target.value });
   }
 
 
@@ -94,7 +94,7 @@ const ProfileEditUserBlock = () => {
             name='name'
             icon='EditIcon'
             value={inputsData.name}
-            onChange={e => handleInputChange(e, 'name')}
+            onChange={e => handleInputChange(e)}
           />
 
           <FormInput
@@ -104,7 +104,7 @@ const ProfileEditUserBlock = () => {
             placeholder='Логин'
             icon='EditIcon'
             isIcon={true}
-            onChange={e => handleInputChange(e, 'email')}
+            onChange={e => handleInputChange(e)}
           />
 
           <FormInput
@@ -113,7 +113,7 @@ const ProfileEditUserBlock = () => {
             value={inputsData.password}
             placeholder='Пароль'
             icon="EditIcon"
-            onChange={e => handleInputChange(e, 'password')}
+            onChange={e => handleInputChange(e)}
           />
 
           <div
