@@ -4,11 +4,10 @@ import {
   blockUserInteraction,
   unblockUserInteraction,
 } from '../../services/block-user-interaction-service/block-user-interaction-service';
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
-import ModalOverlay from '../modal-overlay/modal-overlay';
-import ModalContainer from '../modal-container/modal-container';
 
 
 const overlayAnimation = {
@@ -51,7 +50,10 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
         unmountOnExit
         classNames={overlayAnimation}
       >
-        <ModalOverlay handleCloseModal={handleCloseModal} ref={overlayRef} />
+        <div onClick={handleCloseModal}
+          className={stylesLayout.overlay}
+          ref={overlayRef}
+        />
       </CSSTransition>
 
       <CSSTransition
@@ -62,9 +64,15 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
         unmountOnExit
         classNames={containerAnimation}
       >
-        <ModalContainer handleCloseModal={handleCloseModal} ref={containerRef}>
+        <div
+          className={stylesLayout.container}
+          ref={containerRef}
+        >
+          <div className={stylesLayout.button}>
+            <CloseIcon type="primary" onClick={handleCloseModal} />
+          </div>
           {children}
-        </ModalContainer>
+        </div>
       </CSSTransition>
 
     </>
@@ -74,8 +82,8 @@ const ModalLayout = ({ children, handleCloseModal, isModalOpened }) => {
 export default ModalLayout;
 
 ModalLayout.propTypes = {
+  children: PropTypes.node.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
   isModalOpened: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired
 };
 

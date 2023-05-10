@@ -1,10 +1,10 @@
 import stylesIngredientsBurger from './ingredients-burger.module.css';
 import { useMemo, memo } from 'react';
 import { useSelector } from 'react-redux';
-import IngredientsTabBlock from '../ingredients-tab-block/ingredients-tab-block';
 import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import CounterItem from '../counter-item/counter-item';
+import TabElement from '../tab-element/tab-element';
 
 
 const getIngredientsDataState = state => state.ingredientsData;
@@ -34,7 +34,11 @@ const IngredientsBurger = () => {
 
         <h2 className={stylesIngredientsBurger.section__title}>Соберите бургер</h2>
 
-        <IngredientsTabBlock />
+        <div className={stylesIngredientsBurger.tab}>
+          <TabElement ingredientText='buns'>Булки</TabElement >
+          <TabElement ingredientText='sauces'>Соусы</TabElement >
+          <TabElement ingredientText='fillings'>Начинки</TabElement >
+        </div>
 
         <div className={stylesIngredientsBurger.section__blocks} id='section-blocks'>
 

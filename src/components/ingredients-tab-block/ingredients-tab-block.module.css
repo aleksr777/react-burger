@@ -1,6 +1,0 @@
-.tab {
-  box-sizing: border-box;
-  padding: 0;
-  display: flex;
-  composes: mb-10 from global;
-}

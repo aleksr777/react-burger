@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestChangeUserData } from '../../services/authorization/auth-actions';
 import FormInput from '../form-input/form-input';
-import FormButton from '../form-button/form-button';
 import Loader from '../loader/loader';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const getAuthState = state => state.authorization;
 
@@ -128,11 +128,17 @@ const ProfileEditUserBlock = () => {
             >Отмена
             </button>
 
-            <FormButton
-              style={{ opacity: isFormChanged ? '' : '0' }}
-              text='Сохранить'
-              disabled={!isSubmitActive}
-            />
+            <div className={stylesProfileEditUserBlock.submitBox}>
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="medium"
+                style={{ opacity: isFormChanged ? '' : '0' }}
+                disabled={!isSubmitActive}
+              >
+                Сохранить
+              </Button>
+            </div>
 
           </div>
         </div>

@@ -3,9 +3,6 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { requestLogout } from '../../services/authorization/auth-actions';
 import ProfileLink from '../../components/profile-link/profile-link';
-import ProfileNavBlock from '../../components/profile-nav-block/profile-nav-block';
-import ProfileBlockAbout from '../../components/profile-block-about/profile-block-about';
-import ProfileTextAbout from '../../components/profile-text-about/profile-text-about';
 
 
 const ProfilePage = () => {
@@ -33,7 +30,7 @@ const ProfilePage = () => {
 
     <div className={stylesProfile.container}>
 
-      <ProfileNavBlock>
+      <div className={stylesProfile.navBlock}>
 
         <ProfileLink text='Профиль' path={pathProfile} />
 
@@ -47,12 +44,12 @@ const ProfilePage = () => {
         >Выход
         </button>
 
-        <ProfileBlockAbout>
-          <ProfileTextAbout>В этом разделе вы можете</ProfileTextAbout>
-          <ProfileTextAbout>{textAbout}</ProfileTextAbout>
-        </ProfileBlockAbout>
+        <div className={stylesProfile.blockAbout}>
+          <p className={stylesProfile.textAbout}>В этом разделе вы можете</p>
+          <p className={stylesProfile.textAbout}>{textAbout}</p>
+        </div>
 
-      </ProfileNavBlock>
+      </div>
 
       <Outlet />
 

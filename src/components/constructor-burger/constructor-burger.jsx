@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addBun, removeBun, addIngredient } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
 import ModalOrderDetails from '../modal-order-details/modal-order-details';
-import OrderingBlock from '../ordering-block/ordering-block';
+import OrderingPrice from '../ordering-price/ordering-price';
+import OrderingButton from '../ordering-button/ordering-button';
 import ConstructorItemsList from '../constructor-items-list/constructor-items-list';
 
 const getIngredientsState = state => state.selectedIngr;
@@ -49,7 +50,10 @@ const ConstructorBurger = () => {
 
         <ConstructorItemsList />
 
-        <OrderingBlock />
+        <div className={stylesConstructorBurger.order}>
+          <OrderingPrice />
+          <OrderingButton />
+        </div>
 
       </section>
 

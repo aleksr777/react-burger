@@ -1,14 +1,11 @@
+import stylesForgotPasswordPage from './forgot-password.module.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
-import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
-import FormButton from '../../components/form-button/form-button';
-import FormLink from '../../components/form-link/form-link';
-import FormText from '../../components/form-text/form-text';
-import FormСontainer from '../../components/form-container/form-container';
 import Loader from '../../components/loader/loader';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const forgotPasswordState = state => state.forgotPassword;
 
@@ -34,34 +31,41 @@ const ForgotPasswordPage = () => {
   }
 
   return (
-    <>
+
+    <div className={stylesForgotPasswordPage.container}>
+
+      <h1 className={stylesForgotPasswordPage.title}>Восстановление пароля</h1>
+
+      <form onSubmit={handleSubmit} autoComplete='off'>
+
+        <FormInput
+          inputType='email'
+          onChange={onChangeEmail}
+          value={valueEmail}
+          name='forgotEmail'
+          placeholder='Укажите e-mail'
+          isIcon={false}
+        />
+
+        <div className={stylesForgotPasswordPage.submitBox}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="medium"
+          >
+            Восстановить
+          </Button>
+        </div>
+
+      </form>
+
+      <p className={stylesForgotPasswordPage.text}>
+        Вспомнили пароль? <Link to='/login' className={stylesForgotPasswordPage.link}>Войти</Link>
+      </p>
+
       <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <FormСontainer>
-
-        <FormTitle text='Восстановление пароля' />
-
-        <form onSubmit={handleSubmit} autoComplete='off'>
-
-          <FormInput
-            inputType='email'
-            onChange={onChangeEmail}
-            value={valueEmail}
-            name='forgotEmail'
-            placeholder='Укажите e-mail'
-            isIcon={false}
-          />
-
-          <FormButton text='Восстановить' />
-
-        </form>
-
-        <FormText>
-          Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-        </FormText>
-
-      </FormСontainer >
-    </>
+    </div >
   )
 };
 

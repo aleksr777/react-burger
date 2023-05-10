@@ -12,19 +12,18 @@ import {
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
 
-const ConstructorItem = ({ obj, isLocked, isDragable }) => {
+const ConstructorItem = ({ obj, isLocked }) => {
 
   const dispatch = useDispatch();
 
   const selectedIngredients = useSelector(getSelectedIngredientsState);
 
-  const [{ dragElementData, dragItemOpacity, dragItemTransition }, dragRef] = useDrag({
+  const [{ dragElementData, dragItemOpacity }, dragRef] = useDrag({
     type: 'selectedIngr',
     item: obj,
     collect: monitor => ({
       dragElementData: monitor.getItem(),
       dragItemOpacity: monitor.isDragging() ? 0 : 1,
-      dragItemTransition: monitor.isDragging() ? 'none' : '',
     }),
   });
 
@@ -46,26 +45,33 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
     }
   };
 
+  function isElementDraggingNow(e) {
+    /* Проверяем, перетаскиваемый ли это элемент в данный момент */
+    if (e.currentTarget.style.opacity !== '0'
+      && dragElementData.locationDnd === 'ConstructorBurger') {
+      return true;
+    }
+    return false;
+  }
 
   function dragOverSetOpacity(e) {
     e.preventDefault();
-    /* исключаем перетаскиваемый элемент (изначально ему задан opacity='0')
-     и проверяем откуда элемент*/
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
+    /* исключаем перетаскиваемый элемент (проверяем стили) и проверяем откуда элемент*/
+    if (isElementDraggingNow(e)) {
       e.currentTarget.style.opacity = '.6';
     }
   }
 
   function dragLeaveSetOpacity(e) {
     e.preventDefault();
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
+    if (isElementDraggingNow(e)) {
       e.currentTarget.style.opacity = '1';
     }
   }
 
   function dropSetOpacity(e) {
     e.preventDefault();
-    if (e.currentTarget.style.opacity !== '0' && dragElementData.locationDnd === 'ConstructorBurger') {
+    if (isElementDraggingNow(e)) {
       e.currentTarget.style.opacity = '1';
     }
   }
@@ -77,22 +83,18 @@ const ConstructorItem = ({ obj, isLocked, isDragable }) => {
 
     <li
       className={stylesItem.item_scroll}
-      ref={isDragable ? dragDropRef : dropRef}
+      ref={!isLocked ? dragDropRef : dropRef}
       onDragOver={(e) => dragOverSetOpacity(e)}
       onDragLeave={(e) => dragLeaveSetOpacity(e)}
       onDrop={(e) => dropSetOpacity(e)}
       style={{
-        cursor: isDragable ? '' : 'default',
-        transition: dragItemTransition,
+        cursor: !isLocked ? '' : 'default',
         opacity: dragItemOpacity,
       }}
     >
 
       <div
-        style={{
-          cursor: isDragable ? '' : 'default',
-          opacity: isDragable ? 1 : 0,
-        }} >
+        style={{ opacity: !isLocked ? 1 : 0 }} >
         <DragIcon type='primary' />
       </div>
 

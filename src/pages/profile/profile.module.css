@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+.navBlock {
+  margin: 0 4px 0 0;
+  padding: 19px 0 0 2px;
+  display: flex;
+  width: 320px;
+  flex-direction: column;
+  gap: 34px;
+}
+
 .container {
   padding: 118px 0 0 0;
   margin: 0;
@@ -22,5 +31,20 @@
 }
 
 .logoutButton:hover {
-  color: rgba(255, 255, 255, 0.7);
+  opacity: .7;
+}
+
+.blockAbout {
+  max-width: 100%;
+  padding: 62px 0 0 0;
+  margin: 0;
+}
+
+.textAbout {
+  color: #8585AD;
+  opacity: 0.4;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  composes: text text_type_main-default from global;
 }

@@ -1,14 +1,12 @@
+import stylesResetPasswordPage from './reset-password.module.css';
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import FormTitle from '../../components/form-title/form-title';
 import FormInput from '../../components/form-input/form-input';
-import FormButton from '../../components/form-button/form-button';
-import FormLink from '../../components/form-link/form-link';
-import FormText from '../../components/form-text/form-text';
-import FormСontainer from '../../components/form-container/form-container';
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Loader from '../../components/loader/loader';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const forgotPasswordState = state => state.forgotPassword;
 const resetPasswordState = state => state.resetPassword;
@@ -50,47 +48,55 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
+    
+    forgotPassword.isSuccess && (
 
-      {forgotPassword.isSuccess && (
+      <div className={stylesResetPasswordPage.container}>
 
-        <FormСontainer>
+        <h1 className={stylesResetPasswordPage.title}>Восстановление пароля</h1>
 
-          <FormTitle text='Восстановление пароля' />
+        <form onSubmit={handleSubmit} autoComplete='off'>
 
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <FormInput
+            inputType='password'
+            onChange={e => handleInputChange(e, 'valuePassword')}
+            value={inputsData.valuePassword}
+            name='resetPassword'
+            placeholder='Введите новый пароль'
+            icon={undefined}
+          />
 
-            <FormInput
-              inputType='password'
-              onChange={e => handleInputChange(e, 'valuePassword')}
-              value={inputsData.valuePassword}
-              name='resetPassword'
-              placeholder='Введите новый пароль'
-              icon={undefined}
-            />
+          <FormInput
+            inputType='text'
+            value={inputsData.valueCode}
+            name='resetCodeEmail'
+            placeholder='Введите код из письма'
+            onChange={e => handleInputChange(e, 'valueCode')}
+            icon={undefined}
+            onIconClick={undefined}
+          />
 
-            <FormInput
-              inputType='text'
-              value={inputsData.valueCode}
-              name='resetCodeEmail'
-              placeholder='Введите код из письма'
-              onChange={e => handleInputChange(e, 'valueCode')}
-              icon={undefined}
-              onIconClick={undefined}
-            />
 
-            <FormButton text='Сохранить' />
+          <div className={stylesResetPasswordPage.submitBox}>
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+            >
+              Сохранить
+            </Button>
+          </div>
 
-          </form>
+        </form>
 
-          <FormText>
-            Вспомнили пароль? <FormLink linkPath='/login'>Войти</FormLink>
-          </FormText>
+        <p className={stylesResetPasswordPage.text}>
+          Вспомнили пароль? <Link to='/login' className={stylesResetPasswordPage.link}>Войти</Link>
+        </p>
 
-        </FormСontainer >
-      )}
-    </>
+        <Loader size={100} isLoading={isLoading} isError={isError} />
+
+      </div >
+    )
   )
 };
 

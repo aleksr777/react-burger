@@ -36,7 +36,7 @@
 }
 
 .cancelButton:hover {
-  color: #fff;
+  opacity: .7;
 }
 
 .cancelButton:disabled {
@@ -44,4 +44,16 @@
   cursor: default;
   user-select: none;
   pointer-events: none;
+}
+
+.submitBox {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  transition: all .3s ease 0s;
+  composes: pb-20 from global;
 }

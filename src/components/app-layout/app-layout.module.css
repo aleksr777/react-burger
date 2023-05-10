@@ -10,6 +10,36 @@
   height: 100vh;
 }
 
+.header {
+  box-sizing: border-box;
+  background-color: rgba(28, 28, 33, 1);
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  composes: p-3 from global;
+}
+
+.nav__box {
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav__box>*:last-child {
+  margin-left: 104px;
+}
+
 .main {
   position: relative;
   overflow: hidden;

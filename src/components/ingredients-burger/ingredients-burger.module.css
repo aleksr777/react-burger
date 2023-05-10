@@ -35,3 +35,10 @@
   width: 8px;
   background-color: rgba(133, 133, 173, 1)
 }
+
+.tab {
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  composes: mb-10 from global;
+}
