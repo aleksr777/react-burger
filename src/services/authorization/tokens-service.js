@@ -17,7 +17,7 @@ function setCookie(name, value, props) {
   value = encodeURIComponent(value);
   let updatedCookie = name + '=' + value;
   for (const propName in props) {
-    if (propName !== 'sameSite' && propName !== 'maxAge') { // Пропускаем атрибуты SameSite и max-age
+    if (propName !== 'sameSite' && propName !== 'maxAge') {
       updatedCookie += '; ' + propName;
       const propValue = props[propName];
       if (propValue !== true) {
@@ -61,9 +61,9 @@ export function removeTokens() {
 };
 
 export function saveAccessToken(accessToken) {
-  deleteCookie(accessTokenName);
   if (accessToken && accessToken.indexOf('Bearer') === 0) {
     // Отделяем схему авторизации от "полезной нагрузки токена"
+    deleteCookie(accessTokenName);
     setCookie(accessTokenName, accessToken.split('Bearer ')[1], {
       sameSite: "Strict",
       maxAge: 1200, // 20 мин
@@ -71,6 +71,7 @@ export function saveAccessToken(accessToken) {
     });
   }
   else if (accessToken) {
+    deleteCookie(accessTokenName);
     setCookie(accessTokenName, accessToken, {
       sameSite: "Strict",
       maxAge: 1200, // 20 мин
@@ -80,11 +81,11 @@ export function saveAccessToken(accessToken) {
 };
 
 export function saveRefreshToken(refreshToken) {
-  deleteCookie(refreshTokenName);
   if (refreshToken) {
+    deleteCookie(refreshTokenName);
     setCookie(refreshTokenName, refreshToken, {
       sameSite: "Strict",
-      maxAge: 3600, // 20 мин
+      maxAge: 1200, // 20 мин
       secure: true
     });
   }
