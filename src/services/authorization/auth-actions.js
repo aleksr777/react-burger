@@ -42,7 +42,7 @@ export function deleteAuthData() {
 }
 
 
-/* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
+/* Обрабатываем ошибку 401 */
 export function handleAuthError(response, request) {
   return function (dispatch) {
 
@@ -52,6 +52,7 @@ export function handleAuthError(response, request) {
     (countRequest < 1 || !countRequest) ? countRequest = 1 : countRequest = ++countRequest;
 
     if (countRequest > 3) {
+      /* После трёх неудачных попыток удаляем данные об авторизации */
       sessionStorage.removeItem(nameCountStorage);
       dispatch({
         type: AUTH_SHOW_ERROR,

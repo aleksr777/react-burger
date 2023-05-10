@@ -1,4 +1,11 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { checkAuth } from '../../services/authorization/check-auth';
+import { deleteAuthData } from '../../services/authorization/auth-actions';
+import { requestGetIngredientsData } from '../../services/ingredients-data/ingredients-data-actions';
+import { requestGetUserData } from '../../services/authorization/auth-actions';
+import Loader from '../../components/loader/loader';
 import ProtectedRouteElement from '../protected-route/protected-route';
 import AppLayout from '../app-layout/app-layout';
 import ProfileEditUserBlock from '../profile-edit-user-block/profile-edit-user-block';
@@ -15,13 +22,35 @@ import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found/not-found';
 
+const getIngredientsDataState = state => state.ingredientsData;
+const getAuthState = state => state.authorization;
+
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  const { isSuccess, user } = useSelector(getAuthState);
+  const { isLoading, isError } = useSelector(getIngredientsDataState);
+
+  useEffect(() => {
+  /* Проверяем наличие данных для авторизации */
+    let isAuth = checkAuth(isSuccess, user.email);
+    isAuth
+      ? dispatch(requestGetUserData())/* Запрашиваем данные и проверяем актуальность токенов */
+      : dispatch(deleteAuthData());
+  }, []);
+
+  useEffect(() => {
+    dispatch(requestGetIngredientsData());
+  }, []);
 
   const location = useLocation();
   const background = location.state?.from || '';
 
   return (
     <>
+      <Loader size={100} isLoading={isLoading} isError={isError} />
+
       <Routes location={background || location}>
 
         <Route path='/' element={<AppLayout />}>

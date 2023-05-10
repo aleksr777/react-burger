@@ -1,4 +1,4 @@
-import { getIngredientsDataServer } from '../../utils/api';
+import { requestGetIngredientsDataServer } from '../../utils/api';
 import {
   blockUserInteraction,
   unblockUserInteraction,
@@ -15,7 +15,7 @@ export const INGREDIENTS_REMOVE_INGREDIENT_INFO = 'INGREDIENTS_REMOVE_INGREDIENT
 export const INGREDIENTS_DATA_ERROR = 'INGREDIENTS_DATA_ERROR';
 export const INGREDIENTS_DATA_SET_DEFAULT = 'INGREDIENTS_DATA_SET_DEFAULT';
 
-export function getIngredientsData() {
+export function requestGetIngredientsData() {
 
   return function (dispatch) {
 
@@ -32,7 +32,7 @@ export function getIngredientsData() {
     blockUserInteraction();
     const accessToken = getAccessToken();
 
-    getIngredientsDataServer(accessToken)
+    requestGetIngredientsDataServer(accessToken)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -73,7 +73,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     blockUserInteraction();
     const accessToken = getAccessToken();
 
-    getIngredientsDataServer(accessToken)
+    requestGetIngredientsDataServer(accessToken)
       .then(res => {
         if (res && res.success) {
           unblockUserInteraction();

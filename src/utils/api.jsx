@@ -24,7 +24,7 @@ function request(url, config) {
 
 
 //Получение от сервера данных об ингредиентах
-export const getIngredientsDataServer = (accessToken) => {
+export const requestGetIngredientsDataServer = (accessToken) => {
   const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/ingredients`, {
     method: 'GET',
@@ -60,7 +60,7 @@ export const requestLoginServer = async (email, password, accessToken) => {
 };
 
 //Запрос на получение данных о пользователе
-export const requestGetUserDataServer = async(accessToken) => {
+export const requestGetUserDataServer = async (accessToken) => {
   const { baseUrl, headers } = getApiConfig(accessToken);
   return request(`${baseUrl}/api/auth/user`, {
     method: 'GET',
