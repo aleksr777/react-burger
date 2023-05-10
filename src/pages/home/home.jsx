@@ -12,21 +12,20 @@ const getIngredientsDataState = state => state.ingredientsData;
 
 const HomePage = () => {
 
-  const { isLoading, isError, ingredientsData } = useSelector(getIngredientsDataState);
+  const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   const dispatch = useDispatch();
 
-  useEffect(() => { !ingredientsData.length && dispatch(getIngredientsData()) }, []);
+  useEffect(() => { dispatch(getIngredientsData()) }, []);
 
   return (
+    !isLoading &&
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
-      {!isLoading &&
-        (<DndProvider backend={HTML5Backend}>
-          <IngredientsBurger />
-          <ConstructorBurger />
-        </DndProvider>
-        )}
+      <DndProvider backend={HTML5Backend}>
+        <IngredientsBurger />
+        <ConstructorBurger />
+      </DndProvider>
     </>
   )
 };

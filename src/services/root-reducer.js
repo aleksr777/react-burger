@@ -30,47 +30,15 @@ const forgotPasswordPersistConfig = {
 const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
 
 
-const selectedIngrPersistConfig = {
-  key: 'react-burger-selectedIngr',
-  storage: sessionStorage,
-  whitelist: ['totalPrice', 'bun', 'ingredients'],
-};
-const persistedSelectedIngrReducer = persistReducer(selectedIngrPersistConfig, selectedIngrReducer);
-
-
-const orderIdPersistConfig = {
-  key: 'react-burger-orderId',
-  storage: sessionStorage,
-  whitelist: ['id', 'isModalOpened'],
-};
-const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
-
-
-const ingredientDetailsConfig = {
-  key: 'react-burger-ingredientDetails',
-  storage: sessionStorage,
-  whitelist: ['ingredient', 'isModalOpened'],
-};
-const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsConfig, ingredientDetailsReducer);
-
-
-const ingredientsDataConfig = {
-  key: 'react-burger-ingredientsData',
-  storage: sessionStorage,
-  whitelist: ['ingredientsData', 'ingredientInfo'],
-};
-const persistedIngredientsDataReducer = persistReducer(ingredientsDataConfig, ingredientsDataReducer);
-
-
 const rootReducer = combineReducers({
   authorization: persistedAuthReducer,
   registerUser: registerUserReducer,
   forgotPassword: persistedForgotPasswordReducer,
   resetPassword: resetPasswordReducer,
-  ingredientsData: persistedIngredientsDataReducer,
-  selectedIngr: persistedSelectedIngrReducer,
-  orderId: persistedOrderIdReducer,
-  ingredientDetails: persistedIngredientDetailsReducer,
+  ingredientsData: ingredientsDataReducer,
+  selectedIngr: selectedIngrReducer,
+  orderId: orderIdReducer,
+  ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,
 });
 
