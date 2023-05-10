@@ -81,4 +81,4 @@ const IngredientsBurger = () => {
   );
 };
 
-export default memo(IngredientsBurger);
+export default IngredientsBurger;

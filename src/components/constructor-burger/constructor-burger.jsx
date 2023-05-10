@@ -1,5 +1,4 @@
 import stylesConstructorBurger from './constructor-burger.module.css';
-import { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addBun, removeBun, addIngredient } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
@@ -62,4 +61,4 @@ const ConstructorBurger = () => {
   );
 };
 
-export default memo(ConstructorBurger);
+export default ConstructorBurger;

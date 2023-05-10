@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient, swapIngredients } from '../../services/selected-ingr/selected-ingr-actions';
-import {
-  ConstructorElement,
-  DragIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropTypes } from '../../utils/prop-types';
 
 const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
 
@@ -110,20 +108,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
 };
 
 ConstructorItem.propTypes = {
-  obj: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired
-  }).isRequired,
+  obj: ingredientPropTypes.isRequired,
   isLocked: PropTypes.bool.isRequired,
   isDragable: PropTypes.bool.isRequired,
 };

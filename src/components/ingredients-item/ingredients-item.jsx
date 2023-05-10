@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropTypes } from '../../utils/prop-types';
 
 
 const IngredientsItem = ({ children, ingredient }) => {
@@ -67,20 +68,7 @@ const IngredientsItem = ({ children, ingredient }) => {
 
 IngredientsItem.propTypes = {
   children: PropTypes.node.isRequired,
-  ingredient: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired
+  ingredient: ingredientPropTypes.isRequired,
 };
 
 export default memo(IngredientsItem);
