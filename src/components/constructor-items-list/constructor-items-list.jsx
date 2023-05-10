@@ -3,13 +3,12 @@ import { useSelector } from 'react-redux';
 import ConstructorItem from '../constructor-item/constructor-item';
 import { noIngrObj } from '../../constants/constants';
 import ConstructorBunElement from '../constructor-bun-element/constructor-bun-element';
-
-const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+import { getSelectedIngrState } from '../../utils/selectors';
 
 
 const ConstructorItemsList = () => {
 
-  const selectedIngredients = useSelector(getSelectedIngredientsState);
+  const {ingredients} = useSelector(getSelectedIngrState);
 
   return (
     <ul className={stylesItemsList.list}>
@@ -19,7 +18,7 @@ const ConstructorItemsList = () => {
       </li>
 
       <li>
-        {!selectedIngredients.length
+        {!ingredients.length
           ? (<ul className={`${stylesItemsList.list_scroll} ${stylesItemsList.list_scroll_disabled}`} >
             <ConstructorItem
               obj={noIngrObj}
@@ -29,7 +28,7 @@ const ConstructorItemsList = () => {
             />
           </ul>)
           : (<ul className={stylesItemsList.list_scroll}>
-            {selectedIngredients.map((obj) => (
+            {ingredients.map((obj) => (
               <ConstructorItem
                 obj={obj}
                 key={obj._uKey}

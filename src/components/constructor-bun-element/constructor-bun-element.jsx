@@ -1,22 +1,22 @@
-import stylesBunElement from './constructor-bun-element.module.css';
+import stylesConstructorBunElement from './constructor-bun-element.module.css';
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { getSelectedIngrState } from '../../utils/selectors';
 
-const getSelectedBunState = state => state.selectedIngr.bun;
 
 function ConstructorBunElement({ type, positionText }) {
 
-  const selectedBun = useSelector(getSelectedBunState);
+  const {bun} = useSelector(getSelectedIngrState);
 
   let nameTxt;
   let positionTxt;
 
-  if (selectedBun._id) {
-    nameTxt = selectedBun.name;
+  if (bun._id) {
+    nameTxt = bun.name;
     positionTxt = positionText;
   }
   else {
@@ -25,14 +25,14 @@ function ConstructorBunElement({ type, positionText }) {
   }
 
   return (
-    <div className={stylesBunElement.boxElement}
-      style={{ opacity: selectedBun._id ? 1 : .6 }} >
+    <div className={stylesConstructorBunElement.boxElement}
+      style={{ opacity: bun._id ? 1 : .6 }} >
       <ConstructorElement
         isLocked={true}
         type={type}
         text={`${nameTxt} ${positionTxt}`}
-        price={selectedBun.price}
-        thumbnail={selectedBun.image}
+        price={bun.price}
+        thumbnail={bun.image}
       />
     </div>
   )

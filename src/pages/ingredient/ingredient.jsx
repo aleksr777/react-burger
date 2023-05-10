@@ -5,8 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import Loader from '../../components/loader/loader';
-
-const getIngredientsDataState = state => state.ingredientsData;
+import { getIngredientsDataState } from '../../utils/selectors';
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
 const IngredientPage = () => {

@@ -4,8 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { checkAuth } from '../../services/authorization/check-auth';
 import { deleteAuthData } from '../../services/authorization/auth-actions';
-
-const getAuthState = state => state.authorization;
+import { getAuthState } from '../../utils/selectors'; 
 
 
 const ProtectedRouteElement = ({ children, forUnauthUser }) => {

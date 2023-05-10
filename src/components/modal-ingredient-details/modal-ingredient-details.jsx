@@ -4,8 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { closeIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-
-const getIngredientDetailsState = state => state.ingredientDetails;
+import { getIngredientDetailsState } from '../../utils/selectors';
 
 
 const ModalIngredientDetails = () => {

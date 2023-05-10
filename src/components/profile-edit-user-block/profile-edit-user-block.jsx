@@ -5,8 +5,7 @@ import { requestChangeUserData } from '../../services/authorization/auth-actions
 import FormInput from '../form-input/form-input';
 import Loader from '../loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
-const getAuthState = state => state.authorization;
+import { getAuthState } from '../../utils/selectors'; 
 
 
 const ProfileEditUserBlock = () => {

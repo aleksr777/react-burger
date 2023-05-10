@@ -5,13 +5,7 @@ import { getOrderId } from '../../services/order-id/order-id-actions';
 import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkAuth } from '../../services/authorization/check-auth';
-
-
-const getOrderIdState = state => state.orderId;
-const getTotalPriceState = state => state.selectedIngr.totalPrice;
-const getSelectedBunState = state => state.selectedIngr.bun;
-const getIngredientsState = state => state.selectedIngr.ingredients;
-const getAuthState = state => state.authorization;
+import { getAuthState, getOrderIdState, getSelectedIngrState } from '../../utils/selectors';
 
 
 const OrderingButton = () => {
@@ -20,32 +14,27 @@ const OrderingButton = () => {
   const navigate = useNavigate();
 
   const { isLoading, isError } = useSelector(getOrderIdState);
+  const { ingredients, bun, totalPrice } = useSelector(getSelectedIngrState);
+  const { isSuccess, user } = useSelector(getAuthState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
-  const totalPrice = useSelector(getTotalPriceState);
-
-  const selectedBun = useSelector(getSelectedBunState);
-
-  const selectedIngredients = useSelector(getIngredientsState);
-
-  const { isSuccess, user } = useSelector(getAuthState);
   const isAuth = checkAuth(isSuccess, user.email);
 
   // Проверка для активировации/дезактивации кнопки заказа.
   useEffect(() => {
-    if (!totalPrice || totalPrice <= 0 || !selectedBun._id || !selectedIngredients.length) {
+    if (!totalPrice || totalPrice <= 0 || !bun._id || !ingredients.length) {
       setOrderActive(false);
     }
     else {
       setOrderActive(true)
     };
-  }, [totalPrice, selectedBun._id, selectedIngredients.length]);
+  }, [totalPrice, bun._id, ingredients.length]);
 
   /* отправка запроса после нажатия кнопки */
   function sendOrderRequest() {
     if (isAuth) {
-      const arrId = [selectedBun._id, ...selectedIngredients.map(obj => obj._id), selectedBun._id];
+      const arrId = [bun._id, ...ingredients.map(obj => obj._id), bun._id];
       dispatch(getOrderId(arrId));
     }
     else { navigate('/login') }

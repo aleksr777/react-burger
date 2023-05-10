@@ -7,9 +7,7 @@ import FormInput from '../../components/form-input/form-input';
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
 import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
-const forgotPasswordState = state => state.forgotPassword;
-const resetPasswordState = state => state.resetPassword;
+import { forgotPasswordState, resetPasswordState } from '../../utils/selectors';
 
 
 const ResetPasswordPage = () => {
@@ -19,7 +17,7 @@ const ResetPasswordPage = () => {
 
   const { isLoading, isError } = useSelector(resetPasswordState);
   const forgotPassword = useSelector(forgotPasswordState);
-  const resetPassword = useSelector(forgotPasswordState);
+  const resetPassword = useSelector(resetPasswordState);
 
   const [inputsData, setInputsData] = useState({
     valuePassword: '',
@@ -48,7 +46,7 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    
+
     forgotPassword.isSuccess && (
 
       <div className={stylesResetPasswordPage.container}>

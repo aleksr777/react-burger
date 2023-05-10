@@ -6,8 +6,7 @@ import { registerUserRequest } from '../../services/register-user/register-user-
 import FormInput from '../../components/form-input/form-input';
 import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
-const registerUserState = state => state.registerUser;
+import { registerUserState } from '../../utils/selectors';
 
 
 const RegisterPage = () => {

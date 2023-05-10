@@ -5,9 +5,7 @@ import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import CounterItem from '../counter-item/counter-item';
 import TabElement from '../tab-element/tab-element';
-
-
-const getIngredientsDataState = state => state.ingredientsData;
+import { getIngredientsDataState } from '../../utils/selectors';
 
 
 const IngredientsBurger = () => {

@@ -2,8 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeOrderDetailsModal } from '../../services/order-id/order-id-actions';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
-
-const getOrderIdState = state => state.orderId;
+import { getOrderIdState } from '../../utils/selectors';
 
 
 const ModalOrderDetails = () => {

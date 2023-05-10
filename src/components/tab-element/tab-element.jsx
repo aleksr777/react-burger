@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_TAB } from '../../services/tab/tab-actions';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-
-const getCurrentTabState = state => state.currentTab;
+import { getCurrentTabState } from '../../utils/selectors';
 
 
 const TabElement = ({ children, ingredientText }) => {

@@ -6,15 +6,14 @@ import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient, swapIngredients } from '../../services/selected-ingr/selected-ingr-actions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropTypes } from '../../utils/prop-types';
-
-const getSelectedIngredientsState = state => state.selectedIngr.ingredients;
+import { getSelectedIngrState } from '../../utils/selectors';
 
 
 const ConstructorItem = ({ obj, isLocked }) => {
 
   const dispatch = useDispatch();
 
-  const selectedIngredients = useSelector(getSelectedIngredientsState);
+  const { ingredients } = useSelector(getSelectedIngrState);
 
   const [{ dragElementData, dragItemOpacity }, dragRef] = useDrag({
     type: 'selectedIngr',
@@ -32,13 +31,13 @@ const ConstructorItem = ({ obj, isLocked }) => {
 
   function dropHandler(dropObj, dragObj) {
     /* определяем позицию в массиве */
-    const fromPosition = selectedIngredients.indexOf(dragObj);
-    const toPosition = selectedIngredients.indexOf(dropObj);
+    const fromPosition = ingredients.indexOf(dragObj);
+    const toPosition = ingredients.indexOf(dropObj);
     /* Проверяем, откуда перетаскиваемый объект*/
     if (dragElementData.locationDnd === 'ConstructorBurger') {
       /* исключаем перетаскивание на самого себя */
       if (dropObj._uKey !== dragObj._uKey) {
-        dispatch(swapIngredients(dragObj, fromPosition, toPosition, selectedIngredients))
+        dispatch(swapIngredients(dragObj, fromPosition, toPosition, ingredients))
       }
     }
   };
@@ -101,7 +100,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
         text={obj.name}
         price={obj.price}
         thumbnail={obj.image}
-        handleClose={() => dispatch(removeIngredient(obj._uKey, obj.price, selectedIngredients))}
+        handleClose={() => dispatch(removeIngredient(obj._uKey, obj.price, ingredients))}
       />
     </li>
   )

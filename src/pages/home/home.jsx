@@ -3,8 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ConstructorBurger from '../../components/constructor-burger/constructor-burger';
 import IngredientsBurger from '../../components/ingredients-burger/ingredients-burger';
-
-const getIngredientsDataState = state => state.ingredientsData;
+import { getIngredientsDataState } from '../../utils/selectors';
 
 
 const HomePage = () => {

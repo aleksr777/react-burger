@@ -21,9 +21,7 @@ import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found/not-found';
-
-const getIngredientsDataState = state => state.ingredientsData;
-const getAuthState = state => state.authorization;
+import { getIngredientsDataState, getAuthState } from '../../utils/selectors';
 
 const App = () => {
 
@@ -33,7 +31,7 @@ const App = () => {
   const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   useEffect(() => {
-  /* Проверяем наличие данных для авторизации */
+    /* Проверяем наличие данных для авторизации */
     let isAuth = checkAuth(isSuccess, user.email);
     isAuth
       ? dispatch(requestGetUserData())/* Запрашиваем данные и проверяем актуальность токенов */

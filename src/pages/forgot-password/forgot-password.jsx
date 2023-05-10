@@ -5,9 +5,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
 import FormInput from '../../components/form-input/form-input';
 import Loader from '../../components/loader/loader';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
-const forgotPasswordState = state => state.forgotPassword;
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'; 
+import { forgotPasswordState } from '../../utils/selectors';
 
 
 const ForgotPasswordPage = () => {

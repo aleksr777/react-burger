@@ -6,15 +6,14 @@ import ModalOrderDetails from '../modal-order-details/modal-order-details';
 import OrderingPrice from '../ordering-price/ordering-price';
 import OrderingButton from '../ordering-button/ordering-button';
 import ConstructorItemsList from '../constructor-items-list/constructor-items-list';
-
-const getIngredientsState = state => state.selectedIngr;
+import { getSelectedIngrState } from '../../utils/selectors';
 
 
 const ConstructorBurger = () => {
 
   const dispatch = useDispatch();
 
-  const { bun, ingredients } = useSelector(getIngredientsState);
+  const { bun, ingredients } = useSelector(getSelectedIngrState);
 
   // Добавление новой булки и ингредиента с добавлением цены в общую стоимость
   const dropHandler = (item, bun) => {
