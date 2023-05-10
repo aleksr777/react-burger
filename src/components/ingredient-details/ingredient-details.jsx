@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const IngredientDetails = ({ ingredient, titleAlign }) => {
   return (
     <>
-      <p 
-      className={ingrDetailsStyles.title}
+      <p
+        className={ingrDetailsStyles.title}
         style={{ textAlign: titleAlign }}
       >
         Детали ингредиента
@@ -46,19 +46,22 @@ const IngredientDetails = ({ ingredient, titleAlign }) => {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
+  ingredient: PropTypes.oneOfType([
+    PropTypes.shape({
+      calories: PropTypes.number.isRequired,
+      carbohydrates: PropTypes.number.isRequired,
+      fat: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      image_large: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      proteins: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      __v: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
+    }).isRequired,
+    PropTypes.oneOf([null]) // Разрешение значения null
+  ]),
   titleAlign: PropTypes.string.isRequired,
 };
