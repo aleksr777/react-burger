@@ -4,9 +4,6 @@ import {
   blockUserInteraction,
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
-import {
-  getAccessToken,
-} from '../authorization/tokens-service';
 import { FORGOT_PASSWORD_DEFAULT } from '../forgot-password/forgot-password-actions';
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
@@ -35,9 +32,8 @@ export function resetPasswordRequest(goToAuthPage, valuePassword, valueCode) {
 
     dispatch({ type: RESET_PASSWORD_REQUEST, payload: {} });
     blockUserInteraction();
-    const accessToken = getAccessToken();
 
-    resetPasswordRequestServer(valuePassword, valueCode, accessToken)
+    resetPasswordRequestServer(valuePassword, valueCode)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: RESET_PASSWORD_SUCCESS, payload: {} });

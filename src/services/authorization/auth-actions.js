@@ -7,8 +7,6 @@ import {
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
 import {
-  getAccessToken,
-  getRefreshToken,
   saveAccessToken,
   saveRefreshToken,
   removeTokens,
@@ -83,10 +81,7 @@ export function requestUpdateToken(repeatRequest) {
 
     blockUserInteraction();
 
-    const accessToken = getAccessToken();
-    const refreshToken = getRefreshToken();
-
-    requestUpdateTokenServer(accessToken, refreshToken)
+    requestUpdateTokenServer()
       .then(res => {
         if (res && res.success) {
           saveAccessToken(res.accessToken);
@@ -137,9 +132,7 @@ export function requestLogin(email, password) {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    const accessToken = getAccessToken();
-
-    requestLoginServer(email, password, accessToken)
+    requestLoginServer(email, password)
       .then(res => {
         if (res && res.success) {
           saveAccessToken(res.accessToken);
@@ -196,10 +189,7 @@ export function requestLogout() {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    const accessToken = getAccessToken();
-    const refreshToken = getRefreshToken();
-
-    requestLogoutServer(accessToken, refreshToken)
+    requestLogoutServer()
       .then(res => {
         if (res && res.success) {
           setTimeout(() => {
@@ -247,10 +237,7 @@ export function requestGetUserData() {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    const accessToken = getAccessToken();
-    const refreshToken = getRefreshToken();
-
-    requestGetUserDataServer(accessToken, refreshToken)
+    requestGetUserDataServer()
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -303,9 +290,7 @@ export function requestChangeUserData(user, setInputsData) {
     dispatch({ type: AUTH_REQUEST, payload: {} });
     blockUserInteraction();
 
-    const accessToken = getAccessToken();
-
-    requestChangeUserDataServer(user, accessToken)
+    requestChangeUserDataServer(user)
       .then(res => {
         if (res && res.success) {
           dispatch({

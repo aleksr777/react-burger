@@ -4,7 +4,6 @@ import {
 import {
   saveAccessToken,
   saveRefreshToken,
-  getAccessToken,
 } from '../authorization/tokens-service';
 import {
   registerUserRequestServer,
@@ -44,9 +43,8 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });
     blockUserInteraction();
-    const accessToken = getAccessToken();
 
-    registerUserRequestServer(valueName, valueEmail, valuePassword, accessToken)
+    registerUserRequestServer(valueName, valueEmail, valuePassword)
       .then(res => {
         if (res && res.success) {
           dispatch({ type: REGISTER_USER_SUCCESS, payload: {} });
