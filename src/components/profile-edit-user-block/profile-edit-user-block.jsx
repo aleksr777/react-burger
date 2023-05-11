@@ -5,7 +5,7 @@ import { requestChangeUserData } from '../../services/authorization/auth-actions
 import FormInput from '../form-input/form-input';
 import Loader from '../loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getAuthState } from '../../utils/selectors'; 
+import { getAuthState } from '../../utils/selectors';
 
 
 const ProfileEditUserBlock = () => {
@@ -22,8 +22,6 @@ const ProfileEditUserBlock = () => {
 
   const [inputsData, setInputsData] = useState(userData);
   const [isFormChanged, setIsFormChanged] = useState(false);
-  const [isInputsEmpty, setIsInputsEmpty] = useState(false);
-  const [isSubmitActive, setIsSubmitActive] = useState(false);
 
 
   const handleInputChange = (e) => {
@@ -42,26 +40,9 @@ const ProfileEditUserBlock = () => {
   }, [inputsData, user]);
 
 
-  /* Проверяем, есть ли пустые инпуты в форме */
-  useEffect(() => {
-    for (const key in inputsData) {
-      if (!inputsData[key]) {
-        return setIsInputsEmpty(true);
-      }
-    }
-    setIsInputsEmpty(false);
-  }, [inputsData]);
-
-
-  /* Задаём состояние кнопки Submit */
-  useEffect(() => {
-    setIsSubmitActive((isFormChanged && !isInputsEmpty) ? true : false)
-  }, [user, inputsData, isFormChanged, isInputsEmpty]);
-
-
   function handleSubmit(e) {
     e.preventDefault();
-    if (!isSubmitActive) {
+    if (!isFormChanged) {
       return null
     }
     dispatch(requestChangeUserData(inputsData, setInputsData));
@@ -76,6 +57,7 @@ const ProfileEditUserBlock = () => {
     setInputsData(userData);
   }
 
+  
   return (
     <>
       <Loader size={100} isLoading={isLoading} isError={isError} />
@@ -133,7 +115,7 @@ const ProfileEditUserBlock = () => {
                 type="primary"
                 size="medium"
                 style={{ opacity: isFormChanged ? '' : '0' }}
-                disabled={!isSubmitActive}
+                disabled={!isFormChanged}
               >
                 Сохранить
               </Button>
