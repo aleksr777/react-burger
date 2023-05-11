@@ -12,7 +12,6 @@ import {
 } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
-import logger from 'redux-logger';
 import { createRoot } from 'react-dom/client';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
