@@ -2,20 +2,20 @@
   box-sizing: border-box;
 }
 
-.navBlock {
-  margin: 0 4px 0 0;
-  padding: 19px 0 0 2px;
-  display: flex;
-  width: 320px;
-  flex-direction: column;
-  gap: 34px;
-}
-
 .container {
-  padding: 118px 0 0 0;
+  padding: 0;
   margin: 0;
   width: 100%;
   display: flex;
+}
+
+.navBlock {
+  flex: 0 0 320px;
+  margin: 0 2px 0 0;
+  padding: 137px 0 0 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
 }
 
 .logoutButton {

@@ -36,8 +36,14 @@
   align-items: center;
 }
 
+/* для "личного кабинета" */
+.nav>*:last-child {
+  margin-right: -3px;
+}
+
+/* для логотипа */
 .nav__box>*:last-child {
-  margin-left: 104px;
+  margin-left: 108px;
 }
 
 .main {
