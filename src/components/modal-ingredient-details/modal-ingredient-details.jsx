@@ -1,29 +1,42 @@
+import stylesModalIngredientDetails from './modal-ingredient-details.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { REMOVE_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details-actions';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { closeIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
+import { getIngredientDetailsState } from '../../utils/selectors';
 
-
-const getIngredientDetailsState = state => state.ingredientDetails.ingredient;
 
 const ModalIngredientDetails = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const currentIngredient = useSelector(getIngredientDetailsState);
+  /* isModalOpened нужен для анимации 
+  (иначе информация об ингредиенте в модальном окне исчезает раньше, чем окно успевает закрыться) */
+  const { ingredient, isModalOpened } = useSelector(getIngredientDetailsState);
+
+  if (!ingredient) {
+    return null
+  }
+
+  const fromPage = location.state?.from || '/';
+
+  function goToPage() {
+    navigate(fromPage, { replace: true });
+  };
 
   const handleCloseModal = () => {
-    dispatch({ type: REMOVE_INGREDIENT_DETAILS, payload: {} });
+    dispatch(closeIngredientDetailsModal(goToPage));
   };
 
   return (
-    <>
-      {
-        currentIngredient
-          ? (<Modal handleCloseModal={handleCloseModal}><IngredientDetails ingredient={currentIngredient} /></Modal>)
-          : null
-      }
-    </>
+    <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
+      <div className={stylesModalIngredientDetails.container}>
+        <IngredientDetails ingredient={ingredient} titleAlign='left' />
+      </div>
+    </Modal>
   )
 };
 

@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: #8585AD;
+  width: fit-content;
+  transition: all .4s ease 0s;
+  composes: text text_type_main-medium from global;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.link_active {
+  color: #F2F2F3;
+  cursor: default;
+  pointer-events: none;
+}

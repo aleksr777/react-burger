@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+.section {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  flex: 0 0 auto;
+  max-width: 600px;
+  min-height: 912px;
+  height: 100%;
+  width: 100%;
+  transition: all .3s ease 0s;
+  composes: pt-25 from global;
+}
+
+.order {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  composes: pt-10 pr-4 from global;
+}

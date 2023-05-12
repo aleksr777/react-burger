@@ -1,29 +1,120 @@
-import appStyles from './app.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_DATA_INGREDIENTS_REQUEST } from '../../services/actions/ingredients-data-actions';
-import AppHeader from '../app-header/app-header';
-import AppMain from '../app-main/app-main';
-import Preloader from '../../ui/preloader/preloader';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { checkAuth } from '../../services/authorization/check-auth';
+import { deleteAuthData } from '../../services/authorization/auth-actions';
+import { requestGetIngredientsData } from '../../services/ingredients-data/ingredients-data-actions';
+import { requestGetUserData } from '../../services/authorization/auth-actions';
+import Loader from '../../components/loader/loader';
+import ProtectedRouteElement from '../protected-route/protected-route';
+import AppLayout from '../app-layout/app-layout';
+import ProfileEditUserBlock from '../profile-edit-user-block/profile-edit-user-block';
+import ProfileOdersBlock from '../profile-orders-block/profile-orders-block';
 
-const getIngredientsDataState = state => state.ingredientsData;
+import HomePage from '../../pages/home/home';
+import FeedPage from '../../pages/feed/feed';
+import ProfilePage from '../../pages/profile/profile';
+import IngredientPage from '../../pages/ingredient/ingredient';
+import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
+import LoginPage from '../../pages/login/login';
+import RegisterPage from '../../pages/register/register';
+import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
+import ResetPasswordPage from '../../pages/reset-password/reset-password';
+import NotFoundPage from '../../pages/not-found/not-found';
+import { getIngredientsDataState, getAuthState } from '../../utils/selectors';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
-  const { loadingState } = useSelector(getIngredientsDataState);
+  const { isSuccess, user } = useSelector(getAuthState);
+  const { isLoading, isError } = useSelector(getIngredientsDataState);
 
-  useEffect(() => { dispatch({ type: GET_DATA_INGREDIENTS_REQUEST, payload: {} }) }, []);
+  useEffect(() => {
+    /* Проверяем наличие данных для авторизации */
+    let isAuth = checkAuth(isSuccess, user.email);
+    isAuth
+      ? dispatch(requestGetUserData())/* Запрашиваем данные и проверяем актуальность токенов */
+      : dispatch(deleteAuthData());
+  }, []);
+
+  useEffect(() => {
+    dispatch(requestGetIngredientsData());
+  }, []);
+
+  const location = useLocation();
+  const background = location.state?.from || '';
 
   return (
-    <div className={appStyles.app}>
+    <>
+      <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <AppHeader />
+      <Routes location={background || location}>
 
-      {loadingState ? <Preloader /> : <AppMain />}
+        <Route path='/' element={<AppLayout />}>
 
-    </div >
+          <Route index element={<HomePage />} />
+
+          <Route path='login' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <LoginPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='register' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <RegisterPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='forgot-password' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <ForgotPasswordPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='reset-password' element={
+            <ProtectedRouteElement forUnauthUser={true}>
+              <ResetPasswordPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='ingredients/:id' element={<IngredientPage />} />
+
+          <Route path='profile/' element={
+            <ProtectedRouteElement forUnauthUser={false}>
+              <ProfilePage />
+            </ProtectedRouteElement>
+          }>
+            <Route index element={
+              <ProfileEditUserBlock />
+            } />
+            <Route path='orders' element={
+              <ProfileOdersBlock />
+            } />
+          </Route>
+
+          <Route path='feed' element={
+            <ProtectedRouteElement forUnauthUser={false}>
+              <FeedPage />
+            </ProtectedRouteElement>
+          } />
+
+        </Route>
+
+        <Route path='*' element={<NotFoundPage />} />
+        <Route path='not-found-page' element={<NotFoundPage />} />
+
+      </Routes>
+
+      {background && (
+        <Routes>
+          <Route path='ingredients/:id' element={
+            <ModalIngredientDetails />
+          } />
+        </Routes>
+      )}
+    </>
   )
 };
 

@@ -1,29 +1,30 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { REMOVE_ORDER_ID } from '../../services/actions/order-id-actions';
+import { closeOrderDetailsModal } from '../../services/order-id/order-id-actions';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
+import { getOrderIdState } from '../../utils/selectors';
 
-
-const getOrderIdState = state => state.orderId.id;
 
 const ModalOrderDetails = () => {
 
   const dispatch = useDispatch();
 
-  const orderId = useSelector(getOrderIdState);
+  /* isModalOpened нужен для анимации
+  (иначе надпись ID заказа в модальном окне исчезает раньше, чем окно успевает закрыться) */
+  const { id, isModalOpened } = useSelector(getOrderIdState);
+
+  if (!id) {
+    return null
+  }
 
   const handleCloseModal = () => {
-    dispatch({ type: REMOVE_ORDER_ID, payload: {} });
+    dispatch(closeOrderDetailsModal());
   };
 
   return (
-    <>
-      {
-        orderId
-          ? (<Modal handleCloseModal={handleCloseModal}><OrderDetails orderId={String(orderId)} /></Modal>)
-          : null
-      }
-    </>
+    <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
+      <OrderDetails orderId={String(id)} />
+    </Modal>
   )
 };
 

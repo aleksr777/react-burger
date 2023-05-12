@@ -1,14 +1,23 @@
 import ingrDetailsStyles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/prop-types';
 
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails = ({ ingredient, titleAlign }) => {
   return (
-    <div className={ingrDetailsStyles.container}>
-
-      <p className={ingrDetailsStyles.title}>Детали ингредиента</p>
+    <>
+      <p
+        className={ingrDetailsStyles.title}
+        style={{ textAlign: titleAlign }}
+      >
+        Детали ингредиента
+      </p>
 
       <picture className={ingrDetailsStyles.imageBox}>
-        <img className={ingrDetailsStyles.image} src={ingredient.image_large} alt={ingredient.name} />
+        <img className={ingrDetailsStyles.image}
+          src={ingredient.image_large}
+          alt={ingredient.name}
+          draggable='false'
+        />
       </picture>
 
       <p className={ingrDetailsStyles.name}>{ingredient.name}</p>
@@ -31,25 +40,16 @@ const IngredientDetails = ({ingredient}) => {
           <p className={ingrDetailsStyles.composition__number}>{ingredient.carbohydrates}</p>
         </div>
       </div>
-    </div>
+    </>
   )
 };
 
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired
-};
-
 export default IngredientDetails;
+
+IngredientDetails.propTypes = {
+  ingredient: PropTypes.oneOfType([
+    ingredientPropTypes.isRequired,
+    PropTypes.oneOf([null]) // Разрешение значения null
+  ]),
+  titleAlign: PropTypes.string.isRequired,
+};

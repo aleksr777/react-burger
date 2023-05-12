@@ -1,23 +1,28 @@
+import stylesOrderDetails from './order-details.module.css';
 import PropTypes from 'prop-types';
-import orderDetailsStyles from './order-details.module.css';
 import donePath from '../../images/done.svg'
 
 const OrderDetails = ({ orderId }) => {
   return (
-    <div className={orderDetailsStyles.container}>
-      <p className={orderDetailsStyles.id}>{orderId}</p>
-      <p className={orderDetailsStyles.title}>идентификатор заказа</p>
-      <picture className={orderDetailsStyles.imageBox}>
-        <img className={orderDetailsStyles.image} src={donePath} alt="Иконка успешного заказа." />
+    <div className={stylesOrderDetails.container}>
+      <p className={stylesOrderDetails.id}>{orderId}</p>
+      <p className={stylesOrderDetails.title}>идентификатор заказа</p>
+      <picture className={stylesOrderDetails.imageBox}>
+        <img
+          className={stylesOrderDetails.image}
+          src={donePath}
+          alt='Иконка успешного заказа.'
+          draggable='false'
+        />
       </picture>
-      <p className={orderDetailsStyles.info}>Ваш заказ начали готовить</p>
-      <p className={orderDetailsStyles.instruction}>Дождитесь готовности на орбитальной станции</p>
+      <p className={stylesOrderDetails.info}>Ваш заказ начали готовить</p>
+      <p className={stylesOrderDetails.instruction}>Дождитесь готовности на орбитальной станции</p>
     </div>
   )
 };
 
+export default OrderDetails;
+
 OrderDetails.propTypes = {
   orderId: PropTypes.string.isRequired
 };
-
-export default OrderDetails;
