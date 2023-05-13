@@ -74,7 +74,7 @@ export function saveAccessToken(accessToken) {
     deleteCookie(accessTokenName);
     setCookie(accessTokenName, accessToken, {
       sameSite: "Strict",
-      maxAge: 86400, // 24 часа
+      maxAge: 1200, // 20 мин
       secure: true
     });
   };
@@ -85,7 +85,7 @@ export function saveRefreshToken(refreshToken) {
     deleteCookie(refreshTokenName);
     setCookie(refreshTokenName, refreshToken, {
       sameSite: "Strict",
-      maxAge: 1200, // 20 мин
+      maxAge: 86400, // 24 часа
       secure: true
     });
   }
