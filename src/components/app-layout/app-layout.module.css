@@ -38,7 +38,7 @@
 
 /* для "личного кабинета" */
 .nav>*:last-child {
-  margin-right: -3px;
+  padding-right: 15px;
 }
 
 /* для логотипа */
