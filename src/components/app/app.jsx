@@ -31,10 +31,10 @@ const App = () => {
   const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   useEffect(() => {
-    /* Проверяем наличие данных для авторизации */
+    //Проверяем наличие данных для авторизации
     let isAuth = checkAuth(isSuccess, user.email);
     isAuth
-      ? dispatch(requestGetUserData())/* Запрашиваем данные и проверяем актуальность токенов */
+      ? dispatch(requestGetUserData())//Запрашиваем данные и проверяем актуальность токенов
       : dispatch(deleteAuthData());
   }, []);
 

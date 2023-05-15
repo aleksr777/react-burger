@@ -1,5 +1,5 @@
 import stylesIngredientsBurger from './ingredients-burger.module.css';
-import { useMemo, memo } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';

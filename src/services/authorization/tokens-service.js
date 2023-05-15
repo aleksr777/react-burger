@@ -45,9 +45,7 @@ function setCookie(name, value, props) {
 };
 
 function getCookie(name) {
-  let matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
+  let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
   return matches ? decodeURIComponent(matches[1]) : '';
 };
 
@@ -94,6 +92,11 @@ export function saveRefreshToken(refreshToken) {
 export function getAccessToken() {
   const token = getCookie(accessTokenName);
   return token ? `Bearer ${token}` : '';
+};
+
+export function getRawAccessToken() {
+  const token = getCookie(accessTokenName);
+  return token ? token : '';
 };
 
 export function getRefreshToken() {

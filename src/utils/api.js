@@ -2,7 +2,10 @@
 import {
   getAccessToken,
   getRefreshToken,
+  getRawAccessToken
 } from '../services/authorization/tokens-service';
+
+const baseUrl = 'norma.nomoreparties.space';
 
 /**
  * Сделал функцию, чтобы accessToken считывался напрямую из памяти при каждом обращении к серверу
@@ -10,7 +13,7 @@ import {
 function getApiConfig() {
   const accessToken = getAccessToken();
   return {
-    baseUrl: 'https://norma.nomoreparties.space',
+    baseUrl: `https://${baseUrl}`,
     headers: {
       authorization: accessToken,
       'Content-Type': 'application/json'
@@ -66,6 +69,7 @@ export const requestLoginServer = async (email, password) => {
   })
 };
 
+
 //Запрос на получение данных о пользователе
 export const requestGetUserDataServer = async () => {
   const { baseUrl, headers } = getApiConfig();
@@ -74,6 +78,25 @@ export const requestGetUserDataServer = async () => {
     headers,
   })
 };
+
+/* Открыть WebSocket соединение */
+export const connectToWebSocket = async () => {
+  const accessToken = getRawAccessToken();
+  const ws = new WebSocket(`wss://${baseUrl}/orders?token=${accessToken}`);
+  ws.onopen = () => {
+    console.log('WebSocket cоединение установлено');
+  };
+  return ws;
+};
+
+/* Закрыть WebSocket соединение */
+export const closeWebSocketConnection = (ws) => {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.close();
+    console.log('WebSocket соединение закрыто');
+  }
+};
+
 
 //Запрос на изменение данных о пользователе
 export const requestChangeUserDataServer = async ({ name, email, password }) => {

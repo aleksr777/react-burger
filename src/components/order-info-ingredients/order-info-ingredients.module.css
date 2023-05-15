@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
+.order__ingredients {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.order__items {
+  max-width: 50%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+  display: flex;
+  margin: 0;
+  padding: 0 0 0 16px;
+}
+
+.order__item {
+  display: block;
+  position: relative;
+  margin: 0 0 0 -16px;
+  padding: 2px;
+  width: fit-content;
+  height: fit-content;
+  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%), linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.picture {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 1/1;
+  user-select: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #131316;
+}
+
+.picture_overflow::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 28, 33, 0.6);
+}
+
+.picture__img {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.order__countOverflow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  composes: text text_type_main-default from global;
+
+}
+
+.order__item_overflow {
+  position: relative;
+  z-index: 1;
+}
+
+.order__item:nth-child(5) {
+  z-index: 2;
+}
+
+.order__item:nth-child(4) {
+  z-index: 3;
+}
+
+.order__item:nth-child(3) {
+  z-index: 4;
+}
+
+.order__item:nth-child(2) {
+  z-index: 5;
+}
+
+.order__item:nth-child(1) {
+  z-index: 6;
+}
+
+.order__priceBlock {
+  max-width: 50%;
+  display: flex;
+  position: relative;
+  margin: 0 -4px 0 0;
+  padding: 0;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.priceBlock__number {
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  composes: text_type_digits-default from global;
+}

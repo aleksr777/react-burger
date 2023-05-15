@@ -2,6 +2,7 @@ import {
   AUTH_REQUEST,
   AUTH_SUCCESS_LOGIN,
   AUTH_SUCCESS_USER,
+  AUTH_SUCCESS_ORDERS,
   AUTH_SHOW_ERROR,
   AUTH_DEFAULT,
   AUTH_HIDE_ERROR,
@@ -15,6 +16,7 @@ const defaultState = {
     name: '',
     email: '',
   },
+  orders: [],
   isError: {
     state: false,
     title: '',
@@ -50,6 +52,18 @@ const authReducer = (state = defaultState, action) => {
         isLoading: false,
         isSuccess: true,
         user: action.payload.user,
+        isError: {
+          ...state.isError,
+          state: false,
+        }
+      };
+
+    case AUTH_SUCCESS_ORDERS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true, 
+        orders: action.payload.orders,
         isError: {
           ...state.isError,
           state: false,

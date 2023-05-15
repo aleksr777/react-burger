@@ -21,6 +21,7 @@ import {
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS_LOGIN = 'AUTH_SUCCESS_LOGIN';
 export const AUTH_SUCCESS_USER = 'AUTH_SUCCESS_USER';
+export const AUTH_SUCCESS_ORDERS = 'AUTH_SUCCESS_ORDERS';
 export const AUTH_SUCCESS_UPDATE_TOKEN = 'AUTH_SUCCESS_UPDATE_TOKEN';
 export const AUTH_SHOW_ERROR = 'AUTH_SHOW_ERROR';
 export const AUTH_DEFAULT = 'AUTH_DEFAULT';
@@ -257,6 +258,40 @@ export function requestGetUserData() {
       .catch(err => {
         handleError(err);
       });
+  };
+};
+
+
+/* Запрос на получение истории заказов пользователе */
+export function requestGetUserOrders(ws) {
+
+  return function (dispatch) {
+
+    dispatch({ type: AUTH_REQUEST, payload: {} });
+    blockUserInteraction();
+
+    ws.onmessage = (e) => {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        const res = JSON.parse(e.data);
+        dispatch({ type: AUTH_SUCCESS_ORDERS, payload: { orders: res.orders } });
+        setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error('WebSocket error:', err);
+      dispatch({
+        type: AUTH_SHOW_ERROR,
+        payload: {
+          message: err,
+          title: 'Ошибка WebSocket-соединения',
+        }
+      });
+      setTimeout(() => {
+        dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
+        unblockUserInteraction();
+      }, 1500);
+    };
   };
 };
 

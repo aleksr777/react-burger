@@ -27,12 +27,12 @@
 }
 
 .section__blocks::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
   background-color: rgba(47, 47, 55, 1);
 }
 
 .section__blocks::-webkit-scrollbar-thumb {
-  width: 8px;
+  width: 7px;
   background-color: rgba(133, 133, 173, 1)
 }
 
