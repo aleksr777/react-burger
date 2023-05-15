@@ -262,7 +262,7 @@ export function requestGetUserData() {
 };
 
 
-/* Запрос на получение истории заказов пользователе */
+/* Получение истории заказов пользователя */
 export function requestGetUserOrders(ws) {
 
   return function (dispatch) {
@@ -273,7 +273,7 @@ export function requestGetUserOrders(ws) {
     ws.onmessage = (e) => {
       if (ws && ws.readyState === WebSocket.OPEN) {
         const res = JSON.parse(e.data);
-        dispatch({ type: AUTH_SUCCESS_ORDERS, payload: { orders: res.orders } });
+        dispatch({ type: AUTH_SUCCESS_ORDERS, payload: { orders: res.orders.reverse() } });
         setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
       }
     };
