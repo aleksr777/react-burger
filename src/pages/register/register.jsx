@@ -1,12 +1,10 @@
 import stylesRegisterPage from './register.module.css';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
 import FormInput from '../../components/form-input/form-input';
-import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { registerUserState } from '../../utils/selectors';
 
 
 const RegisterPage = () => {
@@ -18,8 +16,6 @@ const RegisterPage = () => {
     valueEmail: '',
     valuePassword: '',
   });
-
-  const { isLoading, isError } = useSelector(registerUserState);
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value })
@@ -86,8 +82,6 @@ const RegisterPage = () => {
       <p className={stylesRegisterPage.text}>
         Уже зарегистрированы? <Link to='/login' className={stylesRegisterPage.link}>Войти</Link>
       </p>
-
-      <Loader size={100} isLoading={isLoading} isError={isError} />
 
     </div>
   )

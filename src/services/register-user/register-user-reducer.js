@@ -8,11 +8,7 @@ import {
 const defaultState = {
   isLoading: false,
   isSuccess: false,
-  isError: {
-    state: false,
-    title: '',
-    message: '',
-  },
+  isError: false,
 };
 
 const registerUserReducer = (state = defaultState, action) => {
@@ -31,21 +27,13 @@ const registerUserReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        isError: {
-          ...state.isError,
-          state: false,
-        },
+        isError: false,
       };
 
     case REGISTER_USER_ERROR:
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          title: action.payload.title,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
 
     case REGISTER_USER_SET_DEFAULT_STATE:

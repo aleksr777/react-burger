@@ -18,7 +18,7 @@ export function requestGetIngredientsData() {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
+      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: {} });
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
@@ -54,7 +54,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: { message: response } });
+      dispatch({ type: INGREDIENTS_DATA_ERROR, payload: {} });
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });

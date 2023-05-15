@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogin } from '../../services/authorization/auth-actions';
 import FormInput from '../../components/form-input/form-input';
-import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getAuthState } from '../../utils/selectors';
 
@@ -75,8 +74,6 @@ const LoginPage = () => {
       <p className={stylesLoginPage.text}>
         Забыли пароль? <Link to='/forgot-password' className={stylesLoginPage.link}>Восстановить пароль</Link>
       </p>
-
-      <Loader size={100} isLoading={isLoading} isError={isError} />
 
     </div>
   )

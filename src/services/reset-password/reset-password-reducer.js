@@ -8,11 +8,7 @@ import {
 const defaultState = {
   isSuccess: false,
   isLoading: false,
-  isError: {
-    state: false,
-    title: '',
-    message: '',
-  },
+  isError: false,
 };
 
 const resetPasswordReducer = (state = defaultState, action) => {
@@ -31,21 +27,13 @@ const resetPasswordReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        isError: {
-          ...state.isError,
-          state: false,
-        },
+        isError: false,
       };
 
     case RESET_PASSWORD_ERROR:
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          title: action.payload.title,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
 
     case RESET_PASSWORD_SET_DEFAULT:

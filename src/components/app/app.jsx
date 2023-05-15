@@ -21,14 +21,13 @@ import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found/not-found';
-import { getIngredientsDataState, getAuthState } from '../../utils/selectors';
+import { getAuthState } from '../../utils/selectors';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
   const { isSuccess, user } = useSelector(getAuthState);
-  const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   useEffect(() => {
     //Проверяем наличие данных для авторизации
@@ -47,7 +46,7 @@ const App = () => {
 
   return (
     <>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
+      <Loader />
 
       <Routes location={background || location}>
 

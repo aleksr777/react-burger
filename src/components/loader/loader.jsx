@@ -1,10 +1,18 @@
 import stylesLoader from './loader.module.css';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { LoaderSvg } from './loader.svg';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import ErrorInfo from '../../components/error-info/error-info';
+import {
+  getIngredientsDataState,
+  getAuthState,
+  getOrderIdState,
+  getForgotPasswordState,
+  getRegisterUserState,
+  getResetPasswordState,
+} from '../../utils/selectors';
 
 
 const loaderAnimation = {
@@ -13,18 +21,27 @@ const loaderAnimation = {
 };
 
 
-const Loader = ({ size, isLoading, isError }) => {
+const Loader = () => {
 
   const loaderRef = useRef();
+
+  const ingredientsDataState = useSelector(getIngredientsDataState);
+  const authState = useSelector(getAuthState);
+  const orderIdState = useSelector(getOrderIdState);
+  const forgotPasswordState = useSelector(getForgotPasswordState);
+  const registerUserState = useSelector(getRegisterUserState);
+  const resetPasswordState = useSelector(getResetPasswordState);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   /* Этот стейт нужен для запуска анимации */
   const [animationIn, setAnimationIn] = useState(false);
 
-  /* Этот стейт нужен, чтобы сообщение об ошибке сервера не закрывалось раньше лоадера*/
+  /* Этот стейт нужен, чтобы сообщение об ошибке не исчезало до конца анимации*/
   const [errorState, setErrorState] = useState({
     state: false,
-    title: '',
-    message: '',
+    title: 'Ошибка сервера',
   });
 
   /* Этот стейт нужен, чтобы анимация успела сработать до закрытия лоадера */
@@ -32,14 +49,52 @@ const Loader = ({ size, isLoading, isError }) => {
 
 
   useEffect(() => {
-    if (isLoading && !isMounted) { setMounted(true) }
+    if (ingredientsDataState.isLoading ||
+      authState.isLoading ||
+      orderIdState.isLoading ||
+      forgotPasswordState.isLoading ||
+      registerUserState.isLoading ||
+      resetPasswordState.isLoading) {
+      setIsLoading(true)
+    }
+    else { setIsLoading(false) }
+  },
+    [ingredientsDataState.isLoading,
+    authState.isLoading,
+    orderIdState.isLoading,
+    forgotPasswordState.isLoading,
+    registerUserState.isLoading,
+    resetPasswordState.isLoading]);
+
+
+  useEffect(() => {
+    if (ingredientsDataState.isError ||
+      authState.isError ||
+      orderIdState.isError ||
+      forgotPasswordState.isError ||
+      registerUserState.isError ||
+      resetPasswordState.isError) {
+      setIsError(true)
+    }
+    else { setIsError(false) }
+  },
+    [ingredientsDataState.isError,
+    authState.isError,
+    orderIdState.isError,
+    forgotPasswordState.isError,
+    registerUserState.isError,
+    resetPasswordState.isError]);
+
+  useEffect(() => {
+    if (isLoading && !isMounted) {
+      setMounted(true)
+    }
     else if (!isLoading && isMounted) {
       setTimeout(() => {
         setMounted(false);
         setErrorState({
+          ...errorState,
           state: false,
-          title: '',
-          message: '',
         });
       }, LOADER_ANIMATION_TIME);
     }
@@ -51,10 +106,21 @@ const Loader = ({ size, isLoading, isError }) => {
     !isLoading && setAnimationIn(false);
   }, [isLoading, isMounted]);
 
-
   useEffect(() => {
-    isError.state && setErrorState(isError);
-  }, [isError.state]);
+    if (isError) {
+      setErrorState({
+        ...errorState,
+        state: isError,
+      })
+      if (authState.isError) {
+        setErrorState({
+          ...errorState,
+          state: isError,
+          title: 'Ошибка авторизации',
+        });
+      };
+    }
+  }, [isError]);
 
 
   /* Закрываем лоадер после срабатывания анимации */
@@ -74,8 +140,8 @@ const Loader = ({ size, isLoading, isError }) => {
       <div className={stylesLoader.overlay} ref={loaderRef}>
         <div className={stylesLoader.wrapper}>
           {errorState.state && isMounted
-            ? <ErrorInfo title={errorState.title} message={errorState.message} />
-            : <LoaderSvg color={'#fff'} size={size} isLoading={isLoading} />
+            ? <ErrorInfo title={errorState.title} />
+            : <LoaderSvg color={'#fff'} size={100} isLoading={isLoading} />
           }
         </div>
       </div>
@@ -84,13 +150,3 @@ const Loader = ({ size, isLoading, isError }) => {
 };
 
 export default Loader;
-
-Loader.propTypes = {
-  size: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.shape({
-    state: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired
-  }).isRequired
-};

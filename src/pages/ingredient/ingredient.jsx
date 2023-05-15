@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
-import Loader from '../../components/loader/loader';
 import { getIngredientsDataState } from '../../utils/selectors';
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
@@ -31,10 +30,9 @@ const IngredientPage = () => {
 
   return (
     ingredientInfo &&
-    (<div className={stylesIngredient.container}>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
+    <div className={stylesIngredient.container}>
       {!isLoading && <IngredientDetails ingredient={ingredientInfo} titleAlign='center' />}
-    </div>)
+    </div>
   )
 };
 

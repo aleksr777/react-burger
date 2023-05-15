@@ -1,12 +1,10 @@
 import stylesForgotPasswordPage from './forgot-password.module.css';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
 import FormInput from '../../components/form-input/form-input';
-import Loader from '../../components/loader/loader';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'; 
-import { forgotPasswordState } from '../../utils/selectors';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const ForgotPasswordPage = () => {
@@ -15,8 +13,6 @@ const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
 
   const [valueEmail, setValueEmail] = useState('');
-
-  const { isLoading, isError } = useSelector(forgotPasswordState);
 
   const goToResetPasswordPage = () => navigate('/reset-password');
 
@@ -61,8 +57,6 @@ const ForgotPasswordPage = () => {
       <p className={stylesForgotPasswordPage.text}>
         Вспомнили пароль? <Link to='/login' className={stylesForgotPasswordPage.link}>Войти</Link>
       </p>
-
-      <Loader size={100} isLoading={isLoading} isError={isError} />
 
     </div >
   )

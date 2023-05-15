@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import FormInput from '../../components/form-input/form-input';
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions';
-import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { forgotPasswordState, resetPasswordState } from '../../utils/selectors';
+import { getForgotPasswordState, getResetPasswordState } from '../../utils/selectors';
 
 
 const ResetPasswordPage = () => {
@@ -15,9 +14,8 @@ const ResetPasswordPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isLoading, isError } = useSelector(resetPasswordState);
-  const forgotPassword = useSelector(forgotPasswordState);
-  const resetPassword = useSelector(resetPasswordState);
+  const forgotPassword = useSelector(getForgotPasswordState);
+  const resetPassword = useSelector(getResetPasswordState);
 
   const [inputsData, setInputsData] = useState({
     valuePassword: '',
@@ -90,8 +88,6 @@ const ResetPasswordPage = () => {
         <p className={stylesResetPasswordPage.text}>
           Вспомнили пароль? <Link to='/login' className={stylesResetPasswordPage.link}>Войти</Link>
         </p>
-
-        <Loader size={100} isLoading={isLoading} isError={isError} />
 
       </div >
     )

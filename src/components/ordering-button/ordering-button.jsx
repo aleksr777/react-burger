@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getOrderId } from '../../services/order-id/order-id-actions';
-import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkAuth } from '../../services/authorization/check-auth';
 import { getAuthState, getOrderIdState, getSelectedIngrState } from '../../utils/selectors';
@@ -43,17 +42,14 @@ const OrderingButton = () => {
   const isButtonDisabled = (!isOrderActive || isLoading) ? true : false;
 
   return (
-    <>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
-      <Button
-        htmlType='button'
-        type='primary'
-        size='large'
-        onClick={sendOrderRequest}
-        disabled={isButtonDisabled}
-      >Оформить заказ
-      </Button>
-    </>
+    <Button
+      htmlType='button'
+      type='primary'
+      size='large'
+      onClick={sendOrderRequest}
+      disabled={isButtonDisabled}
+    >Оформить заказ
+    </Button>
   )
 };
 

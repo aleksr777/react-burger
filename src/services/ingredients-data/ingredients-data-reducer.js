@@ -11,11 +11,7 @@ const defaultState = {
   isLoading: false,
   ingredientsData: [],
   ingredientInfo: null,
-  isError: {
-    state: false,
-    title: 'Ошибка сервера',
-    message: '',
-  },
+  isError: false,
 }
 
 const ingredientsDataReducer = (state = defaultState, action) => {
@@ -34,10 +30,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
         ...state,
         ingredientsData: action.payload.data,
         isLoading: false,
-        isError: {
-          ...state.isError,
-          state: false,
-        },
+        isError: false,
       };
     };
 
@@ -58,11 +51,7 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     case INGREDIENTS_DATA_ERROR: {
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
     };
 

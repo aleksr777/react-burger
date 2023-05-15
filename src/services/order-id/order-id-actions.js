@@ -26,7 +26,7 @@ export function getOrderId(arrId) {
         dispatch(handleAuthError(response, getOrderId(arrId)));
       }
       else {
-        dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
+        dispatch({ type: ORDER_ID_ERROR, payload: {  } });
         setTimeout(() => {
           unblockUserInteraction();
           dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });

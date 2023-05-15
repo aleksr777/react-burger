@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestChangeUserData } from '../../services/authorization/auth-actions';
 import FormInput from '../form-input/form-input';
-import Loader from '../loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getAuthState } from '../../utils/selectors';
 
@@ -57,74 +56,71 @@ const ProfileEditUserBlock = () => {
     setInputsData(userData);
   }
 
-  
+
   return (
-    <>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
 
-      <form
-        className={stylesProfileEditUserBlock.form}
-        onSubmit={handleSubmit}
-        autoComplete='off'
-      >
+    <form
+      className={stylesProfileEditUserBlock.form}
+      onSubmit={handleSubmit}
+      autoComplete='off'
+    >
 
-        <div className={stylesProfileEditUserBlock.editingBlock}>
+      <div className={stylesProfileEditUserBlock.editingBlock}>
 
-          <FormInput
-            inputType='text'
-            placeholder='Имя'
-            name='name'
-            icon='EditIcon'
-            value={inputsData.name}
-            onChange={e => handleInputChange(e)}
-          />
+        <FormInput
+          inputType='text'
+          placeholder='Имя'
+          name='name'
+          icon='EditIcon'
+          value={inputsData.name}
+          onChange={e => handleInputChange(e)}
+        />
 
-          <FormInput
-            inputType='email'
-            value={inputsData.email}
-            name='email'
-            placeholder='Логин'
-            icon='EditIcon'
-            isIcon={true}
-            onChange={e => handleInputChange(e)}
-          />
+        <FormInput
+          inputType='email'
+          value={inputsData.email}
+          name='email'
+          placeholder='Логин'
+          icon='EditIcon'
+          isIcon={true}
+          onChange={e => handleInputChange(e)}
+        />
 
-          <FormInput
-            inputType='password'
-            name='password'
-            value={inputsData.password}
-            placeholder='Пароль'
-            icon="EditIcon"
-            onChange={e => handleInputChange(e)}
-          />
+        <FormInput
+          inputType='password'
+          name='password'
+          value={inputsData.password}
+          placeholder='Пароль'
+          icon="EditIcon"
+          onChange={e => handleInputChange(e)}
+        />
 
-          <div
-            className={stylesProfileEditUserBlock.buttonsBlock}
-          >
+        <div
+          className={stylesProfileEditUserBlock.buttonsBlock}
+        >
 
-            <button
-              className={stylesProfileEditUserBlock.cancelButton}
-              onClick={e => cancelInputChange(e)}
+          <button
+            className={stylesProfileEditUserBlock.cancelButton}
+            onClick={e => cancelInputChange(e)}
+            disabled={!isFormChanged}
+          >Отмена
+          </button>
+
+          <div className={stylesProfileEditUserBlock.submitBox}>
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+              style={{ opacity: isFormChanged ? '' : '0' }}
               disabled={!isFormChanged}
-            >Отмена
-            </button>
-
-            <div className={stylesProfileEditUserBlock.submitBox}>
-              <Button
-                htmlType="submit"
-                type="primary"
-                size="medium"
-                style={{ opacity: isFormChanged ? '' : '0' }}
-                disabled={!isFormChanged}
-              >
-                Сохранить
-              </Button>
-            </div>
-
+            >
+              Сохранить
+            </Button>
           </div>
+
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   )
 };
 

@@ -10,18 +10,14 @@ import {
 } from './auth-actions';
 
 const defaultState = {
-  isLoading: false,
   isSuccess: false,
+  isLoading: false,
+  isError: false,
   user: {
     name: '',
     email: '',
   },
   orders: [],
-  isError: {
-    state: false,
-    title: '',
-    message: '',
-  },
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -38,70 +34,48 @@ const authReducer = (state = defaultState, action) => {
     case AUTH_SUCCESS_LOGIN:
       return {
         ...state,
-        isLoading: false,
         isSuccess: true,
-        isError: {
-          ...state.isError,
-          state: false,
-        }
+        isLoading: false,
+        isError: false,
       };
 
     case AUTH_SUCCESS_USER:
       return {
         ...state,
-        isLoading: false,
         isSuccess: true,
+        isLoading: false,
+        isError: false,
         user: action.payload.user,
-        isError: {
-          ...state.isError,
-          state: false,
-        }
       };
 
     case AUTH_SUCCESS_ORDERS:
       return {
         ...state,
         isLoading: false,
-        isSuccess: true, 
+        isSuccess: true,
         orders: action.payload.orders,
-        isError: {
-          ...state.isError,
-          state: false,
-        }
+        isError: false,
       };
 
     case AUTH_SUCCESS_UPDATE_TOKEN:
       return {
         ...state,
-        isLoading: false,
         isSuccess: true,
-        isError: {
-          ...state.isError,
-          state: false,
-        }
+        isLoading: false,
+        isError: false,
       };
 
     case AUTH_SHOW_ERROR:
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          title: action.payload.title,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
 
     case AUTH_HIDE_ERROR:
       return {
         ...state,
         isLoading: false,
-        isError: {
-          ...state.isError,
-          state: false,
-          title: '',
-          message: '',
-        },
+        isError: false,
       };
 
     case AUTH_DEFAULT:

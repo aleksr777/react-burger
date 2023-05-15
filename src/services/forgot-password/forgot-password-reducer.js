@@ -8,11 +8,7 @@ import {
 const defaultState = {
   isSuccess: false,
   isLoading: false,
-  isError: {
-    state: false,
-    title: '',
-    message: '',
-  },
+  isError: false,
 };
 
 const forgotPasswordReducer = (state = defaultState, action) => {
@@ -31,21 +27,13 @@ const forgotPasswordReducer = (state = defaultState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        isError: {
-          ...state.isError,
-          state: false,
-        },
+        isError: false,
       };
 
     case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          title: action.payload.title,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
 
     case FORGOT_PASSWORD_DEFAULT:
