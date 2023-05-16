@@ -8,49 +8,67 @@ import { getIngredientsDataState } from '../../utils/selectors';
 
 const OrderInfoIngredients = ({ ingredients }) => {
 
-  const { ingredientsData } = useSelector(getIngredientsDataState);
-
-  /* Формируем массив данных для первых 5 изображений */
-  let ArrImages = [];
-  if (ingredientsData && ingredients) {
-    for (let i = 0; i < 5; i += 1) {
-      const foundIngredient = ingredientsData.find(function (item) {
-        return item._id === ingredients[i];
-      });
-      foundIngredient && ArrImages && ArrImages.push(
-        { name: foundIngredient.name, path: foundIngredient.image }
-      );
-    };
-  };
-
-  /* Формируем oбъект c данными для шестого изображения */
-  let overflowItem = null;
-  if (ingredientsData && ingredients.length > 5) {
-    const foundIngredient = ingredientsData.find(function (item) {
-      return item._id === ingredients[5];
-    });
-    if (foundIngredient) {
-      overflowItem = {
-        name: foundIngredient.name,
-        path: foundIngredient.image,
-        count: `+${ingredients.length - 5}`,
-      }
-    };
-  };
-
-  /* Подсчитываем общую стоимость*/
-  let totalPrice = 0;
-  if (ingredientsData && ingredients) {
-    for (let i = 0; i < ingredients.length; i += 1) {
-      const foundIngredient = ingredientsData.find(function (item) {
-        return item._id === ingredients[i];
-      });
-      totalPrice = totalPrice + foundIngredient.price;
-    };
-  };
-
   const stylePictureDefault = stylesOrderInfoIngredients.picture;
   const stylePictureOverflow = `${stylesOrderInfoIngredients.picture} ${stylesOrderInfoIngredients.picture_overflow}`;
+
+  let arrIngredients = []; // данные ингредиентов из заказа
+  let ArrImages = []; // для рендера первых 5 изображений
+  let overflowImageObj = null; // для рендера изображения c переполнением
+  let totalPrice = 0;
+
+  const { ingredientsData } = useSelector(getIngredientsDataState);
+
+
+  if (ingredientsData.length && ingredients.length) {
+
+    /* Формируем массив */
+    for (let i = 0; i < ingredients.length; i++) {
+      const foundIngredient = ingredientsData.find(function (item) {
+        return item._id === ingredients[i];
+      });
+      foundIngredient &&
+        arrIngredients.push({
+          name: foundIngredient.name,
+          path: foundIngredient.image,
+          price: foundIngredient.price,
+          type: foundIngredient.type,
+        });
+    };
+
+    if (arrIngredients.length) {
+
+      //Подсчитываем общую стоимость
+      for (let i = 0; i < arrIngredients.length; i++) {
+        if (arrIngredients[i].price) {
+          totalPrice = ++arrIngredients[i].price;
+        }
+      };
+
+      //Удаляем одну лишнюю булку
+      for (let i = arrIngredients.length - 1; i >= 0; i--) {
+        if (arrIngredients[i].type === 'bun') { arrIngredients.splice(i, 1); break; }
+      };
+
+      //Формируем массив lдля рендера первых 5 изображений (или меньше)
+      for (let i = 0; i < 5 && i < arrIngredients.length; i += 1) {
+        if (arrIngredients[i]) {
+          ArrImages.push({
+            name: arrIngredients[i].name,
+            path: arrIngredients[i].path
+          });
+        }
+      };
+
+      //Формируем oбъект c данными для 6го изображения (если есть)
+      if (arrIngredients.length > 5) {
+        overflowImageObj = {
+          name: arrIngredients[5].name,
+          path: arrIngredients[5].path,
+          count: `+${arrIngredients.length - 5}`,
+        }
+      };
+    };
+  };
 
   return (
     <div className={stylesOrderInfoIngredients.order__ingredients}>
@@ -69,16 +87,20 @@ const OrderInfoIngredients = ({ ingredients }) => {
           ))
         }
         {
-          overflowItem &&
+          overflowImageObj &&
           <div className={stylesOrderInfoIngredients.order__item}>
-            {(overflowItem.count !== '+1') &&
+            {
+              (overflowImageObj.count !== '+1') &&
               <p className={stylesOrderInfoIngredients.order__countOverflow}>
-                {overflowItem.count}
-              </p>}
-            <picture className={(overflowItem.count === '+1') ? stylePictureDefault : stylePictureOverflow}>
+                {overflowImageObj.count}
+              </p>
+            }
+            <picture className={
+              (overflowImageObj.count !== '+1') ? stylePictureOverflow : stylePictureDefault
+            }>
               <img className={stylesOrderInfoIngredients.picture__img}
-                src={overflowItem.path}
-                alt={overflowItem.name} />
+                src={overflowImageObj.path}
+                alt={overflowImageObj.name} />
             </picture>
           </div>
         }
