@@ -12,6 +12,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
   const stylePictureOverflow = `${stylesOrderInfoIngredients.picture} ${stylesOrderInfoIngredients.picture_overflow}`;
 
   let arrIngredients = []; // данные ингредиентов из заказа
+  let arrIngredientsUnique = []; // данные ингредиентов из заказа без дублирования
   let ArrImages = []; // для рендера первых 5 изображений
   let overflowImageObj = null; // для рендера изображения c переполнением
   let totalPrice = 0;
@@ -44,31 +45,37 @@ const OrderInfoIngredients = ({ ingredients }) => {
         }
       };
 
-      //Удаляем одну лишнюю булку
-      for (let i = arrIngredients.length - 1; i >= 0; i--) {
-        if (arrIngredients[i].type === 'bun') { arrIngredients.splice(i, 1); break; }
-      };
+      // Удаляем повторяющиеся ингредиенты
+      arrIngredientsUnique = arrIngredients.filter(function (value, index, self) {
+        return self.findIndex(function (obj) {
+          return obj.name === value.name;
+        }) === index;
+      });
 
-      //Формируем массив lдля рендера первых 5 изображений (или меньше)
-      for (let i = 0; i < 5 && i < arrIngredients.length; i += 1) {
-        if (arrIngredients[i]) {
+      //Формируем массив для рендера первых 5 изображений (или меньше)
+      for (let i = 0; i < 5 && i < arrIngredientsUnique.length; i += 1) {
+        if (arrIngredientsUnique[i]) {
           ArrImages.push({
-            name: arrIngredients[i].name,
-            path: arrIngredients[i].path
+            name: arrIngredientsUnique[i].name,
+            path: arrIngredientsUnique[i].path
           });
         }
       };
 
-      //Формируем oбъект c данными для 6го изображения (если есть)
-      if (arrIngredients.length > 5) {
+      //Формируем oбъект c данными для 6-го изображения (если есть)
+      if (arrIngredientsUnique.length > 5) {
         overflowImageObj = {
-          name: arrIngredients[5].name,
-          path: arrIngredients[5].path,
-          count: `+${arrIngredients.length - 5}`,
+          name: arrIngredientsUnique[5].name,
+          path: arrIngredientsUnique[5].path,
+          count: `+${arrIngredientsUnique.length - 5}`,
         }
       };
     };
+  }
+  else {
+    return null
   };
+
 
   return (
     <div className={stylesOrderInfoIngredients.order__ingredients}>
@@ -86,6 +93,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
             </div>
           ))
         }
+
         {
           overflowImageObj &&
           <div className={stylesOrderInfoIngredients.order__item}>
