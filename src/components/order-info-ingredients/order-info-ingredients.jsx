@@ -1,4 +1,5 @@
 import stylesOrderInfoIngredients from './order-info-ingredients.module.css';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import uniqid from 'uniqid'; /* нужен для генерации key*/
@@ -8,12 +9,19 @@ import { getIngredientsDataState } from '../../utils/selectors';
 
 const OrderInfoIngredients = ({ ingredients }) => {
 
+  // Для стилизации текста 'Alt'
+  const [isImgError, setIsImgError] = useState(false);
+
+  const handleImageError = () => {
+    setIsImgError(true);
+  };
+
   const stylePictureDefault = stylesOrderInfoIngredients.picture;
   const stylePictureOverflow = `${stylesOrderInfoIngredients.picture} ${stylesOrderInfoIngredients.picture_overflow}`;
 
   let arrIngredients = []; // данные ингредиентов из заказа
   let arrIngredientsUnique = []; // данные ингредиентов из заказа без дублирования
-  let ArrImages = []; // для рендера первых 5 изображений
+  let arrImages = []; // для рендера первых 5 изображений
   let overflowImageObj = null; // для рендера изображения c переполнением
   let totalPrice = 0;
 
@@ -55,7 +63,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
       //Формируем массив для рендера первых 5 изображений (или меньше)
       for (let i = 0; i < 5 && i < arrIngredientsUnique.length; i += 1) {
         if (arrIngredientsUnique[i]) {
-          ArrImages.push({
+          arrImages.push({
             name: arrIngredientsUnique[i].name,
             path: arrIngredientsUnique[i].path
           });
@@ -82,13 +90,16 @@ const OrderInfoIngredients = ({ ingredients }) => {
 
       <div className={stylesOrderInfoIngredients.order__items}>
         {
-          ArrImages.length &&
-          ArrImages.map((obj) => (
+          arrImages.length &&
+          arrImages.map((obj) => (
             <div className={stylesOrderInfoIngredients.order__item} key={uniqid.process()}>
               <picture className={stylePictureDefault}>
                 <img className={stylesOrderInfoIngredients.picture__img}
                   src={obj.path}
-                  alt={obj.name} />
+                  alt={obj.name}
+                  onError={handleImageError}
+                  style={{ color: isImgError ? '#8b8b8b' : '' }}
+                />
               </picture>
             </div>
           ))

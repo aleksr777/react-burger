@@ -66,6 +66,8 @@
   padding: 0;
   margin: 0;
   background: transparent;
+  color: transparent;
+  font-size: 10px;
 }
 
 .order__countOverflow {

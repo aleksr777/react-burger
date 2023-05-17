@@ -2,7 +2,7 @@ import stylesLoader from './loader.module.css';
 import { CSSTransition } from 'react-transition-group';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { LoaderSvg } from './loader.svg';
+import { LoaderSvg } from './loader-svg';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
 import ErrorInfo from '../../components/error-info/error-info';
 import {
@@ -138,13 +138,11 @@ const Loader = () => {
       classNames={loaderAnimation}
     >
       <div className={stylesLoader.overlay} ref={loaderRef}>
-        <div className={stylesLoader.wrapper}>
           {errorState.state && isMounted
             ? <ErrorInfo title={errorState.title} />
             : <LoaderSvg color={'#fff'} size={100} isLoading={isLoading} />
           }
         </div>
-      </div>
     </CSSTransition>
   );
 };
