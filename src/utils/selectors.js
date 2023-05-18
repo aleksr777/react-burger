@@ -7,3 +7,4 @@ export const getForgotPasswordState = state => state.forgotPassword;
 export const getRegisterUserState = state => state.registerUser;
 export const getResetPasswordState = state => state.resetPassword;
 export const getCurrentTabState = state => state.currentTab;
+export const getProfileOrdersState = state => state.profileOrders;

@@ -12,7 +12,7 @@ const OrderingButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isError } = useSelector(getOrderIdState);
+  const { isLoading } = useSelector(getOrderIdState);
   const { ingredients, bun, totalPrice } = useSelector(getSelectedIngrState);
   const { isSuccess, user } = useSelector(getAuthState);
 

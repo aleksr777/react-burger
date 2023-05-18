@@ -11,7 +11,7 @@ const ProfileEditUserBlock = () => {
 
   const dispatch = useDispatch();
 
-  const { isLoading, isError, user } = useSelector(getAuthState);
+  const { user } = useSelector(getAuthState);
 
   const userData = {
     name: user.name,

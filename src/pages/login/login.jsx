@@ -1,11 +1,10 @@
 import stylesLoginPage from './login.module.css';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { requestLogin } from '../../services/authorization/auth-actions';
 import FormInput from '../../components/form-input/form-input';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getAuthState } from '../../utils/selectors';
 
 
 const LoginPage = () => {
@@ -16,8 +15,6 @@ const LoginPage = () => {
     valueEmail: '',
     valuePassword: '',
   });
-
-  const { isLoading, isError } = useSelector(getAuthState);
 
   const handleInputChange = (e, value) => {
     setInputsData({ ...inputsData, [value]: e.target.value });

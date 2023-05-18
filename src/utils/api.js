@@ -79,24 +79,6 @@ export const requestGetUserDataServer = async () => {
   })
 };
 
-/* Открыть WebSocket соединение */
-export const connectToWebSocket = async () => {
-  const accessToken = getRawAccessToken();
-  const ws = new WebSocket(`wss://${baseUrl}/orders?token=${accessToken}`);
-  ws.onopen = () => {
-    console.log('WebSocket cоединение установлено');
-  };
-  return ws;
-};
-
-/* Закрыть WebSocket соединение */
-export const closeWebSocketConnection = (ws) => {
-  if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.close();
-    console.log('WebSocket соединение закрыто');
-  }
-};
-
 
 //Запрос на изменение данных о пользователе
 export const requestChangeUserDataServer = async ({ name, email, password }) => {
@@ -179,4 +161,24 @@ export const resetPasswordRequestServer = async (valuePassword, valueCode) => {
       'token': valueCode,
     })
   })
+};
+
+
+/* Открыть WebSocket для ProfileOrders */
+export const openWebSocketProfileOrders = async () => {
+  const accessToken = getRawAccessToken();
+  const ws = new WebSocket(`wss://${baseUrl}/orders?token=${accessToken}`);
+  ws.onopen = () => {
+    console.log('WebSocket cоединение установлено');
+  };
+  return ws;
+};
+
+
+/* Закрыть WebSocket для ProfileOrders */
+export const closeWebSocketProfileOrders = (ws) => {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.close();
+    console.log('WebSocket соединение закрыто');
+  }
 };

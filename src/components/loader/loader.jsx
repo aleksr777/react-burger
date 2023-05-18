@@ -12,6 +12,7 @@ import {
   getForgotPasswordState,
   getRegisterUserState,
   getResetPasswordState,
+  getProfileOrdersState,
 } from '../../utils/selectors';
 
 
@@ -31,6 +32,7 @@ const Loader = () => {
   const forgotPasswordState = useSelector(getForgotPasswordState);
   const registerUserState = useSelector(getRegisterUserState);
   const resetPasswordState = useSelector(getResetPasswordState);
+  const profileOrdersState = useSelector(getProfileOrdersState);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -54,7 +56,8 @@ const Loader = () => {
       orderIdState.isLoading ||
       forgotPasswordState.isLoading ||
       registerUserState.isLoading ||
-      resetPasswordState.isLoading) {
+      resetPasswordState.isLoading ||
+      profileOrdersState.isLoading) {
       setIsLoading(true)
     }
     else { setIsLoading(false) }
@@ -64,7 +67,8 @@ const Loader = () => {
     orderIdState.isLoading,
     forgotPasswordState.isLoading,
     registerUserState.isLoading,
-    resetPasswordState.isLoading]);
+    resetPasswordState.isLoading,
+    profileOrdersState.isLoading]);
 
 
   useEffect(() => {
@@ -73,7 +77,8 @@ const Loader = () => {
       orderIdState.isError ||
       forgotPasswordState.isError ||
       registerUserState.isError ||
-      resetPasswordState.isError) {
+      resetPasswordState.isError ||
+      profileOrdersState.isError) {
       setIsError(true)
     }
     else { setIsError(false) }
@@ -83,7 +88,8 @@ const Loader = () => {
     orderIdState.isError,
     forgotPasswordState.isError,
     registerUserState.isError,
-    resetPasswordState.isError]);
+    resetPasswordState.isError,
+    profileOrdersState.isError]);
 
   useEffect(() => {
     if (isLoading && !isMounted) {
@@ -138,11 +144,11 @@ const Loader = () => {
       classNames={loaderAnimation}
     >
       <div className={stylesLoader.overlay} ref={loaderRef}>
-          {errorState.state && isMounted
-            ? <ErrorInfo title={errorState.title} />
-            : <LoaderSvg color={'#fff'} size={100} isLoading={isLoading} />
-          }
-        </div>
+        {errorState.state && isMounted
+          ? <ErrorInfo title={errorState.title} />
+          : <LoaderSvg color={'#fff'} size={100} isLoading={isLoading} />
+        }
+      </div>
     </CSSTransition>
   );
 };

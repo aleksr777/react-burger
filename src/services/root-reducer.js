@@ -12,6 +12,7 @@ import { selectedIngrReducer } from './selected-ingr/selected-ingr-reducer';
 import { orderIdReducer } from './order-id/order-id-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
+import { profileOrdersReducer } from './profile-orders/profile-orders-reducer';
 
 
 const authPersistConfig = {
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   orderId: orderIdReducer,
   ingredientDetails: ingredientDetailsReducer,
   currentTab: currentTabReducer,
+  profileOrders: profileOrdersReducer,
 });
 
 export default rootReducer;
