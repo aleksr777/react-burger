@@ -23,18 +23,10 @@ const ProfileOrdersBlock = () => {
       dispatch(initWebSocketCommunication(ws));
     };
 
-    const handleBeforeUnload = () => {
-      closeWebSocketProfileOrders(ws);
-    };
-
-    // Подписываемся на событие beforeunload для закрытия соединения при закрытии вкладки или перезагрузке страницы
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
     connectAsyncWebSocket();
 
     return () => {
       closeWebSocketProfileOrders(ws);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [dispatch, navigate]);
 
