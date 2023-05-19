@@ -175,10 +175,22 @@ export const openWebSocketProfileOrders = async () => {
 };
 
 
-/* Закрыть WebSocket для ProfileOrders */
-export const closeWebSocketProfileOrders = (ws) => {
+/* Открыть WebSocket для FeedOrders */
+export const openWebSocketFeedOrders = async () => {
+  const accessToken = getRawAccessToken();
+  const ws = new WebSocket(`wss://${baseUrl}/orders/all?token=${accessToken}`);
+  ws.onopen = () => {
+    console.log('WebSocket cоединение установлено');
+  };
+  return ws;
+};
+
+
+/* Закрыть WebSocket */
+export const closeWebSocket = (ws) => {
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.close();
     console.log('WebSocket соединение закрыто');
   }
 };
+

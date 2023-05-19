@@ -1,29 +1,44 @@
 import stylesFeedOrders from './feed-orders.module.css';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { initWebSocketFeedOrders } from '../../services/feed-all-orders/feed-all-orders-actions';
+import { openWebSocketFeedOrders, closeWebSocket } from '../../utils/api';
+import { getFeedOrdersState } from '../../utils/selectors';
 import OrderInfoItem from '../../components/order-info-item/order-info-item';
 
 const FeedOrders = () => {
 
-  const order = {
-    _id: '646520f58a4b62001c839771',
-    createdAt: '2023-05-17T18:46:13.296Z',
-    ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa0943', '643d69a5c3f7b9001cfa0944'],
-    name: 'Death Star Starship Main бургер',
-    number: 34535,
-    status: 'done',
-    updatedAt: '2023-05-17T18:46:13.361Z',
-  }
+  const dispatch = useDispatch();
+
+  const { orders } = useSelector(getFeedOrdersState);
+
+  useEffect(() => {
+    let ws = null;
+
+    const connectAsyncWebSocket = async () => {
+      ws = await openWebSocketFeedOrders();
+      dispatch(initWebSocketFeedOrders(ws));
+    };
+
+    connectAsyncWebSocket();
+
+    return () => {
+      closeWebSocket(ws);
+    };
+  }, []);
 
   return (
+
     <div className={stylesFeedOrders.block}>
-      <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
-      <ul className={stylesFeedOrders.list}>
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        <OrderInfoItem key={order._id} order={order} showStatus={false} />
-      </ul>
+      {orders &&
+        <>
+          <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
+          <ul className={stylesFeedOrders.list}>
+            {orders.map((order) => (
+              <OrderInfoItem key={order._id} order={order} showStatus={false} />
+            ))}
+          </ul>
+        </>}
     </div>
   )
 };

@@ -57,7 +57,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
     //Подсчитываем общую стоимость
     for (let i = 0; i < arrIngredients.length; i++) {
       if (arrIngredients[i].price) {
-        totalPrice = ++arrIngredients[i].price;
+        totalPrice = totalPrice + arrIngredients[i].price;
       }
     };
     //удаляем дупликаты
@@ -95,7 +95,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
 
   return (
 
-    imagesData.length &&
+    imagesData &&
     
     <div className={stylesOrderInfoIngredients.order__ingredients}>
 

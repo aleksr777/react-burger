@@ -1,10 +1,10 @@
 import stylesProfileOdersBlock from './profile-orders-block.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { initWebSocketCommunication } from '../../services/profile-orders/profile-orders-actions';
-import { openWebSocketProfileOrders, closeWebSocketProfileOrders } from '../../utils/api';
-import OrderInfoItem from '../../components/order-info-item/order-info-item';
+import { initWebSocketProfileOrders } from '../../services/profile-orders/profile-orders-actions';
+import { openWebSocketProfileOrders, closeWebSocket } from '../../utils/api';
 import { getProfileOrdersState } from '../../utils/selectors';
+import OrderInfoItem from '../../components/order-info-item/order-info-item';
 
 
 const ProfileOrdersBlock = () => {
@@ -18,13 +18,13 @@ const ProfileOrdersBlock = () => {
 
     const connectAsyncWebSocket = async () => {
       ws = await openWebSocketProfileOrders();
-      dispatch(initWebSocketCommunication(ws));
+      dispatch(initWebSocketProfileOrders(ws));
     };
 
     connectAsyncWebSocket();
 
     return () => {
-      closeWebSocketProfileOrders(ws);
+      closeWebSocket(ws);
     };
   }, []);
 

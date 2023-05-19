@@ -13,6 +13,7 @@ import {
   getRegisterUserState,
   getResetPasswordState,
   getProfileOrdersState,
+  getFeedOrdersState,
 } from '../../utils/selectors';
 
 
@@ -33,6 +34,7 @@ const Loader = () => {
   const registerUserState = useSelector(getRegisterUserState);
   const resetPasswordState = useSelector(getResetPasswordState);
   const profileOrdersState = useSelector(getProfileOrdersState);
+  const feedOrdersState = useSelector(getFeedOrdersState);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -57,7 +59,8 @@ const Loader = () => {
       forgotPasswordState.isLoading ||
       registerUserState.isLoading ||
       resetPasswordState.isLoading ||
-      profileOrdersState.isLoading) {
+      profileOrdersState.isLoading ||
+      feedOrdersState.isLoading) {
       setIsLoading(true)
     }
     else { setIsLoading(false) }
@@ -68,7 +71,8 @@ const Loader = () => {
     forgotPasswordState.isLoading,
     registerUserState.isLoading,
     resetPasswordState.isLoading,
-    profileOrdersState.isLoading]);
+    profileOrdersState.isLoading,
+    feedOrdersState.isLoading]);
 
 
   useEffect(() => {
@@ -78,7 +82,8 @@ const Loader = () => {
       forgotPasswordState.isError ||
       registerUserState.isError ||
       resetPasswordState.isError ||
-      profileOrdersState.isError) {
+      profileOrdersState.isError ||
+      feedOrdersState.isError) {
       setIsError(true)
     }
     else { setIsError(false) }
@@ -89,7 +94,8 @@ const Loader = () => {
     forgotPasswordState.isError,
     registerUserState.isError,
     resetPasswordState.isError,
-    profileOrdersState.isError]);
+    profileOrdersState.isError,
+    feedOrdersState.isError]);
 
   useEffect(() => {
     if (isLoading && !isMounted) {
