@@ -28,7 +28,7 @@ const OrderInfoItem = ({ order, showStatus }) => {
     order &&
     <li className={stylesOrderInfoItem.order}>
       <div className={stylesOrderInfoItem.order__details}>
-        <p className={stylesOrderInfoItem.order__id}>{`#${number}`}</p>
+        <p className={stylesOrderInfoItem.order__id}>{`#0${number}`}</p>
         <p className={stylesOrderInfoItem.order__time}>
           <FormattedDate date={new Date(dateServer)} />
         </p>
@@ -38,9 +38,7 @@ const OrderInfoItem = ({ order, showStatus }) => {
         (<p className={(status === 'done') ? styleStatusDone : styleStatusDefault}>
           {getStatusText(status)}
         </p>)}
-      <div className={stylesOrderInfoItem.order__ingredients}>
-        <OrderInfoIngredients ingredients={ingredients} />
-      </div>
+      <OrderInfoIngredients ingredients={ingredients} />
     </li>
   )
 };

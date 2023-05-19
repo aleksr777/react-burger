@@ -8,7 +8,7 @@
   color: #8585AD;
   width: fit-content;
   transition: all .4s ease 0s;
-  composes: text text_type_main-medium from global;
+  composes: text_type_main-medium from global;
 }
 
 .link:hover {

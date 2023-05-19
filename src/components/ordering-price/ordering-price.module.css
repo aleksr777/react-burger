@@ -15,5 +15,5 @@
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  composes: text text_type_digits-medium from global;
+  composes: text_type_digits-medium from global;
 }

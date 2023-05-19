@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+.block {
+  min-height: 100%;
+  width: 602px;
+  padding-bottom: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-left: 2px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 100%;
+  transition: all .3s ease 0s;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(47, 47, 55, 1);
+  width: 100%;
+  padding-bottom: 0;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-left: 0;
+  margin: 0;
+}
+
+.list::-webkit-scrollbar {
+  width: 7px;
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.list::-webkit-scrollbar-thumb {
+  width: 7px;
+  background-color: rgba(133, 133, 173, 1)
+}
+
+.title {
+  margin: 0;
+  padding: 41px 0 21px 0;
+  composes: text_type_main-large from global;
+}

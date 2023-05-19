@@ -13,7 +13,7 @@
 .section__title {
   margin: 0 0 20px 0;
   box-sizing: border-box;
-  composes: text text_type_main-large pt-10 from global;
+  composes: text_type_main-large pt-10 from global;
 }
 
 .section__blocks {

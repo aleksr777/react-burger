@@ -36,5 +36,5 @@
   padding-right: 0;
   padding-top: 0;
   padding-bottom: 0;
-  composes: text text_type_main-default pl-2 from global;
+  composes: text_type_main-default pl-2 from global;
 }

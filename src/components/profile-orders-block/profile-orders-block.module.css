@@ -5,7 +5,7 @@
 .feed {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 24px;
   width: 100%;
   margin: 0 0 0 -12px;
   padding-bottom: 0;
@@ -16,11 +16,8 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: rgba(47, 47, 55, 1);
-  transition: all .3s ease 0s;
   list-style: none;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  transition: all .3s ease 0s;
   composes: pl-15 from global;
 }
 

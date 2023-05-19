@@ -27,7 +27,7 @@
   margin: 0;
   padding: 0;
   transition: all .3s ease 0s;
-  composes: text text_type_main-medium from global;
+  composes: text_type_main-medium from global;
 }
 
 .logoutButton:hover {
@@ -46,5 +46,5 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  composes: text text_type_main-default from global;
+  composes: text_type_main-default from global;
 }

@@ -13,10 +13,10 @@ const HomePage = () => {
   return (
     !isLoading &&
     ingredientsData.length &&
-    (<DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
       <IngredientsBurger />
       <ConstructorBurger />
-    </DndProvider>)
+    </DndProvider>
   )
 };
 

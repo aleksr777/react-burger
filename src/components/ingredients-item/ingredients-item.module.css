@@ -45,7 +45,7 @@
   min-height: 52px;
   overflow: hidden;
   text-overflow: ellipsis;
-  composes: text text_type_main-default from global;
+  composes: text_type_main-default from global;
 }
 
 .item__box {
@@ -63,5 +63,5 @@
   padding: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  composes: text text_type_digits-default from global;
+  composes: text_type_digits-default from global;
 }

@@ -6,8 +6,14 @@
   justify-content: space-between;
   width: 100%;
   display: flex;
-  margin: 0;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+  composes: pt-6 text_type_main-default from global;
 }
 
 .order__items {
@@ -79,7 +85,7 @@
   padding: 0;
   margin: 0;
   background: transparent;
-  composes: text text_type_main-default from global;
+  composes: text_type_main-default from global;
 
 }
 
