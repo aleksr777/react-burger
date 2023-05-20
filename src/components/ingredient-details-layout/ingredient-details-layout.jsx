@@ -21,7 +21,7 @@ const IngredientDetailsLayout = ({ ingredient, titleAlign }) => {
 
       <picture className={ingrDetailsStyles.imageBox}>
         <img className={ingrDetailsStyles.image}
-          src={'ingredient.image_large'}
+          src={ingredient.image_large}
           alt={`Изображение "${ingredient.name}".`}
           draggable='false'
           onError={() => handleImgError()}
