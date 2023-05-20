@@ -5,11 +5,11 @@
   top: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
-  padding: 20px;
+  padding: 15px;
   z-index: 102;
   height: fit-content;
   width: fit-content;
-  min-width: 350px;
+  max-width: 300px;
   background: transparent;
   border: #fff solid 1px;
   border-radius: 15px;
@@ -22,11 +22,11 @@
   position: relative;
   aspect-ratio: 1/1;
   background: url('../../images/burger.svg') center no-repeat;
-  background-size: 80% 80%;
+  background-size: 85% 85%;
   background-color: transparent;
   padding: 0;
-  margin: 15px auto;
-  width: 60%;
+  margin: 5px auto;
+  width: 80%;
 }
 
 .image {

@@ -25,10 +25,14 @@
 .status__box {
   margin-left: 0;
   flex: 1 1 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   margin-left: 0;
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
+  height: min-content;
 }
 
 .status__box_mr {
@@ -37,9 +41,11 @@
 }
 
 .status__list {
+  flex: 0 0 50%;
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
 }
 
 .status__item {
@@ -77,6 +83,7 @@
 }
 
 .textAbout {
+  flex: 1 1 100%;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;

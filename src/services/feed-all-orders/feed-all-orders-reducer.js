@@ -10,6 +10,8 @@ const defaultState = {
   isLoading: false,
   isError: false,
   orders: null,
+  total: null,
+  totalToday: null,
 };
 
 const feedOrdersReducer = (state = defaultState, action) => {
@@ -30,6 +32,8 @@ const feedOrdersReducer = (state = defaultState, action) => {
         isLoading: false,
         isError: false,
         orders: action.payload.orders,
+        total: action.payload.total,
+        totalToday: action.payload.totalToday,
       };
 
     case FEED_ORDERS_SHOW_ERROR:

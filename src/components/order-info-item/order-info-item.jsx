@@ -23,12 +23,13 @@ const OrderInfoItem = ({ order, showStatus }) => {
 
   const dateServer = (status === 'created') ? createdAt : updatedAt;
 
-
   return (
     order &&
     <li className={stylesOrderInfoItem.order}>
       <div className={stylesOrderInfoItem.order__details}>
-        <p className={stylesOrderInfoItem.order__id}>{`#0${number}`}</p>
+        <p className={stylesOrderInfoItem.order__id}>
+          {number ? ("#" + number.toString().padStart(6, '0')) : ''}
+        </p>
         <p className={stylesOrderInfoItem.order__time}>
           <FormattedDate date={new Date(dateServer)} />
         </p>

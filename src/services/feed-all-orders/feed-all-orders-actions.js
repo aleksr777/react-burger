@@ -22,7 +22,13 @@ export function initWebSocketFeedOrders(ws) {
     ws.onmessage = (e) => {
       if (ws && ws.readyState === WebSocket.OPEN) {
         const res = JSON.parse(e.data);
-        dispatch({ type: FEED_ORDERS_SUCCESS, payload: { orders: res.orders.reverse() } });
+        dispatch({
+          type: FEED_ORDERS_SUCCESS, payload: {
+            orders: res.orders.reverse(),
+            total: res.total,
+            totalToday: res.totalToday,
+          }
+        });
         setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
       }
     };
@@ -33,7 +39,7 @@ export function initWebSocketFeedOrders(ws) {
       setTimeout(() => {
         dispatch({ type: FEED_ORDERS_HIDE_ERROR, payload: {} });
         unblockUserInteraction();
-      }, 1500);
+      }, 2000);
     };
   };
 };

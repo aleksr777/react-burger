@@ -14,6 +14,7 @@ const ProfileOrdersBlock = () => {
   const { orders } = useSelector(getProfileOrdersState);
 
   useEffect(() => {
+
     let ws = null;
 
     const connectAsyncWebSocket = async () => {
@@ -28,11 +29,10 @@ const ProfileOrdersBlock = () => {
     };
   }, []);
 
-
   return (
     orders &&
     <ul className={stylesProfileOdersBlock.feed}>
-      {orders.map((order) => (
+      {orders.slice().reverse().map((order) => (
         <OrderInfoItem key={order._id} order={order} showStatus={true} />
       ))}
     </ul>

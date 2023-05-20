@@ -60,7 +60,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
         dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
         goToNotFoundPage();
-      }, 1500);
+      }, 2000);
     }
 
     /* Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.*/

@@ -20,7 +20,7 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: FORGOT_PASSWORD_DEFAULT, payload: {} });
-      }, 1500);
+      }, 2000);
     };
 
     dispatch({ type: FORGOT_PASSWORD_REQUEST, payload: {} });

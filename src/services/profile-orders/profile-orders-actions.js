@@ -33,7 +33,7 @@ export function initWebSocketProfileOrders(ws) {
       setTimeout(() => {
         dispatch({ type: PROFILE_ORDERS_HIDE_ERROR, payload: {} });
         unblockUserInteraction();
-      }, 1500);
+      }, 2000);
     };
   };
 };

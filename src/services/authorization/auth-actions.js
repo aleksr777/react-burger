@@ -29,7 +29,10 @@ export const AUTH_HIDE_ERROR = 'AUTH_HIDE_ERROR';
 
 /* сопоставляем номер ошибки из ответа сервера с номером ошибки, которую ищем */
 export function matchNumErr(response, number) {
-  return response.indexOf(parseInt(number)) !== -1 ? true : false;
+  if (response && number) {
+    return response.indexOf(parseInt(number)) !== -1 ? true : false
+  }
+  return false;
 };
 
 export function deleteAuthData() {
@@ -43,12 +46,13 @@ export function deleteAuthData() {
 /* Обрабатываем ошибку 401 */
 export function handleAuthError(request) {
   return function (dispatch) {
+    if (typeof request !== 'function') { return null };
     const nameCountStorage = `${STORAGE_KEY_PREFIX}count-request-catch-error-401`;
     let countRequest = Number(sessionStorage.getItem(nameCountStorage));
     if (countRequest < 1 || !countRequest) {
       countRequest = 1
     } else {
-      countRequest = ++countRequest
+      countRequest = countRequest + 1;
     };
     if (countRequest > 3) {
       /* После трёх неудачных попыток удаляем данные об авторизации */
@@ -58,7 +62,7 @@ export function handleAuthError(request) {
         dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
         unblockUserInteraction();
         dispatch(deleteAuthData());
-      }, 1500);
+      }, 2000);
     }
     else {
       sessionStorage.setItem(nameCountStorage, countRequest);
@@ -116,7 +120,7 @@ export function requestLogin(email, password) {
         setTimeout(() => {
           unblockUserInteraction();
           dispatch(deleteAuthData());
-        }, 1500);
+        }, 2000);
       }
     };
 
@@ -167,7 +171,7 @@ export function requestLogout() {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
           unblockUserInteraction();
           dispatch(deleteAuthData());
-        }, 1500);
+        }, 2000);
       }
     };
 
@@ -209,7 +213,7 @@ export function requestGetUserData() {
         setTimeout(() => {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
           unblockUserInteraction();
-        }, 1500);
+        }, 2000);
       }
     };
 
@@ -256,7 +260,7 @@ export function requestChangeUserData(user, setInputsData) {
         setTimeout(() => {
           dispatch({ type: AUTH_HIDE_ERROR, payload: {} });
           unblockUserInteraction();
-        }, 1500);
+        }, 2000);
       }
     };
 

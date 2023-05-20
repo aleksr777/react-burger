@@ -21,7 +21,7 @@ export function resetPasswordRequest(goToAuthPage, valuePassword, valueCode) {
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: RESET_PASSWORD_SET_DEFAULT, payload: {} });
-      }, 1500);
+      }, 2000);
     };
 
     dispatch({ type: RESET_PASSWORD_REQUEST, payload: {} });

@@ -13,6 +13,7 @@ const FeedOrders = () => {
   const { orders } = useSelector(getFeedOrdersState);
 
   useEffect(() => {
+
     let ws = null;
 
     const connectAsyncWebSocket = async () => {
@@ -30,15 +31,12 @@ const FeedOrders = () => {
   return (
 
     <div className={stylesFeedOrders.block}>
-      {orders &&
-        <>
-          <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
-          <ul className={stylesFeedOrders.list}>
-            {orders.map((order) => (
-              <OrderInfoItem key={order._id} order={order} showStatus={false} />
-            ))}
-          </ul>
-        </>}
+      <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
+      <ul className={stylesFeedOrders.list}>
+        {orders && orders.map((order) => (
+          <OrderInfoItem key={order._id} order={order} showStatus={false} />
+        ))}
+      </ul>
     </div>
   )
 };
