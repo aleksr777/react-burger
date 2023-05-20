@@ -7,6 +7,10 @@ const FeedStatistics = () => {
 
   const { orders, total, totalToday } = useSelector(getFeedOrdersState);
 
+  if (!orders) {
+    return null;
+  };
+
   const styleItemDone = `${stylesFeedStatistics.status__item} ${stylesFeedStatistics.status__item_active}`;
   const styleStatusBoxMarginRight = `${stylesFeedStatistics.status__box} ${stylesFeedStatistics.status__box_mr}`;
   const styleTextAboutPaddingBottom = `${stylesFeedStatistics.textAbout} ${stylesFeedStatistics.textAbout_pb}`;
@@ -14,10 +18,8 @@ const FeedStatistics = () => {
   let ordersDone = [];
   let ordersPending = [];
 
-  if (orders) {
-    ordersDone = orders.filter(order => order.status === 'done');
-    ordersPending = orders.filter(order => order.status === 'pending');
-  };
+  ordersDone = orders.filter(order => order.status === 'done');
+  ordersPending = orders.filter(order => order.status === 'pending');
 
 
   return (
