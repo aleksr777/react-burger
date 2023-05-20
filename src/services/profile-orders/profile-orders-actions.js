@@ -22,7 +22,7 @@ export function initWebSocketProfileOrders(ws) {
     ws.onmessage = (e) => {
       if (ws && ws.readyState === WebSocket.OPEN) {
         const res = JSON.parse(e.data);
-        dispatch({ type: PROFILE_ORDERS_SUCCESS, payload: { orders: res.orders.reverse() } });
+        dispatch({ type: PROFILE_ORDERS_SUCCESS, payload: { orders: res.orders } });
         setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
       }
     };

@@ -24,7 +24,7 @@ export function initWebSocketFeedOrders(ws) {
         const res = JSON.parse(e.data);
         dispatch({
           type: FEED_ORDERS_SUCCESS, payload: {
-            orders: res.orders.reverse(),
+            orders: res.orders,
             total: res.total,
             totalToday: res.totalToday,
           }
