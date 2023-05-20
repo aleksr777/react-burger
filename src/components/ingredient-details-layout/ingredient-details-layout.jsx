@@ -1,8 +1,9 @@
-import ingrDetailsStyles from './ingredient-details.module.css';
+import ingrDetailsStyles from './ingredient-details-layout.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 
-const IngredientDetails = ({ ingredient, titleAlign }) => {
+
+const IngredientDetailsLayout = ({ ingredient, titleAlign }) => {
   return (
     <>
       <p
@@ -44,9 +45,9 @@ const IngredientDetails = ({ ingredient, titleAlign }) => {
   )
 };
 
-export default IngredientDetails;
+export default IngredientDetailsLayout;
 
-IngredientDetails.propTypes = {
+IngredientDetailsLayout.propTypes = {
   ingredient: PropTypes.oneOfType([
     ingredientPropTypes.isRequired,
     PropTypes.oneOf([null]) // Разрешение значения null

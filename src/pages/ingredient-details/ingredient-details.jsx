@@ -1,13 +1,13 @@
-import stylesIngredient from './ingredient.module.css';
+import stylesIngredientDetails from './ingredient-details.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions';
-import IngredientDetails from '../../components/ingredient-details/ingredient-details';
+import IngredientDetailsLayout from '../../components/ingredient-details-layout/ingredient-details-layout';
 import { getIngredientsDataState } from '../../utils/selectors';
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
-const IngredientPage = () => {
+const IngredientDetailsPage = () => {
 
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -30,10 +30,10 @@ const IngredientPage = () => {
 
   return (
     ingredientInfo &&
-    <div className={stylesIngredient.container}>
-      {!isLoading && <IngredientDetails ingredient={ingredientInfo} titleAlign='center' />}
+    <div className={stylesIngredientDetails.container}>
+      {!isLoading && <IngredientDetailsLayout ingredient={ingredientInfo} titleAlign='center' />}
     </div>
   )
 };
 
-export default IngredientPage;
+export default IngredientDetailsPage;

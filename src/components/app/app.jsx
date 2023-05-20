@@ -14,8 +14,8 @@ import ProfileOdersBlock from '../profile-orders-block/profile-orders-block';
 import HomePage from '../../pages/home/home';
 import FeedPage from '../../pages/feed/feed';
 import ProfilePage from '../../pages/profile/profile';
-import IngredientPage from '../../pages/ingredient/ingredient';
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
+import IngredientDetailsPage from '../../pages/ingredient-details/ingredient-details';
+import IngredientDetailsModal from '../ingredient-details-modal/ingredient-details-modal';
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
@@ -78,7 +78,7 @@ const App = () => {
             </ProtectedRouteElement>
           } />
 
-          <Route path='ingredients/:id' element={<IngredientPage />} />
+          <Route path='ingredients/:id' element={<IngredientDetailsPage />} />
 
           <Route path='profile/' element={
             <ProtectedRouteElement forUnauthUser={false}>
@@ -109,7 +109,7 @@ const App = () => {
       {background && (
         <Routes>
           <Route path='ingredients/:id' element={
-            <ModalIngredientDetails />
+            <IngredientDetailsModal />
           } />
         </Routes>
       )}
