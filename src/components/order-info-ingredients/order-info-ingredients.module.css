@@ -72,8 +72,10 @@
   padding: 0;
   margin: 0;
   background: transparent;
-  color: transparent;
+  color: #8585ad00;
   font-size: 10px;
+  transition: all .3s ease 0s;
+  composes: text_type_main-default from global;
 }
 
 .order__countOverflow {

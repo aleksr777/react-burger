@@ -4,14 +4,17 @@ import {
   unblockUserInteraction,
 } from '../block-user-interaction-service/block-user-interaction-service';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';
+import {
+  INGREDIENT_DETAILS_SET_DATA,
+  INGREDIENT_DETAILS_REMOVE_DATA,
+} from '../ingredient-details/ingredient-details-actions';
 
 export const INGREDIENTS_DATA_REQUEST = 'INGREDIENTS_DATA_REQUEST';
 export const INGREDIENTS_DATA_SUCCESS = 'INGREDIENTS_DATA_SUCCESS';
-export const INGREDIENTS_SET_INGREDIENT_INFO = 'INGREDIENTS_SET_INGREDIENT_INFO';
-export const INGREDIENTS_REMOVE_INGREDIENT_INFO = 'INGREDIENTS_REMOVE_INGREDIENT_INFO';
 export const INGREDIENTS_DATA_ERROR = 'INGREDIENTS_DATA_ERROR';
 export const INGREDIENTS_DATA_SET_DEFAULT = 'INGREDIENTS_DATA_SET_DEFAULT';
 
+// Получение информации обо всех ингредиентах
 export function requestGetIngredientsData() {
 
   return function (dispatch) {
@@ -47,7 +50,7 @@ export function requestGetIngredientsData() {
 };
 
 
-/* Получение информации об ингредиенте */
+// Получение информации об ингредиенте
 export function getIngredientInfo(goToNotFoundPage, id, path) {
 
   return function (dispatch) {
@@ -58,14 +61,15 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: INGREDIENTS_DATA_SET_DEFAULT, payload: {} });
-        dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
+        dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
         goToNotFoundPage();
       }, 2000);
     }
 
-    /* Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.*/
+    // Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.
+    // (если пользователь перешёл по ссылке со стороннего ресурса, то данных об ингредиентах нет в памяти)
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
-    dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
+    dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
     blockUserInteraction();
 
     requestGetIngredientsDataServer()
@@ -78,9 +82,9 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
           const [ingredient] = res.data.filter((obj) => obj._id === id);
           if (ingredient) {
             dispatch({
-              type: INGREDIENTS_SET_INGREDIENT_INFO,
+              type: INGREDIENT_DETAILS_SET_DATA,
               payload: {
-                ingredientInfo: {
+                ingredient: {
                   ...ingredient,
                   path: path
                 },
@@ -88,7 +92,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
             })
           }
           else {
-            dispatch({ type: INGREDIENTS_REMOVE_INGREDIENT_INFO, payload: {} });
+            dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
             goToNotFoundPage();
           }
         }

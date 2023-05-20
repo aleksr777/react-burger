@@ -9,7 +9,6 @@ import { getIngredientsDataState } from '../../utils/selectors';
 
 const OrderInfoIngredients = ({ ingredients }) => {
 
-
   const stylePictureDefault = stylesOrderInfoIngredients.picture;
   const stylePictureOverflow = `${stylesOrderInfoIngredients.picture} ${stylesOrderInfoIngredients.picture_overflow}`;
 
@@ -111,9 +110,9 @@ const OrderInfoIngredients = ({ ingredients }) => {
                 <img
                   className={stylesOrderInfoIngredients.picture__img}
                   src={obj.path}
-                  alt={obj.name}
+                  alt={`Изображение "${obj.name}".`}
                   onError={() => handleImageError(index)}
-                  style={{ color: obj.isImgError ? '#8b8b8b' : '' }} // по-умолчанию текст прозрачный
+                  style={{ color: obj.isImgError ? '#8585AD' : '' }} // по-умолчанию текст прозрачный
                 />
               </picture>
             </div>

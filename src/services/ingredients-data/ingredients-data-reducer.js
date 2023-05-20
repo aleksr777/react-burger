@@ -3,14 +3,11 @@ import {
   INGREDIENTS_DATA_REQUEST,
   INGREDIENTS_DATA_SUCCESS,
   INGREDIENTS_DATA_SET_DEFAULT,
-  INGREDIENTS_SET_INGREDIENT_INFO,
-  INGREDIENTS_REMOVE_INGREDIENT_INFO,
 } from './ingredients-data-actions';
 
 const defaultState = {
   isLoading: false,
   ingredientsData: [],
-  ingredientInfo: null,
   isError: false,
 }
 
@@ -31,20 +28,6 @@ const ingredientsDataReducer = (state = defaultState, action) => {
         ingredientsData: action.payload.data,
         isLoading: false,
         isError: false,
-      };
-    };
-
-    case INGREDIENTS_SET_INGREDIENT_INFO: {
-      return {
-        ...state,
-        ingredientInfo: action.payload.ingredientInfo,
-      };
-    };
-
-    case INGREDIENTS_REMOVE_INGREDIENT_INFO: {
-      return {
-        ...state,
-        ingredientInfo: null,
       };
     };
 

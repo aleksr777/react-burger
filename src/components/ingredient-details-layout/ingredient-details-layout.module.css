@@ -33,7 +33,11 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  vertical-align: bottom;
+  background-color: transparent;
+  font-size: 18px;
+  color: #8585ad00;
+  transition: all .3s ease 0s;
+  composes: text_type_main-default from global;
 }
 
 .name {
