@@ -110,7 +110,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
                 <img
                   className={stylesOrderInfoIngredients.picture__img}
                   src={obj.path}
-                  alt={`Изображение "${obj.name}".`}
+                  alt={obj.name}
                   draggable='false'
                   onError={() => handleImageError(index)}
                   style={{ color: obj.isImgError ? '#8585AD' : '' }} // по-умолчанию текст прозрачный

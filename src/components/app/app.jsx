@@ -10,18 +10,20 @@ import ProtectedRouteElement from '../protected-route/protected-route';
 import AppLayout from '../app-layout/app-layout';
 import ProfileEditUserBlock from '../profile-edit-user-block/profile-edit-user-block';
 import ProfileOdersBlock from '../profile-orders-block/profile-orders-block';
+import { getAuthState } from '../../utils/selectors';
 
 import HomePage from '../../pages/home/home';
 import FeedPage from '../../pages/feed/feed';
 import ProfilePage from '../../pages/profile/profile';
 import IngredientDetailsPage from '../../pages/ingredient-details/ingredient-details';
 import IngredientDetailsModal from '../ingredient-details-modal/ingredient-details-modal';
+import OrderDetailsPage from '../../pages/order-details/order-details';
+import OrderDetailsModal from '../order-details-modal/order-details-modal';
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found/not-found';
-import { getAuthState } from '../../utils/selectors';
 
 const App = () => {
 
@@ -80,17 +82,25 @@ const App = () => {
 
           <Route path='ingredients/:id' element={<IngredientDetailsPage />} />
 
+          <Route path='profile/orders/:id' element={
+            <ProtectedRouteElement forUnauthUser={false}>
+              <OrderDetailsPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='feed/:id' element={
+            <ProtectedRouteElement forUnauthUser={false}>
+              <OrderDetailsPage />
+            </ProtectedRouteElement>
+          } />
+
           <Route path='profile/' element={
             <ProtectedRouteElement forUnauthUser={false}>
               <ProfilePage />
             </ProtectedRouteElement>
           }>
-            <Route index element={
-              <ProfileEditUserBlock />
-            } />
-            <Route path='orders' element={
-              <ProfileOdersBlock />
-            } />
+            <Route index element={<ProfileEditUserBlock />} />
+            <Route path='orders' element={<ProfileOdersBlock />} />
           </Route>
 
           <Route path='feed' element={
@@ -108,9 +118,13 @@ const App = () => {
 
       {background && (
         <Routes>
-          <Route path='ingredients/:id' element={
-            <IngredientDetailsModal />
-          } />
+
+          <Route path='ingredients/:id' element={<IngredientDetailsModal />} />
+
+          <Route path='feed/:id' element={<OrderDetailsModal />} />
+
+          <Route path='profile/orders/:id' element={<OrderDetailsModal />} />
+
         </Routes>
       )}
     </>

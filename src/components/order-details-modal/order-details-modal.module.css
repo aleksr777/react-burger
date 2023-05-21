@@ -1,0 +1,12 @@
+.container {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 102;
+  min-width: 638px;
+  max-width: 90%;
+  background: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  composes: pt-10 pb-15 pl-10 pr-10 from global;
+}

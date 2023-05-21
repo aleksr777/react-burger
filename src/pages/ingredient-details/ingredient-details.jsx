@@ -13,7 +13,7 @@ const IngredientDetailsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /* достаём id из строки адреса*/
+  //достаём id из строки адреса
   const id = pathname.split('/').pop();
 
   const { ingredient } = useSelector(getIngredientDetailsState);

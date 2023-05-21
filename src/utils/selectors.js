@@ -1,6 +1,7 @@
 export const getIngredientsDataState = state => state.ingredientsData;
 export const getSelectedIngrState = state => state.selectedIngr;
 export const getIngredientDetailsState = state => state.ingredientDetails;
+export const getOrderDetailsState = state => state.orderDetails;
 export const getAuthState = state => state.authorization;
 export const getOrderIdState = state => state.orderId;
 export const getForgotPasswordState = state => state.forgotPassword;

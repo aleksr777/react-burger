@@ -67,7 +67,6 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     }
 
     // Приходится запрашивать все ингредиенты, так как нет эндпоинта для отдельного компонента.
-    // (если пользователь перешёл по ссылке со стороннего ресурса, то данных об ингредиентах нет в памяти)
     dispatch({ type: INGREDIENTS_DATA_REQUEST, payload: {} });
     dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
     blockUserInteraction();

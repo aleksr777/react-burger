@@ -3,6 +3,15 @@
 }
 
 .order {
+  margin: 0;
+  padding: 0;
+}
+
+.order__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
   height: fit-content;
   max-width: 100%;
   background: #1C1C21;

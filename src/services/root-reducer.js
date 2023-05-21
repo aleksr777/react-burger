@@ -11,6 +11,7 @@ import { ingredientsDataReducer } from './ingredients-data/ingredients-data-redu
 import { selectedIngrReducer } from './selected-ingr/selected-ingr-reducer';
 import { orderIdReducer } from './order-id/order-id-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
+import { orderDetailsReducer } from './order-details/order-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
 import { profileOrdersReducer } from './profile-orders/profile-orders-reducer';
 import { feedOrdersReducer } from './feed-all-orders/feed-all-orders-reducer';
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   selectedIngr: selectedIngrReducer,
   orderId: orderIdReducer,
   ingredientDetails: ingredientDetailsReducer,
+  orderDetails: orderDetailsReducer,
   currentTab: currentTabReducer,
   profileOrders: profileOrdersReducer,
   feedOrders: feedOrdersReducer,
