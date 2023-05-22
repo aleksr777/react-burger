@@ -15,6 +15,10 @@
   opacity: .7;
 }
 
+.link:active {
+  opacity: .4;
+}
+
 .link_active {
   color: #F2F2F3;
   cursor: default;

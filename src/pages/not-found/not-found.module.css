@@ -68,3 +68,7 @@ a {
 .link:hover {
   opacity: .7;
 }
+
+.link:active {
+  opacity: .4;
+}

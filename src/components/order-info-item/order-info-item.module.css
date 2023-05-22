@@ -20,7 +20,16 @@
   padding-right: 28px;
   padding-left: 24px;
   margin: 0;
+  transition: all .4s ease 0s;
   composes: pt-6 pb-6 from global;
+}
+
+.order__link:hover {
+  opacity: .7;
+}
+
+.order__link:active {
+  opacity: .4;
 }
 
 .order__details {

@@ -16,7 +16,11 @@
 }
 
 .item:hover * {
-  opacity: 0.8;
+  opacity: .8;
+}
+
+.item:active * {
+  opacity: .4;
 }
 
 .item:nth-child(2n) {

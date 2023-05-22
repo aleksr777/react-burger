@@ -24,6 +24,10 @@
   opacity: .7;
 }
 
+.link:active {
+  opacity: .4;
+}
+
 .link:last-of-type {
   margin-right: 5px;
 }

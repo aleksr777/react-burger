@@ -34,6 +34,10 @@
   opacity: .7;
 }
 
+.logoutButton:active {
+  opacity: .4;
+}
+
 .blockAbout {
   max-width: 100%;
   padding: 62px 0 0 0;
