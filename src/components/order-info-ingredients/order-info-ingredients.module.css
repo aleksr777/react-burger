@@ -16,7 +16,7 @@
   composes: pt-6 text_type_main-default from global;
 }
 
-.order__items {
+.order__images {
   max-width: 60%;
   overflow: hidden;
   text-decoration: none;
@@ -27,7 +27,7 @@
   padding: 0 0 0 16px;
 }
 
-.order__item {
+.imageWrapper {
   display: block;
   position: relative;
   margin: 0 0 0 -16px;
@@ -78,7 +78,7 @@
   composes: text_type_main-default from global;
 }
 
-.order__countOverflow {
+.countOverflow {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -91,28 +91,27 @@
 
 }
 
-.order__item_overflow {
-  position: relative;
+.imageWrapper:nth-child(6) {
   z-index: 1;
 }
 
-.order__item:nth-child(5) {
+.imageWrapper:nth-child(5) {
   z-index: 2;
 }
 
-.order__item:nth-child(4) {
+.imageWrapper:nth-child(4) {
   z-index: 3;
 }
 
-.order__item:nth-child(3) {
+.imageWrapper:nth-child(3) {
   z-index: 4;
 }
 
-.order__item:nth-child(2) {
+.imageWrapper:nth-child(2) {
   z-index: 5;
 }
 
-.order__item:nth-child(1) {
+.imageWrapper:nth-child(1) {
   z-index: 6;
 }
 

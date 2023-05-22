@@ -98,13 +98,15 @@ const OrderInfoIngredients = ({ ingredients }) => {
     
     <div className={stylesOrderInfoIngredients.order__ingredients}>
 
-      <div className={stylesOrderInfoIngredients.order__items}>
+      <div className={stylesOrderInfoIngredients.order__images}>
         {
+
           imagesData.map((obj, index) => (
-            <div className={stylesOrderInfoIngredients.order__item} key={uniqid.process()}>
+
+            <div className={stylesOrderInfoIngredients.imageWrapper} key={uniqid.process()}>
               {
                 (overflowCount && index === 5) &&
-                <p className={stylesOrderInfoIngredients.order__countOverflow}>{overflowCount}</p>
+                <p className={stylesOrderInfoIngredients.countOverflow}>{overflowCount}</p>
               }
               <picture className={(overflowCount && index === 5) ? stylePictureOverflow : stylePictureDefault}>
                 <img
@@ -117,6 +119,7 @@ const OrderInfoIngredients = ({ ingredients }) => {
                 />
               </picture>
             </div>
+            
           ))}
       </div>
 
