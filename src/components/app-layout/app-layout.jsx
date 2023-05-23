@@ -1,7 +1,7 @@
 import stylesAppLayout from './app-layout.module.css';
 import { Outlet } from 'react-router-dom';
 import HeaderLink from '../header-link/header-link';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
+import LogoLink from '../logo-link/logo-link';
 
 const AppLayout = () => {
   return (
@@ -11,7 +11,7 @@ const AppLayout = () => {
           <div className={stylesAppLayout.nav__box}>
             <HeaderLink icon='burger' text='Конструктор' path='/' />
             <HeaderLink icon='list' text='Лента заказов' path='/feed' />
-            <Logo />
+            <LogoLink />
           </div>
           <HeaderLink icon='profile' text='Личный кабинет' path='/profile' />
         </nav>
