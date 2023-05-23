@@ -2,20 +2,23 @@ import stylesOrderDetails from './order-details.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
-import { ORDER_DETAILS_SET_DATA } from '../../services/order-details/order-details-actions';
+import { openOrderDetailsModal } from '../../services/order-details/order-details-actions';
+import {
+  getTotalPrice,
+  getArrIngredients,
+  removeDuplicateIngredients
+} from '../../services/order-details/order-details-service';
 import { initWebSocketFeedOrders } from '../../services/feed-all-orders/feed-all-orders-actions';
 import { initWebSocketProfileOrders } from '../../services/profile-orders/profile-orders-actions';
 import OrderDetailsLayout from '../../components/order-details-layout/order-details-layout';
-import {
-  openWebSocketProfileOrders,
-  openWebSocketFeedOrders,
-  closeWebSocket
-} from '../../utils/api';
+import { openWebSocketProfileOrders, openWebSocketFeedOrders, closeWebSocket } from '../../utils/api';
 import {
   getOrderDetailsState,
   getFeedOrdersState,
-  getProfileOrdersState
+  getProfileOrdersState,
+  getIngredientsDataState
 } from '../../utils/selectors';
+
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию, если переходить на страницу по внешней ссылке*/
 const OrderDetailsPage = () => {
@@ -29,6 +32,7 @@ const OrderDetailsPage = () => {
   const orderDetails = useSelector(getOrderDetailsState);
   const profileOrders = useSelector(getProfileOrdersState);
   const feedOrders = useSelector(getFeedOrdersState);
+  const { ingredientsData } = useSelector(getIngredientsDataState);
 
   function getLocation(pathname) {
     if (pathname.indexOf('profile/orders/') !== -1) {
@@ -45,19 +49,28 @@ const OrderDetailsPage = () => {
     navigate('/not-found-page', { replace: true });
   };
 
+
   function findOrderInfo(data) {
+
     if (data.isSuccess && data.orders) {
+
       const [order] = data.orders.filter((order) => order._id === id);
+
       if (order) {
-        dispatch({
-          type: ORDER_DETAILS_SET_DATA,
-          payload: {
-            order: {
-              ...order,
-              path: pathname
-            },
-          }
-        })
+
+        let arrIngredients = getArrIngredients(ingredientsData, order);
+
+        const totalPrice = getTotalPrice(arrIngredients);
+
+        arrIngredients = removeDuplicateIngredients(arrIngredients);
+
+        const orderData = {
+          ...order,
+          ingredients: arrIngredients,
+          totalPrice: totalPrice
+        }
+
+        dispatch(openOrderDetailsModal(orderData));
       }
       else { goToNotFoundPage() };
     }

@@ -1,11 +1,17 @@
 import stylesOrderInfoItem from './order-info-item.module.css';
 import { useLocation, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { openOrderDetailsModal } from '../../services/order-details/order-details-actions';
+import {
+  getTotalPrice,
+  getArrIngredients,
+  removeDuplicateIngredients
+} from '../../services/order-details/order-details-service';
 import OrderInfoIngredients from '../../components/order-info-ingredients/order-info-ingredients';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderInfoPropTypes } from '../../utils/prop-types';
+import { getIngredientsDataState } from '../../utils/selectors';
 
 
 const OrderInfoItem = ({ order, showStatus }) => {
@@ -16,8 +22,22 @@ const OrderInfoItem = ({ order, showStatus }) => {
   const styleStatusDefault = stylesOrderInfoItem.order__status;
   const styleStatusDone = `${stylesOrderInfoItem.order__status} ${stylesOrderInfoItem.order__status_active}`;
 
-  const handleOpenModal = (order) => {
-    dispatch(openOrderDetailsModal(order));
+  const { ingredientsData } = useSelector(getIngredientsDataState);
+
+  let arrIngredients = getArrIngredients(ingredientsData, order);
+
+  const totalPrice = getTotalPrice(arrIngredients);
+
+  arrIngredients = removeDuplicateIngredients(arrIngredients);
+
+  const orderData = {
+    ...order,
+    ingredients: arrIngredients,
+    totalPrice: totalPrice
+  }
+
+  const handleOpenModal = () => {
+    dispatch(openOrderDetailsModal(orderData));
   };
 
 
@@ -40,9 +60,9 @@ const OrderInfoItem = ({ order, showStatus }) => {
       <Link
         className={stylesOrderInfoItem.order__link}
         to={`${location.pathname}/${order._id}`}
-        state={{ from: location.pathname }}
+        state={{ from: location.pathname, }}
         draggable='false'
-        onClick={() => { handleOpenModal(order) }}
+        onClick={() => { handleOpenModal() }}
       >
 
         <div className={stylesOrderInfoItem.order__details}>
@@ -58,7 +78,7 @@ const OrderInfoItem = ({ order, showStatus }) => {
           (<p className={(order.status === 'done') ? styleStatusDone : styleStatusDefault}>
             {getStatusText(order.status)}
           </p>)}
-        <OrderInfoIngredients ingredients={order.ingredients} />
+        <OrderInfoIngredients orderData={orderData} />
 
       </Link>
     </li>

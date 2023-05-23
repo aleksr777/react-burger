@@ -25,3 +25,21 @@ export const orderInfoPropTypes = PropTypes.shape({
   status: PropTypes.string.isRequired,
   updatedAt: PropTypes.string.isRequired,
 });
+
+
+export const orderDetailsPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      path: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+  })),
+  name: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+});

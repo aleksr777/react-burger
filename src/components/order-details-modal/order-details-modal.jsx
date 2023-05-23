@@ -7,7 +7,7 @@ import Modal from '../modal/modal';
 import { getOrderDetailsState } from '../../utils/selectors';
 
 
-const OrderDetailsModal = () => {
+const OrderDetailsModal = ({ arrIngredients }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
