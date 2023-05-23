@@ -5,6 +5,7 @@ import {
   SELECTED_INGREDIENTS_SWAP_ITEMS,
   SELECTED_INGREDIENTS_ADD_BUNS,
   SELECTED_INGREDIENTS_REMOVE_BUNS,
+  SELECTED_INGREDIENTS_REMOVE_DATA,
 } from './selected-ingr-actions';
 
 const defaultState = {
@@ -50,6 +51,9 @@ const selectedIngrReducer = (state = defaultState, action) => {
         bun: noBunObj,
         totalPrice: state.totalPrice - action.payload.price,
       };
+
+    case SELECTED_INGREDIENTS_REMOVE_DATA:
+      return defaultState;
 
     default:
       return state;

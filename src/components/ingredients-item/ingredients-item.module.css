@@ -19,10 +19,6 @@
   opacity: .8;
 }
 
-.item:active * {
-  opacity: .4;
-}
-
 .item:nth-child(2n) {
   margin-right: 0;
 }
