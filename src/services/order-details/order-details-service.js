@@ -40,9 +40,9 @@ export function getArrIngredients(ingredientsData, order) {
           count: count,
         });
     };
-
-    return arrIngredients;
   };
+  
+  return arrIngredients;
 };
 
 

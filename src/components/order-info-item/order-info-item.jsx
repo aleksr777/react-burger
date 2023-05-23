@@ -55,6 +55,8 @@ const OrderInfoItem = ({ order, showStatus }) => {
 
   return (
 
+    orderData && order &&
+
     <li className={stylesOrderInfoItem.order}>
 
       <Link
@@ -70,7 +72,7 @@ const OrderInfoItem = ({ order, showStatus }) => {
             {order.number ? ("#" + order.number.toString().padStart(6, '0')) : ''}
           </p>
           <p className={stylesOrderInfoItem.order__time}>
-            <FormattedDate date={new Date(dateServer)} />
+            {dateServer && <FormattedDate date={new Date(dateServer)} />}
           </p>
         </div>
         <p className={stylesOrderInfoItem.order__name}>{order.name}</p>

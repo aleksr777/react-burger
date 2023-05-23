@@ -32,6 +32,7 @@ export const orderDetailsPropTypes = PropTypes.shape({
   createdAt: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       path: PropTypes.string.isRequired,
