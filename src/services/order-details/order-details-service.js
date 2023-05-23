@@ -33,6 +33,7 @@ export function getArrIngredients(ingredientsData, order) {
       });
       foundIngredient &&
         arrIngredients.push({
+          _id: foundIngredient._id,
           name: foundIngredient.name,
           path: foundIngredient.image,
           price: foundIngredient.price,

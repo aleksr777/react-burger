@@ -1,6 +1,5 @@
 import stylesOrderDetailsLayout from './order-details-layout.module.css';
 import { memo } from 'react';
-import uniqid from 'uniqid';
 import { orderDetailsPropTypes } from '../../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -42,8 +41,7 @@ const OrderDetailsLayout = ({ order }) => {
 
         {ingredients.map((ingredient) => (
 
-          <li className={stylesOrderDetailsLayout.ingredientBlock} key={uniqid.process()}>
-
+          <li className={stylesOrderDetailsLayout.ingredientBlock} key={ingredient._id}>
             <div className={stylesOrderDetailsLayout.imageWrapper}>
               <picture className={stylesOrderDetailsLayout.picture}>
                 <img

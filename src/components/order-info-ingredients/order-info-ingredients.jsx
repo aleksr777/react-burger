@@ -1,6 +1,5 @@
 import stylesOrderInfoIngredients from './order-info-ingredients.module.css';
 import { useState, useEffect } from 'react';
-import uniqid from 'uniqid';
 import { orderDetailsPropTypes } from '../../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -26,6 +25,7 @@ const OrderInfoIngredients = ({ orderData }) => {
       for (let i = 0; i < 6 && i < arrIngredients.length; i += 1) {
         if (arrIngredients[i]) {
           arr.push({
+            _id: arrIngredients[i]._id,
             name: arrIngredients[i].name,
             path: arrIngredients[i].path,
             isImgError: false, // для показа текста alt в случае ошибки загрузки изображения
@@ -51,6 +51,7 @@ const OrderInfoIngredients = ({ orderData }) => {
     overflowCount = `+${orderData.ingredients.length - 5}`;
   };
 
+
   return (
 
     imagesData &&
@@ -62,7 +63,7 @@ const OrderInfoIngredients = ({ orderData }) => {
 
         {imagesData.map((obj, index) => (
 
-          <div className={stylesOrderInfoIngredients.imageWrapper} key={uniqid.process()}>
+          <div className={stylesOrderInfoIngredients.imageWrapper} key={obj._id}>
             {
               (overflowCount && index === 5) &&
               <p className={stylesOrderInfoIngredients.countOverflow}>{overflowCount}</p>
