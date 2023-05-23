@@ -89,9 +89,7 @@ const App = () => {
           } />
 
           <Route path='feed/:id' element={
-            <ProtectedRouteElement forUnauthUser={false}>
-              <OrderDetailsPage />
-            </ProtectedRouteElement>
+            <OrderDetailsPage />
           } />
 
           <Route path='profile/' element={
@@ -104,9 +102,7 @@ const App = () => {
           </Route>
 
           <Route path='feed' element={
-            <ProtectedRouteElement forUnauthUser={false}>
-              <FeedPage />
-            </ProtectedRouteElement>
+            <FeedPage />
           } />
 
         </Route>
