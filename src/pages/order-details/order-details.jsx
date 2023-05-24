@@ -8,10 +8,10 @@ import {
   getArrIngredients,
   removeDuplicateIngredients
 } from '../../services/order-details/order-details-service';
-import { initWebSocketFeedOrders } from '../../services/feed-all-orders/feed-all-orders-actions';
-import { initWebSocketProfileOrders } from '../../services/profile-orders/profile-orders-actions';
+import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions';
+import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions';
 import OrderDetailsLayout from '../../components/order-details-layout/order-details-layout';
-import { openWebSocketProfileOrders, openWebSocketFeedOrders, closeWebSocket } from '../../utils/api';
+import { openWebSocket, closeWebSocket, urlFeedOrders, urlProfileOrders } from '../../utils/api';
 import {
   getOrderDetailsState,
   getFeedOrdersState,
@@ -79,25 +79,15 @@ const OrderDetailsPage = () => {
   // Устанавливаем связь с сервером и получаем данные
   useEffect(() => {
 
-    let ws = null;
-
     if (location === 'profile-orders') {
-      const connectAsyncWebSocket = async () => {
-        ws = await openWebSocketProfileOrders();
-        dispatch(initWebSocketProfileOrders(ws));
-      };
-      connectAsyncWebSocket();
+      dispatch({ type: profileOrdersActions.connect });
     }
     else if (location === 'feed') {
-      const connectAsyncWebSocket = async () => {
-        ws = await openWebSocketFeedOrders();
-        dispatch(initWebSocketFeedOrders(ws));
-      };
-      connectAsyncWebSocket();
+      dispatch({ type: profileOrdersActions.connect });
     }
 
     return () => {
-      closeWebSocket(ws);
+      dispatch({ type: profileOrdersActions.connect });
     };
 
   }, []);

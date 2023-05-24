@@ -6,6 +6,9 @@ import {
 } from '../services/authorization/tokens-service';
 
 const baseUrl = 'norma.nomoreparties.space';
+export const urlFeedOrders = `wss://${baseUrl}/orders/all`;
+export const urlProfileOrders = `wss://${baseUrl}/orders`;
+
 
 /**
  * Сделал функцию, чтобы accessToken считывался напрямую из памяти при каждом обращении к серверу
@@ -164,23 +167,12 @@ export const resetPasswordRequestServer = async (valuePassword, valueCode) => {
 };
 
 
-/* Открыть WebSocket для ProfileOrders */
-export const openWebSocketProfileOrders = async () => {
+/* Открыть WebSocket */
+export const openWebSocket = (url) => {
   const accessToken = getRawAccessToken();
-  const ws = new WebSocket(`wss://${baseUrl}/orders?token=${accessToken}`);
+  const ws = new WebSocket(`${url}?token=${accessToken}`);
   ws.onopen = () => {
-    console.log('WebSocket cоединение установлено');
-  };
-  return ws;
-};
-
-
-/* Открыть WebSocket для FeedOrders */
-export const openWebSocketFeedOrders = async () => {
-  const accessToken = getRawAccessToken();
-  const ws = new WebSocket(`wss://${baseUrl}/orders/all?token=${accessToken}`);
-  ws.onopen = () => {
-    console.log('WebSocket cоединение установлено');
+    console.log('WebSocket соединение установлено');
   };
   return ws;
 };

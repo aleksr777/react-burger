@@ -1,9 +1,4 @@
-import {
-  FEED_ORDERS_REQUEST,
-  FEED_ORDERS_SUCCESS,
-  FEED_ORDERS_SHOW_ERROR,
-  FEED_ORDERS_HIDE_ERROR,
-} from './feed-all-orders-actions';
+import {feedOrdersActions} from './feed-all-orders-actions';
 
 const defaultState = {
   isSuccess: false,
@@ -18,31 +13,31 @@ const feedOrdersReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case FEED_ORDERS_REQUEST: {
+    case feedOrdersActions.request: {
       return {
         ...state,
         isLoading: true,
       };
     };
 
-    case FEED_ORDERS_SUCCESS:
+    case feedOrdersActions.success:
       return {
         ...state,
         isSuccess: true,
         isLoading: false,
         isError: false,
-        orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday,
+        orders: action.payload.orders ? action.payload.orders : null,
+        total: action.payload.total ? action.payload.total : null,
+        totalToday: action.payload.totalToday ? action.payload.totalToday : null,
       };
 
-    case FEED_ORDERS_SHOW_ERROR:
+    case feedOrdersActions.showError:
       return {
         ...state,
         isError: true,
       };
 
-    case FEED_ORDERS_HIDE_ERROR:
+    case feedOrdersActions.hideError:
       return {
         ...state,
         isLoading: false,

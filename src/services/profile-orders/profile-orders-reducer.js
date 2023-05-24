@@ -1,9 +1,4 @@
-import {
-  PROFILE_ORDERS_REQUEST,
-  PROFILE_ORDERS_SUCCESS,
-  PROFILE_ORDERS_SHOW_ERROR,
-  PROFILE_ORDERS_HIDE_ERROR,
-} from './profile-orders-actions';
+import { profileOrdersActions } from './profile-orders-actions';
 
 const defaultState = {
   isSuccess: false,
@@ -16,14 +11,14 @@ const profileOrdersReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-    case PROFILE_ORDERS_REQUEST: {
+    case profileOrdersActions.request: {
       return {
         ...state,
         isLoading: true,
       };
     };
 
-    case PROFILE_ORDERS_SUCCESS:
+    case profileOrdersActions.success:
       return {
         ...state,
         isSuccess: true,
@@ -32,13 +27,13 @@ const profileOrdersReducer = (state = defaultState, action) => {
         orders: action.payload.orders,
       };
 
-    case PROFILE_ORDERS_SHOW_ERROR:
+    case profileOrdersActions.showError:
       return {
         ...state,
         isError: true,
       };
 
-    case PROFILE_ORDERS_HIDE_ERROR:
+    case profileOrdersActions.hideError:
       return {
         ...state,
         isLoading: false,

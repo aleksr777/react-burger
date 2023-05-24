@@ -1,8 +1,7 @@
 import stylesFeedOrders from './feed-orders.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { initWebSocketFeedOrders } from '../../services/feed-all-orders/feed-all-orders-actions';
-import { openWebSocketFeedOrders, closeWebSocket } from '../../utils/api';
+import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions';
 import { getFeedOrdersState } from '../../utils/selectors';
 import OrderInfoItem from '../../components/order-info-item/order-info-item';
 
@@ -14,17 +13,10 @@ const FeedOrders = () => {
 
   useEffect(() => {
 
-    let ws = null;
-
-    const connectAsyncWebSocket = async () => {
-      ws = await openWebSocketFeedOrders();
-      dispatch(initWebSocketFeedOrders(ws));
-    };
-
-    connectAsyncWebSocket();
+    dispatch({ type: feedOrdersActions.connect });
 
     return () => {
-      closeWebSocket(ws);
+      dispatch({ type: feedOrdersActions.disconnect });
     };
   }, []);
 
