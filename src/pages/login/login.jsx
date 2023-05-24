@@ -1,79 +1,59 @@
 import stylesLoginPage from './login.module.css';
-import { useState } from 'react';
-import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import { requestLogin } from '../../services/authorization/auth-actions';
 import FormInput from '../../components/form-input/form-input';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { useForm } from '../../hooks/useForm';
 
 const LoginPage = () => {
-
   const dispatch = useDispatch();
+  const { values, handleChange } = useForm({ email: '', password: '' });
 
-  const [inputsData, setInputsData] = useState({
-    valueEmail: '',
-    valuePassword: '',
-  });
-
-  const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value });
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestLogin(inputsData.valueEmail, inputsData.valuePassword));
-  }
+    dispatch(requestLogin(values.email, values.password));
+  };
 
   return (
-
     <div className={stylesLoginPage.container}>
-
       <h1 className={stylesLoginPage.title}>Вход</h1>
 
       <form onSubmit={handleSubmit} autoComplete='off'>
-
         <FormInput
           inputType='email'
-          onChange={e => handleInputChange(e, 'valueEmail')}
-          value={inputsData.valueEmail}
-          name='loginEmail'
+          onChange={handleChange}
+          value={values.email}
+          name='email'
           placeholder='E-mail'
           isIcon={false}
         />
 
         <FormInput
           inputType='password'
-          onChange={e => handleInputChange(e, 'valuePassword')}
-          value={inputsData.valuePassword}
-          name='loginPassword'
+          onChange={handleChange}
+          value={values.password}
+          name='password'
           placeholder='Пароль'
           icon={undefined}
         />
 
-
         <div className={stylesLoginPage.submitBox}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-          >
+          <Button htmlType="submit" type="primary" size="medium">
             Войти
           </Button>
         </div>
-
       </form>
 
       <p className={stylesLoginPage.text}>
-        Вы — новый пользователь? <Link to='/register' className={stylesLoginPage.link}>Зарегистрироваться</Link>
+        Вы — новый пользователь? <Link to='/register' className={stylesLoginPage.link}>Зарегистрироваться</Link>
       </p>
 
       <p className={stylesLoginPage.text}>
         Забыли пароль? <Link to='/forgot-password' className={stylesLoginPage.link}>Восстановить пароль</Link>
       </p>
-
     </div>
-  )
-}
+  );
+};
 
 export default LoginPage;
