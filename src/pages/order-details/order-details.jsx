@@ -83,11 +83,16 @@ const OrderDetailsPage = () => {
       dispatch({ type: profileOrdersActions.connect });
     }
     else if (location === 'feed') {
-      dispatch({ type: profileOrdersActions.connect });
+      dispatch({ type: feedOrdersActions.connect });
     }
 
     return () => {
-      dispatch({ type: profileOrdersActions.connect });
+      if (location === 'profile-orders') {
+        dispatch({ type: profileOrdersActions.disconnect });
+      }
+      else if (location === 'feed') {
+        dispatch({ type: feedOrdersActions.disconnect });
+      }
     };
 
   }, []);
