@@ -1,4 +1,7 @@
-.item_scroll {
+.item {
+  position: relative;
+  top: 0;
+  left: 0;
   cursor: move;
   box-sizing: border-box;
   display: flex;
@@ -8,4 +11,32 @@
   margin: 0;
   transition: all .3s ease 0s;
   composes: pt-2 pb-2 pl-4 pr-2 from global;
+}
+
+.item_moove_up {
+  animation: mooveUp var(--constructor-items-animation-time) ease-out forwards;
+}
+
+@keyframes mooveUp {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: -96px;
+  }
+}
+
+.item_moove_down {
+  animation: mooveDown var(--constructor-items-animation-time) ease-out forwards;
+}
+
+@keyframes mooveDown {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 96px;
+  }
 }
