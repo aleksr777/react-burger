@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0;
   opacity: 1;
+  transition: all .3s ease 0s;
   scrollbar-color: rgba(47, 47, 55, 1);
 }
 
