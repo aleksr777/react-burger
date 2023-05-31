@@ -1,6 +1,7 @@
 import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { matchNumErr, handleAuthError } from '../authorization/auth-actions';
+import { SELECTED_INGREDIENTS_REMOVE_DATA } from '../selected-ingr/selected-ingr-actions';
 import {
   blockUserInteraction,
   unblockUserInteraction,
@@ -26,7 +27,7 @@ export function getOrderId(arrId) {
         dispatch(handleAuthError(response, getOrderId(arrId)));
       }
       else {
-        dispatch({ type: ORDER_ID_ERROR, payload: { message: response } });
+        dispatch({ type: ORDER_ID_ERROR, payload: {  } });
         setTimeout(() => {
           unblockUserInteraction();
           dispatch({ type: ORDER_ID_SET_DEFAULT, payload: {} });
@@ -44,6 +45,7 @@ export function getOrderId(arrId) {
           dispatch({ type: ORDER_ID_OPEN_MODAL, payload: {} });
           setTimeout(() => {
             unblockUserInteraction();
+            dispatch({ type: SELECTED_INGREDIENTS_REMOVE_DATA, payload: {} });
           }, MODAL_ANIMATION_TIME);
         }
         else {

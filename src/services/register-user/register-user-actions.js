@@ -28,17 +28,11 @@ export function registerUserRequest(valueName, valueEmail, valuePassword) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({
-        type: REGISTER_USER_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка регистрации',
-        }
-      });
+      dispatch({ type: REGISTER_USER_ERROR, payload: {} });
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: REGISTER_USER_SET_DEFAULT_STATE, payload: {} });
-      }, 1500);
+      }, 2000);
     };
 
     dispatch({ type: REGISTER_USER_REQUEST, payload: {} });

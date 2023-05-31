@@ -1,96 +1,69 @@
 import stylesRegisterPage from './register.module.css';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
 import FormInput from '../../components/form-input/form-input';
-import Loader from '../../components/loader/loader';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { registerUserState } from '../../utils/selectors';
-
+import { useForm } from '../../hooks/useForm';
 
 const RegisterPage = () => {
-
   const dispatch = useDispatch();
-
-  const [inputsData, setInputsData] = useState({
-    valueName: '',
-    valueEmail: '',
-    valuePassword: '',
+  const { values, handleChange } = useForm({
+    name: '',
+    email: '',
+    password: '',
   });
 
-  const { isLoading, isError } = useSelector(registerUserState);
-
-  const handleInputChange = (e, value) => {
-    setInputsData({ ...inputsData, [value]: e.target.value })
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUserRequest(
-      inputsData.valueName,
-      inputsData.valueEmail,
-      inputsData.valuePassword
-    ));
-  }
+    dispatch(registerUserRequest(values.name, values.email, values.password));
+  };
 
   return (
-
     <div className={stylesRegisterPage.container}>
-
       <h1 className={stylesRegisterPage.title}>Регистрация</h1>
 
       <form onSubmit={handleSubmit} autoComplete='off'>
-
         <FormInput
           inputType='text'
-          value={inputsData.valueName}
-          name='registerName'
+          value={values.name}
+          name='name'
           placeholder='Имя'
-          onChange={e => handleInputChange(e, 'valueName')}
+          onChange={handleChange}
           icon={undefined}
           onIconClick={undefined}
         />
 
         <FormInput
           inputType='email'
-          onChange={e => handleInputChange(e, 'valueEmail')}
-          value={inputsData.valueEmail}
-          name='registerEmail'
+          onChange={handleChange}
+          value={values.email}
+          name='email'
           placeholder='E-mail'
           isIcon={false}
         />
 
         <FormInput
           inputType='password'
-          onChange={e => handleInputChange(e, 'valuePassword')}
-          value={inputsData.valuePassword}
-          name='registerPassword'
+          onChange={handleChange}
+          value={values.password}
+          name='password'
           placeholder='Пароль'
           icon={undefined}
         />
 
-
         <div className={stylesRegisterPage.submitBox}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-          >
+          <Button htmlType="submit" type="primary" size="medium">
             Зарегистрироваться
           </Button>
         </div>
-
       </form>
 
       <p className={stylesRegisterPage.text}>
         Уже зарегистрированы? <Link to='/login' className={stylesRegisterPage.link}>Войти</Link>
       </p>
-
-      <Loader size={100} isLoading={isLoading} isError={isError} />
-
     </div>
-  )
+  );
 };
 
 export default RegisterPage;

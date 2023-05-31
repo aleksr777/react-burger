@@ -1,3 +1,32 @@
 * {
   box-sizing: border-box;
 }
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  margin: 0 0 0 -12px;
+  padding-bottom: 0;
+  padding-right: 4px;
+  padding-top: 45px;
+  max-height: 912px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(47, 47, 55, 1);
+  list-style: none;
+  transition: all .3s ease 0s;
+  composes: pl-15 from global;
+}
+
+.feed::-webkit-scrollbar {
+  width: 7px;
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.feed::-webkit-scrollbar-thumb {
+  width: 7px;
+  background-color: rgba(133, 133, 173, 1)
+}

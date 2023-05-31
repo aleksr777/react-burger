@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+.link {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  transition: all .3s ease 0s;
+}
+
+.link_active {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.link:active {
+  opacity: .4;
+}

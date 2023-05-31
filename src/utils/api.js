@@ -2,7 +2,13 @@
 import {
   getAccessToken,
   getRefreshToken,
+  getRawAccessToken
 } from '../services/authorization/tokens-service';
+
+const baseUrl = 'norma.nomoreparties.space';
+export const urlFeedOrders = `wss://${baseUrl}/orders/all`;
+export const urlProfileOrders = `wss://${baseUrl}/orders`;
+
 
 /**
  * Сделал функцию, чтобы accessToken считывался напрямую из памяти при каждом обращении к серверу
@@ -10,7 +16,7 @@ import {
 function getApiConfig() {
   const accessToken = getAccessToken();
   return {
-    baseUrl: 'https://norma.nomoreparties.space',
+    baseUrl: `https://${baseUrl}`,
     headers: {
       authorization: accessToken,
       'Content-Type': 'application/json'
@@ -66,6 +72,7 @@ export const requestLoginServer = async (email, password) => {
   })
 };
 
+
 //Запрос на получение данных о пользователе
 export const requestGetUserDataServer = async () => {
   const { baseUrl, headers } = getApiConfig();
@@ -74,6 +81,7 @@ export const requestGetUserDataServer = async () => {
     headers,
   })
 };
+
 
 //Запрос на изменение данных о пользователе
 export const requestChangeUserDataServer = async ({ name, email, password }) => {
@@ -157,3 +165,24 @@ export const resetPasswordRequestServer = async (valuePassword, valueCode) => {
     })
   })
 };
+
+
+/* Открыть WebSocket */
+export const openWebSocket = (url) => {
+  const accessToken = getRawAccessToken();
+  const ws = new WebSocket(`${url}?token=${accessToken}`);
+  ws.onopen = () => {
+    console.log('WebSocket соединение установлено');
+  };
+  return ws;
+};
+
+
+/* Закрыть WebSocket */
+export const closeWebSocket = (ws) => {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.close();
+    console.log('WebSocket соединение закрыто');
+  }
+};
+

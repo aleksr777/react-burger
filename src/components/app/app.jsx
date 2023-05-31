@@ -10,31 +10,32 @@ import ProtectedRouteElement from '../protected-route/protected-route';
 import AppLayout from '../app-layout/app-layout';
 import ProfileEditUserBlock from '../profile-edit-user-block/profile-edit-user-block';
 import ProfileOdersBlock from '../profile-orders-block/profile-orders-block';
+import { getAuthState } from '../../utils/selectors';
 
 import HomePage from '../../pages/home/home';
 import FeedPage from '../../pages/feed/feed';
 import ProfilePage from '../../pages/profile/profile';
-import IngredientPage from '../../pages/ingredient/ingredient';
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details';
+import IngredientDetailsPage from '../../pages/ingredient-details/ingredient-details';
+import IngredientDetailsModal from '../ingredient-details-modal/ingredient-details-modal';
+import OrderDetailsPage from '../../pages/order-details/order-details';
+import OrderDetailsModal from '../order-details-modal/order-details-modal';
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found/not-found';
-import { getIngredientsDataState, getAuthState } from '../../utils/selectors';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
   const { isSuccess, user } = useSelector(getAuthState);
-  const { isLoading, isError } = useSelector(getIngredientsDataState);
 
   useEffect(() => {
-    /* Проверяем наличие данных для авторизации */
+    //Проверяем наличие данных для авторизации
     let isAuth = checkAuth(isSuccess, user.email);
     isAuth
-      ? dispatch(requestGetUserData())/* Запрашиваем данные и проверяем актуальность токенов */
+      ? dispatch(requestGetUserData())//Запрашиваем данные и проверяем актуальность токенов
       : dispatch(deleteAuthData());
   }, []);
 
@@ -47,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
+      <Loader />
 
       <Routes location={background || location}>
 
@@ -79,25 +80,29 @@ const App = () => {
             </ProtectedRouteElement>
           } />
 
-          <Route path='ingredients/:id' element={<IngredientPage />} />
+          <Route path='ingredients/:id' element={<IngredientDetailsPage />} />
+
+          <Route path='profile/orders/:id' element={
+            <ProtectedRouteElement forUnauthUser={false}>
+              <OrderDetailsPage />
+            </ProtectedRouteElement>
+          } />
+
+          <Route path='feed/:id' element={
+            <OrderDetailsPage />
+          } />
 
           <Route path='profile/' element={
             <ProtectedRouteElement forUnauthUser={false}>
               <ProfilePage />
             </ProtectedRouteElement>
           }>
-            <Route index element={
-              <ProfileEditUserBlock />
-            } />
-            <Route path='orders' element={
-              <ProfileOdersBlock />
-            } />
+            <Route index element={<ProfileEditUserBlock />} />
+            <Route path='orders' element={<ProfileOdersBlock />} />
           </Route>
 
           <Route path='feed' element={
-            <ProtectedRouteElement forUnauthUser={false}>
-              <FeedPage />
-            </ProtectedRouteElement>
+            <FeedPage />
           } />
 
         </Route>
@@ -109,9 +114,13 @@ const App = () => {
 
       {background && (
         <Routes>
-          <Route path='ingredients/:id' element={
-            <ModalIngredientDetails />
-          } />
+
+          <Route path='ingredients/:id' element={<IngredientDetailsModal />} />
+
+          <Route path='feed/:id' element={<OrderDetailsModal />} />
+
+          <Route path='profile/orders/:id' element={<OrderDetailsModal />} />
+
         </Routes>
       )}
     </>

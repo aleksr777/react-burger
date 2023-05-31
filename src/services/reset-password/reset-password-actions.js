@@ -17,17 +17,11 @@ export function resetPasswordRequest(goToAuthPage, valuePassword, valueCode) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({
-        type: RESET_PASSWORD_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка сервера',
-        }
-      });
+      dispatch({ type: RESET_PASSWORD_ERROR, payload: {} });
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: RESET_PASSWORD_SET_DEFAULT, payload: {} });
-      }, 1500);
+      }, 2000);
     };
 
     dispatch({ type: RESET_PASSWORD_REQUEST, payload: {} });

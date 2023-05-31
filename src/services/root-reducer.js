@@ -11,7 +11,10 @@ import { ingredientsDataReducer } from './ingredients-data/ingredients-data-redu
 import { selectedIngrReducer } from './selected-ingr/selected-ingr-reducer';
 import { orderIdReducer } from './order-id/order-id-reducer';
 import { ingredientDetailsReducer } from './ingredient-details/ingredient-details-reducer';
+import { orderDetailsReducer } from './order-details/order-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
+import { profileOrdersReducer } from './profile-orders/profile-orders-reducer';
+import { feedOrdersReducer } from './feed-all-orders/feed-all-orders-reducer';
 
 
 const authPersistConfig = {
@@ -30,6 +33,30 @@ const forgotPasswordPersistConfig = {
 const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
 
 
+const ingredientDetailsPersistConfig = {
+  key: 'react-burger-ingredientDetails',
+  storage: sessionStorage,
+  whitelist: ['ingredient', 'isModalOpened'],
+};
+const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsPersistConfig, ingredientDetailsReducer);
+
+
+const orderDetailsPersistConfig = {
+  key: 'react-burger-orderDetails',
+  storage: sessionStorage,
+  whitelist: ['order', 'isModalOpened'],
+};
+const persistedOrderDetailsReducer = persistReducer(orderDetailsPersistConfig, orderDetailsReducer);
+
+
+const orderIdPersistConfig = {
+  key: 'react-burger-orderId',
+  storage: sessionStorage,
+  whitelist: ['id', 'isModalOpened'],
+};
+const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
+
+
 const rootReducer = combineReducers({
   authorization: persistedAuthReducer,
   registerUser: registerUserReducer,
@@ -37,9 +64,12 @@ const rootReducer = combineReducers({
   resetPassword: resetPasswordReducer,
   ingredientsData: ingredientsDataReducer,
   selectedIngr: selectedIngrReducer,
-  orderId: orderIdReducer,
-  ingredientDetails: ingredientDetailsReducer,
+  orderId: persistedOrderIdReducer,
+  ingredientDetails: persistedIngredientDetailsReducer,
+  orderDetails: persistedOrderDetailsReducer,
   currentTab: currentTabReducer,
+  profileOrders: profileOrdersReducer,
+  feedOrders: feedOrdersReducer,
 });
 
 export default rootReducer;

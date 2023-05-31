@@ -10,12 +10,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import rootReducer from './services/root-reducer';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
-import rootReducer from './services/root-reducer';
+import { socketMiddleware } from './services/socketMiddleware/socketMiddleware';
+import { urlFeedOrders, urlProfileOrders } from './utils/api';
+import { feedOrdersActions } from './services/feed-all-orders/feed-all-orders-actions';
+import { profileOrdersActions } from './services/profile-orders/profile-orders-actions';
+
+const socketMiddlewareFeedOrders = socketMiddleware(urlFeedOrders, feedOrdersActions);
+const socketMiddlewareProfileOrders = socketMiddleware(urlProfileOrders, profileOrdersActions);
 
 const store = configureStore({
   reducer: rootReducer,
@@ -24,7 +31,7 @@ const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }),
+  }).concat(socketMiddlewareFeedOrders, socketMiddlewareProfileOrders)
 });
 
 const persistor = persistStore(store);
@@ -39,8 +46,8 @@ root.render(
           <App />
         </PersistGate>
       </Provider>
-    </BrowserRouter >
-  </React.StrictMode>,
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 export { store };

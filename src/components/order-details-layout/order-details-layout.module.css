@@ -1,0 +1,208 @@
+* {
+  box-sizing: border-box;
+}
+
+.orderId {
+  flex: 0 0 auto;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  padding: 0 0 0 3px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  composes: mb-10 text_type_digits-default from global;
+}
+
+.title {
+  flex: 0 0 auto;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  composes: mb-3 text_type_main-medium from global;
+}
+
+.status {
+  flex: 0 0 auto;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  padding: 2px 0 0 2px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  composes: mb-15 text_type_main-default from global;
+}
+
+.status_active {
+  color: #00CCCC;
+}
+
+.subtitle {
+  flex: 0 0 auto;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  padding: 5px 0 0 2px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  composes: mb-6 text_type_main-medium from global;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  list-style: none;
+  flex: 0 0 auto;
+  width: 100%;
+  max-height: 312px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(47, 47, 55, 1);
+  list-style: none;
+  transition: all .3s ease 0s;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  composes: pr-6 mb-10 from global;
+}
+
+.ingredientsList::-webkit-scrollbar {
+  width: 7px;
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.ingredientsList::-webkit-scrollbar-thumb {
+  width: 7px;
+  background-color: rgba(133, 133, 173, 1)
+}
+
+.ingredientBlock {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.imageWrapper {
+  flex: 0 0 auto;
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 2px;
+  width: fit-content;
+  height: fit-content;
+  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%), linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.picture {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 1/1;
+  user-select: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #131316;
+}
+
+.picture__img {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #8585ad00;
+  font-size: 10px;
+  transition: all .3s ease 0s;
+  composes: text_type_main-default from global;
+}
+
+.orderName {
+  flex: 1 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0 0 0 17px;
+  composes: text_type_main-default from global;
+}
+
+.ingredientBlock__priceBlock {
+  margin: 0 -3px 0 0;
+  flex: 0 0 auto;
+}
+
+.priceBlock {
+  width: fit-content;
+  display: flex;
+  padding: 0 0 2px 0;
+}
+
+.priceBlock__number {
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0 8px 0 0;
+  composes: text_type_digits-default from global;
+}
+
+.resultBlock {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.resultBlock__priceBlock {
+  margin: 0;
+  flex: 1 0 50%;
+  justify-content: flex-end;
+}
+
+.time {
+  width: 50%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+  text-align: left;
+  composes: text_type_main-default text_color_inactive from global;
+}
+
+.totalPrice {
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}

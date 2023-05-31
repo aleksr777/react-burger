@@ -2,7 +2,7 @@ import stylesConstructorBurger from './constructor-burger.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { addBun, removeBun, addIngredient } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
-import ModalOrderDetails from '../modal-order-details/modal-order-details';
+import NewOrderDetailsModal from '../new-order-details-modal/new-order-details-modal';
 import OrderingPrice from '../ordering-price/ordering-price';
 import OrderingButton from '../ordering-button/ordering-button';
 import ConstructorItemsList from '../constructor-items-list/constructor-items-list';
@@ -55,7 +55,7 @@ const ConstructorBurger = () => {
 
       </section>
 
-      <ModalOrderDetails />
+      <NewOrderDetailsModal />
     </>
   );
 };

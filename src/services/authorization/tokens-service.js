@@ -45,9 +45,7 @@ function setCookie(name, value, props) {
 };
 
 function getCookie(name) {
-  let matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
+  let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
   return matches ? decodeURIComponent(matches[1]) : '';
 };
 
@@ -74,7 +72,7 @@ export function saveAccessToken(accessToken) {
     deleteCookie(accessTokenName);
     setCookie(accessTokenName, accessToken, {
       sameSite: "Strict",
-      maxAge: 86400, // 24 часа
+      maxAge: 1200, // 20 мин
       secure: true
     });
   };
@@ -85,7 +83,7 @@ export function saveRefreshToken(refreshToken) {
     deleteCookie(refreshTokenName);
     setCookie(refreshTokenName, refreshToken, {
       sameSite: "Strict",
-      maxAge: 1200, // 20 мин
+      maxAge: 86400, // 24 часа
       secure: true
     });
   }
@@ -94,6 +92,11 @@ export function saveRefreshToken(refreshToken) {
 export function getAccessToken() {
   const token = getCookie(accessTokenName);
   return token ? `Bearer ${token}` : '';
+};
+
+export function getRawAccessToken() {
+  const token = getCookie(accessTokenName);
+  return token ? token : '';
 };
 
 export function getRefreshToken() {

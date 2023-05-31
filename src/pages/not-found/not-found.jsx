@@ -8,12 +8,12 @@ const NotFoundPage = () => {
   return (
     <div className={stylesNotFound.container}>
       <div className={stylesNotFound.textBox}>
-        <p className={`text text_type_main-large ${stylesNotFound.text}`}>Упс... Страница не найдена!</p>
-        <p className={`text text_type_digits-large ${stylesNotFound.text}`}>404 Error</p>
-        <p className={`text text_type_main-medium ${stylesNotFound.text}`}>
+        <p className={`text_type_main-large ${stylesNotFound.text}`}>Упс... Страница не найдена!</p>
+        <p className={`text_type_digits-large ${stylesNotFound.text}`}>404 Error</p>
+        <p className={`text_type_main-medium ${stylesNotFound.text}`}>
           Проверьте адрес ссылки
         </p>
-        <p className={`text text_type_main-medium ${stylesNotFound.text}`}>
+        <p className={`text_type_main-medium ${stylesNotFound.text}`}>
           или перейдите на <Link to='/' className={stylesNotFound.link}>главную страницу</Link>
         </p>
       </div>

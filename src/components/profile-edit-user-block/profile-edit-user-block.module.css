@@ -3,7 +3,7 @@
 }
 
 .form {
-  padding: 0;
+  padding: 117px 0 0 0;
   margin: 0;
 }
 
@@ -32,11 +32,15 @@
   color: #4C4CFF;
   background: transparent;
   transition: all .4s ease 0s;
-  composes: text text_type_main-default from global;
+  composes: text_type_main-default from global;
 }
 
 .cancelButton:hover {
   opacity: .7;
+}
+
+.cancelButton:active {
+  opacity: .4;
 }
 
 .cancelButton:disabled {

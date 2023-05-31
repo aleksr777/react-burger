@@ -12,11 +12,7 @@ const defaultState = {
   id: null,
   isLoading: false,
   isModalOpened: false,
-  isError: {
-    state: false,
-    title: 'Ошибка запроса к серверу',
-    message: '',
-  },
+  isError: false,
 };
 
 const orderIdReducer = (state = defaultState, action) => {
@@ -59,11 +55,7 @@ const orderIdReducer = (state = defaultState, action) => {
     case ORDER_ID_ERROR:
       return {
         ...state,
-        isError: {
-          ...state.isError,
-          state: true,
-          message: `[${action.payload.message}]`,
-        },
+        isError: true,
       };
 
     case ORDER_ID_SET_DEFAULT:

@@ -1,13 +1,13 @@
-import stylesModalIngredientDetails from './modal-ingredient-details.module.css';
+import stylesIngredientDetailsModal from './ingredient-details-modal.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { closeIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import IngredientDetailsLayout from '../ingredient-details-layout/ingredient-details-layout';
 import Modal from '../modal/modal';
 import { getIngredientDetailsState } from '../../utils/selectors';
 
 
-const ModalIngredientDetails = () => {
+const IngredientDetailsModal = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,11 +33,11 @@ const ModalIngredientDetails = () => {
 
   return (
     <Modal handleCloseModal={handleCloseModal} isModalOpened={isModalOpened}>
-      <div className={stylesModalIngredientDetails.container}>
-        <IngredientDetails ingredient={ingredient} titleAlign='left' />
+      <div className={stylesIngredientDetailsModal.container}>
+        <IngredientDetailsLayout ingredient={ingredient} titleAlign='left' />
       </div>
     </Modal>
   )
 };
 
-export default ModalIngredientDetails;
+export default IngredientDetailsModal;

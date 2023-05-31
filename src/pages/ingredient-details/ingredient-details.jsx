@@ -1,41 +1,39 @@
-import stylesIngredient from './ingredient.module.css';
+import stylesIngredientDetails from './ingredient-details.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions';
-import IngredientDetails from '../../components/ingredient-details/ingredient-details';
-import Loader from '../../components/loader/loader';
-import { getIngredientsDataState } from '../../utils/selectors';
+import IngredientDetailsLayout from '../../components/ingredient-details-layout/ingredient-details-layout';
+import { getIngredientDetailsState } from '../../utils/selectors';
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
-const IngredientPage = () => {
+const IngredientDetailsPage = () => {
 
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /* достаём id из строки адреса*/
+  //достаём id из строки адреса
   const id = pathname.split('/').pop();
 
-  const { isLoading, isError, ingredientInfo } = useSelector(getIngredientsDataState);
+  const { ingredient } = useSelector(getIngredientDetailsState);
 
   function goToNotFoundPage() {
     navigate('/not-found-page', { replace: true });
   };
 
   useEffect(() => {
-    if (!ingredientInfo || !ingredientInfo._id || ingredientInfo.path !== pathname) {
+    if (!ingredient || !ingredient._id || ingredient.path !== pathname) {
       dispatch(getIngredientInfo(goToNotFoundPage, id, pathname))
     }
   }, []);
 
   return (
-    ingredientInfo &&
-    (<div className={stylesIngredient.container}>
-      <Loader size={100} isLoading={isLoading} isError={isError} />
-      {!isLoading && <IngredientDetails ingredient={ingredientInfo} titleAlign='center' />}
-    </div>)
+    ingredient &&
+    <div className={stylesIngredientDetails.container}>
+      <IngredientDetailsLayout ingredient={ingredient} titleAlign='center' />
+    </div>
   )
 };
 
-export default IngredientPage;
+export default IngredientDetailsPage;

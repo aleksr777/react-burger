@@ -16,17 +16,11 @@ export function forgotPasswordRequest(goToResetPasswordPage, valueEmail) {
 
     function handleError(response) {
       console.log(response);
-      dispatch({
-        type: FORGOT_PASSWORD_ERROR,
-        payload: {
-          message: response,
-          title: 'Ошибка сервера',
-        }
-      });
+      dispatch({ type: FORGOT_PASSWORD_ERROR, payload: {} });
       setTimeout(() => {
         unblockUserInteraction();
         dispatch({ type: FORGOT_PASSWORD_DEFAULT, payload: {} });
-      }, 1500);
+      }, 2000);
     };
 
     dispatch({ type: FORGOT_PASSWORD_REQUEST, payload: {} });

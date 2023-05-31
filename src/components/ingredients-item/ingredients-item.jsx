@@ -42,7 +42,6 @@ const IngredientsItem = ({ children, ingredient }) => {
         state={{ from: location.pathname }}
         draggable='false'
         onClick={() => { handleOpenModal(ingredient) }}
-        replace
       >
 
         {children}
