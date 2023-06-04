@@ -10,8 +10,8 @@ import {
   addIngredient,
 } from '../../services/selected-ingr/selected-ingr-actions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getSelectedIngrState } from '../../utils/selectors';
-import { CONSTRUCTOR_ITEMS_ANIMATION_TIME } from '../../constants/constants'
+import { getSelectedIngrState, getCounterState } from '../../utils/selectors';
+import { CONSTRUCTOR_ITEMS_ANIMATION_TIME } from '../../constants/constants';
 
 
 const ConstructorItem = ({ obj, isLocked }) => {
@@ -22,6 +22,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
   const [animationType, setAnimationType] = useState('');
 
   const { ingredients, animationState } = useSelector(getSelectedIngrState);
+  const { counter } = useSelector(getCounterState);
 
   const indexItem = ingredients.indexOf(obj);
 
@@ -59,7 +60,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
         }
       }
       else if (dragItemData.locationDnd === 'IngredientsBurger') {
-        dispatch(addIngredient(dropObj, dragObj, ingredients));
+        dispatch(addIngredient(dropObj, dragObj, ingredients, counter));
         setTimeout(() => {
           setAnimationType('');
         }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
@@ -90,7 +91,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
 
 
   useEffect(() => {
-    
+
     // определяем тип анимации
     if (animationState.fromIndex == 0 && animationState.toIndex == -1) {
       setItemOpacity(0);
@@ -160,9 +161,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
         thumbnail={obj.image}
         handleClose={() => {
           setItemOpacity(0);
-          setTimeout(() => {
-            dispatch(removeIngredient(obj, ingredients));
-          }, 300);
+          dispatch(removeIngredient(obj, ingredients, counter));
         }}
       />
     </li>

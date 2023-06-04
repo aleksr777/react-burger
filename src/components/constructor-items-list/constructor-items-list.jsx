@@ -1,12 +1,12 @@
 import stylesItemsList from './constructor-items-list.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addBun, removeBun } from '../../services/selected-ingr/selected-ingr-actions';
+import { addBun } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
 import ConstructorItem from '../constructor-item/constructor-item';
 import { noIngrObj } from '../../constants/constants';
 import ConstructorBunElement from '../constructor-bun-element/constructor-bun-element';
-import { getSelectedIngrState } from '../../utils/selectors';
+import { getSelectedIngrState, getCounterState } from '../../utils/selectors';
 
 
 const ConstructorItemsList = () => {
@@ -18,28 +18,24 @@ const ConstructorItemsList = () => {
   const dispatch = useDispatch();
 
   const { bun, ingredients, animationState } = useSelector(getSelectedIngrState);
+  const dropObj = bun; // для лучшей читабельности кода
+  const { counter } = useSelector(getCounterState);
 
   const [isBun, setIsBun] = useState(false);
   const [isIngrBurger, setIsIngrBurger] = useState(false);
   const [listScrollStyle, setListScrollStyle] = useState(stylesItemsList.listScroll);
 
   // Добавление булки с добавлением цены в общую стоимость
-  const dropHandler = (bun, dragObj) => {
+  const dropHandler = (dropObj, dragObj) => {
     if (dragObj.type === 'bun') {
-      if (!bun._id) {
-        dispatch(addBun(dragObj));
-      }
-      else if (bun._id && bun._id !== dragObj._id) {
-        dispatch(removeBun(bun.price));
-        dispatch(addBun(dragObj));
-      }
+      dispatch(addBun(dropObj, dragObj, counter));
     }
   };
 
   const [, dropRef] = useDrop({
     accept: 'selectedIngr',
     drop(dragObj) {
-      dropHandler(bun, dragObj);
+      dropHandler(dropObj, dragObj);
     },
     canDrop(dragObj) {
       if (dragObj.locationDnd === 'IngredientsBurger' && dragObj.type === 'bun') {
@@ -133,3 +129,4 @@ const ConstructorItemsList = () => {
 };
 
 export default ConstructorItemsList;
+

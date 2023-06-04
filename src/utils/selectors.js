@@ -10,3 +10,4 @@ export const getResetPasswordState = state => state.resetPassword;
 export const getCurrentTabState = state => state.currentTab;
 export const getProfileOrdersState = state => state.profileOrders;
 export const getFeedOrdersState = state => state.feedOrders;
+export const getCounterState = state => state.counter;

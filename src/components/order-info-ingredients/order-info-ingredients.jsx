@@ -57,7 +57,7 @@ const OrderInfoIngredients = ({ orderData }) => {
     imagesData &&
     orderData &&
 
-    <div className={stylesOrderInfoIngredients.order__ingredients}>
+    <div className={stylesOrderInfoIngredients.order_ingredients}>
 
       <div className={stylesOrderInfoIngredients.order__images}>
 

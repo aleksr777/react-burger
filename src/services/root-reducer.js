@@ -15,6 +15,7 @@ import { orderDetailsReducer } from './order-details/order-details-reducer';
 import { currentTabReducer } from './tab/tab-reducer';
 import { profileOrdersReducer } from './profile-orders/profile-orders-reducer';
 import { feedOrdersReducer } from './feed-all-orders/feed-all-orders-reducer';
+import { counterReducer } from './counter/counter-reducer';
 
 
 const authPersistConfig = {
@@ -70,6 +71,7 @@ const rootReducer = combineReducers({
   currentTab: currentTabReducer,
   profileOrders: profileOrdersReducer,
   feedOrders: feedOrdersReducer,
+  counter: counterReducer,
 });
 
 export default rootReducer;

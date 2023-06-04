@@ -1,15 +1,16 @@
 import stylesIngredientsItem from './ingredients-item.module.css';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/prop-types';
 import { useLocation, Link } from 'react-router-dom';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropTypes } from '../../utils/prop-types';
+import CounterItem from '../counter-item/counter-item';
 
 
-const IngredientsItem = ({ children, ingredient }) => {
+const IngredientsItem = ({ ingredient, count }) => {
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const IngredientsItem = ({ children, ingredient }) => {
         onClick={() => { handleOpenModal(ingredient) }}
       >
 
-        {children}
+        <CounterItem count={count} />
 
         <img
           className={stylesIngredientsItem.item__image}
@@ -66,7 +67,6 @@ const IngredientsItem = ({ children, ingredient }) => {
 };
 
 IngredientsItem.propTypes = {
-  children: PropTypes.node.isRequired,
   ingredient: ingredientPropTypes.isRequired,
 };
 

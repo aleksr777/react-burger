@@ -50,7 +50,7 @@ const selectedIngrReducer = (state = defaultState, action) => {
     case SELECTED_INGREDIENTS_ADD_BUNS:
       return {
         ...state,
-        bun: action.payload.bunObj,
+        bun: action.payload.dragObj,
         totalPrice: state.totalPrice + action.payload.price,
       };
 

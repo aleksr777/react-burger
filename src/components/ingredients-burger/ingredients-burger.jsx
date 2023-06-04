@@ -3,14 +3,14 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import IngredientsBlock from '../ingredients-block/ingredients-block';
 import IngredientsItem from '../ingredients-item/ingredients-item';
-import CounterItem from '../counter-item/counter-item';
 import TabElement from '../tab-element/tab-element';
-import { getIngredientsDataState } from '../../utils/selectors';
+import { getIngredientsDataState, getCounterState } from '../../utils/selectors';
 
 
 const IngredientsBurger = () => {
 
   const { ingredientsData } = useSelector(getIngredientsDataState);
+  const { counter } = useSelector(getCounterState);
 
   /* Добавляем информацию о react-компоненте (нужно для функционала DnD) */
   function addLocationInfo(data) {
@@ -48,9 +48,8 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
-              >
-                <CounterItem obj={obj} />
-              </IngredientsItem>
+                count={counter[obj._id]}
+              />
             ))}
           </IngredientsBlock>
 
@@ -59,9 +58,8 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
-              >
-                <CounterItem obj={obj} />
-              </IngredientsItem>
+                count={counter[obj._id]}
+              />
             ))}
           </IngredientsBlock>
 
@@ -70,9 +68,8 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={obj._id}
                 ingredient={obj}
-              >
-                <CounterItem obj={obj} />
-              </IngredientsItem>
+                count={counter[obj._id]}
+              />
             ))}
           </IngredientsBlock>
         </div>

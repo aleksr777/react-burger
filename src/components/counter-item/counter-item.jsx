@@ -1,35 +1,17 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { memo } from 'react';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropTypes } from '../../utils/prop-types'; 
-import { getSelectedIngrState } from '../../utils/selectors';
+import PropTypes from 'prop-types';
 
 
-const CounterItem = ({ obj }) => {
-
-  const { ingredients, bun } = useSelector(getSelectedIngrState);
-
-  const ingredientsData = useMemo(
-    () => ingredients.filter((ingredient) => ingredient._id === obj._id), [ingredients]
-  );
-
-  let count = 0;
-
-  if (obj.type === 'bun') {
-    bun._id === obj._id ? count = 2 : count = 0
-  }
-  else {
-    count = ingredientsData.length
-  };
+const CounterItem = ({ count }) => {
 
   return (
-    count ? <Counter count={count} size='default' extraClass='m-1' /> : null
+    count > 0 ? <Counter count={count} size='default' extraClass='m-1' /> : null
   )
 };
 
-export default CounterItem;
-
+export default memo(CounterItem);
 
 CounterItem.propTypes = {
-  obj: ingredientPropTypes.isRequired,
+  count: PropTypes.number.isRequired,
 };
