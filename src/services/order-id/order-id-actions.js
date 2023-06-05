@@ -2,6 +2,7 @@ import { postOrder } from '../../utils/api';
 import { MODAL_ANIMATION_TIME } from '../../constants/constants';
 import { matchNumErr, handleAuthError } from '../authorization/auth-actions';
 import { SELECTED_INGREDIENTS_REMOVE_DATA } from '../selected-ingr/selected-ingr-actions';
+import { resetCount } from '../counter/counter-actions';
 import {
   blockUserInteraction,
   unblockUserInteraction,
@@ -17,7 +18,7 @@ export const ORDER_ID_SET_DEFAULT = 'ORDER_ID_SET_DEFAULT';
 
 /* Запрос на сервер о формировании заказа 
 с открытием модального окна и отображением номера заказа*/
-export function getOrderId(arrId) {
+export function getOrderId(arrId, counter) {
 
   return function (dispatch) {
 
@@ -46,6 +47,7 @@ export function getOrderId(arrId) {
           setTimeout(() => {
             unblockUserInteraction();
             dispatch({ type: SELECTED_INGREDIENTS_REMOVE_DATA, payload: {} });
+            dispatch(resetCount(counter));
           }, MODAL_ANIMATION_TIME);
         }
         else {

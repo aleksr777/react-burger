@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getOrderId } from '../../services/order-id/order-id-actions';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkAuth } from '../../services/authorization/check-auth';
-import { getAuthState, getOrderIdState, getSelectedIngrState } from '../../utils/selectors';
+import { getAuthState, getOrderIdState, getSelectedIngrState, getCounterState } from '../../utils/selectors';
 
 
 const OrderingButton = () => {
@@ -15,6 +15,7 @@ const OrderingButton = () => {
   const { isLoading } = useSelector(getOrderIdState);
   const { ingredients, bun, totalPrice } = useSelector(getSelectedIngrState);
   const { isSuccess, user } = useSelector(getAuthState);
+  const { counter } = useSelector(getCounterState);
 
   const [isOrderActive, setOrderActive] = useState(false);
 
@@ -34,7 +35,7 @@ const OrderingButton = () => {
   function sendOrderRequest() {
     if (isAuth) {
       const arrId = [bun._id, ...ingredients.map(obj => obj._id), bun._id];
-      dispatch(getOrderId(arrId));
+      dispatch(getOrderId(arrId, counter));
     }
     else { navigate('/login') }
   };
