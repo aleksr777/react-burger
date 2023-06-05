@@ -24,12 +24,11 @@ export function addIngredient(dropObj, dragObj, ingredients, counter) {
     _uKey: uniqid.process(),
     locationDnd: 'ConstructorBurger',
   };
-  const addIngredientPromise = new Promise((resolve) => {
+  const getNewArr = async (ingredients) => {
     const newArr = [...ingredients.slice(0, toIndex), newObject, ...ingredients.slice(toIndex)];
-    resolve(newArr);
-  });
-
-  return function (dispatch) {
+    return newArr;
+  };
+  return async function (dispatch) {
     blockUserInteraction();
     dispatch({
       type: SELECTED_INGREDIENTS_ADD_ANIMATION_STATE,
@@ -42,25 +41,20 @@ export function addIngredient(dropObj, dragObj, ingredients, counter) {
       },
     });
     dispatch(addCount(dragObj._id, counter, 1));
-    addIngredientPromise
-      .then((newArr) => {
-        setTimeout(() => {
-          unblockUserInteraction();
-          dispatch({
-            type: SELECTED_INGREDIENTS_ADD_ITEM,
-            payload: {
-              newArr,
-              price: dragObj.price,
-            },
-          });
-          dispatch({ type: SELECTED_INGREDIENTS_REMOVE_ANIMATION_STATE, payload: {} });
-        }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
-      })
-      .catch((error) => {
-        console.error(error);
+    const newArr = await getNewArr(ingredients);
+    setTimeout(() => {
+      unblockUserInteraction();
+      dispatch({
+        type: SELECTED_INGREDIENTS_ADD_ITEM,
+        payload: {
+          newArr,
+          price: dragObj.price,
+        },
       });
+      dispatch({ type: SELECTED_INGREDIENTS_REMOVE_ANIMATION_STATE, payload: {} });
+    }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
   };
-}
+};
 
 
 // Удаление ингридиента с вычетом цены из общей стоимости
@@ -94,13 +88,16 @@ export function swapIngredients(dropObj, dragObj, ingredients) {
   blockUserInteraction();
   const fromIndex = ingredients.indexOf(dragObj);
   const toIndex = ingredients.indexOf(dropObj);
-  const swapIngredientsPromise = new Promise((resolve) => {
+
+
+  const getNewArr = async (ingredients) => {
     const newArr = [...ingredients];
     const removedItem = newArr.splice(fromIndex, 1)[0];
     newArr.splice(toIndex, 0, removedItem);
-    resolve(newArr);
-  });
-  return function (dispatch) {
+    return newArr;
+  };
+
+  return async function (dispatch) {
     dispatch({
       type: SELECTED_INGREDIENTS_ADD_ANIMATION_STATE,
       payload: {
@@ -111,17 +108,12 @@ export function swapIngredients(dropObj, dragObj, ingredients) {
         isItemRemove: false,
       },
     });
-    swapIngredientsPromise
-      .then((newArr) => {
-        setTimeout(() => {
-          unblockUserInteraction();
-          dispatch({ type: SELECTED_INGREDIENTS_REMOVE_ANIMATION_STATE, payload: {} });
-          dispatch({ type: SELECTED_INGREDIENTS_SWAP_ITEMS, payload: { newArr } });
-        }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const newArr = await getNewArr(ingredients);
+    setTimeout(() => {
+      unblockUserInteraction();
+      dispatch({ type: SELECTED_INGREDIENTS_REMOVE_ANIMATION_STATE, payload: {} });
+      dispatch({ type: SELECTED_INGREDIENTS_SWAP_ITEMS, payload: { newArr } });
+    }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
   };
 };
 
