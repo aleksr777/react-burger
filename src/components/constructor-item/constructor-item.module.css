@@ -12,31 +12,3 @@
   transition: all .3s ease 0s;
   composes: pt-2 pb-2 pl-4 pr-2 from global;
 }
-
-.item_moove_up {
-  animation: mooveUp 300ms ease-out forwards;
-}
-
-@keyframes mooveUp {
-  0% {
-    top: 0;
-  }
-
-  100% {
-    top: -96px;
-  }
-}
-
-.item_moove_down {
-  animation: mooveDown 300ms ease-out forwards;
-}
-
-@keyframes mooveDown {
-  0% {
-    top: 0;
-  }
-
-  100% {
-    top: 96px;
-  }
-}
