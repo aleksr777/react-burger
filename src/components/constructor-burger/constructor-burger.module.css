@@ -23,5 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  transition: all .3s ease 0s;
   composes: pt-10 pr-4 from global;
 }

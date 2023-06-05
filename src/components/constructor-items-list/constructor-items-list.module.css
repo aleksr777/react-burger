@@ -56,31 +56,3 @@
   width: 8px;
   background-color: rgba(133, 133, 173, 1)
 }
-
-.listScroll_padding_bottom {
-  animation: addPaddingBottom var(--constructor-items-animation-time) ease-out forwards;
-}
-
-@keyframes addPaddingBottom {
-  0% {
-    padding-bottom: 0;
-  }
-
-  100% {
-    padding-bottom: 96px;
-  }
-}
-
-.listScroll_margin_bottom {
-  animation: negativeMarginBottom var(--constructor-items-animation-time) ease-out forwards;
-}
-
-@keyframes negativeMarginBottom {
-  0% {
-    margin-bottom: 0;
-  }
-
-  100% {
-    margin-bottom: -96px;
-  }
-}

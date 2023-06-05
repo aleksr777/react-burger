@@ -9,19 +9,13 @@ const ConstructorBurger = () => {
 
   return (
     <>
-      <section
-        className={stylesConstructorBurger.section}
-      >
-
+      <section className={stylesConstructorBurger.section}>
         <ConstructorItemsList />
-
         <div className={stylesConstructorBurger.order}>
           <OrderingPrice />
           <OrderingButton />
         </div>
-
       </section>
-
       <NewOrderDetailsModal />
     </>
   );

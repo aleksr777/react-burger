@@ -11,20 +11,15 @@ import {
 } from '../../services/selected-ingr/selected-ingr-actions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getSelectedIngrState, getCounterState } from '../../utils/selectors';
-import { CONSTRUCTOR_ITEMS_ANIMATION_TIME } from '../../constants/constants';
 
 
 const ConstructorItem = ({ obj, isLocked }) => {
 
   const dispatch = useDispatch();
-  const [animationStyle, setAnimationStyle] = useState('');
   const [itemOpacity, setItemOpacity] = useState(0);
-  const [animationType, setAnimationType] = useState('');
 
-  const { ingredients, animationState } = useSelector(getSelectedIngrState);
+  const { ingredients } = useSelector(getSelectedIngrState);
   const { counter } = useSelector(getCounterState);
-
-  const indexItem = ingredients.indexOf(obj);
 
   const [{ dragItemData, isItemDragging }, dragRef] = useDrag({
     type: 'selectedIngr',
@@ -54,16 +49,10 @@ const ConstructorItem = ({ obj, isLocked }) => {
       if (dragItemData.locationDnd === 'ConstructorBurger') {
         if (dropObj._uKey !== dragObj._uKey) {// исключаем перетаскивание на самого себя
           dispatch(swapIngredients(dropObj, dragObj, ingredients));
-          setTimeout(() => {
-            setAnimationType('');
-          }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
         }
       }
       else if (dragItemData.locationDnd === 'IngredientsBurger') {
         dispatch(addIngredient(dropObj, dragObj, ingredients, counter));
-        setTimeout(() => {
-          setAnimationType('');
-        }, CONSTRUCTOR_ITEMS_ANIMATION_TIME);
       };
     }
   };
@@ -91,46 +80,17 @@ const ConstructorItem = ({ obj, isLocked }) => {
 
 
   useEffect(() => {
-
-    // определяем тип анимации
-    if (animationState.fromIndex == 0 && animationState.toIndex == -1) {
-      setItemOpacity(0);
-    }
-    else if (animationState.fromIndex < indexItem && animationState.toIndex >= indexItem) {
-      setAnimationType('moove_up')
-    }
-    else if (animationState.fromIndex > indexItem && animationState.toIndex <= indexItem) {
-      setAnimationType('moove_down')
-    }
-    else {
-      setAnimationType('')
-    }
-
-    // Запускаем нужную анимацию
-    if (animationType === 'moove_up') {
-      setAnimationStyle(stylesItem.item_moove_up)
-    }
-    else if (animationType === 'moove_down') {
-      setAnimationStyle(stylesItem.item_moove_down)
-    }
-    else {
-      setAnimationStyle('')
-    };
-
     // Задаём прозрачность перетаскиваемого объекта
     if (isItemDragging) {
       setItemOpacity(0)
     }
-    else if (!isItemDragging && animationState.isItemMooving) {
-      setTimeout(() => {
-        setItemOpacity(1)
-      }, CONSTRUCTOR_ITEMS_ANIMATION_TIME)
-    }
-    else if (!isItemDragging && !animationState.isItemMooving) {
+    else if (!isItemDragging) {
       setItemOpacity(1)
     }
-
-  }, [isItemDragging, animationType, animationState.isItemMooving, animationState.fromIndex, animationState.toIndex]);
+    else if (!isItemDragging) {
+      setItemOpacity(1)
+    }
+  }, [isItemDragging]);
 
 
   const ref = useRef(null);
@@ -139,7 +99,7 @@ const ConstructorItem = ({ obj, isLocked }) => {
 
   return (
     <li
-      className={animationStyle ? `${stylesItem.item} ${animationStyle}` : stylesItem.item}
+      className={stylesItem.item}
       ref={dragDropRef}
       onDragOver={(e) => dragOverSetOpacity(e)}
       onDragLeave={(e) => dragLeaveSetOpacity(e)}

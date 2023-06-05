@@ -14,7 +14,7 @@
 }
 
 .item_moove_up {
-  animation: mooveUp var(--constructor-items-animation-time) ease-out forwards;
+  animation: mooveUp 300ms ease-out forwards;
 }
 
 @keyframes mooveUp {
@@ -28,7 +28,7 @@
 }
 
 .item_moove_down {
-  animation: mooveDown var(--constructor-items-animation-time) ease-out forwards;
+  animation: mooveDown 300ms ease-out forwards;
 }
 
 @keyframes mooveDown {

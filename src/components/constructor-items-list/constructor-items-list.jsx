@@ -1,5 +1,5 @@
 import stylesItemsList from './constructor-items-list.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addBun } from '../../services/selected-ingr/selected-ingr-actions';
 import { useDrop } from "react-dnd";
@@ -17,13 +17,11 @@ const ConstructorItemsList = () => {
 
   const dispatch = useDispatch();
 
-  const { bun, ingredients, animationState } = useSelector(getSelectedIngrState);
+  const { bun, ingredients } = useSelector(getSelectedIngrState);
   const dropObj = bun; // для лучшей читабельности кода
   const { counter } = useSelector(getCounterState);
 
   const [isBun, setIsBun] = useState(false);
-  const [isIngrBurger, setIsIngrBurger] = useState(false);
-  const [listScrollStyle, setListScrollStyle] = useState(stylesItemsList.listScroll);
 
   // Добавление булки с добавлением цены в общую стоимость
   const dropHandler = (dropObj, dragObj) => {
@@ -39,21 +37,17 @@ const ConstructorItemsList = () => {
     },
     canDrop(dragObj) {
       if (dragObj.locationDnd === 'IngredientsBurger' && dragObj.type === 'bun') {
-        setIsIngrBurger(false);
         setIsBun(true);
         return true;
       }
       if (dragObj.locationDnd === 'IngredientsBurger' && dragObj.type !== 'bun') {
-        setIsIngrBurger(true)
         setIsBun(false);
         return true;
       }
-      setIsIngrBurger(false)
       setIsBun(false);
       return false;
     }
   });
-
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -69,19 +63,6 @@ const ConstructorItemsList = () => {
     e.preventDefault();
     if (isBun) { e.currentTarget.style.opacity = '1' }
   };
-
-
-  useEffect(() => {
-    if (animationState.isItemMooving && isIngrBurger && animationState.isItemAdd && ingredients.length > 0 && ingredients.length < 6) {
-      setListScrollStyle(`${stylesItemsList.listScroll} ${stylesItemsList.listScroll_padding_bottom}`)
-    }
-    else if (animationState.isItemMooving && isIngrBurger && animationState.isItemRemove && ingredients.length > 1 && ingredients.length < 6) {
-      setListScrollStyle(`${stylesItemsList.listScroll} ${stylesItemsList.listScroll_margin_bottom}`)
-    }
-    else {
-      setListScrollStyle(stylesItemsList.listScroll)
-    };
-  }, [animationState.isItemMooving, animationState.isItemAdd, animationState.isItemRemove]);
 
 
   return (
@@ -109,7 +90,7 @@ const ConstructorItemsList = () => {
             </ul>
           )
           : (
-            <ul className={listScrollStyle}>
+            <ul className={stylesItemsList.listScroll}>
               {ingredients.map((obj) => (
                 <ConstructorItem
                   obj={obj}

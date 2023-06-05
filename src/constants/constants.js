@@ -13,10 +13,6 @@ document.documentElement.style.setProperty('--modal-animation-time', `${MODAL_AN
 export const LOADER_ANIMATION_TIME = 300;
 document.documentElement.style.setProperty('--loader-animation-time', `${LOADER_ANIMATION_TIME}ms`);
 
-/* Продолжительность анимации для элементов конструктора */
-export const CONSTRUCTOR_ITEMS_ANIMATION_TIME = 300;
-document.documentElement.style.setProperty('--constructor-items-animation-time', `${CONSTRUCTOR_ITEMS_ANIMATION_TIME}ms`);
-
 // Объект для отображения "пустой булки", если булка не выбрана
 export const noBunObj = {
   calories: 0,
