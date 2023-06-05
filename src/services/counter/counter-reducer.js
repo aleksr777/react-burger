@@ -1,6 +1,5 @@
 import {
-  COUNTER_INCREMENT,
-  COUNTER_DECREMENT,
+  COUNTER_CHANGE,
 } from './counter-actions';
 
 const defaultState = {
@@ -12,14 +11,7 @@ const counterReducer = (state = defaultState, action) => {
   switch (action.type) {
 
 
-    case COUNTER_INCREMENT: {
-      return {
-        ...state,
-        counter: action.payload,
-      };
-    };
-
-    case COUNTER_DECREMENT: {
+    case COUNTER_CHANGE: {
       return {
         ...state,
         counter: action.payload,

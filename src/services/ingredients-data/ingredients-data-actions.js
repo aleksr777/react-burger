@@ -9,7 +9,7 @@ import {
   INGREDIENT_DETAILS_REMOVE_DATA,
 } from '../ingredient-details/ingredient-details-actions';
 import {
-  COUNTER_INCREMENT,
+  COUNTER_CHANGE,
 } from '../counter/counter-actions';
 
 export const INGREDIENTS_GET_DATA_REQUEST = 'INGREDIENTS_GET_DATA_REQUEST';
@@ -42,7 +42,7 @@ export function requestGetIngredientsData() {
           res.data.forEach(function (obj) {
             counterObj = { ...counterObj, [obj._id]: 0 };
           });
-          dispatch({ type: COUNTER_INCREMENT, payload: counterObj });
+          dispatch({ type: COUNTER_CHANGE, payload: counterObj });
           dispatch({ type: INGREDIENTS_GET_DATA_SUCCESS, payload: res.data });
           setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
         }
@@ -85,7 +85,7 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
           res.data.forEach(function (obj) {
             counterObj = { ...counterObj, [obj._id]: 0 };
           });
-          dispatch({ type: COUNTER_INCREMENT, payload: counterObj });
+          dispatch({ type: COUNTER_CHANGE, payload: counterObj });
           dispatch({ type: INGREDIENTS_GET_DATA_SUCCESS, payload: res.data });
           setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
           const [ingredient] = res.data.filter((obj) => obj._id === id);

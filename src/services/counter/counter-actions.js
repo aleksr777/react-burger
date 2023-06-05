@@ -1,5 +1,4 @@
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
-export const COUNTER_DECREMENT = 'COUNTER_DECREMENT';
+export const COUNTER_CHANGE = 'COUNTER_CHANGE';
 
 const getIncrementedCounter = async (id, counter, num) => {
   let counterObj = {};
@@ -52,7 +51,7 @@ const getIncrAndDecrCounter = async (addCountId, reduceCountId, counter, num) =>
 export function addCount(id, counter, num) {
   return async function (dispatch) {
     const counterObj = await getIncrementedCounter(id, counter, num);
-    dispatch({ type: COUNTER_INCREMENT, payload: counterObj });
+    dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 };
 
@@ -60,7 +59,7 @@ export function addCount(id, counter, num) {
 export function reduceCount(id, counter, num) {
   return async function (dispatch) {
     const counterObj = await getDecrementedCounter(id, counter, num);
-    dispatch({ type: COUNTER_DECREMENT, payload: counterObj });
+    dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 };
 
@@ -68,6 +67,6 @@ export function reduceCount(id, counter, num) {
 export function addAndReduceCount(addCountId, reduceCountId, counter, num) {
   return async function (dispatch) {
     const counterObj = await getIncrAndDecrCounter(addCountId, reduceCountId, counter, num);
-    dispatch({ type: COUNTER_DECREMENT, payload: counterObj });
+    dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 };
