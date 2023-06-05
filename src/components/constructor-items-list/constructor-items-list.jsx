@@ -42,7 +42,7 @@ const ConstructorItemsList = () => {
       }
       if (dragObj.locationDnd === 'IngredientsBurger' && dragObj.type !== 'bun') {
         setIsBun(false);
-        return true;
+        return false;
       }
       setIsBun(false);
       return false;
