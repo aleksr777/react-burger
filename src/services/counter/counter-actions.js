@@ -1,7 +1,7 @@
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
 export const COUNTER_DECREMENT = 'COUNTER_DECREMENT';
 
-const getIncrementedCounterObj = async (id, counter, num) => {
+const getIncrementedCounter = async (id, counter, num) => {
   let counterObj = {};
   const keys = Object.keys(counter);
   if (keys.length > 0 && counter) {
@@ -15,7 +15,7 @@ const getIncrementedCounterObj = async (id, counter, num) => {
 };
 
 
-const getDecrementedCounterObj = async (id, counter, num) => {
+const getDecrementedCounter = async (id, counter, num) => {
   let counterObj = {};
   const keys = Object.keys(counter);
   if (keys.length > 0 && counter) {
@@ -29,24 +29,45 @@ const getDecrementedCounterObj = async (id, counter, num) => {
 };
 
 
+const getIncrAndDecrCounter = async (addCountId, reduceCountId, counter, num) => {
+  let counterObj = {};
+  const keys = Object.keys(counter);
+  if (keys.length > 0 && counter) {
+    for (let key of keys) {
+      if (key === addCountId) {
+        counterObj = { ...counterObj, [key]: counter[key] + num }
+      }
+      else if (key === reduceCountId) {
+        counterObj = { ...counterObj, [key]: counter[key] - num }
+      }
+      else {
+        counterObj = { ...counterObj, [key]: counter[key] }
+      }
+    }
+  };
+  return counterObj;
+};
+
+
 export function addCount(id, counter, num) {
   return async function (dispatch) {
-    const counterObj = await getIncrementedCounterObj(id, counter, num);
+    const counterObj = await getIncrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_INCREMENT, payload: counterObj });
   };
-}
+};
+
 
 export function reduceCount(id, counter, num) {
   return async function (dispatch) {
-    const counterObj = await getDecrementedCounterObj(id, counter, num);
+    const counterObj = await getDecrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_DECREMENT, payload: counterObj });
   };
-}
+};
+
 
 export function addAndReduceCount(addCountId, reduceCountId, counter, num) {
   return async function (dispatch) {
-    const incrementedCounterObj = await getIncrementedCounterObj(addCountId, counter, num);
-    const counterObj = await getDecrementedCounterObj(reduceCountId, incrementedCounterObj, num);
+    const counterObj = await getIncrAndDecrCounter(addCountId, reduceCountId, counter, num);
     dispatch({ type: COUNTER_DECREMENT, payload: counterObj });
   };
-}
+};
