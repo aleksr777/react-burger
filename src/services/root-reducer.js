@@ -1,3 +1,5 @@
+import { STORAGE_KEY_PREFIX } from '../constants/constants';
+
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import sessionStorage from 'redux-persist/lib/storage/session';
@@ -19,7 +21,7 @@ import { counterReducer } from './counter/counter-reducer';
 
 
 const authPersistConfig = {
-  key: 'react-burger-auth',
+  key: `${STORAGE_KEY_PREFIX}auth-persist`,
   storage,
   whitelist: ['isSuccess', 'user'],
 };
@@ -27,7 +29,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 
 const forgotPasswordPersistConfig = {
-  key: 'react-burger-forgotPassword',
+  key: `${STORAGE_KEY_PREFIX}forgot-password-persist`,
   storage: sessionStorage,
   whitelist: ['isSuccess'],
 };
@@ -35,7 +37,7 @@ const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfi
 
 
 const ingredientDetailsPersistConfig = {
-  key: 'react-burger-ingredientDetails',
+  key: `${STORAGE_KEY_PREFIX}ingredient-details-persist`,
   storage: sessionStorage,
   whitelist: ['ingredient', 'isModalOpened'],
 };
@@ -43,7 +45,7 @@ const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsPersis
 
 
 const orderDetailsPersistConfig = {
-  key: 'react-burger-orderDetails',
+  key: `${STORAGE_KEY_PREFIX}order-details-persist`,
   storage: sessionStorage,
   whitelist: ['order', 'isModalOpened'],
 };
@@ -51,7 +53,7 @@ const persistedOrderDetailsReducer = persistReducer(orderDetailsPersistConfig, o
 
 
 const orderIdPersistConfig = {
-  key: 'react-burger-orderId',
+  key: `${STORAGE_KEY_PREFIX}order-id-persist`,
   storage: sessionStorage,
   whitelist: ['id', 'isModalOpened'],
 };
