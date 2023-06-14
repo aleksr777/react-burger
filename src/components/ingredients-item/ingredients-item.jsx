@@ -1,8 +1,7 @@
-import stylesIngredientsItem from './ingredients-item.module.css';
-import PropTypes from 'prop-types';
+import stylesIngredientsItem from './ingredients-item.module.css'; 
+import { useState, memo } from 'react';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { useLocation, Link } from 'react-router-dom';
-import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions';
@@ -14,6 +13,9 @@ const IngredientsItem = ({ ingredient, count }) => {
 
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const [isImgError, setIsImgError] = useState(false);
+  function handleImgError() { setIsImgError(true) };
 
   const handleOpenModal = (ingredient) => {
     dispatch(openIngredientDetailsModal(ingredient));
@@ -47,11 +49,18 @@ const IngredientsItem = ({ ingredient, count }) => {
 
         <CounterItem count={count} />
 
-        <img
-          className={stylesIngredientsItem.item__image}
-          src={ingredient.image_large}
-          alt={ingredient.name}
-        />
+        <picture className={stylesIngredientsItem.item__pictureBox}>
+          <img
+            className={stylesIngredientsItem.item__image}
+            src={ingredient.image_large}
+            alt={`Изображение "${ingredient.name}"`}
+            onError={() => handleImgError()}
+            style={{ 
+              color: isImgError ? '#8585AD' : '',
+              outline: isImgError ? '#8585AD solid 1px' : '', 
+            }} // по-умолчанию текст прозрачный
+          />
+        </picture>
 
         <div className={stylesIngredientsItem.item__box}>
           <p className={stylesIngredientsItem.item__price}>{ingredient.price}</p>

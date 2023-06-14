@@ -113,7 +113,7 @@
   overflow: hidden;
 }
 
-.picture {
+.pictureBox {
   display: block;
   position: relative;
   margin: 0;
@@ -127,7 +127,7 @@
   background: #131316;
 }
 
-.picture__img {
+.image {
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -136,8 +136,8 @@
   padding: 0;
   margin: 0;
   background: transparent;
-  color: #8585ad00;
   font-size: 10px;
+  color: #8585ad00;
   transition: all .3s ease 0s;
   composes: text_type_main-default from global;
 }

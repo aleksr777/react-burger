@@ -7,6 +7,7 @@ const NewOrderDetailsLayout = ({ orderId }) => {
     <div className={stylesNewOrderDetailsLayout.container}>
       <p className={stylesNewOrderDetailsLayout.id}>{orderId}</p>
       <p className={stylesNewOrderDetailsLayout.title}>идентификатор заказа</p>
+
       <picture className={stylesNewOrderDetailsLayout.imageBox}>
         <img
           className={stylesNewOrderDetailsLayout.image}
@@ -15,6 +16,7 @@ const NewOrderDetailsLayout = ({ orderId }) => {
           draggable='false'
         />
       </picture>
+      
       <p className={stylesNewOrderDetailsLayout.info}>Ваш заказ начали готовить</p>
       <p className={stylesNewOrderDetailsLayout.instruction}>Дождитесь готовности на орбитальной станции</p>
     </div>

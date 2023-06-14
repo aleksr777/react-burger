@@ -1,5 +1,5 @@
 import stylesOrderDetailsLayout from './order-details-layout.module.css';
-import { memo } from 'react';
+import { useState, memo } from 'react';
 import { orderDetailsPropTypes } from '../../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,6 +8,9 @@ import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-component
 const OrderDetailsLayout = ({ order }) => {
 
   const { number, name, status, ingredients, totalPrice, createdAt, updatedAt } = order;
+
+  const [isImgError, setIsImgError] = useState(false);
+  function handleImgError() { setIsImgError(true) };
 
   const styleStatusDefault = stylesOrderDetailsLayout.status;
   const styleStatusDone = `${stylesOrderDetailsLayout.status} ${stylesOrderDetailsLayout.status_active}`;
@@ -43,14 +46,16 @@ const OrderDetailsLayout = ({ order }) => {
 
           <li className={stylesOrderDetailsLayout.ingredientBlock} key={ingredient._id}>
             <div className={stylesOrderDetailsLayout.imageWrapper}>
-              <picture className={stylesOrderDetailsLayout.picture}>
+              <picture className={stylesOrderDetailsLayout.pictureBox}>
                 <img
-                  className={stylesOrderDetailsLayout.picture__img}
+                  className={stylesOrderDetailsLayout.image}
                   src={ingredient.path}
                   alt={ingredient.name}
                   draggable='false'
-                //onError={() => handleImageError(index)}
-                //style={{ color: obj.isImgError ? '#8585AD' : '' }} // по-умолчанию текст прозрачный
+                  onError={() => handleImgError()}
+                  style={{
+                    color: isImgError ? '#8585AD' : '',
+                  }} // по-умолчанию текст прозрачный
                 />
               </picture>
             </div>
