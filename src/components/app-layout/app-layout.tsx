@@ -15,7 +15,7 @@ const AppLayout = () => {
           </div>
           <HeaderLink icon='profile' text='Личный кабинет' path='/profile' />
         </nav>
-      </header >
+      </header>
       <main className={stylesAppLayout.main}>
         <Outlet />
       </main>
