@@ -9,11 +9,11 @@ const AppLayout = () => {
       <header className={stylesAppLayout.header}>
         <nav className={stylesAppLayout.nav}>
           <div className={stylesAppLayout.nav__box}>
-            <HeaderLink icon='burger' text='Конструктор' path='/' />
-            <HeaderLink icon='list' text='Лента заказов' path='/feed' />
+            <HeaderLink icon="burger" text="Конструктор" path="/" />
+            <HeaderLink icon="list" text="Лента заказов" path="/feed" />
             <LogoLink />
           </div>
-          <HeaderLink icon='profile' text='Личный кабинет' path='/profile' />
+          <HeaderLink icon="profile" text="Личный кабинет" path="/profile" />
         </nav>
       </header>
       <main className={stylesAppLayout.main}>
