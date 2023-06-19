@@ -23,6 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@tsconfig/recommended": "^1.0.2",
     "@types/css-modules": "^1.0.2",
