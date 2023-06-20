@@ -15,7 +15,4 @@ export type IngredientObjType = {
   type: string;
 };
 
-export interface ConstructorBunElementProps {
-  type: 'top' | 'bottom' | undefined;
-  positionText: '(верх)' | '(низ)';
-}
+export type CounterType = { [key: string]: number };

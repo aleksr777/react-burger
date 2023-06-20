@@ -1,11 +1,16 @@
-import stylesConstructorBunElement from './constructor-bun-element.module.css';
+import styles from './constructor-bun-element.module.css';
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getSelectedIngrState } from '../../utils/selectors';
-import { IngredientObjType, ConstructorBunElementProps } from '../../types/types';
+import { IngredientObjType } from '../../types/types';
 
-const ConstructorBunElement = ({ type, positionText }: ConstructorBunElementProps) => {
+export interface Props {
+  type: 'top' | 'bottom' | undefined;
+  positionText: '(верх)' | '(низ)';
+}
+
+const ConstructorBunElement = ({ type, positionText }: Props) => {
   const { bun }: { bun: IngredientObjType } = useSelector(getSelectedIngrState);
 
   let nameTxt: string;
@@ -20,7 +25,7 @@ const ConstructorBunElement = ({ type, positionText }: ConstructorBunElementProp
   }
 
   return (
-    <div className={stylesConstructorBunElement.boxElement} style={{ opacity: bun._id ? 1 : 0.6 }}>
+    <div className={styles.boxElement} style={{ opacity: bun._id ? 1 : 0.6 }}>
       <ConstructorElement
         isLocked={true}
         type={type}
