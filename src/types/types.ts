@@ -14,3 +14,8 @@ export type IngredientObjType = {
   price: number;
   type: string;
 };
+
+export interface ConstructorBunElementProps {
+  type: 'top' | 'bottom' | undefined;
+  positionText: '(верх)' | '(низ)';
+}
