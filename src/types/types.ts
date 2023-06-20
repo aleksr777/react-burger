@@ -23,6 +23,6 @@ export type OderType = {
   ingredients: string[];
   name: string;
   number: number;
-  status: string;
+  status: 'created' | 'pending' | 'done' | '';
   updatedAt: string;
 };
