@@ -16,3 +16,13 @@ export type IngredientObjType = {
 };
 
 export type CounterType = { [key: string]: number };
+
+export type OderType = {
+  _id: string;
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+};

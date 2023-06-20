@@ -3,16 +3,15 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions';
 import { getFeedOrdersState } from '../../utils/selectors';
-import OrderInfoItem from '../../components/order-info-item/order-info-item';
+import OrderInfoItem from '../order-info-item/order-info-item';
+import { OderType } from '../../types/types';
 
 const FeedOrders = () => {
-
   const dispatch = useDispatch();
 
-  const { orders } = useSelector(getFeedOrdersState);
+  const { orders }: { orders: OderType[] } = useSelector(getFeedOrdersState);
 
   useEffect(() => {
-
     dispatch({ type: feedOrdersActions.connect });
 
     return () => {
@@ -22,11 +21,9 @@ const FeedOrders = () => {
 
   if (!orders) {
     return null;
-  };
-
+  }
 
   return (
-
     <div className={stylesFeedOrders.block}>
       <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
       <ul className={stylesFeedOrders.list}>
@@ -35,7 +32,7 @@ const FeedOrders = () => {
         ))}
       </ul>
     </div>
-  )
+  );
 };
 
 export default FeedOrders;
