@@ -1,38 +1,38 @@
-import stylesFeedOrders from './feed-orders.module.css';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions';
-import { getFeedOrdersState } from '../../utils/selectors';
-import OrderInfoItem from '../order-info-item/order-info-item';
-import { OderType } from '../../types/types';
+import stylesFeedOrders from './feed-orders.module.css'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
+import { getFeedOrdersState } from '../../utils/selectors'
+import OrderInfoItem from '../order-info-item/order-info-item'
+import { OderType } from '../../types/types'
 
 const FeedOrders = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const { orders }: { orders: OderType[] } = useSelector(getFeedOrdersState);
+  const { orders }: { orders: OderType[] } = useSelector( getFeedOrdersState )
 
-  useEffect(() => {
-    dispatch({ type: feedOrdersActions.connect });
+  useEffect( () => {
+    dispatch( { type: feedOrdersActions.connect } )
 
     return () => {
-      dispatch({ type: feedOrdersActions.disconnect });
-    };
-  }, []);
+      dispatch( { type: feedOrdersActions.disconnect } )
+    }
+  }, [] )
 
-  if (!orders) {
-    return null;
+  if ( !orders ) {
+    return null
   }
 
   return (
-    <div className={stylesFeedOrders.block}>
-      <h2 className={stylesFeedOrders.title}>Лента заказов</h2>
-      <ul className={stylesFeedOrders.list}>
-        {orders.map((order) => (
-          <OrderInfoItem key={order._id} order={order} showStatus={false} />
-        ))}
+    <div className={ stylesFeedOrders.block }>
+      <h2 className={ stylesFeedOrders.title }>Лента заказов</h2>
+      <ul className={ stylesFeedOrders.list }>
+        { orders.map( ( order ) => (
+          <OrderInfoItem key={ order._id } order={ order } showStatus={ false } />
+        ) ) }
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default FeedOrders;
+export default FeedOrders

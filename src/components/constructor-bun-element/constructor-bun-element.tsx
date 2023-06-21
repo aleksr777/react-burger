@@ -1,40 +1,43 @@
-import styles from './constructor-bun-element.module.css';
-import { useSelector } from 'react-redux';
-import { memo } from 'react';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getSelectedIngrState } from '../../utils/selectors';
-import { IngredientObjType } from '../../types/types';
+import styles from './constructor-bun-element.module.css'
+import { useSelector } from 'react-redux'
+import { memo } from 'react'
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+import { getSelectedIngrState } from '../../utils/selectors'
+import { IngredientObjType } from '../../types/types'
 
 export interface Props {
-  type: 'top' | 'bottom' | undefined;
-  positionText: '(верх)' | '(низ)';
+  type: 'top' | 'bottom' | undefined
+  positionText: '(верх)' | '(низ)'
 }
 
-const ConstructorBunElement = ({ type, positionText }: Props) => {
-  const { bun }: { bun: IngredientObjType } = useSelector(getSelectedIngrState);
 
-  let nameTxt: string;
-  let positionTxt: string;
+const ConstructorBunElement = ( { type, positionText }: Props ) => {
 
-  if (bun._id) {
-    nameTxt = bun.name;
-    positionTxt = positionText;
-  } else {
-    nameTxt = 'Выберите и перенесите сюда булку';
-    positionTxt = '';
+  const { bun }: { bun: IngredientObjType } = useSelector( getSelectedIngrState )
+
+  let nameTxt: string
+  let positionTxt: string
+
+  if ( bun._id ) {
+    nameTxt = bun.name
+    positionTxt = positionText
   }
+  else {
+    nameTxt = 'Выберите и перенесите сюда булку'
+    positionTxt = ''
+  };
 
   return (
-    <div className={styles.boxElement} style={{ opacity: bun._id ? 1 : 0.6 }}>
+    <div className={ styles.boxElement } style={ { opacity: bun._id ? 1 : 0.6 } }>
       <ConstructorElement
-        isLocked={true}
-        type={type}
-        text={`${nameTxt} ${positionTxt}`}
-        price={bun.price}
-        thumbnail={bun.image}
+        isLocked={ true }
+        type={ type }
+        text={ `${ nameTxt } ${ positionTxt }` }
+        price={ bun.price }
+        thumbnail={ bun.image }
       />
     </div>
-  );
-};
+  )
+}
 
-export default memo(ConstructorBunElement);
+export default memo( ConstructorBunElement )

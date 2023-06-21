@@ -1,12 +1,12 @@
-import { memo } from 'react';
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { memo } from 'react'
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 type Props = {
-  count: number;
-};
+  count: number
+}
 
-const CounterItem = ({ count }: Props) => {
-  return count > 0 ? <Counter count={count} size='default' extraClass='m-1' /> : null;
-};
+const CounterItem = ( { count }: Props ) => {
+  return count > 0 ? <Counter count={ count } size='default' extraClass='m-1' /> : null
+}
 
-export default memo(CounterItem);
+export default memo( CounterItem )
