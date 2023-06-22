@@ -21,7 +21,7 @@ const HeaderLink = ( { icon, text, path }: Props ) => {
   const match = useMatch( path )
   const location = useLocation()
 
-  const [ isActiveLink, setIsActiveLink ] = useState<Boolean>( false )
+  const [ isActiveLink, setIsActiveLink ] = useState<boolean>( false )
 
   useEffect( () => {
     ( match || ( location.pathname.indexOf( path ) !== -1 && path !== '/' ) )

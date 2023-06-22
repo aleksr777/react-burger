@@ -23,7 +23,7 @@ const ConstructorItemsList = () => {
   const dropObj: IngredientObjType = bun // для лучшей читабельности кода
   const { counter }: { counter: CounterType } = useSelector( getCounterState )
 
-  const [ isBun, setIsBun ] = useState<Boolean>( false )
+  const [ isBun, setIsBun ] = useState<boolean>( false )
 
   // Добавление булки с добавлением цены в общую стоимость
   const dropHandler = ( dropObj: IngredientObjType, dragObj: IngredientObjType ) => {
