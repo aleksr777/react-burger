@@ -7,8 +7,8 @@ import {
 
 const defaultState = {
   isLoading: false,
-  ingredientsData: [],
   isError: false,
+  ingredientsData: [],
 }
 
 const ingredientsDataReducer = (state = defaultState, action) => {
@@ -25,9 +25,9 @@ const ingredientsDataReducer = (state = defaultState, action) => {
     case INGREDIENTS_GET_DATA_SUCCESS: {
       return {
         ...state,
-        ingredientsData: action.payload,
         isLoading: false,
         isError: false,
+        ingredientsData: action.payload,
       };
     };
 

@@ -1,20 +1,23 @@
-import stylesLoader from './loader.module.css';
-import PropTypes from 'prop-types';
+import stylesLoader from './loader.module.css'
 
-export const LoaderSvg = ({ color, size, isLoading }) => {
+type LoaderSvgProps = {
+  color: string
+  size: number
+  isLoading: boolean
+}
 
-  if (!isLoading) {
+export const LoaderSvg = ( { color, size, isLoading }: LoaderSvgProps ) => {
+  if ( !isLoading ) {
     return null
   }
 
   return (
-    <div className={stylesLoader.wrapper}>
+    <div className={ stylesLoader.wrapper }>
       <svg
-        width={size}
-        height={size}
+        width={ size }
+        height={ size }
         viewBox="0 0 38 38"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke={color}
+        stroke={ color }
       >
         <g fill="none" fillRule="evenodd">
           <g transform="translate(1 1)" strokeWidth="2">
@@ -33,10 +36,5 @@ export const LoaderSvg = ({ color, size, isLoading }) => {
         </g>
       </svg>
     </div>
-  );
-};
-
-LoaderSvg.propTypes = {
-  color: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-};
+  )
+}
