@@ -1,5 +1,4 @@
 import stylesIngredientDetailsModal from './ingredient-details-modal.module.css'
-import { AnyAction } from 'redux'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { closeIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions'
@@ -30,7 +29,7 @@ const IngredientDetailsModal = () => {
   }
 
   const handleCloseModal = () => {
-    dispatch( closeIngredientDetailsModal( goToPage ) as unknown as AnyAction )
+    dispatch( closeIngredientDetailsModal( goToPage ) as any )
   }
 
   return (

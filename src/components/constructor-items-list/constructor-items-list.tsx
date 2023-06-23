@@ -1,7 +1,6 @@
 import stylesItemsList from './constructor-items-list.module.css'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AnyAction } from 'redux'
 import { useDrop } from 'react-dnd'
 import { addBun } from '../../services/selected-ingr/selected-ingr-actions'
 import ConstructorItem from '../constructor-item/constructor-item'
@@ -28,7 +27,7 @@ const ConstructorItemsList = () => {
   // Добавление булки с добавлением цены в общую стоимость
   const dropHandler = ( dropObj: IngredientObjType, dragObj: IngredientObjType ) => {
     if ( dragObj.type === 'bun' ) {
-      dispatch( addBun( dropObj, dragObj, counter ) as unknown as AnyAction )
+      dispatch( addBun( dropObj, dragObj, counter ) as any )
     }
   }
 

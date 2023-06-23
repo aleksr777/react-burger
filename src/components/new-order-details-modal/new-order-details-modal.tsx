@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { AnyAction } from 'redux'
 import { closeOrderDetailsModal } from '../../services/order-id/order-id-actions'
 import NewOrderDetailsLayout from '../new-order-details-layout/new-order-details-layout'
 import Modal from '../modal/modal'
@@ -19,7 +18,7 @@ const NewOrderDetailsModal = () => {
   }
 
   const handleCloseModal = () => {
-    dispatch( closeOrderDetailsModal() as unknown as AnyAction )
+    dispatch( closeOrderDetailsModal() as any )
   }
 
   return (

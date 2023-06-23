@@ -1,6 +1,5 @@
 import styles from './constructor-item.module.css'
 import { memo, useRef, useEffect, useState } from 'react'
-import { AnyAction } from 'redux'
 import { useSelector, useDispatch } from 'react-redux'
 import { useDrag, useDrop } from 'react-dnd'
 import {
@@ -52,10 +51,10 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
       if ( dragItemData.locationDnd === 'ConstructorBurger' ) {
         if ( dropObj._uKey !== dragObj._uKey ) {
           // исключаем перетаскивание на самого себя
-          dispatch( swapIngredients( dropObj, dragObj, ingredients ) as unknown as AnyAction )
+          dispatch( swapIngredients( dropObj, dragObj, ingredients ) as any )
         }
       } else if ( dragItemData.locationDnd === 'IngredientsBurger' ) {
-        dispatch( addIngredient( dropObj, dragObj, ingredients, counter ) as unknown as AnyAction )
+        dispatch( addIngredient( dropObj, dragObj, ingredients, counter ) as any )
       }
     }
   }
@@ -119,7 +118,7 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
         thumbnail={ obj.image }
         handleClose={ () => {
           setItemOpacity( 0 )
-          dispatch( removeIngredient( obj, ingredients, counter ) as unknown as AnyAction )
+          dispatch( removeIngredient( obj, ingredients, counter ) as any )
         } }
       />
     </li>

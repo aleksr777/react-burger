@@ -2,7 +2,6 @@ import stylesIngredientsItem from './ingredients-item.module.css'
 import { useState, memo } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { AnyAction } from 'redux'
 import { useDrag } from "react-dnd"
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -25,7 +24,7 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
   }
 
   const handleOpenModal = ( ingredient: IngredientObjType ) => {
-    dispatch( openIngredientDetailsModal( ingredient ) as unknown as AnyAction )
+    dispatch( openIngredientDetailsModal( ingredient ) as any )
   }
 
   const [ { dragItemOpacity, dragItemTransition }, dragRef ] = useDrag( {

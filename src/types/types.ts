@@ -17,7 +17,7 @@ export type IngredientObjType = {
 
 export type CounterType = { [key: string]: number };
 
-export type OderType = {
+export type OrderType = {
   _id: string;
   createdAt: string;
   ingredients: string[];
@@ -25,6 +25,7 @@ export type OderType = {
   number: number;
   status: 'created' | 'pending' | 'done' | '';
   updatedAt: string;
+  totalPrice?: number;
 };
 
 export type IngredientsDataStateType = {
@@ -54,11 +55,16 @@ export type OrderIdStateType = {
 };
 
 export type ProfileOrdersStateType = LoadingStateType & {
-  orders: OderType[] | null;
+  orders: OrderType[] | null;
 };
 
 export type FeedOrdersStateType = LoadingStateType & {
-  orders: OderType[] | null;
+  orders: OrderType[] | null;
   total: null | number;
   totalToday: null | number;
+};
+
+export type OrderDetails = {
+  order: OrderType;
+  isModalOpened: boolean;
 };

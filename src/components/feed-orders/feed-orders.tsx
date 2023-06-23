@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
 import { getFeedOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
-import { OderType } from '../../types/types'
+import { OrderType } from '../../types/types'
 
 const FeedOrders = () => {
   const dispatch = useDispatch()
 
-  const { orders }: { orders: OderType[] } = useSelector( getFeedOrdersState )
+  const { orders }: { orders: OrderType[] } = useSelector( getFeedOrdersState )
 
   useEffect( () => {
     dispatch( { type: feedOrdersActions.connect } )
