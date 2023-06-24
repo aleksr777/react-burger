@@ -30,7 +30,9 @@ export type ImageDataType = {
   isImgError?: boolean;
 };
 
-export type CounterType = { [key: string]: number };
+export type CounterType = {
+  [key: string]: number;
+};
 
 type OrderType = {
   _id: string;
@@ -89,7 +91,13 @@ export type FeedOrdersStateType = LoadingStateType & {
   totalToday: null | number;
 };
 
-export type OrderDetails = {
+export type OrderDetailsStateType = {
   order: OrderInfoType;
   isModalOpened: boolean;
+};
+
+export type SelectedIngredientStateType = {
+  ingredients: SelectedIngredientType[];
+  bun: SelectedIngredientType;
+  totalPrice: number;
 };
