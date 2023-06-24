@@ -1,6 +1,6 @@
 /* Прозрачная картинка для "пустой булки" и "пустого ингредиента" */
 import transparentImgPath from '../images/transparent-picture.png';
-import { IngredientObjType } from '../types/types';
+import { IngredientInfoType } from '../types/types';
 
 export const bodySelector: HTMLElement = document.querySelector('body') as HTMLElement;
 
@@ -15,7 +15,7 @@ export const LOADER_ANIMATION_TIME: number = 300;
 document.documentElement.style.setProperty('--loader-animation-time', `${LOADER_ANIMATION_TIME}ms`);
 
 // Объект для отображения "пустой булки", если булка не выбрана
-export const noBunObj: IngredientObjType = {
+export const noBunObj: IngredientInfoType = {
   calories: 0,
   carbohydrates: 0,
   fat: 0,
@@ -27,11 +27,11 @@ export const noBunObj: IngredientObjType = {
   proteins: 0,
   type: 'bun',
   __v: 0,
-  _id: ''
+  _id: '',
 };
 
 // Объект для отображения "пустого ингредиента", если ингредиент не выбран
-export const noIngrObj: IngredientObjType = {
+export const noIngrObj: IngredientInfoType = {
   calories: 0,
   carbohydrates: 0,
   fat: 0,
@@ -43,5 +43,5 @@ export const noIngrObj: IngredientObjType = {
   proteins: 0,
   type: 'ingr',
   __v: 0,
-  _id: ''
+  _id: '',
 };

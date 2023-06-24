@@ -6,10 +6,10 @@ import { useDrag } from "react-dnd"
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import CounterItem from '../counter-item/counter-item'
-import { IngredientObjType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 type Props = {
-  ingredient: IngredientObjType
+  ingredient: IngredientInfoType
   count: number
 }
 
@@ -23,7 +23,7 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
     setIsImgError( true )
   }
 
-  const handleOpenModal = ( ingredient: IngredientObjType ) => {
+  const handleOpenModal = ( ingredient: IngredientInfoType ) => {
     dispatch( openIngredientDetailsModal( ingredient ) as any )
   }
 

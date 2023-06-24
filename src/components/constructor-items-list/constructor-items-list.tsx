@@ -7,7 +7,7 @@ import ConstructorItem from '../constructor-item/constructor-item'
 import { noIngrObj } from '../../constants/constants'
 import ConstructorBunElement from '../constructor-bun-element/constructor-bun-element'
 import { getSelectedIngrState, getCounterState } from '../../utils/selectors'
-import { IngredientObjType, CounterType } from '../../types/types'
+import { IngredientInfoType, CounterType } from '../../types/types'
 
 
 const ConstructorItemsList = () => {
@@ -17,15 +17,15 @@ const ConstructorItemsList = () => {
 
   const dispatch = useDispatch()
 
-  const { bun, ingredients }: { bun: IngredientObjType; ingredients: IngredientObjType[] } =
+  const { bun, ingredients }: { bun: IngredientInfoType; ingredients: IngredientInfoType[] } =
     useSelector( getSelectedIngrState )
-  const dropObj: IngredientObjType = bun // для лучшей читабельности кода
+  const dropObj: IngredientInfoType = bun // для лучшей читабельности кода
   const { counter }: { counter: CounterType } = useSelector( getCounterState )
 
   const [ isBun, setIsBun ] = useState<boolean>( false )
 
   // Добавление булки с добавлением цены в общую стоимость
-  const dropHandler = ( dropObj: IngredientObjType, dragObj: IngredientObjType ) => {
+  const dropHandler = ( dropObj: IngredientInfoType, dragObj: IngredientInfoType ) => {
     if ( dragObj.type === 'bun' ) {
       dispatch( addBun( dropObj, dragObj, counter ) as any )
     }
@@ -33,10 +33,10 @@ const ConstructorItemsList = () => {
 
   const [ , dropRef ] = useDrop( {
     accept: 'selectedIngr',
-    drop ( dragObj: IngredientObjType ) {
+    drop ( dragObj: IngredientInfoType ) {
       dropHandler( dropObj, dragObj )
     },
-    canDrop ( dragObj: IngredientObjType ) {
+    canDrop ( dragObj: IngredientInfoType ) {
       if ( dragObj.locationDnd === 'IngredientsBurger' && dragObj.type === 'bun' ) {
         setIsBun( true )
         return true

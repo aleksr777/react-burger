@@ -1,12 +1,12 @@
 import stylesFeedStatistics from './feed-statistics.module.css'
 import { useSelector } from 'react-redux'
 import { getFeedOrdersState } from '../../utils/selectors'
-import { OrderType } from '../../types/types'
+import { OrderInfoType } from '../../types/types'
 
 const FeedStatistics = () => {
 
   type FeedOrdersType = {
-    orders: OrderType[]
+    orders: OrderInfoType[]
     total: number
     totalToday: number
   }
@@ -21,8 +21,8 @@ const FeedStatistics = () => {
   const styleStatusBoxMarginRight: string = `${ stylesFeedStatistics.status__box } ${ stylesFeedStatistics.status__box_mr }`
   const styleTextAboutPaddingBottom: string = `${ stylesFeedStatistics.textAbout } ${ stylesFeedStatistics.textAbout_pb }`
 
-  const ordersDone: OrderType[] = orders.filter( ( order ) => order.status === 'done' )
-  const ordersPending: OrderType[] = orders.filter( ( order ) => order.status === 'pending' )
+  const ordersDone: OrderInfoType[] = orders.filter( ( order ) => order.status === 'done' )
+  const ordersPending: OrderInfoType[] = orders.filter( ( order ) => order.status === 'pending' )
 
   return (
     <div className={ stylesFeedStatistics.block }>

@@ -1,16 +1,16 @@
 import stylesOrderDetailsLayout from './order-details-layout.module.css'
 import { useState, memo } from 'react'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
-import { OrderType } from '../../types/types'
+import { OrderInfoType } from '../../types/types'
 
 type Props = {
-  order: OrderType
+  order: OrderInfoType
 }
 
 
 const OrderDetailsLayout = ( { order }: Props ) => {
 
-  const { number, name, status, ingredients, totalPrice, createdAt, updatedAt }: OrderType = order
+  const { number, name, status, ingredients, totalPrice, createdAt, updatedAt }: OrderInfoType = order
 
   const [ isImgError, setIsImgError ] = useState<boolean>( false )
 

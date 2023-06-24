@@ -9,10 +9,10 @@ import {
 } from '../../services/selected-ingr/selected-ingr-actions'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getSelectedIngrState, getCounterState } from '../../utils/selectors'
-import { IngredientObjType, CounterType } from '../../types/types'
+import { IngredientInfoType, CounterType } from '../../types/types'
 
 interface Props {
-  obj: IngredientObjType
+  obj: IngredientInfoType
   isLocked: boolean
 }
 
@@ -21,7 +21,7 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
 
   const [ itemOpacity, setItemOpacity ] = useState<number>( 0 )
 
-  const { ingredients }: { ingredients: IngredientObjType[] } = useSelector( getSelectedIngrState )
+  const { ingredients }: { ingredients: IngredientInfoType[] } = useSelector( getSelectedIngrState )
   const { counter }: { counter: CounterType } = useSelector( getCounterState )
 
   const [ { dragItemData, isItemDragging }, dragRef ] = useDrag( {
@@ -41,12 +41,12 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
 
   const [ , dropRef ] = useDrop( {
     accept: 'selectedIngr',
-    drop ( dragObj: IngredientObjType ) {
+    drop ( dragObj: IngredientInfoType ) {
       dropHandler( obj, dragObj )
     }
   } )
 
-  function dropHandler ( dropObj: IngredientObjType, dragObj: IngredientObjType ) {
+  function dropHandler ( dropObj: IngredientInfoType, dragObj: IngredientInfoType ) {
     if ( dragObj.type !== 'bun' ) {
       if ( dragItemData.locationDnd === 'ConstructorBurger' ) {
         if ( dropObj._uKey !== dragObj._uKey ) {

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { memo } from 'react'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getSelectedIngrState } from '../../utils/selectors'
-import { IngredientObjType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 export interface Props {
   type: 'top' | 'bottom' | undefined
@@ -13,7 +13,7 @@ export interface Props {
 
 const ConstructorBunElement = ( { type, positionText }: Props ) => {
 
-  const { bun }: { bun: IngredientObjType } = useSelector( getSelectedIngrState )
+  const { bun }: { bun: IngredientInfoType } = useSelector( getSelectedIngrState )
 
   let nameTxt: string
   let positionTxt: string

@@ -1,9 +1,9 @@
 import ingrDetailsStyles from './ingredient-details-layout.module.css'
 import { useState } from 'react'
-import { IngredientObjType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 type Props = {
-  ingredient: IngredientObjType
+  ingredient: IngredientInfoType
   titleAlign: 'left' | 'center' | 'right'
 }
 
