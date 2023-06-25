@@ -1,4 +1,4 @@
-import stylesItemsList from './constructor-items-list.module.css'
+import styles from './constructor-items-list.module.css'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useDrop } from 'react-dnd'
@@ -11,9 +11,9 @@ import { IngredientInfoType, CounterType } from '../../types/types'
 
 
 const ConstructorItemsList = () => {
-  const styleItemPositionTop: string = `${ stylesItemsList.item } ${ stylesItemsList.item__position_top }`
-  const styleItemPositionBottom: string = `${ stylesItemsList.item } ${ stylesItemsList.item__position_bottom }`
-  const styleListDisabled: string = `${ stylesItemsList.listScroll } ${ stylesItemsList.listScroll_disabled }`
+  const styleItemPositionTop: string = `${ styles.item } ${ styles.item__position_top }`
+  const styleItemPositionBottom: string = `${ styles.item } ${ styles.item__position_bottom }`
+  const styleListDisabled: string = `${ styles.listScroll } ${ styles.listScroll_disabled }`
 
   const dispatch = useDispatch()
 
@@ -71,7 +71,7 @@ const ConstructorItemsList = () => {
 
   return (
     <ul
-      className={ stylesItemsList.list }
+      className={ styles.list }
       ref={ dropRef }
       onDragOver={ handleDragOver }
       onDragLeave={ handleDragLeave }
@@ -87,7 +87,7 @@ const ConstructorItemsList = () => {
             <ConstructorItem obj={ noIngrObj } key={ noIngrObj._uKey } isLocked={ true } />
           </ul>
         ) : (
-          <ul className={ stylesItemsList.listScroll }>
+          <ul className={ styles.listScroll }>
             { ingredients.map( ( obj ) => (
               <ConstructorItem obj={ obj } key={ obj._uKey } isLocked={ false } />
             ) ) }

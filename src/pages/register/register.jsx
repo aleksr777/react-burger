@@ -1,4 +1,4 @@
-import stylesRegisterPage from './register.module.css';
+import styles from './register.module.css';
 import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { registerUserRequest } from '../../services/register-user/register-user-actions';
@@ -20,8 +20,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className={stylesRegisterPage.container}>
-      <h1 className={stylesRegisterPage.title}>Регистрация</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Регистрация</h1>
 
       <form onSubmit={handleSubmit} autoComplete='off'>
         <FormInput
@@ -52,15 +52,15 @@ const RegisterPage = () => {
           icon={undefined}
         />
 
-        <div className={stylesRegisterPage.submitBox}>
+        <div className={styles.submitBox}>
           <Button htmlType="submit" type="primary" size="medium">
             Зарегистрироваться
           </Button>
         </div>
       </form>
 
-      <p className={stylesRegisterPage.text}>
-        Уже зарегистрированы? <Link to='/login' className={stylesRegisterPage.link}>Войти</Link>
+      <p className={styles.text}>
+        Уже зарегистрированы? <Link to='/login' className={styles.link}>Войти</Link>
       </p>
     </div>
   );

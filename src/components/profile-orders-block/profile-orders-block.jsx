@@ -1,4 +1,4 @@
-import stylesProfileOdersBlock from './profile-orders-block.module.css';
+import styles from './profile-orders-block.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions';
@@ -23,7 +23,7 @@ const ProfileOrdersBlock = () => {
 
   return (
     orders &&
-    <ul className={stylesProfileOdersBlock.feed}>
+    <ul className={styles.feed}>
       {orders.slice().reverse().map((order) => (
         <OrderInfoItem key={order._id} order={order} showStatus={true} />
       ))}

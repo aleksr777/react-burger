@@ -1,4 +1,4 @@
-import stylesLogoLink from './logo-link.module.css'
+import styles from './logo-link.module.css'
 import { useState, useEffect } from 'react'
 import { useLocation, useMatch, Link } from 'react-router-dom'
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,8 +6,8 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const LogoLink = () => {
 
-  const defaultStyle: string = stylesLogoLink.link
-  const activeStyle: string = `${ stylesLogoLink.link } ${ stylesLogoLink.link_active }`
+  const defaultStyle: string = styles.link
+  const activeStyle: string = `${ styles.link } ${ styles.link_active }`
 
   const match = useMatch( '/' )
   const location = useLocation()

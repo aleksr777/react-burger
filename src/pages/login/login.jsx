@@ -1,4 +1,4 @@
-import stylesLoginPage from './login.module.css';
+import styles from './login.module.css';
 import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { requestLogin } from '../../services/authorization/auth-actions';
@@ -16,8 +16,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={stylesLoginPage.container}>
-      <h1 className={stylesLoginPage.title}>Вход</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Вход</h1>
 
       <form onSubmit={handleSubmit} autoComplete='off'>
         <FormInput
@@ -38,19 +38,19 @@ const LoginPage = () => {
           icon={undefined}
         />
 
-        <div className={stylesLoginPage.submitBox}>
+        <div className={styles.submitBox}>
           <Button htmlType="submit" type="primary" size="medium">
             Войти
           </Button>
         </div>
       </form>
 
-      <p className={stylesLoginPage.text}>
-        Вы — новый пользователь? <Link to='/register' className={stylesLoginPage.link}>Зарегистрироваться</Link>
+      <p className={styles.text}>
+        Вы — новый пользователь? <Link to='/register' className={styles.link}>Зарегистрироваться</Link>
       </p>
 
-      <p className={stylesLoginPage.text}>
-        Забыли пароль? <Link to='/forgot-password' className={stylesLoginPage.link}>Восстановить пароль</Link>
+      <p className={styles.text}>
+        Забыли пароль? <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link>
       </p>
     </div>
   );

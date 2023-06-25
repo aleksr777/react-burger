@@ -1,4 +1,4 @@
-import stylesForgotPasswordPage from './forgot-password.module.css';
+import styles from './forgot-password.module.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions';
@@ -19,8 +19,8 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className={stylesForgotPasswordPage.container}>
-      <h1 className={stylesForgotPasswordPage.title}>Восстановление пароля</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Восстановление пароля</h1>
 
       <form onSubmit={handleSubmit} autoComplete='off'>
         <FormInput
@@ -32,15 +32,15 @@ const ForgotPasswordPage = () => {
           isIcon={false}
         />
 
-        <div className={stylesForgotPasswordPage.submitBox}>
+        <div className={styles.submitBox}>
           <Button htmlType="submit" type="primary" size="medium">
             Восстановить
           </Button>
         </div>
       </form>
 
-      <p className={stylesForgotPasswordPage.text}>
-        Вспомнили пароль? <Link to='/login' className={stylesForgotPasswordPage.link}>Войти</Link>
+      <p className={styles.text}>
+        Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link>
       </p>
     </div>
   );

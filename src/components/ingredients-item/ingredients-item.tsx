@@ -1,4 +1,4 @@
-import stylesIngredientsItem from './ingredients-item.module.css'
+import styles from './ingredients-item.module.css'
 import { useState, memo } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -39,14 +39,14 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
   return (
     <li
       ref={ dragRef }
-      className={ stylesIngredientsItem.item }
+      className={ styles.item }
       style={ {
         transition: dragItemTransition,
         opacity: dragItemOpacity,
       } }
     >
       <Link
-        className={ stylesIngredientsItem.link }
+        className={ styles.link }
         to={ `/ingredients/${ ingredient._id }` }
         state={ { from: location.pathname } }
         draggable='false'
@@ -56,9 +56,9 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
       >
         <CounterItem count={ count } />
 
-        <picture className={ stylesIngredientsItem.item__pictureBox }>
+        <picture className={ styles.item__pictureBox }>
           <img
-            className={ stylesIngredientsItem.item__image }
+            className={ styles.item__image }
             src={ ingredient.image_large }
             alt={ `Изображение "${ ingredient.name }"` }
             onError={ handleImgError }
@@ -69,12 +69,12 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
           />
         </picture>
 
-        <div className={ stylesIngredientsItem.item__box }>
-          <p className={ stylesIngredientsItem.item__price }>{ ingredient.price }</p>
+        <div className={ styles.item__box }>
+          <p className={ styles.item__price }>{ ingredient.price }</p>
           <CurrencyIcon type='primary' />
         </div>
 
-        <p className={ stylesIngredientsItem.item__title }>{ ingredient.name }</p>
+        <p className={ styles.item__title }>{ ingredient.name }</p>
       </Link>
     </li>
   )

@@ -1,4 +1,4 @@
-import stylesProfile from './profile.module.css';
+import styles from './profile.module.css';
 import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { requestLogout } from '../../services/authorization/auth-actions';
@@ -28,9 +28,9 @@ const ProfilePage = () => {
 
   return (
 
-    <div className={stylesProfile.container}>
+    <div className={styles.container}>
 
-      <div className={stylesProfile.navBlock}>
+      <div className={styles.navBlock}>
 
         <ProfileLink text='Профиль' path={pathProfile} />
 
@@ -40,13 +40,13 @@ const ProfilePage = () => {
           /* Сделал простой сценарий для кнопки разлогирования.
           Потом сделаю, как потребуется, в следующем спринте*/
           onClick={() => dispatch(requestLogout())}
-          className={stylesProfile.logoutButton}
+          className={styles.logoutButton}
         >Выход
         </button>
 
-        <div className={stylesProfile.blockAbout}>
-          <p className={stylesProfile.textAbout}>В этом разделе вы можете</p>
-          <p className={stylesProfile.textAbout}>{textAbout}</p>
+        <div className={styles.blockAbout}>
+          <p className={styles.textAbout}>В этом разделе вы можете</p>
+          <p className={styles.textAbout}>{textAbout}</p>
         </div>
 
       </div>

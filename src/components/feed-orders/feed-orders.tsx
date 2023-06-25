@@ -1,4 +1,4 @@
-import stylesFeedOrders from './feed-orders.module.css'
+import styles from './feed-orders.module.css'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
@@ -24,9 +24,9 @@ const FeedOrders = () => {
   }
 
   return (
-    <div className={ stylesFeedOrders.block }>
-      <h2 className={ stylesFeedOrders.title }>Лента заказов</h2>
-      <ul className={ stylesFeedOrders.list }>
+    <div className={ styles.block }>
+      <h2 className={ styles.title }>Лента заказов</h2>
+      <ul className={ styles.list }>
         { orders.map( ( order ) => (
           <OrderInfoItem key={ order._id } order={ order } showStatus={ false } />
         ) ) }

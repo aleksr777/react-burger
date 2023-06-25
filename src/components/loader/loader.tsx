@@ -1,4 +1,4 @@
-import stylesLoader from './loader.module.css'
+import styles from './loader.module.css'
 import { CSSTransition } from 'react-transition-group'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -25,8 +25,8 @@ import {
 } from '../../utils/selectors'
 
 const loaderAnimation = {
-  enterActive: stylesLoader.enterActive,
-  exitActive: stylesLoader.exitActive,
+  enterActive: styles.enterActive,
+  exitActive: styles.exitActive,
 }
 
 
@@ -153,7 +153,7 @@ const Loader = () => {
       unmountOnExit
       classNames={ loaderAnimation }
     >
-      <div className={ stylesLoader.overlay } ref={ loaderRef }>
+      <div className={ styles.overlay } ref={ loaderRef }>
         { errorState.state && isMounted ? (
           <ErrorInfo title={ errorState.title } />
         ) : (

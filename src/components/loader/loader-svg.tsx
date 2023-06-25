@@ -1,4 +1,4 @@
-import stylesLoader from './loader.module.css'
+import styles from './loader.module.css'
 
 type LoaderSvgProps = {
   color: string
@@ -12,7 +12,7 @@ export const LoaderSvg = ( { color, size, isLoading }: LoaderSvgProps ) => {
   }
 
   return (
-    <div className={ stylesLoader.wrapper }>
+    <div className={ styles.wrapper }>
       <svg
         width={ size }
         height={ size }

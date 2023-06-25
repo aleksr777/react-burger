@@ -1,4 +1,4 @@
-import stylesOrderDetails from './order-details.module.css';
+import styles from './order-details.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -109,7 +109,7 @@ const OrderDetailsPage = () => {
 
   return (
     orderDetails.order &&
-    <div className={stylesOrderDetails.container}>
+    <div className={styles.container}>
       <OrderDetailsLayout order={orderDetails.order} />
     </div>
   )

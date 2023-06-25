@@ -1,4 +1,4 @@
-import stylesIngredientsBurger from './ingredients-burger.module.css'
+import styles from './ingredients-burger.module.css'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import IngredientsBlock from '../ingredients-block/ingredients-block'
@@ -32,14 +32,14 @@ const IngredientsBurger = () => {
 
   return (
     <>
-      <section className={ stylesIngredientsBurger.section }>
-        <h2 className={ stylesIngredientsBurger.section__title }>Соберите бургер</h2>
-        <div className={ stylesIngredientsBurger.tab }>
+      <section className={ styles.section }>
+        <h2 className={ styles.section__title }>Соберите бургер</h2>
+        <div className={ styles.tab }>
           <TabElement ingredientText="buns">Булки</TabElement>
           <TabElement ingredientText="sauces">Соусы</TabElement>
           <TabElement ingredientText="fillings">Начинки</TabElement>
         </div>
-        <div className={ stylesIngredientsBurger.section__blocks } id="section-blocks">
+        <div className={ styles.section__blocks } id="section-blocks">
           <IngredientsBlock title="Булки">
             { buns.map( ( obj ) => (
               <IngredientsItem

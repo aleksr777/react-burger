@@ -1,4 +1,4 @@
-import stylesIngredientDetails from './ingredient-details.module.css';
+import styles from './ingredient-details.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ const IngredientDetailsPage = () => {
 
   return (
     ingredient &&
-    <div className={stylesIngredientDetails.container}>
+    <div className={styles.container}>
       <IngredientDetailsLayout ingredient={ingredient} titleAlign='center' />
     </div>
   )

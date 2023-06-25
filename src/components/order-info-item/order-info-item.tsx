@@ -1,4 +1,4 @@
-import stylesOrderInfoItem from './order-info-item.module.css'
+import styles from './order-info-item.module.css'
 import { useLocation, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { openOrderDetailsModal } from '../../services/order-details/order-details-actions'
@@ -23,8 +23,8 @@ const OrderInfoItem = ( { order, showStatus }: Props ) => {
   const location = useLocation()
   const dispatch = useDispatch()
 
-  const styleStatusDefault: string = stylesOrderInfoItem.order__status
-  const styleStatusDone: string = `${ stylesOrderInfoItem.order__status } ${ stylesOrderInfoItem.order__status_active }`
+  const styleStatusDefault: string = styles.order__status
+  const styleStatusDone: string = `${ styles.order__status } ${ styles.order__status_active }`
 
   const { ingredientsData }: IngredientsDataType = useSelector( getIngredientsDataState )
 
@@ -60,25 +60,25 @@ const OrderInfoItem = ( { order, showStatus }: Props ) => {
 
     orderData && order &&
 
-    <li className={ stylesOrderInfoItem.order }>
+    <li className={ styles.order }>
 
       <Link
-        className={ stylesOrderInfoItem.order__link }
+        className={ styles.order__link }
         to={ `${ location.pathname }/${ order._id }` }
         state={ { from: location.pathname, } }
         draggable='false'
         onClick={ () => { handleOpenModal() } }
       >
 
-        <div className={ stylesOrderInfoItem.order__details }>
-          <p className={ stylesOrderInfoItem.order__id }>
+        <div className={ styles.order__details }>
+          <p className={ styles.order__id }>
             { order.number ? ( "#" + order.number.toString().padStart( 6, '0' ) ) : '' }
           </p>
-          <p className={ stylesOrderInfoItem.order__time }>
+          <p className={ styles.order__time }>
             { dateServer && <FormattedDate date={ new Date( dateServer ) } /> }
           </p>
         </div>
-        <p className={ stylesOrderInfoItem.order__name }>{ order.name }</p>
+        <p className={ styles.order__name }>{ order.name }</p>
         { showStatus &&
           ( <p className={ ( order.status === 'done' ) ? styleStatusDone : styleStatusDefault }>
             { getStatusText( order.status ) }

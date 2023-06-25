@@ -1,4 +1,4 @@
-import stylesLayout from './modal-layout.module.css'
+import styles from './modal-layout.module.css'
 import {
   blockUserInteraction,
   unblockUserInteraction,
@@ -9,13 +9,13 @@ import { CSSTransition } from 'react-transition-group'
 import { useState, useEffect, useRef } from 'react'
 
 const overlayAnimation = {
-  enterActive: stylesLayout.overlayEnterActive,
-  exitActive: stylesLayout.overlayExitActive,
+  enterActive: styles.overlayEnterActive,
+  exitActive: styles.overlayExitActive,
 }
 
 const containerAnimation = {
-  enterActive: stylesLayout.containerEnterActive,
-  exitActive: stylesLayout.containerExitActive,
+  enterActive: styles.containerEnterActive,
+  exitActive: styles.containerExitActive,
 }
 
 type Props = {
@@ -57,7 +57,7 @@ const ModalLayout = ( { children, handleCloseModal, isModalOpened }: Props ) => 
       >
         <div
           onClick={ handleCloseModal }
-          className={ stylesLayout.overlay }
+          className={ styles.overlay }
           ref={ overlayRef }
         />
       </CSSTransition>
@@ -70,8 +70,8 @@ const ModalLayout = ( { children, handleCloseModal, isModalOpened }: Props ) => 
         unmountOnExit
         classNames={ containerAnimation }
       >
-        <div className={ stylesLayout.container } ref={ containerRef }>
-          <div className={ stylesLayout.button }>
+        <div className={ styles.container } ref={ containerRef }>
+          <div className={ styles.button }>
             <CloseIcon type="primary" onClick={ handleCloseModal } />
           </div>
           { children }

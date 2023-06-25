@@ -1,4 +1,4 @@
-import stylesScrollList from './ingredients-block.module.css'
+import styles from './ingredients-block.module.css'
 
 type Props = {
   children: React.ReactNode
@@ -7,9 +7,9 @@ type Props = {
 
 const IngredientsBlock = ( { children, title }: Props ) => {
   return (
-    <div className={ stylesScrollList.block }>
-      <h3 className={ stylesScrollList.block__title }>{ title }</h3>
-      <ul className={ stylesScrollList.block__list }>
+    <div className={ styles.block }>
+      <h3 className={ styles.block__title }>{ title }</h3>
+      <ul className={ styles.block__list }>
         { children }
       </ul>
     </div>

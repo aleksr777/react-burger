@@ -1,4 +1,4 @@
-import stylesProfileLink from './profile-link.module.css'
+import styles from './profile-link.module.css'
 import { NavLink, useMatch } from 'react-router-dom'
 import { memo } from 'react'
 
@@ -10,8 +10,8 @@ type Props = {
 
 const ProfileLink = ( { text, path }: Props ) => {
 
-  const defaultStyle: string = stylesProfileLink.link
-  const activeStyle: string = `${ stylesProfileLink.link } ${ stylesProfileLink.link_active }`
+  const defaultStyle: string = styles.link
+  const activeStyle: string = `${ styles.link } ${ styles.link_active }`
 
   const match = useMatch( path )
 

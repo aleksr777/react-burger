@@ -1,4 +1,4 @@
-import stylesOrderDetailsModal from './order-details-modal.module.css'
+import styles from './order-details-modal.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { closeOrderDetailsModal } from '../../services/order-details/order-details-actions'
@@ -33,7 +33,7 @@ const OrderDetailsModal = () => {
 
   return (
     <Modal handleCloseModal={ handleCloseModal } isModalOpened={ isModalOpened }>
-      <div className={ stylesOrderDetailsModal.container }>
+      <div className={ styles.container }>
         <OrderDetailsLayout order={ order } />
       </div>
     </Modal>

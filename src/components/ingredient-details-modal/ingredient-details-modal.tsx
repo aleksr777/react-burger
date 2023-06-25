@@ -1,4 +1,4 @@
-import stylesIngredientDetailsModal from './ingredient-details-modal.module.css'
+import styles from './ingredient-details-modal.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { closeIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions'
@@ -34,7 +34,7 @@ const IngredientDetailsModal = () => {
 
   return (
     <Modal handleCloseModal={ handleCloseModal } isModalOpened={ isModalOpened }>
-      <div className={ stylesIngredientDetailsModal.container }>
+      <div className={ styles.container }>
         <IngredientDetailsLayout ingredient={ ingredient } titleAlign='left' />
       </div>
     </Modal>

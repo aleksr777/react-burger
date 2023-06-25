@@ -1,4 +1,4 @@
-import stylesResetPasswordPage from './reset-password.module.css';
+import styles from './reset-password.module.css';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,8 +41,8 @@ const ResetPasswordPage = () => {
 
   return (
     forgotPassword.isSuccess && (
-      <div className={stylesResetPasswordPage.container}>
-        <h1 className={stylesResetPasswordPage.title}>Восстановление пароля</h1>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Восстановление пароля</h1>
         <form onSubmit={handleSubmit} autoComplete='off'>
           <FormInput
             inputType='password'
@@ -61,7 +61,7 @@ const ResetPasswordPage = () => {
             icon={undefined}
             onIconClick={undefined}
           />
-          <div className={stylesResetPasswordPage.submitBox}>
+          <div className={styles.submitBox}>
             <Button
               htmlType="submit"
               type="primary"
@@ -71,8 +71,8 @@ const ResetPasswordPage = () => {
             </Button>
           </div>
         </form>
-        <p className={stylesResetPasswordPage.text}>
-          Вспомнили пароль? <Link to='/login' className={stylesResetPasswordPage.link}>Войти</Link>
+        <p className={styles.text}>
+          Вспомнили пароль? <Link to='/login' className={styles.link}>Войти</Link>
         </p>
       </div>
     )
