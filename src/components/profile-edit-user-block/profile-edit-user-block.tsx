@@ -1,5 +1,5 @@
 import styles from './profile-edit-user-block.module.css'
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent, FormEvent, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { requestChangeUserData } from '../../services/authorization/auth-actions'
 import FormInput from '../form-input/form-input'
@@ -14,11 +14,14 @@ const ProfileEditUserBlock = () => {
 
   const { user }: AuthStateType = useSelector( getAuthState )
 
-  const userData: UserDataType = {
-    name: user.name,
-    email: user.email,
-    password: '',
-  }
+  const userData: UserDataType = useMemo(
+    () => ( {
+      name: user.name,
+      email: user.email,
+      password: '',
+    } ),
+    [ user ]
+  )
 
   const [ inputsData, setInputsData ] = useState<UserDataType>( userData )
   const [ isFormChanged, setIsFormChanged ] = useState( false )

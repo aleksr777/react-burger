@@ -7,7 +7,7 @@ export type Props = {
   value: string
   name: string
   placeholder: string
-  icon: 'EditIcon' | 'ShowIcon' | 'HideIcon' | undefined
+  icon?: 'EditIcon' | 'ShowIcon' | 'HideIcon' | undefined
   isIcon?: boolean
   onChange: ( event: React.ChangeEvent<HTMLInputElement> ) => void
 };
