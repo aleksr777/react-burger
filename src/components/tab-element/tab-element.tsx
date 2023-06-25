@@ -39,7 +39,7 @@ const TabElement = ( { children, ingredientText }: Props ) => {
       <Tab
         value={ ingredientText }
         active={ currentTab === ingredientText ? true : false }
-        onClick={ () => setCurrent( ingredientText ) } // Add onClick prop
+        onClick={ () => setCurrent( ingredientText ) }
       >
         { children }
       </Tab>

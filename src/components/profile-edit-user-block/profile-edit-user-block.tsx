@@ -31,7 +31,6 @@ const ProfileEditUserBlock = () => {
   useEffect( () => {
     for ( const key in userData ) {
       if ( userData[ key ] !== inputsData[ key ] ) {
-        console.log( userData )
         setIsFormChanged( true )
         return
       }
