@@ -67,11 +67,18 @@ export type LoadingStateType = {
   isSuccess: boolean;
 };
 
+type UserType = {
+  name: string;
+  email: string;
+};
+
+export type UserDataType = UserType & {
+  password: string;
+  [key: string]: string;
+};
+
 export type AuthStateType = LoadingStateType & {
-  user: {
-    name: string;
-    email: string;
-  };
+  user: UserType;
 };
 
 export type OrderIdStateType = {
