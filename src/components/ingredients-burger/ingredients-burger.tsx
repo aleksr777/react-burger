@@ -33,14 +33,18 @@ const IngredientsBurger = () => {
   return (
     <>
       <section className={ styles.section }>
+
         <h2 className={ styles.section__title }>Соберите бургер</h2>
+
         <div className={ styles.tab }>
           <TabElement ingredientText="buns">Булки</TabElement>
           <TabElement ingredientText="sauces">Соусы</TabElement>
           <TabElement ingredientText="fillings">Начинки</TabElement>
         </div>
+
         <div className={ styles.section__blocks } id="section-blocks">
-          <IngredientsBlock title="Булки">
+
+          <IngredientsBlock title="Булки" type='buns' >
             { buns.map( ( obj ) => (
               <IngredientsItem
                 key={ obj._id }
@@ -49,7 +53,8 @@ const IngredientsBurger = () => {
               />
             ) ) }
           </IngredientsBlock>
-          <IngredientsBlock title="Соусы">
+
+          <IngredientsBlock title="Соусы" type='sauces'>
             { sauces.map( ( obj ) => (
               <IngredientsItem
                 key={ obj._id }
@@ -58,7 +63,8 @@ const IngredientsBurger = () => {
               />
             ) ) }
           </IngredientsBlock>
-          <IngredientsBlock title="Начинки">
+
+          <IngredientsBlock title="Начинки" type='fillings'>
             { fillings.map( ( obj ) => (
               <IngredientsItem
                 key={ obj._id }
@@ -67,6 +73,7 @@ const IngredientsBurger = () => {
               />
             ) ) }
           </IngredientsBlock>
+
         </div>
       </section>
     </>

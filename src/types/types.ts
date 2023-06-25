@@ -34,6 +34,10 @@ export type CounterType = {
   [key: string]: number;
 };
 
+export type CounterStateType = {
+  counter: CounterType;
+};
+
 type OrderType = {
   _id: string;
   createdAt: string;
@@ -108,3 +112,7 @@ export type SelectedIngredientStateType = {
   bun: SelectedIngredientType;
   totalPrice: number;
 };
+
+export type CurrentTabStateType = {
+  currentTab: string;
+}
