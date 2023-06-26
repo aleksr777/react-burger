@@ -36,7 +36,7 @@ const LoginPage = () => {
         <FormInput
           inputType='password'
           onChange={ handleChange }
-          value={ 'values.password' }
+          value={ values.password }
           name='password'
           placeholder='Пароль'
           icon={ undefined }

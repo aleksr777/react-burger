@@ -16,12 +16,12 @@ const ProfileEditUserBlock = () => {
 
   const userData: UserDataType = useMemo(
     () => ( {
-      name: user.name,
       email: user.email,
+      name: user.name,
       password: '',
     } ),
     [ user ]
-  )
+  );
 
   const [ inputsData, setInputsData ] = useState<UserDataType>( userData )
   const [ isFormChanged, setIsFormChanged ] = useState( false )
@@ -32,14 +32,15 @@ const ProfileEditUserBlock = () => {
 
   /* Проверяем, внесены ли изменения */
   useEffect( () => {
-    for ( const key in userData ) {
-      if ( userData[ key ] !== inputsData[ key ] ) {
+    for ( const key in inputsData ) {
+      // проверяем, что ключ key существует в userData c помощью 'hasOwnProperty'
+      if ( userData.hasOwnProperty( key ) && userData[ key ] !== inputsData[ key ] ) {
         setIsFormChanged( true )
         return
       }
     }
     setIsFormChanged( false )
-  }, [ inputsData, userData ] )
+  }, [ inputsData, userData ] );
 
   const handleSubmit = ( e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault()

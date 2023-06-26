@@ -72,15 +72,19 @@ export type LoadingStateType = {
   isSuccess: boolean;
 };
 
+export type ObjStringType = {
+  [key: string]: string;
+};
+
 type UserType = {
   name: string;
   email: string;
 };
 
-export type UserDataType = UserType & {
-  password: string;
-  [key: string]: string;
-};
+export type UserDataType = ObjStringType &
+  UserType & {
+    password: string;
+  };
 
 export type AuthStateType = LoadingStateType & {
   user: UserType;
@@ -116,4 +120,4 @@ export type SelectedIngredientStateType = {
 
 export type CurrentTabStateType = {
   currentTab: string;
-}
+};
