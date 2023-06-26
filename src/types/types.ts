@@ -97,14 +97,10 @@ export type OrderIdStateType = {
   isModalOpened: boolean;
 };
 
-export type ProfileOrdersStateType = LoadingStateType & {
+export type OrdersStateType = LoadingStateType & {
   orders: OrderInfoType[] | null;
-};
-
-export type FeedOrdersStateType = LoadingStateType & {
-  orders: OrderInfoType[] | null;
-  total: null | number;
-  totalToday: null | number;
+  total?: null | number;
+  totalToday?: null | number;
 };
 
 export type OrderDetailsStateType = {

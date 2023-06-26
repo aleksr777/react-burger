@@ -10,8 +10,7 @@ import {
   AuthStateType,
   OrderIdStateType,
   LoadingStateType,
-  ProfileOrdersStateType,
-  FeedOrdersStateType
+  OrdersStateType
 } from '../../types/types'
 import {
   getIngredientsDataState,
@@ -40,8 +39,8 @@ const Loader = () => {
   const forgotPasswordState: LoadingStateType = useSelector( getForgotPasswordState )
   const registerUserState: LoadingStateType = useSelector( getRegisterUserState )
   const resetPasswordState: LoadingStateType = useSelector( getResetPasswordState )
-  const profileOrdersState: ProfileOrdersStateType = useSelector( getProfileOrdersState )
-  const feedOrdersState: FeedOrdersStateType = useSelector( getFeedOrdersState )
+  const profileOrdersState: OrdersStateType = useSelector( getProfileOrdersState )
+  const feedOrdersState: OrdersStateType = useSelector( getFeedOrdersState )
 
   const [ isLoading, setIsLoading ] = useState<boolean>( false )
   const [ isError, setIsError ] = useState<boolean>( false )

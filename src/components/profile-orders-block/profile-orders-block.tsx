@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions'
 import { getProfileOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
-import { ProfileOrdersStateType } from '../../types/types'
+import { OrdersStateType } from '../../types/types'
 
 
 const ProfileOrdersBlock = () => {
 
   const dispatch = useDispatch()
 
-  const { orders }: ProfileOrdersStateType = useSelector( getProfileOrdersState )
+  const { orders }: OrdersStateType = useSelector( getProfileOrdersState )
 
   useEffect( () => {
 
