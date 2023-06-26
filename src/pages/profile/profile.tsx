@@ -10,10 +10,10 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const pathProfile = '/profile';
-  const pathOrders = '/profile/orders';
+  const pathProfile: string = '/profile';
+  const pathOrders: string = '/profile/orders';
 
-  let textAbout = '';
+  let textAbout: string = '';
 
   switch (location.pathname) {
     case pathProfile:
@@ -39,7 +39,7 @@ const ProfilePage = () => {
         <button
           /* Сделал простой сценарий для кнопки разлогирования.
           Потом сделаю, как потребуется, в следующем спринте*/
-          onClick={() => dispatch(requestLogout())}
+          onClick={() => dispatch(requestLogout() as any)}
           className={styles.logoutButton}
         >Выход
         </button>
