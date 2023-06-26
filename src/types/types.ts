@@ -16,6 +16,7 @@ export type IngredientInfoType = IngredientType & {
   image_mobile: string;
   proteins: number;
   type: string;
+  path?: string;
 };
 
 export type SelectedIngredientType = IngredientType & {
