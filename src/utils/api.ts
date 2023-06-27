@@ -1,8 +1,9 @@
 import {
   getAccessToken,
   getRefreshToken,
-  getRawAccessToken
+  getRawAccessToken,
 } from '../services/authorization/tokens-service';
+import { UserDataType } from '../types/types';
 
 const baseUrl: string = 'norma.nomoreparties.space';
 export const urlFeedOrders: string = `wss://${baseUrl}/orders/all`;
@@ -17,13 +18,13 @@ interface ApiConfig {
 }
 
 function getApiConfig(): ApiConfig {
-  const accessToken = getAccessToken();
+  const accessToken: string = getAccessToken();
   return {
     baseUrl: `https://${baseUrl}`,
     headers: {
       authorization: accessToken,
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   };
 }
 
@@ -42,7 +43,7 @@ export const requestGetIngredientsDataServer = () => {
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/ingredients`, {
     method: 'GET',
-    headers
+    headers,
   });
 };
 
@@ -52,8 +53,8 @@ export const postOrder = async (arrId: string[]) => {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      ingredients: arrId
-    })
+      ingredients: arrId,
+    }),
   });
 };
 
@@ -64,8 +65,8 @@ export const requestLoginServer = async (email: string, password: string) => {
     headers,
     body: JSON.stringify({
       email,
-      password
-    })
+      password,
+    }),
   });
 };
 
@@ -73,19 +74,11 @@ export const requestGetUserDataServer = async () => {
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/user`, {
     method: 'GET',
-    headers
+    headers,
   });
 };
 
-export const requestChangeUserDataServer = async ({
-  name,
-  email,
-  password
-}: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
+export const requestChangeUserDataServer = async ({ name, email, password }: UserDataType) => {
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/user`, {
     method: 'PATCH',
@@ -93,32 +86,32 @@ export const requestChangeUserDataServer = async ({
     body: JSON.stringify({
       name,
       email,
-      password
-    })
+      password,
+    }),
   });
 };
 
 export const requestLogoutServer = async () => {
-  const refreshToken = getRefreshToken();
+  const refreshToken: string = getRefreshToken();
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/logout`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      token: refreshToken
-    })
+      token: refreshToken,
+    }),
   });
 };
 
 export const requestUpdateTokenServer = async () => {
-  const refreshToken = getRefreshToken();
+  const refreshToken: string = getRefreshToken();
   const { baseUrl, headers } = getApiConfig();
   return request(`${baseUrl}/api/auth/token`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      token: refreshToken
-    })
+      token: refreshToken,
+    }),
   });
 };
 
@@ -130,8 +123,8 @@ export const registerUserRequestServer = async (name: string, email: string, pas
     body: JSON.stringify({
       email,
       password,
-      name
-    })
+      name,
+    }),
   });
 };
 
@@ -141,8 +134,8 @@ export const forgotPasswordRequestServer = async (valueEmail: string) => {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      email: valueEmail
-    })
+      email: valueEmail,
+    }),
   });
 };
 
@@ -153,13 +146,13 @@ export const resetPasswordRequestServer = async (valuePassword: string, valueCod
     headers,
     body: JSON.stringify({
       password: valuePassword,
-      token: valueCode
-    })
+      token: valueCode,
+    }),
   });
 };
 
 export const openWebSocket = (url: string) => {
-  const accessToken = getRawAccessToken();
+  const accessToken: string = getRawAccessToken();
   const ws = new WebSocket(`${url}?token=${accessToken}`);
   ws.onopen = () => {
     console.log('WebSocket соединение установлено');
