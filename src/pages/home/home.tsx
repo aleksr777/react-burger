@@ -12,12 +12,14 @@ const HomePage = () => {
   const { isLoading, ingredientsData }: IngredientsDataStateType = useSelector( getIngredientsDataState )
 
   return (
-    !isLoading &&
-    ingredientsData.length &&
-    <DndProvider backend={ HTML5Backend }>
-      <IngredientsBurger />
-      <ConstructorBurger />
-    </DndProvider>
+    <>
+      { !isLoading &&
+        ingredientsData.length &&
+        ( <DndProvider backend={ HTML5Backend }>
+          <IngredientsBurger />
+          <ConstructorBurger />
+        </DndProvider> ) }
+    </>
   )
 }
 

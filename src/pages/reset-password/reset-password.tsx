@@ -44,41 +44,43 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    forgotPassword.isSuccess && (
-      <div className={ styles.container }>
-        <h1 className={ styles.title }>Восстановление пароля</h1>
-        <form onSubmit={ handleSubmit } autoComplete='off'>
-          <FormInput
-            inputType='password'
-            onChange={ handleChange }
-            value={ values.valuePassword }
-            name='valuePassword'
-            placeholder='Введите новый пароль'
-            icon={ undefined }
-          />
-          <FormInput
-            inputType='text'
-            value={ values.valueCode }
-            name='valueCode'
-            placeholder='Введите код из письма'
-            onChange={ handleChange }
-            icon={ undefined }
-          />
-          <div className={ styles.submitBox }>
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="medium"
-            >
-              Сохранить
-            </Button>
-          </div>
-        </form>
-        <p className={ styles.text }>
-          Вспомнили пароль? <Link to='/login' className={ styles.link }>Войти</Link>
-        </p>
-      </div>
-    )
+    <>
+      { forgotPassword.isSuccess && (
+        <div className={ styles.container }>
+          <h1 className={ styles.title }>Восстановление пароля</h1>
+          <form onSubmit={ handleSubmit } autoComplete='off'>
+            <FormInput
+              inputType='password'
+              onChange={ handleChange }
+              value={ values.valuePassword }
+              name='valuePassword'
+              placeholder='Введите новый пароль'
+              icon={ undefined }
+            />
+            <FormInput
+              inputType='text'
+              value={ values.valueCode }
+              name='valueCode'
+              placeholder='Введите код из письма'
+              onChange={ handleChange }
+              icon={ undefined }
+            />
+            <div className={ styles.submitBox }>
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="medium"
+              >
+                Сохранить
+              </Button>
+            </div>
+          </form>
+          <p className={ styles.text }>
+            Вспомнили пароль? <Link to='/login' className={ styles.link }>Войти</Link>
+          </p>
+        </div>
+      ) }
+    </>
   )
 }
 

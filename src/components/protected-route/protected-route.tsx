@@ -40,7 +40,9 @@ const ProtectedRouteElement = ( { children, forUnauthUser }: Props ) => {
   }, [ isAuth, forUnauthUser, isSuccess, user ] )
 
   return (
-    ( ( isAuth && !forUnauthUser ) || ( !isAuth && forUnauthUser ) ) && children
+    <>
+      { ( ( isAuth && !forUnauthUser ) || ( !isAuth && forUnauthUser ) ) && children }
+    </>
   )
 }
 
