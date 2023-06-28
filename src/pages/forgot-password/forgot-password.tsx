@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './forgot-password.module.css'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useNavigate, Link } from 'react-router-dom'
 import { forgotPasswordRequest } from '../../services/forgot-password/forgot-password-actions'
 import { useForm } from '../../hooks/useForm'
@@ -11,7 +11,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 const ForgotPasswordPage = () => {
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const { values, handleChange } = useForm( { email: '' } )
 
@@ -19,7 +19,7 @@ const ForgotPasswordPage = () => {
 
   const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
     e.preventDefault()
-    dispatch( forgotPasswordRequest( goToResetPasswordPage, values.email ) as any )
+    dispatch( forgotPasswordRequest( goToResetPasswordPage, values.email ) )
   }
 
   return (

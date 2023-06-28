@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './login.module.css'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { Link } from "react-router-dom"
 import { requestLogin } from '../../services/authorization/auth-actions'
 import FormInput from '../../components/form-input/form-input'
@@ -10,13 +10,13 @@ import { useForm } from '../../hooks/useForm'
 
 const LoginPage = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const { values, handleChange } = useForm( { email: '', password: '' } )
 
   const handleSubmit = ( e: React.FormEvent ) => {
     e.preventDefault()
-    dispatch( requestLogin( values.email, values.password ) as any )
+    dispatch( requestLogin( values.email, values.password ) )
   }
 
   return (

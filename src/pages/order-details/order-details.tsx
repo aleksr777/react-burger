@@ -1,6 +1,7 @@
 import styles from './order-details.module.css'
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useLocation, useNavigate } from "react-router-dom"
 import { openOrderDetailsModal } from '../../services/order-details/order-details-actions'
 import {
@@ -28,15 +29,15 @@ import {
 const OrderDetailsPage = () => {
 
   const { pathname }: { pathname: string } = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const id: string | unknown = pathname.split( '/' ).pop() //достаём id из строки адреса
 
-  const orderDetails: OrderDetailsStateType = useSelector( getOrderDetailsState )
-  const profileOrders: OrdersStateType = useSelector( getProfileOrdersState )
-  const feedOrders: OrdersStateType = useSelector( getFeedOrdersState )
-  const { ingredientsData }: IngredientsDataType = useSelector( getIngredientsDataState )
+  const orderDetails: OrderDetailsStateType = useAppSelector( getOrderDetailsState )
+  const profileOrders: OrdersStateType = useAppSelector( getProfileOrdersState )
+  const feedOrders: OrdersStateType = useAppSelector( getFeedOrdersState )
+  const { ingredientsData }: IngredientsDataType = useAppSelector( getIngredientsDataState )
 
   function getLocation ( pathname: string ): string | unknown {
     if ( pathname.indexOf( 'profile/orders/' ) !== -1 ) {
@@ -73,7 +74,7 @@ const OrderDetailsPage = () => {
           ingredients: arrIngredients,
           totalPrice: totalPrice
         }
-        dispatch( openOrderDetailsModal( orderData ) as any )
+        dispatch( openOrderDetailsModal( orderData ) )
       }
       else { goToNotFoundPage() };
     }

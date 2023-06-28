@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-scroll'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { SET_CURRENT_TAB } from '../../services/tab/tab-actions'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getCurrentTabState } from '../../utils/selectors'
@@ -14,8 +15,8 @@ type Props = {
 
 const TabElement = ( { children, ingredientText }: Props ) => {
 
-  const dispatch = useDispatch()
-  const { currentTab }: CurrentTabStateType = useSelector( getCurrentTabState )
+  const dispatch = useAppDispatch()
+  const { currentTab }: CurrentTabStateType = useAppSelector( getCurrentTabState )
 
   function setCurrent ( ingredientText: string ) {
     dispatch( { type: SET_CURRENT_TAB, payload: { currentTab: ingredientText } } )

@@ -1,15 +1,16 @@
 import styles from './feed-orders.module.css'
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
 import { getFeedOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
 import { OrderInfoType } from '../../types/types'
 
 const FeedOrders = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { orders }: { orders: OrderInfoType[] } = useSelector( getFeedOrdersState )
+  const { orders }: { orders: OrderInfoType[] } = useAppSelector( getFeedOrdersState )
 
   useEffect( () => {
     dispatch( { type: feedOrdersActions.connect } )

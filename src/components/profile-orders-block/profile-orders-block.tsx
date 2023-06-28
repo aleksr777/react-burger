@@ -1,6 +1,7 @@
 import styles from './profile-orders-block.module.css'
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions'
 import { getProfileOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
@@ -9,9 +10,9 @@ import { OrdersStateType } from '../../types/types'
 
 const ProfileOrdersBlock = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { orders }: OrdersStateType = useSelector( getProfileOrdersState )
+  const { orders }: OrdersStateType = useAppSelector( getProfileOrdersState )
 
   useEffect( () => {
 

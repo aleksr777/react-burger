@@ -1,6 +1,7 @@
 import styles from './ingredient-details.module.css'
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useLocation, useNavigate } from "react-router-dom"
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions'
 import IngredientDetailsLayout from '../../components/ingredient-details-layout/ingredient-details-layout'
@@ -11,13 +12,13 @@ import { IngredientInfoType } from '../../types/types'
 const IngredientDetailsPage = () => {
 
   const { pathname }: { pathname: string } = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   //достаём id из строки адреса
   const id: string | undefined = pathname.split( '/' ).pop()
 
-  const { ingredient }: { ingredient: IngredientInfoType } = useSelector( getIngredientDetailsState )
+  const { ingredient }: { ingredient: IngredientInfoType } = useAppSelector( getIngredientDetailsState )
 
   function goToNotFoundPage () {
     navigate( '/not-found-page', { replace: true } )
@@ -25,7 +26,7 @@ const IngredientDetailsPage = () => {
 
   useEffect( () => {
     if ( !ingredient || !ingredient._id || ingredient.path !== pathname ) {
-      dispatch( getIngredientInfo( goToNotFoundPage, id, pathname ) as any )
+      dispatch( getIngredientInfo( goToNotFoundPage, id, pathname ) )
     }
   }, [] )
 

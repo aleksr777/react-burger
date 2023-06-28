@@ -1,6 +1,7 @@
 import styles from './constructor-items-list.module.css'
 import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useDrop } from 'react-dnd'
 import { addBun } from '../../services/selected-ingr/selected-ingr-actions'
 import ConstructorItem from '../constructor-item/constructor-item'
@@ -15,19 +16,18 @@ const ConstructorItemsList = () => {
   const styleItemPositionBottom: string = `${ styles.item } ${ styles.item__position_bottom }`
   const styleListDisabled: string = `${ styles.listScroll } ${ styles.listScroll_disabled }`
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { bun, ingredients }: { bun: IngredientInfoType; ingredients: IngredientInfoType[] } =
-    useSelector( getSelectedIngrState )
+  const { bun, ingredients }: { bun: IngredientInfoType; ingredients: IngredientInfoType[] } = useAppSelector( getSelectedIngrState )
   const dropObj: IngredientInfoType = bun // для лучшей читабельности кода
-  const { counter }: { counter: CounterType } = useSelector( getCounterState )
+  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
 
   const [ isBun, setIsBun ] = useState<boolean>( false )
 
   // Добавление булки с добавлением цены в общую стоимость
   const dropHandler = ( dropObj: IngredientInfoType, dragObj: IngredientInfoType ) => {
     if ( dragObj.type === 'bun' ) {
-      dispatch( addBun( dropObj, dragObj, counter ) as any )
+      dispatch( addBun( dropObj, dragObj, counter ) )
     }
   }
 

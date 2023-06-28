@@ -1,7 +1,7 @@
 import styles from './ingredients-item.module.css'
 import { useState, memo } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useDrag } from "react-dnd"
 import { openIngredientDetailsModal } from '../../services/ingredient-details/ingredient-details-actions'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -16,7 +16,7 @@ type Props = {
 
 const IngredientsItem = ( { ingredient, count }: Props ) => {
   const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [ isImgError, setIsImgError ] = useState( false )
   function handleImgError () {
@@ -24,7 +24,7 @@ const IngredientsItem = ( { ingredient, count }: Props ) => {
   }
 
   const handleOpenModal = ( ingredient: IngredientInfoType ) => {
-    dispatch( openIngredientDetailsModal( ingredient ) as any )
+    dispatch( openIngredientDetailsModal( ingredient ) )
   }
 
   const [ { dragItemOpacity, dragItemTransition }, dragRef ] = useDrag( {

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { checkAuth } from '../../services/authorization/check-auth'
 import { deleteAuthData } from '../../services/authorization/auth-actions'
 import { getAuthState } from '../../utils/selectors'
@@ -14,19 +15,19 @@ type Props = {
 
 const ProtectedRouteElement = ( { children, forUnauthUser }: Props ) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
 
   const fromPage: string = location.state || '/'
 
-  const { isSuccess, user }: AuthStateType = useSelector( getAuthState )
+  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
 
   let isAuth: boolean = checkAuth( isSuccess, user.email )
 
   useEffect( () => {
     if ( !isAuth ) {
-      dispatch( deleteAuthData() as any )
+      dispatch( deleteAuthData() )
     }
   }, [ isAuth, isSuccess, user ] )
 

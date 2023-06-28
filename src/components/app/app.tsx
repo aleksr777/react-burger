@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { checkAuth } from '../../services/authorization/check-auth'
 import { deleteAuthData } from '../../services/authorization/auth-actions'
@@ -29,17 +30,17 @@ import { AuthStateType } from '../../types/types'
 
 const App = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { isSuccess, user }: AuthStateType = useSelector( getAuthState )
+  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
 
   useEffect( () => {
     let isAuth: boolean = checkAuth( isSuccess, user?.email )
-    isAuth ? dispatch( requestGetUserData() as any ) : dispatch( deleteAuthData() as any )
+    isAuth ? dispatch( requestGetUserData() ) : dispatch( deleteAuthData() )
   }, [] )
 
   useEffect( () => {
-    dispatch( requestGetIngredientsData() as any )
+    dispatch( requestGetIngredientsData() )
   }, [] )
 
   const location = useLocation()

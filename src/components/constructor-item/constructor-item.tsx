@@ -1,6 +1,7 @@
 import styles from './constructor-item.module.css'
 import { memo, useRef, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useDrag, useDrop } from 'react-dnd'
 import {
   removeIngredient,
@@ -17,12 +18,12 @@ interface Props {
 }
 
 const ConstructorItem = ( { obj, isLocked }: Props ) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [ itemOpacity, setItemOpacity ] = useState<number>( 0 )
 
-  const { ingredients }: { ingredients: IngredientInfoType[] } = useSelector( getSelectedIngrState )
-  const { counter }: { counter: CounterType } = useSelector( getCounterState )
+  const { ingredients }: { ingredients: IngredientInfoType[] } = useAppSelector( getSelectedIngrState )
+  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
 
   const [ { dragItemData, isItemDragging }, dragRef ] = useDrag( {
     type: 'selectedIngr',
@@ -51,10 +52,10 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
       if ( dragItemData.locationDnd === 'ConstructorBurger' ) {
         if ( dropObj._uKey !== dragObj._uKey ) {
           // исключаем перетаскивание на самого себя
-          dispatch( swapIngredients( dropObj, dragObj, ingredients ) as any )
+          dispatch( swapIngredients( dropObj, dragObj, ingredients ) )
         }
       } else if ( dragItemData.locationDnd === 'IngredientsBurger' ) {
-        dispatch( addIngredient( dropObj, dragObj, ingredients, counter ) as any )
+        dispatch( addIngredient( dropObj, dragObj, ingredients, counter ) )
       }
     }
   }
@@ -118,7 +119,7 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
         thumbnail={ obj.image }
         handleClose={ () => {
           setItemOpacity( 0 )
-          dispatch( removeIngredient( obj, ingredients, counter ) as any )
+          dispatch( removeIngredient( obj, ingredients, counter ) )
         } }
       />
     </li>

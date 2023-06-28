@@ -1,6 +1,7 @@
 import styles from './profile-edit-user-block.module.css'
 import React, { useState, useEffect, ChangeEvent, FormEvent, useMemo } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { requestChangeUserData } from '../../services/authorization/auth-actions'
 import FormInput from '../form-input/form-input'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -10,9 +11,9 @@ import { AuthStateType, UserDataType } from '../../types/types'
 
 const ProfileEditUserBlock = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { user }: AuthStateType = useSelector( getAuthState )
+  const { user }: AuthStateType = useAppSelector( getAuthState )
 
   const userData: UserDataType = useMemo(
     () => ( {
@@ -21,7 +22,7 @@ const ProfileEditUserBlock = () => {
       password: '',
     } ),
     [ user ]
-  );
+  )
 
   const [ inputsData, setInputsData ] = useState<UserDataType>( userData )
   const [ isFormChanged, setIsFormChanged ] = useState( false )
@@ -40,14 +41,14 @@ const ProfileEditUserBlock = () => {
       }
     }
     setIsFormChanged( false )
-  }, [ inputsData, userData ] );
+  }, [ inputsData, userData ] )
 
   const handleSubmit = ( e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault()
     if ( !isFormChanged ) {
       return null
     }
-    dispatch( requestChangeUserData( inputsData, setInputsData ) as any )
+    dispatch( requestChangeUserData( inputsData, setInputsData ) )
   }
 
   const cancelInputChange = ( e: React.MouseEvent<HTMLButtonElement> ) => {

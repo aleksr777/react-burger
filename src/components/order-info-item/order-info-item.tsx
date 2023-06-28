@@ -1,6 +1,7 @@
 import styles from './order-info-item.module.css'
 import { useLocation, Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { openOrderDetailsModal } from '../../services/order-details/order-details-actions'
 import {
   getTotalPrice,
@@ -21,12 +22,12 @@ type Props = {
 const OrderInfoItem = ( { order, showStatus }: Props ) => {
 
   const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const styleStatusDefault: string = styles.order__status
   const styleStatusDone: string = `${ styles.order__status } ${ styles.order__status_active }`
 
-  const { ingredientsData }: IngredientsDataType = useSelector( getIngredientsDataState )
+  const { ingredientsData }: IngredientsDataType = useAppSelector( getIngredientsDataState )
 
   let arrIngredients: SelectedIngredientType[] = getArrIngredients( ingredientsData, order )
 
@@ -41,7 +42,7 @@ const OrderInfoItem = ( { order, showStatus }: Props ) => {
   }
 
   const handleOpenModal = () => {
-    dispatch( openOrderDetailsModal( orderData ) as any )
+    dispatch( openOrderDetailsModal( orderData ) )
   }
 
 

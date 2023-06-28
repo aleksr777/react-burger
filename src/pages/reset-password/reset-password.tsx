@@ -1,7 +1,8 @@
 import styles from './reset-password.module.css'
 import { useEffect } from 'react'
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useNavigate } from "react-router-dom"
 import FormInput from '../../components/form-input/form-input'
 import { resetPasswordRequest } from '../../services/reset-password/reset-password-actions'
@@ -19,10 +20,10 @@ const ResetPasswordPage = () => {
   } )
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const forgotPassword: LoadingStateType = useSelector( getForgotPasswordState )
-  const resetPassword: LoadingStateType = useSelector( getResetPasswordState )
+  const forgotPassword: LoadingStateType = useAppSelector( getForgotPasswordState )
+  const resetPassword: LoadingStateType = useAppSelector( getResetPasswordState )
 
   useEffect( () => {
     if ( !forgotPassword.isSuccess && !resetPassword.isSuccess ) {
@@ -39,7 +40,7 @@ const ResetPasswordPage = () => {
         goToLoginPage,
         values.valuePassword,
         values.valueCode
-      ) as any
+      )
     )
   }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useNavigate } from 'react-router-dom'
 import { getOrderId } from '../../services/order-id/order-id-actions'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -10,13 +11,13 @@ import { SelectedIngredientStateType, AuthStateType, CounterType } from '../../t
 
 const OrderingButton = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { isLoading }: { isLoading: boolean } = useSelector( getOrderIdState )
-  const { ingredients, bun, totalPrice }: SelectedIngredientStateType = useSelector( getSelectedIngrState )
-  const { isSuccess, user }: AuthStateType = useSelector( getAuthState )
-  const { counter }: CounterType = useSelector( getCounterState )
+  const { isLoading }: { isLoading: boolean } = useAppSelector( getOrderIdState )
+  const { ingredients, bun, totalPrice }: SelectedIngredientStateType = useAppSelector( getSelectedIngrState )
+  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
+  const { counter }: CounterType = useAppSelector( getCounterState )
 
   const [ isOrderActive, setOrderActive ] = useState<boolean>( false )
 
@@ -35,7 +36,7 @@ const OrderingButton = () => {
   function sendOrderRequest () {
     if ( isAuth ) {
       const arrId = [ bun?._id, ...ingredients.map( ( obj ) => obj._id ), bun?._id ]
-      dispatch( getOrderId( arrId, counter ) as any )
+      dispatch( getOrderId( arrId, counter ) )
     } else {
       navigate( '/login' )
     }

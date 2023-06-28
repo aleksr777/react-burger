@@ -1,5 +1,5 @@
 import styles from './feed-statistics.module.css'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { getFeedOrdersState } from '../../utils/selectors'
 import { OrderInfoType } from '../../types/types'
 
@@ -11,7 +11,7 @@ const FeedStatistics = () => {
     totalToday: number
   }
 
-  const { orders, total, totalToday }: FeedOrdersType = useSelector( getFeedOrdersState )
+  const { orders, total, totalToday }: FeedOrdersType = useAppSelector( getFeedOrdersState )
 
   if ( !orders ) {
     return null

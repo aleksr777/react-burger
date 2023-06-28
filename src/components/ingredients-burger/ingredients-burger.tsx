@@ -1,6 +1,6 @@
 import styles from './ingredients-burger.module.css'
 import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import IngredientsBlock from '../ingredients-block/ingredients-block'
 import IngredientsItem from '../ingredients-item/ingredients-item'
 import TabElement from '../tab-element/tab-element'
@@ -10,8 +10,8 @@ import { IngredientInfoType, CounterType } from '../../types/types'
 
 const IngredientsBurger = () => {
 
-  const { ingredientsData }: { ingredientsData: IngredientInfoType[] } = useSelector( getIngredientsDataState )
-  const { counter }: { counter: CounterType } = useSelector( getCounterState )
+  const { ingredientsData }: { ingredientsData: IngredientInfoType[] } = useAppSelector( getIngredientsDataState )
+  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
 
   /* Добавляем информацию о react-компоненте (нужно для функционала DnD) */
   function addLocationInfo ( data: IngredientInfoType[] ): IngredientInfoType[] {

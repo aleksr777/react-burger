@@ -1,5 +1,5 @@
 import styles from './register.module.css'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { Link } from "react-router-dom"
 import { registerUserRequest } from '../../services/register-user/register-user-actions'
 import FormInput from '../../components/form-input/form-input'
@@ -9,7 +9,7 @@ import { useForm } from '../../hooks/useForm'
 
 const RegisterPage = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const { values, handleChange } = useForm( {
     name: '',
@@ -19,7 +19,7 @@ const RegisterPage = () => {
 
   const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
     e.preventDefault()
-    dispatch( registerUserRequest( values.name, values.email, values.password ) as any )
+    dispatch( registerUserRequest( values.name, values.email, values.password ) )
   }
 
   return (

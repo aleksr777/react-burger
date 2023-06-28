@@ -1,7 +1,7 @@
 import styles from './loader.module.css'
 import { CSSTransition } from 'react-transition-group'
 import { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { LoaderSvg } from './loader-svg'
 import { LOADER_ANIMATION_TIME } from '../../constants/constants'
 import ErrorInfo from '../error-info/error-info'
@@ -33,14 +33,14 @@ const Loader = () => {
 
   const loaderRef = useRef<HTMLDivElement>( null )
 
-  const ingredientsDataState: IngredientsDataStateType = useSelector( getIngredientsDataState )
-  const authState: AuthStateType = useSelector( getAuthState )
-  const orderIdState: OrderIdStateType = useSelector( getOrderIdState )
-  const forgotPasswordState: LoadingStateType = useSelector( getForgotPasswordState )
-  const registerUserState: LoadingStateType = useSelector( getRegisterUserState )
-  const resetPasswordState: LoadingStateType = useSelector( getResetPasswordState )
-  const profileOrdersState: OrdersStateType = useSelector( getProfileOrdersState )
-  const feedOrdersState: OrdersStateType = useSelector( getFeedOrdersState )
+  const ingredientsDataState: IngredientsDataStateType = useAppSelector( getIngredientsDataState )
+  const authState: AuthStateType = useAppSelector( getAuthState )
+  const orderIdState: OrderIdStateType = useAppSelector( getOrderIdState )
+  const forgotPasswordState: LoadingStateType = useAppSelector( getForgotPasswordState )
+  const registerUserState: LoadingStateType = useAppSelector( getRegisterUserState )
+  const resetPasswordState: LoadingStateType = useAppSelector( getResetPasswordState )
+  const profileOrdersState: OrdersStateType = useAppSelector( getProfileOrdersState )
+  const feedOrdersState: OrdersStateType = useAppSelector( getFeedOrdersState )
 
   const [ isLoading, setIsLoading ] = useState<boolean>( false )
   const [ isError, setIsError ] = useState<boolean>( false )

@@ -1,5 +1,6 @@
 import styles from './order-details-modal.module.css'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { closeOrderDetailsModal } from '../../services/order-details/order-details-actions'
 import OrderDetailsLayout from '../order-details-layout/order-details-layout'
@@ -9,13 +10,13 @@ import { OrderDetailsStateType } from '../../types/types'
 
 
 const OrderDetailsModal = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
 
   /* isModalOpened нужен для анимации
   (иначе информация в модальном окне исчезает раньше, чем окно успевает закрыться) */
-  const { order, isModalOpened }: OrderDetailsStateType = useSelector( getOrderDetailsState )
+  const { order, isModalOpened }: OrderDetailsStateType = useAppSelector( getOrderDetailsState )
 
   if ( !order ) {
     return null
@@ -28,7 +29,7 @@ const OrderDetailsModal = () => {
   }
 
   const handleCloseModal = () => {
-    dispatch( closeOrderDetailsModal( goToPage ) as any )
+    dispatch( closeOrderDetailsModal( goToPage ) )
   }
 
   return (

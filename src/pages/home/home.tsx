@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import ConstructorBurger from '../../components/constructor-burger/constructor-burger'
@@ -9,7 +9,7 @@ import { IngredientsDataStateType } from '../../types/types'
 
 const HomePage = () => {
 
-  const { isLoading, ingredientsData }: IngredientsDataStateType = useSelector( getIngredientsDataState )
+  const { isLoading, ingredientsData }: IngredientsDataStateType = useAppSelector( getIngredientsDataState )
 
   return (
     <>

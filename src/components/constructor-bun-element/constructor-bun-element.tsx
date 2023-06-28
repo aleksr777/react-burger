@@ -1,5 +1,5 @@
 import styles from './constructor-bun-element.module.css'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { memo } from 'react'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getSelectedIngrState } from '../../utils/selectors'
@@ -13,7 +13,7 @@ export interface Props {
 
 const ConstructorBunElement = ( { type, positionText }: Props ) => {
 
-  const { bun }: { bun: IngredientInfoType } = useSelector( getSelectedIngrState )
+  const { bun }: { bun: IngredientInfoType } = useAppSelector( getSelectedIngrState )
 
   let nameTxt: string
   let positionTxt: string
