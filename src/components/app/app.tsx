@@ -25,14 +25,13 @@ import RegisterPage from '../../pages/register/register'
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password'
 import ResetPasswordPage from '../../pages/reset-password/reset-password'
 import NotFoundPage from '../../pages/not-found/not-found'
-import { AuthStateType } from '../../types/types'
 
 
 const App = () => {
 
   const dispatch = useAppDispatch()
 
-  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
+  const { isSuccess, user } = useAppSelector( getAuthState )
 
   useEffect( () => {
     let isAuth: boolean = checkAuth( isSuccess, user?.email )

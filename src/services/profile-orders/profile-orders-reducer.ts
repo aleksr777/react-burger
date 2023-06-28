@@ -1,22 +1,28 @@
 import { profileOrdersActions } from './profile-orders-actions';
+import { OrderInfoType } from '../../types/types';
 
-const defaultState = {
+type StateType = {
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  orders: null | OrderInfoType[];
+};
+
+const defaultState: StateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
   orders: null,
 };
 
-const profileOrdersReducer = (state = defaultState, action) => {
-
+const profileOrdersReducer = (state: StateType = defaultState, action: any) => {
   switch (action.type) {
-
     case profileOrdersActions.request: {
       return {
         ...state,
         isLoading: true,
       };
-    };
+    }
 
     case profileOrdersActions.success:
       return {

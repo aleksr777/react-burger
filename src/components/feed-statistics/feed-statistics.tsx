@@ -3,15 +3,10 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { getFeedOrdersState } from '../../utils/selectors'
 import { OrderInfoType } from '../../types/types'
 
+
 const FeedStatistics = () => {
 
-  type FeedOrdersType = {
-    orders: OrderInfoType[]
-    total: number
-    totalToday: number
-  }
-
-  const { orders, total, totalToday }: FeedOrdersType = useAppSelector( getFeedOrdersState )
+  const { orders, total, totalToday } = useAppSelector( getFeedOrdersState )
 
   if ( !orders ) {
     return null
@@ -21,8 +16,8 @@ const FeedStatistics = () => {
   const styleStatusBoxMarginRight: string = `${ styles.status__box } ${ styles.status__box_mr }`
   const styleTextAboutPaddingBottom: string = `${ styles.textAbout } ${ styles.textAbout_pb }`
 
-  const ordersDone: OrderInfoType[] = orders.filter( ( order ) => order.status === 'done' )
-  const ordersPending: OrderInfoType[] = orders.filter( ( order ) => order.status === 'pending' )
+  const ordersDone: OrderInfoType[] = orders.filter( ( order: OrderInfoType ) => order.status === 'done' )
+  const ordersPending: OrderInfoType[] = orders.filter( ( order: OrderInfoType ) => order.status === 'pending' )
 
   return (
     <div className={ styles.block }>

@@ -6,7 +6,7 @@ import { getOrderId } from '../../services/order-id/order-id-actions'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { checkAuth } from '../../services/authorization/check-auth'
 import { getAuthState, getOrderIdState, getSelectedIngrState, getCounterState } from '../../utils/selectors'
-import { SelectedIngredientStateType, AuthStateType, CounterType } from '../../types/types'
+import { OrderInfoType } from '../../types/types'
 
 
 const OrderingButton = () => {
@@ -14,10 +14,10 @@ const OrderingButton = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { isLoading }: { isLoading: boolean } = useAppSelector( getOrderIdState )
-  const { ingredients, bun, totalPrice }: SelectedIngredientStateType = useAppSelector( getSelectedIngrState )
-  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
-  const { counter }: CounterType = useAppSelector( getCounterState )
+  const { isLoading } = useAppSelector( getOrderIdState )
+  const { ingredients, bun, totalPrice } = useAppSelector( getSelectedIngrState )
+  const { isSuccess, user } = useAppSelector( getAuthState )
+  const { counter } = useAppSelector( getCounterState )
 
   const [ isOrderActive, setOrderActive ] = useState<boolean>( false )
 
@@ -35,7 +35,7 @@ const OrderingButton = () => {
   /* отправка запроса после нажатия кнопки */
   function sendOrderRequest () {
     if ( isAuth ) {
-      const arrId = [ bun?._id, ...ingredients.map( ( obj ) => obj._id ), bun?._id ]
+      const arrId = [ bun?._id, ...ingredients.map( ( obj: OrderInfoType ) => obj._id ), bun?._id ]
       dispatch( getOrderId( arrId, counter ) )
     } else {
       navigate( '/login' )

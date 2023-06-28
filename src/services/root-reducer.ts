@@ -1,9 +1,8 @@
-import { STORAGE_KEY_PREFIX } from '../constants/constants';
-
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
+import { Storage } from 'redux-persist/es/types';
 import sessionStorage from 'redux-persist/lib/storage/session';
-import { persistReducer } from 'redux-persist'
+import { persistReducer } from 'redux-persist';
 
 import { authReducer } from './authorization/auth-reducer';
 import { registerUserReducer } from './register-user/register-user-reducer';
@@ -18,47 +17,60 @@ import { currentTabReducer } from './tab/tab-reducer';
 import { profileOrdersReducer } from './profile-orders/profile-orders-reducer';
 import { feedOrdersReducer } from './feed-all-orders/feed-all-orders-reducer';
 import { counterReducer } from './counter/counter-reducer';
+import { STORAGE_KEY_PREFIX } from '../constants/constants';
 
+type PersistConfig = {
+  key: string;
+  storage: Storage;
+  whitelist?: string[];
+  blacklist?: string[];
+};
 
-const authPersistConfig = {
+const authPersistConfig: PersistConfig = {
   key: `${STORAGE_KEY_PREFIX}auth-persist`,
   storage,
   whitelist: ['isSuccess', 'user'],
 };
+
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
-
-const forgotPasswordPersistConfig = {
+const forgotPasswordPersistConfig: PersistConfig = {
   key: `${STORAGE_KEY_PREFIX}forgot-password-persist`,
   storage: sessionStorage,
   whitelist: ['isSuccess'],
 };
-const persistedForgotPasswordReducer = persistReducer(forgotPasswordPersistConfig, forgotPasswordReducer);
 
+const persistedForgotPasswordReducer = persistReducer(
+  forgotPasswordPersistConfig,
+  forgotPasswordReducer
+);
 
-const ingredientDetailsPersistConfig = {
+const ingredientDetailsPersistConfig: PersistConfig = {
   key: `${STORAGE_KEY_PREFIX}ingredient-details-persist`,
   storage: sessionStorage,
   whitelist: ['ingredient', 'isModalOpened'],
 };
-const persistedIngredientDetailsReducer = persistReducer(ingredientDetailsPersistConfig, ingredientDetailsReducer);
 
+const persistedIngredientDetailsReducer = persistReducer(
+  ingredientDetailsPersistConfig,
+  ingredientDetailsReducer
+);
 
-const orderDetailsPersistConfig = {
+const orderDetailsPersistConfig: PersistConfig = {
   key: `${STORAGE_KEY_PREFIX}order-details-persist`,
   storage: sessionStorage,
   whitelist: ['order', 'isModalOpened'],
 };
+
 const persistedOrderDetailsReducer = persistReducer(orderDetailsPersistConfig, orderDetailsReducer);
 
-
-const orderIdPersistConfig = {
+const orderIdPersistConfig: PersistConfig = {
   key: `${STORAGE_KEY_PREFIX}order-id-persist`,
   storage: sessionStorage,
   whitelist: ['id', 'isModalOpened'],
 };
-const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
 
+const persistedOrderIdReducer = persistReducer(orderIdPersistConfig, orderIdReducer);
 
 const rootReducer = combineReducers({
   authorization: persistedAuthReducer,

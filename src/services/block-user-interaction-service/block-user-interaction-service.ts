@@ -1,9 +1,9 @@
 import { bodySelector } from '../../constants/constants';
 
-export function blockUserInteraction() {  
-    bodySelector.style.pointerEvents = 'none';
-    bodySelector.style.userSelect = 'none';
-    bodySelector.style.cursor = 'default';
+export function blockUserInteraction() {
+  bodySelector.style.pointerEvents = 'none';
+  bodySelector.style.userSelect = 'none';
+  bodySelector.style.cursor = 'default';
 }
 
 export function unblockUserInteraction() {

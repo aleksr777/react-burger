@@ -5,22 +5,26 @@ import {
   REGISTER_USER_SET_DEFAULT_STATE,
 } from './register-user-actions';
 
-const defaultState = {
+type StateType = {
+  isLoading: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+};
+
+const defaultState: StateType = {
   isLoading: false,
   isSuccess: false,
   isError: false,
 };
 
-const registerUserReducer = (state = defaultState, action) => {
-
+const registerUserReducer = (state: StateType = defaultState, action: any) => {
   switch (action.type) {
-
     case REGISTER_USER_REQUEST: {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
-    };
+    }
 
     case REGISTER_USER_SUCCESS:
       return {

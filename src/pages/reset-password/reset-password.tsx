@@ -9,7 +9,6 @@ import { resetPasswordRequest } from '../../services/reset-password/reset-passwo
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getForgotPasswordState, getResetPasswordState } from '../../utils/selectors'
 import { useForm } from '../../hooks/useForm'
-import { LoadingStateType } from '../../types/types'
 
 
 const ResetPasswordPage = () => {
@@ -22,8 +21,8 @@ const ResetPasswordPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const forgotPassword: LoadingStateType = useAppSelector( getForgotPasswordState )
-  const resetPassword: LoadingStateType = useAppSelector( getResetPasswordState )
+  const forgotPassword = useAppSelector( getForgotPasswordState )
+  const resetPassword = useAppSelector( getResetPasswordState )
 
   useEffect( () => {
     if ( !forgotPassword.isSuccess && !resetPassword.isSuccess ) {

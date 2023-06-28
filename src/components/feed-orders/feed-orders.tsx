@@ -5,12 +5,14 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
 import { getFeedOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
-import { OrderInfoType } from '../../types/types'
+import { OrderInfoType } from '../../types/types';
+
 
 const FeedOrders = () => {
+  
   const dispatch = useAppDispatch()
 
-  const { orders }: { orders: OrderInfoType[] } = useAppSelector( getFeedOrdersState )
+  const { orders } = useAppSelector( getFeedOrdersState )
 
   useEffect( () => {
     dispatch( { type: feedOrdersActions.connect } )
@@ -28,7 +30,7 @@ const FeedOrders = () => {
     <div className={ styles.block }>
       <h2 className={ styles.title }>Лента заказов</h2>
       <ul className={ styles.list }>
-        { orders.map( ( order ) => (
+        { orders.map( ( order: OrderInfoType ) => (
           <OrderInfoItem key={ order._id } order={ order } showStatus={ false } />
         ) ) }
       </ul>

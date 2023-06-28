@@ -1,6 +1,16 @@
-import {feedOrdersActions} from './feed-all-orders-actions';
+import { feedOrdersActions } from './feed-all-orders-actions';
+import { OrderInfoType } from '../../types/types';
 
-const defaultState = {
+type StateType = {
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  orders: null | OrderInfoType[];
+  total: null | number;
+  totalToday: null | number;
+};
+
+const defaultState: StateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -9,16 +19,16 @@ const defaultState = {
   totalToday: null,
 };
 
-const feedOrdersReducer = (state = defaultState, action) => {
+const feedOrdersReducer = ( state: StateType = defaultState, action: any ) => {
 
-  switch (action.type) {
-
+  switch ( action.type ) {
+    
     case feedOrdersActions.request: {
       return {
         ...state,
         isLoading: true,
       };
-    };
+    }
 
     case feedOrdersActions.success:
       return {

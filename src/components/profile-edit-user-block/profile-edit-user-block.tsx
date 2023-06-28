@@ -6,14 +6,14 @@ import { requestChangeUserData } from '../../services/authorization/auth-actions
 import FormInput from '../form-input/form-input'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getAuthState } from '../../utils/selectors'
-import { AuthStateType, UserDataType } from '../../types/types'
+import { UserDataType } from '../../types/types'
 
 
 const ProfileEditUserBlock = () => {
 
   const dispatch = useAppDispatch()
 
-  const { user }: AuthStateType = useAppSelector( getAuthState )
+  const { user } = useAppSelector( getAuthState )
 
   const userData: UserDataType = useMemo(
     () => ( {

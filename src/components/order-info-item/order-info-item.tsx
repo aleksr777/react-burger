@@ -11,7 +11,7 @@ import {
 import OrderInfoIngredients from '../order-info-ingredients/order-info-ingredients'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getIngredientsDataState } from '../../utils/selectors'
-import { OrderInfoType, OrderDataType, IngredientsDataType, SelectedIngredientType } from '../../types/types'
+import { OrderInfoType, OrderDataType, SelectedIngredientType } from '../../types/types'
 
 type Props = {
   order: OrderInfoType,
@@ -27,7 +27,7 @@ const OrderInfoItem = ( { order, showStatus }: Props ) => {
   const styleStatusDefault: string = styles.order__status
   const styleStatusDone: string = `${ styles.order__status } ${ styles.order__status_active }`
 
-  const { ingredientsData }: IngredientsDataType = useAppSelector( getIngredientsDataState )
+  const { ingredientsData } = useAppSelector( getIngredientsDataState )
 
   let arrIngredients: SelectedIngredientType[] = getArrIngredients( ingredientsData, order )
 

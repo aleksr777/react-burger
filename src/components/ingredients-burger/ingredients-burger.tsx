@@ -5,13 +5,13 @@ import IngredientsBlock from '../ingredients-block/ingredients-block'
 import IngredientsItem from '../ingredients-item/ingredients-item'
 import TabElement from '../tab-element/tab-element'
 import { getIngredientsDataState, getCounterState } from '../../utils/selectors'
-import { IngredientInfoType, CounterType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 
 const IngredientsBurger = () => {
 
-  const { ingredientsData }: { ingredientsData: IngredientInfoType[] } = useAppSelector( getIngredientsDataState )
-  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
+  const { ingredientsData } = useAppSelector( getIngredientsDataState )
+  const { counter } = useAppSelector( getCounterState )
 
   /* Добавляем информацию о react-компоненте (нужно для функционала DnD) */
   function addLocationInfo ( data: IngredientInfoType[] ): IngredientInfoType[] {

@@ -19,9 +19,7 @@ import {
   getIngredientsDataState
 } from '../../utils/selectors'
 import {
-  OrdersStateType,
-  OrderDetailsStateType,
-  IngredientsDataType
+  OrdersStateType
 } from '../../types/types'
 
 
@@ -34,10 +32,10 @@ const OrderDetailsPage = () => {
 
   const id: string | unknown = pathname.split( '/' ).pop() //достаём id из строки адреса
 
-  const orderDetails: OrderDetailsStateType = useAppSelector( getOrderDetailsState )
-  const profileOrders: OrdersStateType = useAppSelector( getProfileOrdersState )
-  const feedOrders: OrdersStateType = useAppSelector( getFeedOrdersState )
-  const { ingredientsData }: IngredientsDataType = useAppSelector( getIngredientsDataState )
+  const orderDetails = useAppSelector( getOrderDetailsState )
+  const profileOrders = useAppSelector( getProfileOrdersState )
+  const feedOrders = useAppSelector( getFeedOrdersState )
+  const { ingredientsData } = useAppSelector( getIngredientsDataState )
 
   function getLocation ( pathname: string ): string | unknown {
     if ( pathname.indexOf( 'profile/orders/' ) !== -1 ) {

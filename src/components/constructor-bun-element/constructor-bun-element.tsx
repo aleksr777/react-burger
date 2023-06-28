@@ -3,7 +3,6 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { memo } from 'react'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getSelectedIngrState } from '../../utils/selectors'
-import { IngredientInfoType } from '../../types/types'
 
 export interface Props {
   type: 'top' | 'bottom' | undefined
@@ -13,7 +12,7 @@ export interface Props {
 
 const ConstructorBunElement = ( { type, positionText }: Props ) => {
 
-  const { bun }: { bun: IngredientInfoType } = useAppSelector( getSelectedIngrState )
+  const { bun } = useAppSelector( getSelectedIngrState )
 
   let nameTxt: string
   let positionTxt: string

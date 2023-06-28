@@ -3,17 +3,24 @@ import {
   INGREDIENT_DETAILS_CLOSE_MODAL,
   INGREDIENT_DETAILS_SET_DATA,
   INGREDIENT_DETAILS_REMOVE_DATA,
-} from './ingredient-details-actions';
+} from './ingredient-details-actions'
 
-const defaultState = {
+import { IngredientInfoType } from '../../types/types';
+
+type StateType = {
+  ingredient: IngredientInfoType | null;
+  isModalOpened: boolean;
+};
+
+const defaultState: StateType = {
   ingredient: null,
   isModalOpened: false,
 };
 
-const ingredientDetailsReducer = (state = defaultState, action) => {
+const ingredientDetailsReducer = ( state: StateType = defaultState, action: any ) => {
 
-  switch (action.type) {
-
+  switch ( action.type ) {
+    
     case INGREDIENT_DETAILS_OPEN_MODAL:
       return {
         ...state,
@@ -29,13 +36,13 @@ const ingredientDetailsReducer = (state = defaultState, action) => {
     case INGREDIENT_DETAILS_SET_DATA:
       return {
         ...state,
-        ingredient: action.payload.ingredient
+        ingredient: action.payload.ingredient,
       };
 
     case INGREDIENT_DETAILS_REMOVE_DATA:
       return {
         ...state,
-        ingredient: null
+        ingredient: null,
       };
 
     default:
@@ -43,4 +50,4 @@ const ingredientDetailsReducer = (state = defaultState, action) => {
   }
 };
 
-export { ingredientDetailsReducer };
+export { ingredientDetailsReducer }

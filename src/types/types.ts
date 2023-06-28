@@ -76,7 +76,7 @@ export type ObjStringType = {
   [key: string]: string;
 };
 
-type UserType = {
+export type UserType = {
   name: string;
   email: string;
 };

@@ -8,7 +8,7 @@ import ConstructorItem from '../constructor-item/constructor-item'
 import { noIngrObj } from '../../constants/constants'
 import ConstructorBunElement from '../constructor-bun-element/constructor-bun-element'
 import { getSelectedIngrState, getCounterState } from '../../utils/selectors'
-import { IngredientInfoType, CounterType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 
 const ConstructorItemsList = () => {
@@ -18,9 +18,9 @@ const ConstructorItemsList = () => {
 
   const dispatch = useAppDispatch()
 
-  const { bun, ingredients }: { bun: IngredientInfoType; ingredients: IngredientInfoType[] } = useAppSelector( getSelectedIngrState )
-  const dropObj: IngredientInfoType = bun // для лучшей читабельности кода
-  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
+  const { bun, ingredients } = useAppSelector( getSelectedIngrState )
+  const dropObj = bun // для лучшей читабельности кода
+  const { counter } = useAppSelector( getCounterState )
 
   const [ isBun, setIsBun ] = useState<boolean>( false )
 
@@ -88,7 +88,7 @@ const ConstructorItemsList = () => {
           </ul>
         ) : (
           <ul className={ styles.listScroll }>
-            { ingredients.map( ( obj ) => (
+              { ingredients.map( ( obj: IngredientInfoType ) => (
               <ConstructorItem obj={ obj } key={ obj._uKey } isLocked={ false } />
             ) ) }
           </ul>

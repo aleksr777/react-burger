@@ -6,13 +6,6 @@ import { LoaderSvg } from './loader-svg'
 import { LOADER_ANIMATION_TIME } from '../../constants/constants'
 import ErrorInfo from '../error-info/error-info'
 import {
-  IngredientsDataStateType,
-  AuthStateType,
-  OrderIdStateType,
-  LoadingStateType,
-  OrdersStateType
-} from '../../types/types'
-import {
   getIngredientsDataState,
   getAuthState,
   getOrderIdState,
@@ -33,14 +26,14 @@ const Loader = () => {
 
   const loaderRef = useRef<HTMLDivElement>( null )
 
-  const ingredientsDataState: IngredientsDataStateType = useAppSelector( getIngredientsDataState )
-  const authState: AuthStateType = useAppSelector( getAuthState )
-  const orderIdState: OrderIdStateType = useAppSelector( getOrderIdState )
-  const forgotPasswordState: LoadingStateType = useAppSelector( getForgotPasswordState )
-  const registerUserState: LoadingStateType = useAppSelector( getRegisterUserState )
-  const resetPasswordState: LoadingStateType = useAppSelector( getResetPasswordState )
-  const profileOrdersState: OrdersStateType = useAppSelector( getProfileOrdersState )
-  const feedOrdersState: OrdersStateType = useAppSelector( getFeedOrdersState )
+  const ingredientsDataState = useAppSelector( getIngredientsDataState )
+  const authState = useAppSelector( getAuthState )
+  const orderIdState = useAppSelector( getOrderIdState )
+  const forgotPasswordState = useAppSelector( getForgotPasswordState )
+  const registerUserState = useAppSelector( getRegisterUserState )
+  const resetPasswordState = useAppSelector( getResetPasswordState )
+  const profileOrdersState = useAppSelector( getProfileOrdersState )
+  const feedOrdersState = useAppSelector( getFeedOrdersState )
 
   const [ isLoading, setIsLoading ] = useState<boolean>( false )
   const [ isError, setIsError ] = useState<boolean>( false )

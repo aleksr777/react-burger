@@ -6,7 +6,6 @@ import { closeOrderDetailsModal } from '../../services/order-details/order-detai
 import OrderDetailsLayout from '../order-details-layout/order-details-layout'
 import Modal from '../modal/modal'
 import { getOrderDetailsState } from '../../utils/selectors'
-import { OrderDetailsStateType } from '../../types/types'
 
 
 const OrderDetailsModal = () => {
@@ -16,7 +15,7 @@ const OrderDetailsModal = () => {
 
   /* isModalOpened нужен для анимации
   (иначе информация в модальном окне исчезает раньше, чем окно успевает закрыться) */
-  const { order, isModalOpened }: OrderDetailsStateType = useAppSelector( getOrderDetailsState )
+  const { order, isModalOpened } = useAppSelector( getOrderDetailsState )
 
   if ( !order ) {
     return null

@@ -10,7 +10,7 @@ import {
 } from '../../services/selected-ingr/selected-ingr-actions'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getSelectedIngrState, getCounterState } from '../../utils/selectors'
-import { IngredientInfoType, CounterType } from '../../types/types'
+import { IngredientInfoType } from '../../types/types'
 
 interface Props {
   obj: IngredientInfoType
@@ -22,8 +22,8 @@ const ConstructorItem = ( { obj, isLocked }: Props ) => {
 
   const [ itemOpacity, setItemOpacity ] = useState<number>( 0 )
 
-  const { ingredients }: { ingredients: IngredientInfoType[] } = useAppSelector( getSelectedIngrState )
-  const { counter }: { counter: CounterType } = useAppSelector( getCounterState )
+  const { ingredients } = useAppSelector( getSelectedIngrState )
+  const { counter } = useAppSelector( getCounterState )
 
   const [ { dragItemData, isItemDragging }, dragRef ] = useDrag( {
     type: 'selectedIngr',

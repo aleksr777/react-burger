@@ -6,7 +6,6 @@ import { closeIngredientDetailsModal } from '../../services/ingredient-details/i
 import IngredientDetailsLayout from '../ingredient-details-layout/ingredient-details-layout'
 import Modal from '../modal/modal'
 import { getIngredientDetailsState } from '../../utils/selectors'
-import { IngredientInfoType } from '../../types/types'
 
 
 const IngredientDetailsModal = () => {
@@ -17,7 +16,7 @@ const IngredientDetailsModal = () => {
 
   /* isModalOpened нужен для анимации
   (иначе информация об ингредиенте в модальном окне исчезает раньше, чем окно успевает закрыться) */
-  const { ingredient, isModalOpened }: { ingredient: IngredientInfoType, isModalOpened: boolean } = useAppSelector( getIngredientDetailsState )
+  const { ingredient, isModalOpened } = useAppSelector( getIngredientDetailsState )
 
   if ( !ingredient ) {
     return null

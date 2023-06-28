@@ -6,7 +6,7 @@ import { getSelectedIngrState } from '../../utils/selectors'
 
 const OrderingPrice = () => {
 
-  const { totalPrice }: { totalPrice: number } = useAppSelector( getSelectedIngrState )
+  const { totalPrice } = useAppSelector( getSelectedIngrState )
 
   return (
     <div className={ orderingPriceStyles.order__box }    >

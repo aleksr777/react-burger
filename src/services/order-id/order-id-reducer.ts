@@ -8,17 +8,22 @@ import {
   ORDER_ID_SET_DEFAULT,
 } from './order-id-actions';
 
-const defaultState = {
+export type StateType = {
+  id: null | number;
+  isLoading: boolean;
+  isModalOpened: boolean;
+  isError: boolean;
+};
+
+const defaultState: StateType = {
   id: null,
   isLoading: false,
   isModalOpened: false,
   isError: false,
 };
 
-const orderIdReducer = (state = defaultState, action) => {
-
+const orderIdReducer = (state: StateType = defaultState, action: any) => {
   switch (action.type) {
-
     case ORDER_ID_OPEN_MODAL:
       return {
         ...state,
@@ -36,7 +41,7 @@ const orderIdReducer = (state = defaultState, action) => {
         ...state,
         isLoading: true,
       };
-    };
+    }
 
     case ORDER_ID_SUCCESS:
       return {

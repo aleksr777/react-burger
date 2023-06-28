@@ -5,14 +5,14 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions'
 import { getProfileOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
-import { OrdersStateType } from '../../types/types'
+import { OrderInfoType } from '../../types/types'
 
 
 const ProfileOrdersBlock = () => {
 
   const dispatch = useAppDispatch()
 
-  const { orders }: OrdersStateType = useAppSelector( getProfileOrdersState )
+  const { orders } = useAppSelector( getProfileOrdersState )
 
   useEffect( () => {
 
@@ -26,7 +26,7 @@ const ProfileOrdersBlock = () => {
   return (
     orders &&
     <ul className={ styles.feed }>
-      { orders.slice().reverse().map( ( order ) => (
+      { orders.slice().reverse().map( ( order: OrderInfoType ) => (
         <OrderInfoItem key={ order._id } order={ order } showStatus={ true } />
       ) ) }
     </ul>

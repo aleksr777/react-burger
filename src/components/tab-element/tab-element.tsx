@@ -5,7 +5,6 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { SET_CURRENT_TAB } from '../../services/tab/tab-actions'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getCurrentTabState } from '../../utils/selectors'
-import { CurrentTabStateType } from '../../types/types'
 
 type Props = {
   ingredientText: string
@@ -16,7 +15,7 @@ type Props = {
 const TabElement = ( { children, ingredientText }: Props ) => {
 
   const dispatch = useAppDispatch()
-  const { currentTab }: CurrentTabStateType = useAppSelector( getCurrentTabState )
+  const { currentTab } = useAppSelector( getCurrentTabState )
 
   function setCurrent ( ingredientText: string ) {
     dispatch( { type: SET_CURRENT_TAB, payload: { currentTab: ingredientText } } )

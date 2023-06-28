@@ -5,7 +5,6 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { checkAuth } from '../../services/authorization/check-auth'
 import { deleteAuthData } from '../../services/authorization/auth-actions'
 import { getAuthState } from '../../utils/selectors'
-import { AuthStateType } from '../../types/types'
 
 type Props = {
   children: React.ReactNode
@@ -21,7 +20,7 @@ const ProtectedRouteElement = ( { children, forUnauthUser }: Props ) => {
 
   const fromPage: string = location.state || '/'
 
-  const { isSuccess, user }: AuthStateType = useAppSelector( getAuthState )
+  const { isSuccess, user } = useAppSelector( getAuthState )
 
   let isAuth: boolean = checkAuth( isSuccess, user.email )
 

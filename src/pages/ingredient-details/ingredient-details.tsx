@@ -6,19 +6,18 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { getIngredientInfo } from '../../services/ingredients-data/ingredients-data-actions'
 import IngredientDetailsLayout from '../../components/ingredient-details-layout/ingredient-details-layout'
 import { getIngredientDetailsState } from '../../utils/selectors'
-import { IngredientInfoType } from '../../types/types'
 
 /* Реализовал этот компонент так, чтобы можно было получить информацию по ингредиенту, если переходить на страницу по внешней ссылке*/
 const IngredientDetailsPage = () => {
 
-  const { pathname }: { pathname: string } = useLocation()
+  const { pathname } = useLocation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   //достаём id из строки адреса
   const id: string | undefined = pathname.split( '/' ).pop()
 
-  const { ingredient }: { ingredient: IngredientInfoType } = useAppSelector( getIngredientDetailsState )
+  const { ingredient } = useAppSelector( getIngredientDetailsState )
 
   function goToNotFoundPage () {
     navigate( '/not-found-page', { replace: true } )

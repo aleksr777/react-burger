@@ -8,7 +8,16 @@ import {
   AUTH_SUCCESS_UPDATE_TOKEN,
 } from './auth-actions';
 
-const defaultState = {
+import { UserType } from '../../types/types';
+
+type StateType = {
+  isError: boolean;
+  isLoading: boolean;
+  isSuccess: boolean;
+  user: UserType;
+};
+
+const defaultState: StateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -18,16 +27,14 @@ const defaultState = {
   },
 };
 
-const authReducer = (state = defaultState, action) => {
-
+const authReducer = (state: StateType = defaultState, action: any) => {
   switch (action.type) {
-
     case AUTH_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
-    };
+    }
 
     case AUTH_SUCCESS_LOGIN:
       return {

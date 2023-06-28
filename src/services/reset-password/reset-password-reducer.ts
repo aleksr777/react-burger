@@ -5,22 +5,26 @@ import {
   RESET_PASSWORD_SET_DEFAULT,
 } from './reset-password-actions';
 
-const defaultState = {
+type StateType = {
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+};
+
+const defaultState: StateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
 };
 
-const resetPasswordReducer = (state = defaultState, action) => {
-
+const resetPasswordReducer = (state: StateType = defaultState, action: any) => {
   switch (action.type) {
-
     case RESET_PASSWORD_REQUEST: {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
-    };
+    }
 
     case RESET_PASSWORD_SUCCESS:
       return {
