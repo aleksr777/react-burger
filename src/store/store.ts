@@ -6,12 +6,9 @@ import { urlFeedOrders, urlProfileOrders } from '../utils/api';
 import { feedOrdersActions } from '../services/feed-all-orders/feed-all-orders-actions';
 import { profileOrdersActions } from '../services/profile-orders/profile-orders-actions';
 
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
 const socketMiddlewareFeedOrders = socketMiddleware(urlFeedOrders, feedOrdersActions);
-const socketMiddlewareProfileOrders = socketMiddleware(urlProfileOrders, profileOrdersActions);
+const socketMiddlewareProfileOrders = socketMiddleware( urlProfileOrders, profileOrdersActions );
+
 
 export const store = configureStore({
   reducer: rootReducer,
