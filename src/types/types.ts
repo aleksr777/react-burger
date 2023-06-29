@@ -1,9 +1,10 @@
+import { Dispatch } from '@reduxjs/toolkit';
+
 type IngredientType = {
   _id: string;
   name: string;
   price: number;
 };
-
 export type IngredientInfoType = IngredientType & {
   _uKey?: string;
   locationDnd?: string;
@@ -18,7 +19,6 @@ export type IngredientInfoType = IngredientType & {
   type: string;
   path?: string;
 };
-
 export type SelectedIngredientType = IngredientType & {
   path: string;
   count: number;
@@ -31,14 +31,6 @@ export type ImageDataType = {
   isImgError?: boolean;
 };
 
-export type CounterType = {
-  [key: string]: number;
-};
-
-export type CounterStateType = {
-  counter: CounterType;
-};
-
 type OrderType = {
   _id: string;
   createdAt: string;
@@ -48,22 +40,11 @@ type OrderType = {
   updatedAt: string;
   totalPrice: number;
 };
-
 export type OrderInfoType = OrderType & {
   ingredients: string[];
 };
-
 export type OrderDataType = OrderType & {
   ingredients: SelectedIngredientType[];
-};
-
-export type IngredientsDataType = {
-  ingredientsData: IngredientInfoType[];
-};
-
-export type IngredientsDataStateType = IngredientsDataType & {
-  isError: boolean;
-  isLoading: boolean;
 };
 
 export type LoadingStateType = {
@@ -72,48 +53,20 @@ export type LoadingStateType = {
   isSuccess: boolean;
 };
 
-export type ObjStringType = {
-  [key: string]: string;
-};
-
-export type UserType = {
-  name: string;
-  email: string;
-};
-
-export type UserDataType = ObjStringType &
-  UserType & {
-    password: string;
-  };
-
-export type AuthStateType = LoadingStateType & {
-  user: UserType;
-};
-
-export type OrderIdStateType = {
-  isError: boolean;
-  isLoading: boolean;
-  id: null | number;
-  isModalOpened: boolean;
-};
-
 export type OrdersStateType = LoadingStateType & {
   orders: OrderInfoType[] | null;
   total?: null | number;
   totalToday?: null | number;
 };
 
-export type OrderDetailsStateType = {
-  order: OrderInfoType;
-  isModalOpened: boolean;
+export type IngredientsDataType = {
+  ingredientsData: IngredientInfoType[];
 };
 
-export type SelectedIngredientStateType = {
-  ingredients: SelectedIngredientType[];
-  bun: SelectedIngredientType;
-  totalPrice: number;
+export type UserType = {
+  name: string;
+  email: string;
 };
+export type UserDataType = UserType & { password: string; [key: string]: string };
 
-export type CurrentTabStateType = {
-  currentTab: string;
-};
+export type DispatchFuncType = (dispatch: Dispatch<any>) => void;
