@@ -11,7 +11,6 @@ import {
   requestGetUserDataServer,
   requestChangeUserDataServer,
 } from '../../utils/api';
-import { Dispatch } from '@reduxjs/toolkit';
 import {
   AuthActionsType,
   ResponseUpdateTokenType,

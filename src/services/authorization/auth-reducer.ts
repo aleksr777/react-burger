@@ -7,7 +7,7 @@ import {
   AUTH_HIDE_ERROR,
   AUTH_SUCCESS_UPDATE_TOKEN,
 } from './auth-actions';
-import { AuthStateType, AuthDispatchActionType } from '../../types/auth-types';
+import { AuthStateType, AuthDispatchType } from '../../types/auth-types';
 
 const defaultState: AuthStateType = {
   isSuccess: false,
@@ -19,7 +19,7 @@ const defaultState: AuthStateType = {
   },
 };
 
-const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchActionType) => {
+const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchType) => {
   switch (action.type) {
     case AUTH_REQUEST: {
       return {

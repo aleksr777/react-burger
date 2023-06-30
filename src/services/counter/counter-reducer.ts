@@ -1,14 +1,11 @@
 import { COUNTER_CHANGE } from './counter-actions';
-import { CounterStateType, CounterDispatchActionType } from '../../types/counter-types';
+import { CounterStateType, CounterDispatchType } from '../../types/counter-types';
 
 const defaultState: CounterStateType = {
   counter: {},
 };
 
-const counterReducer = (
-  state: CounterStateType = defaultState,
-  action: CounterDispatchActionType
-) => {
+const counterReducer = (state: CounterStateType = defaultState, action: CounterDispatchType) => {
   switch (action.type) {
     case COUNTER_CHANGE: {
       return {

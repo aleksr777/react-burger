@@ -6,7 +6,7 @@ export type ResetPasswordActionsType =
   | 'RESET_PASSWORD_ERROR'
   | 'RESET_PASSWORD_SET_DEFAULT';
 
-export type ResetPasswordDispatchActionType = {
+export type ResetPasswordDispatchType = {
   type: ResetPasswordActionsType;
   payload: LoadingStateType;
 };

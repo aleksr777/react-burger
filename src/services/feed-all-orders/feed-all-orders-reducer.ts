@@ -1,5 +1,5 @@
 import { feedOrdersActions } from './feed-all-orders-actions';
-import { StateType, DispatchActionType } from '../../types/feed-all-orders-types';
+import { StateType, DispatchType } from '../../types/feed-all-orders-types';
 
 const defaultState: StateType = {
   isSuccess: false,
@@ -10,7 +10,7 @@ const defaultState: StateType = {
   totalToday: null,
 };
 
-const feedOrdersReducer = (state: StateType = defaultState, action: DispatchActionType) => {
+const feedOrdersReducer = (state: StateType = defaultState, action: DispatchType) => {
   switch (action.type) {
     case feedOrdersActions.request: {
       return {

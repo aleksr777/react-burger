@@ -6,7 +6,7 @@ import {
 } from './ingredient-details-actions';
 
 import {
-  IngredientDetailsDispatchActionType,
+  IngredientDetailsDispatchType,
   IngredientDetailsStateType,
 } from '../../types/ingredient-details-types';
 
@@ -17,7 +17,7 @@ const defaultState: IngredientDetailsStateType = {
 
 const ingredientDetailsReducer = (
   state: IngredientDetailsStateType = defaultState,
-  action: IngredientDetailsDispatchActionType
+  action: IngredientDetailsDispatchType
 ) => {
   switch (action.type) {
     case INGREDIENT_DETAILS_OPEN_MODAL:

@@ -23,7 +23,7 @@ export type StateType = LoadingStateType & {
   totalToday: null | number;
 };
 
-export type DispatchActionType = {
+export type DispatchType = {
   type: AllOrdersActionsType;
   payload: StateType;
 };

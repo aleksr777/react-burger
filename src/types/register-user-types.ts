@@ -8,7 +8,7 @@ export type RegisterUserActionsType =
 
 export type RegisterUserType = (TokensType & UserObjType) | string;
 
-export type RegisterUserDispatchActionType = {
+export type RegisterUserDispatchType = {
   type: RegisterUserActionsType;
   payload: UserType & PasswordObjType;
 };

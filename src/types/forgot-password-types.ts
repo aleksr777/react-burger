@@ -6,7 +6,7 @@ export type ForgotPasswordActionsType =
   | 'FORGOT_PASSWORD_ERROR'
   | 'FORGOT_PASSWORD_DEFAULT';
 
-export type ForgotPasswordDispatchActionType = {
+export type ForgotPasswordDispatchType = {
   type: ForgotPasswordActionsType;
   payload: LoadingStateType;
 };

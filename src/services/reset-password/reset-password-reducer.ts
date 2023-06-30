@@ -5,7 +5,7 @@ import {
   RESET_PASSWORD_SET_DEFAULT,
 } from './reset-password-actions';
 import { LoadingStateType } from '../../types/types';
-import { ResetPasswordDispatchActionType } from '../../types/reset-password-types';
+import { ResetPasswordDispatchType } from '../../types/reset-password-types';
 
 const defaultState: LoadingStateType = {
   isSuccess: false,
@@ -15,7 +15,7 @@ const defaultState: LoadingStateType = {
 
 const resetPasswordReducer = (
   state: LoadingStateType = defaultState,
-  action: ResetPasswordDispatchActionType
+  action: ResetPasswordDispatchType
 ) => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {

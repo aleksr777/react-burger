@@ -1,4 +1,3 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { DispatchFuncType } from '../../types/types';
 import { ForgotPasswordType, ForgotPasswordActionsType } from '../../types/forgot-password-types';
 import { LOADER_ANIMATION_TIME } from '../../constants/constants';

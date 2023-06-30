@@ -21,7 +21,7 @@ export type StateType = LoadingStateType & {
   orders: null | OrderInfoType[];
 };
 
-export type DispatchActionType = {
+export type DispatchType = {
   type: ProfileOrdersActionsType;
   payload: StateType;
 };

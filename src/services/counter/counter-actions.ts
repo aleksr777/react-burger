@@ -1,4 +1,3 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { CounterActionsType, CounterObjType, CounterStateType } from '../../types/counter-types';
 import { DispatchFuncType } from '../../types/types';
 

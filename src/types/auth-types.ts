@@ -11,7 +11,7 @@ export type AuthActionsType =
 
 export type AuthStateType = LoadingStateType & UserObjType;
 
-export type AuthDispatchActionType = {
+export type AuthDispatchType = {
   type: AuthActionsType;
   payload: UserObjType;
 };

@@ -11,7 +11,7 @@ export type IngredientDetailsStateType = {
   isModalOpened: boolean;
 };
 
-export type IngredientDetailsDispatchActionType = {
+export type IngredientDetailsDispatchType = {
   type: IngredientDetailsActionsType;
   payload: { ingredient: IngredientInfoType };
 };
