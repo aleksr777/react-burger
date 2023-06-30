@@ -1,4 +1,9 @@
 import { requestGetIngredientsDataServer } from '../../utils/api';
+import { IngredientInfoType, DispatchFuncType } from '../../types/types';
+import {
+  IngredientsDataActionsType,
+  ResponseUpdateTokenType,
+} from '../../types/iingredients-data-types';
 import {
   blockUserInteraction,
   unblockUserInteraction,
@@ -8,22 +13,18 @@ import {
   INGREDIENT_DETAILS_SET_DATA,
   INGREDIENT_DETAILS_REMOVE_DATA,
 } from '../ingredient-details/ingredient-details-actions';
-import {
-  COUNTER_CHANGE,
-} from '../counter/counter-actions';
+import { COUNTER_CHANGE } from '../counter/counter-actions';
 
-export const INGREDIENTS_GET_DATA_REQUEST = 'INGREDIENTS_GET_DATA_REQUEST';
-export const INGREDIENTS_GET_DATA_SUCCESS = 'INGREDIENTS_GET_DATA_SUCCESS';
-export const INGREDIENTS_GET_DATA_ERROR = 'INGREDIENTS_GET_DATA_ERROR';
-export const INGREDIENTS_GET_DATA_SET_DEFAULT = 'INGREDIENTS_GET_DATA_SET_DEFAULT';
-
+export const INGREDIENTS_GET_DATA_REQUEST: IngredientsDataActionsType = 'INGREDIENTS_GET_DATA_REQUEST';
+export const INGREDIENTS_GET_DATA_SUCCESS: IngredientsDataActionsType = 'INGREDIENTS_GET_DATA_SUCCESS';
+export const INGREDIENTS_GET_DATA_ERROR: IngredientsDataActionsType = 'INGREDIENTS_GET_DATA_ERROR';
+export const INGREDIENTS_GET_DATA_SET_DEFAULT: IngredientsDataActionsType =
+  'INGREDIENTS_GET_DATA_SET_DEFAULT';
 
 // Получение информации обо всех ингредиентах
-export function requestGetIngredientsData() {
-
+export function requestGetIngredientsData(): DispatchFuncType {
   return function (dispatch) {
-
-    function handleError(response) {
+    function handleError(response: string) {
       console.log(response);
       dispatch({ type: INGREDIENTS_GET_DATA_ERROR, payload: {} });
       setTimeout(() => {
@@ -36,33 +37,35 @@ export function requestGetIngredientsData() {
     blockUserInteraction();
 
     requestGetIngredientsDataServer()
-      .then(res => {
-        if (res && res.success) {
-          let counterObj = {};
-          res.data.forEach(function (obj) {
+      .then((res: ResponseUpdateTokenType) => {
+        if (typeof res === 'object' && res.success) {
+          let counterObj: {} | IngredientInfoType = {};
+          res.data.forEach(function (obj: IngredientInfoType) {
             counterObj = { ...counterObj, [obj._id]: 0 };
           });
           dispatch({ type: COUNTER_CHANGE, payload: counterObj });
           dispatch({ type: INGREDIENTS_GET_DATA_SUCCESS, payload: res.data });
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
-        }
-        else {
+          setTimeout(() => {
+            unblockUserInteraction();
+          }, LOADER_ANIMATION_TIME);
+        } else if (typeof res === 'string') {
           handleError(res);
-        };
+        }
       })
-      .catch(err => {
+      .catch((err: string) => {
         handleError(err);
       });
   };
-};
-
+}
 
 // Получение информации об ингредиенте
-export function getIngredientInfo(goToNotFoundPage, id, path) {
-
+export function getIngredientInfo(
+  goToNotFoundPage: () => void,
+  id: string | unknown,
+  path: string
+): DispatchFuncType {
   return function (dispatch) {
-
-    function handleError(response) {
+    function handleError(response: string) {
       console.log(response);
       dispatch({ type: INGREDIENTS_GET_DATA_ERROR, payload: {} });
       setTimeout(() => {
@@ -79,38 +82,39 @@ export function getIngredientInfo(goToNotFoundPage, id, path) {
     blockUserInteraction();
 
     requestGetIngredientsDataServer()
-      .then(res => {
-        if (res && res.success) {
+      .then((res: ResponseUpdateTokenType) => {
+        console.log(res);
+        if (typeof res === 'object' && res.success) {
           let counterObj = {};
-          res.data.forEach(function (obj) {
+          res.data.forEach(function (obj: IngredientInfoType) {
             counterObj = { ...counterObj, [obj._id]: 0 };
           });
           dispatch({ type: COUNTER_CHANGE, payload: counterObj });
           dispatch({ type: INGREDIENTS_GET_DATA_SUCCESS, payload: res.data });
-          setTimeout(() => { unblockUserInteraction() }, LOADER_ANIMATION_TIME);
-          const [ingredient] = res.data.filter((obj) => obj._id === id);
+          setTimeout(() => {
+            unblockUserInteraction();
+          }, LOADER_ANIMATION_TIME);
+          const [ingredient] = res.data.filter((obj: IngredientInfoType) => obj._id === id);
           if (ingredient) {
             dispatch({
               type: INGREDIENT_DETAILS_SET_DATA,
               payload: {
                 ingredient: {
                   ...ingredient,
-                  path: path
+                  path: path,
                 },
-              }
-            })
-          }
-          else {
+              },
+            });
+          } else {
             dispatch({ type: INGREDIENT_DETAILS_REMOVE_DATA, payload: {} });
             goToNotFoundPage();
           }
-        }
-        else {
+        } else if (typeof res === 'string') {
           handleError(res);
-        };
+        }
       })
-      .catch(err => {
+      .catch((err: string) => {
         handleError(err);
       });
   };
-};
+}

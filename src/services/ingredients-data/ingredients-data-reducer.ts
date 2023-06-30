@@ -5,21 +5,21 @@ import {
   INGREDIENTS_GET_DATA_SET_DEFAULT,
 } from './ingredients-data-actions';
 
-import { IngredientInfoType } from '../../types/types';
+import {
+  IngredientsDataStateType,
+  IngredientsDataDispatchType,
+} from '../../types/iingredients-data-types';
 
-export type StateType = {
-  isError: boolean;
-  isLoading: boolean;
-  ingredientsData: IngredientInfoType[];
-};
-
-const defaultState: StateType = {
+const defaultState: IngredientsDataStateType = {
   isLoading: false,
   isError: false,
   ingredientsData: [],
 };
 
-const ingredientsDataReducer = (state: StateType = defaultState, action: any) => {
+const ingredientsDataReducer = (
+  state: IngredientsDataStateType = defaultState,
+  action: IngredientsDataDispatchType
+) => {
   switch (action.type) {
     case INGREDIENTS_GET_DATA_REQUEST: {
       return {
