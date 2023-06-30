@@ -1,4 +1,4 @@
-import { TokensType, UserType, UserObjType } from './types';
+import { TokensType, UserType, UserObjType, PasswordObjType } from './types';
 
 export type RegisterUserActionsType =
   | 'REGISTER_USER_REQUEST'
@@ -10,5 +10,5 @@ export type RegisterUserType = (TokensType & UserObjType) | string;
 
 export type RegisterUserDispatchActionType = {
   type: RegisterUserActionsType;
-  payload: UserType & { password: string };
+  payload: UserType & PasswordObjType;
 };

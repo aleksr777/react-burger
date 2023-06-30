@@ -69,9 +69,10 @@ export type UserType = {
   name: string;
   email: string;
 };
-export type UserDataType = UserType & ObjKeyStringType & { password: string };
-
 export type UserObjType = { user: UserType };
+export type PasswordObjType = { password: string };
+export type UserDataType = UserType & PasswordObjType & ObjKeyStringType;
+
 
 export type TokensType = {
   success: true;
