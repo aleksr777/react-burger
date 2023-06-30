@@ -1,5 +1,4 @@
-
-import { Dispatch } from '@reduxjs/toolkit'
+import { Dispatch } from '@reduxjs/toolkit';
 import { CounterActionsType, CounterObjType, CounterStateType } from '../../types/counter-types';
 import { DispatchFuncType } from '../../types/types';
 
@@ -75,14 +74,14 @@ const getResetCounter = async (counter: CounterObjType): Promise<CounterStateTyp
 };
 
 export function addCount(id: string, counter: CounterObjType, num: number): DispatchFuncType {
-  return async function (dispatch: Dispatch<any>) {
+  return async function (dispatch) {
     const counterObj = await getIncrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 }
 
 export function reduceCount(id: string, counter: CounterObjType, num: number): DispatchFuncType {
-  return async function (dispatch: Dispatch<any>) {
+  return async function (dispatch) {
     const counterObj = await getDecrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
@@ -94,14 +93,14 @@ export function addAndReduceCount(
   counter: CounterObjType,
   num: number
 ): DispatchFuncType {
-  return async function (dispatch: Dispatch<any>) {
+  return async function (dispatch) {
     const counterObj = await getIncrAndDecrCounter(addCountId, reduceCountId, counter, num);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 }
 
 export function resetCount(counter: CounterObjType): DispatchFuncType {
-  return async function (dispatch: Dispatch<any>) {
+  return async function (dispatch) {
     const counterObj = await getResetCounter(counter);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };

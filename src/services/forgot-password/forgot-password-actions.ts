@@ -17,7 +17,7 @@ export function forgotPasswordRequest(
   goToResetPasswordPage: () => void,
   valueEmail: string
 ): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       dispatch({ type: FORGOT_PASSWORD_ERROR, payload: {} });

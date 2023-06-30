@@ -38,7 +38,7 @@ export function matchNumErr(response: string, number: number): boolean {
 }
 
 export function deleteAuthData(): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     dispatch({ type: AUTH_DEFAULT, payload: {} });
     removeTokens();
   };
@@ -46,7 +46,7 @@ export function deleteAuthData(): DispatchFuncType {
 
 /* Запрос на обновление токена */
 export function requestUpdateToken(request: DispatchFuncType): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       dispatch(handleAuthError(request));
@@ -78,7 +78,7 @@ export function requestUpdateToken(request: DispatchFuncType): DispatchFuncType 
 
 /* Обрабатываем ошибку 401 */
 export function handleAuthError(request: DispatchFuncType): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     const nameCountStorage: string = `${STORAGE_KEY_PREFIX}count-request-catch-error-401`;
     let countRequest: number = Number(sessionStorage.getItem(nameCountStorage));
     if (countRequest < 1 || !countRequest) {
@@ -104,7 +104,7 @@ export function handleAuthError(request: DispatchFuncType): DispatchFuncType {
 
 /* Запрос входа в аккаунт */
 export function requestLogin(email: string, password: string): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
@@ -152,7 +152,7 @@ export function requestLogin(email: string, password: string): DispatchFuncType 
 
 /* Запрос выхода из аккаунта */
 export function requestLogout(): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
@@ -190,7 +190,7 @@ export function requestLogout(): DispatchFuncType {
 
 /* Запрос на получение данных о пользователе */
 export function requestGetUserData(): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
@@ -238,7 +238,7 @@ export function requestChangeUserData(
   user: UserDataType,
   setInputsData: (data: UserDataType) => void
 ): DispatchFuncType {
-  return function (dispatch: Dispatch<any>): void {
+  return function (dispatch) {
     function handleError(response: string) {
       console.log(response);
       /* ловим ошибку "401", чтобы обновить токен и снова сделать запрос */
