@@ -4,6 +4,7 @@ import {
   REGISTER_USER_ERROR,
   REGISTER_USER_SET_DEFAULT_STATE,
 } from './register-user-actions';
+import { RegisterUserDispatchActionType } from '../../types/register-user-types';
 
 type StateType = {
   isLoading: boolean;
@@ -17,7 +18,10 @@ const defaultState: StateType = {
   isError: false,
 };
 
-const registerUserReducer = (state: StateType = defaultState, action: any) => {
+const registerUserReducer = (
+  state: StateType = defaultState,
+  action: RegisterUserDispatchActionType
+) => {
   switch (action.type) {
     case REGISTER_USER_REQUEST: {
       return {
