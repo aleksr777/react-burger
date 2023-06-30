@@ -1,12 +1,5 @@
 import { profileOrdersActions } from './profile-orders-actions';
-import { OrderInfoType } from '../../types/types';
-
-type StateType = {
-  isSuccess: boolean;
-  isLoading: boolean;
-  isError: boolean;
-  orders: null | OrderInfoType[];
-};
+import { StateType, DispatchActionType } from '../../types/feed-profiles-orders-types';
 
 const defaultState: StateType = {
   isSuccess: false,
@@ -15,7 +8,7 @@ const defaultState: StateType = {
   orders: null,
 };
 
-const profileOrdersReducer = (state: StateType = defaultState, action: any) => {
+const profileOrdersReducer = (state: StateType = defaultState, action: DispatchActionType) => {
   switch (action.type) {
     case profileOrdersActions.request: {
       return {
