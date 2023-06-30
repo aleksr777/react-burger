@@ -4,20 +4,19 @@ import {
   FORGOT_PASSWORD_ERROR,
   FORGOT_PASSWORD_DEFAULT,
 } from './forgot-password-actions'
+import { LoadingStateType } from '../../types/types';
+import { ForgotPasswordDispatchActionType } from '../../types/forgot-password-types';
 
-type StateType = {
-  isSuccess: boolean;
-  isLoading: boolean;
-  isError: boolean;
-};
-
-const defaultState: StateType = {
+const defaultState: LoadingStateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
 };
 
-const forgotPasswordReducer = (state: StateType = defaultState, action: any) => {
+const forgotPasswordReducer = (
+  state: LoadingStateType = defaultState,
+  action: ForgotPasswordDispatchActionType
+) => {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUEST: {
       return {
