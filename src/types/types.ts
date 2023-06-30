@@ -63,10 +63,12 @@ export type IngredientsDataType = {
   ingredientsData: IngredientInfoType[];
 };
 
+export type ObjKeyStringType = { [key: string]: string };
+
 export type UserType = {
   name: string;
   email: string;
 };
-export type UserDataType = UserType & { password: string; [key: string]: string };
+export type UserDataType = UserType & ObjKeyStringType & { password: string };
 
 export type DispatchFuncType = (dispatch: Dispatch<any>) => void;

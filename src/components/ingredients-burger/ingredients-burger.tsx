@@ -49,7 +49,7 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={ obj._id }
                 ingredient={ obj }
-                count={ counter[ obj._id ] }
+                count={ counter[ obj._id ] as number }
               />
             ) ) }
           </IngredientsBlock>
@@ -59,7 +59,7 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={ obj._id }
                 ingredient={ obj }
-                count={ counter[ obj._id ] }
+                count={ counter[ obj._id ] as number }
               />
             ) ) }
           </IngredientsBlock>
@@ -69,7 +69,7 @@ const IngredientsBurger = () => {
               <IngredientsItem
                 key={ obj._id }
                 ingredient={ obj }
-                count={ counter[ obj._id ] }
+                count={ counter[ obj._id ] as number }
               />
             ) ) }
           </IngredientsBlock>
