@@ -83,7 +83,6 @@ export function getIngredientInfo(
 
     requestGetIngredientsDataServer()
       .then((res: ResponseUpdateTokenType) => {
-        console.log(res);
         if (typeof res === 'object' && res.success) {
           let counterObj = {};
           res.data.forEach(function (obj: IngredientInfoType) {
