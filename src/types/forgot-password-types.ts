@@ -1,4 +1,4 @@
-import { LoadingStateType } from '../types/types';
+import { LoadingStateType, MessageObjType } from '../types/types';
 
 export type ForgotPasswordActionsType =
   | 'FORGOT_PASSWORD_REQUEST'
@@ -11,8 +11,4 @@ export type ForgotPasswordDispatchActionType = {
   payload: LoadingStateType;
 };
 
-type SuccessForgotPassword = {
-  success: true;
-  message: string;
-};
-export type ForgotPasswordType = SuccessForgotPassword | string;
+export type ForgotPasswordType = MessageObjType | string;

@@ -1,4 +1,4 @@
-import { UserType, LoadingStateType, TokensType } from '../types/types';
+import { LoadingStateType, TokensType, MessageObjType, UserObjType } from '../types/types';
 
 export type AuthActionsType =
   | 'AUTH_REQUEST'
@@ -9,35 +9,21 @@ export type AuthActionsType =
   | 'AUTH_DEFAULT'
   | 'AUTH_HIDE_ERROR';
 
-export type AuthStateType = LoadingStateType & {
-  user: UserType;
-};
+export type AuthStateType = LoadingStateType & UserObjType;
 
 export type AuthDispatchActionType = {
   type: AuthActionsType;
-  payload: { user: UserType };
+  payload: UserObjType;
 };
 
 // Запрос на обновление токенов
-type SuccessUpdateTokenType = TokensType;
-export type ResponseUpdateTokenType = SuccessUpdateTokenType | string;
+export type ResponseUpdateTokenType = TokensType | string;
 
 // Запрос на авторизацию
-type SuccessLoginType = TokensType & {
-  user: UserType;
-};
-export type ResponseLoginType = SuccessLoginType | string;
+export type ResponseLoginType = (TokensType & UserObjType) | string;
 
 // Запрос на разлогирование
-type SuccessLogoutType = {
-  success: true;
-  message: string;
-};
-export type ResponseLogoutType = SuccessLogoutType | string;
+export type ResponseLogoutType = MessageObjType | string;
 
 // Запрос на получение/изменение данных о пользователе
-type SuccessUserDataType = {
-  success: true;
-  user: UserType;
-};
-export type ResponseUserDataType = SuccessUserDataType | string;
+export type ResponseUserDataType = ({ success: true } & UserObjType) | string;

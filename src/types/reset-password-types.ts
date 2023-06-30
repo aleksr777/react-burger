@@ -1,4 +1,4 @@
-import { LoadingStateType } from './types';
+import { LoadingStateType, MessageObjType } from './types';
 
 export type ResetPasswordActionsType =
   | 'RESET_PASSWORD_REQUEST'
@@ -11,8 +11,4 @@ export type ResetPasswordDispatchActionType = {
   payload: LoadingStateType;
 };
 
-type SuccessResetPassword = {
-  success: true;
-  message: string;
-};
-export type ResetPasswordType = SuccessResetPassword | string;
+export type ResetPasswordType = MessageObjType | string;

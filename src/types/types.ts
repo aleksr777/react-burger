@@ -71,10 +71,17 @@ export type UserType = {
 };
 export type UserDataType = UserType & ObjKeyStringType & { password: string };
 
+export type UserObjType = { user: UserType };
+
 export type TokensType = {
   success: true;
   accessToken: string;
   refreshToken: string;
+};
+
+export type MessageObjType = {
+  success: true;
+  message: string;
 };
 
 export type DispatchFuncType = (dispatch: Dispatch<any>) => void;
