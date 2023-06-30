@@ -7,22 +7,9 @@ import {
   AUTH_HIDE_ERROR,
   AUTH_SUCCESS_UPDATE_TOKEN,
 } from './auth-actions';
-import { AuthActionType } from '../../types/auth-types';
-import { UserType } from '../../types/types';
+import { AuthStateType, AuthDispatchActionType } from '../../types/auth-types';
 
-type StateType = {
-  isError: boolean;
-  isLoading: boolean;
-  isSuccess: boolean;
-  user: UserType;
-};
-
-type ActionType = {
-  type: AuthActionType;
-  payload: { user: UserType };
-};
-
-const defaultState: StateType = {
+const defaultState: AuthStateType = {
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -32,10 +19,8 @@ const defaultState: StateType = {
   },
 };
 
-const authReducer = ( state: StateType = defaultState, action: ActionType ) => {
-
-  switch ( action.type ) {
-    
+const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchActionType) => {
+  switch (action.type) {
     case AUTH_REQUEST: {
       return {
         ...state,

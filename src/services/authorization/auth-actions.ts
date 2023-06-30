@@ -13,7 +13,7 @@ import {
 } from '../../utils/api';
 import { Dispatch } from '@reduxjs/toolkit';
 import {
-  AuthActionType,
+  AuthActionsType,
   ResponseUpdateTokenType,
   ResponseLoginType,
   ResponseLogoutType,
@@ -21,13 +21,13 @@ import {
 } from '../../types/auth-types';
 import { UserDataType, DispatchFuncType } from '../../types/types';
 
-export const AUTH_REQUEST: AuthActionType = 'AUTH_REQUEST';
-export const AUTH_SUCCESS_LOGIN: AuthActionType = 'AUTH_SUCCESS_LOGIN';
-export const AUTH_SUCCESS_USER: AuthActionType = 'AUTH_SUCCESS_USER';
-export const AUTH_SUCCESS_UPDATE_TOKEN: AuthActionType = 'AUTH_SUCCESS_UPDATE_TOKEN';
-export const AUTH_SHOW_ERROR: AuthActionType = 'AUTH_SHOW_ERROR';
-export const AUTH_DEFAULT: AuthActionType = 'AUTH_DEFAULT';
-export const AUTH_HIDE_ERROR: AuthActionType = 'AUTH_HIDE_ERROR';
+export const AUTH_REQUEST: AuthActionsType = 'AUTH_REQUEST';
+export const AUTH_SUCCESS_LOGIN: AuthActionsType = 'AUTH_SUCCESS_LOGIN';
+export const AUTH_SUCCESS_USER: AuthActionsType = 'AUTH_SUCCESS_USER';
+export const AUTH_SUCCESS_UPDATE_TOKEN: AuthActionsType = 'AUTH_SUCCESS_UPDATE_TOKEN';
+export const AUTH_SHOW_ERROR: AuthActionsType = 'AUTH_SHOW_ERROR';
+export const AUTH_DEFAULT: AuthActionsType = 'AUTH_DEFAULT';
+export const AUTH_HIDE_ERROR: AuthActionsType = 'AUTH_HIDE_ERROR';
 
 /* сопоставляем номер ошибки из ответа сервера с номером ошибки, которую ищем */
 export function matchNumErr(response: string, number: number): boolean {

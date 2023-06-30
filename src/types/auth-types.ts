@@ -1,4 +1,6 @@
-export type AuthActionType =
+import { UserType, LoadingStateType } from '../types/types';
+
+export type AuthActionsType =
   | 'AUTH_REQUEST'
   | 'AUTH_SUCCESS_LOGIN'
   | 'AUTH_SUCCESS_USER'
@@ -6,6 +8,15 @@ export type AuthActionType =
   | 'AUTH_SHOW_ERROR'
   | 'AUTH_DEFAULT'
   | 'AUTH_HIDE_ERROR';
+
+export type AuthStateType = LoadingStateType & {
+  user: UserType;
+};
+
+export type AuthDispatchActionType = {
+  type: AuthActionsType;
+  payload: { user: UserType };
+};
 
 // Запрос на обновление токенов
 type SuccessUpdateTokenType = {
