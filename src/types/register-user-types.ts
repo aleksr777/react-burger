@@ -1,4 +1,4 @@
-import { LoadingStateType, UserType } from './types';
+import { TokensType, UserType } from './types';
 
 export type RegisterUserActionsType =
   | 'REGISTER_USER_REQUEST'
@@ -6,14 +6,10 @@ export type RegisterUserActionsType =
   | 'REGISTER_USER_ERROR'
   | 'REGISTER_USER_SET_DEFAULT_STATE';
 
-type SuccessRegisterUser = {
-  success: true;
+type SuccessRegisterUser = TokensType & {
   user: UserType;
-  accessToken: string;
-  refreshToken: string;
 };
-type ErrRegisterUser = string;
-export type RegisterUserType = SuccessRegisterUser | ErrRegisterUser;
+export type RegisterUserType = SuccessRegisterUser | string;
 
 export type RegisterUserDispatchActionType = {
   type: RegisterUserActionsType;

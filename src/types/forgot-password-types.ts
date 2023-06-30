@@ -12,8 +12,7 @@ export type ForgotPasswordDispatchActionType = {
 };
 
 type SuccessForgotPassword = {
-  success: boolean;
+  success: true;
   message: string;
 };
-type ErrForgotPassword = string;
-export type ForgotPasswordType = SuccessForgotPassword | ErrForgotPassword;
+export type ForgotPasswordType = SuccessForgotPassword | string;

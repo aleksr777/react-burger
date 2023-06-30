@@ -12,8 +12,7 @@ export type ResetPasswordDispatchActionType = {
 };
 
 type SuccessResetPassword = {
-  success: boolean;
+  success: true;
   message: string;
 };
-type ErrResetPassword = string;
-export type ResetPasswordType = SuccessResetPassword | ErrResetPassword;
+export type ResetPasswordType = SuccessResetPassword | string;
