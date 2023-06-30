@@ -1,4 +1,4 @@
-import { profileOrdersActions } from './profile-orders-actions';
+import { profileOrdersActions } from './feed-profile-orders-actions';
 import { StateType, DispatchActionType } from '../../types/feed-profiles-orders-types';
 
 const defaultState: StateType = {

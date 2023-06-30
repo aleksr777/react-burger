@@ -4,11 +4,10 @@ import { socketMiddleware } from '../services/socketMiddleware/socketMiddleware'
 import { persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { urlFeedOrders, urlProfileOrders } from '../utils/api';
 import { feedOrdersActions } from '../services/feed-all-orders/feed-all-orders-actions';
-import { profileOrdersActions } from '../services/profile-orders/profile-orders-actions';
+import { profileOrdersActions } from '../services/feed-profile-orders/feed-profile-orders-actions';
 
 const socketMiddlewareFeedOrders = socketMiddleware(urlFeedOrders, feedOrdersActions);
-const socketMiddlewareProfileOrders = socketMiddleware( urlProfileOrders, profileOrdersActions );
-
+const socketMiddlewareProfileOrders = socketMiddleware(urlProfileOrders, profileOrdersActions);
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -19,7 +18,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(socketMiddlewareFeedOrders, socketMiddlewareProfileOrders),
-} );
-
+});
 
 export const persistor = persistStore(store);

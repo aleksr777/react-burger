@@ -10,7 +10,7 @@ import {
   removeDuplicateIngredients
 } from '../../services/order-details/order-details-service'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
-import { profileOrdersActions } from '../../services/profile-orders/profile-orders-actions'
+import { profileOrdersActions } from '../../services/feed-profile-orders/feed-profile-orders-actions'
 import OrderDetailsLayout from '../../components/order-details-layout/order-details-layout'
 import {
   getOrderDetailsState,
