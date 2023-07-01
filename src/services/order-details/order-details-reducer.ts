@@ -5,19 +5,17 @@ import {
   ORDER_DETAILS_REMOVE_DATA,
 } from './order-details-actions';
 
-import { OrderInfoType } from '../../types/types';
+import { OrderDetailsDispatchType, OrderStateType } from '../../types/order-details-types';
 
-type StateType = {
-  order: OrderInfoType | null;
-  isModalOpened: boolean;
-};
-
-const defaultState: StateType = {
+const defaultState: OrderStateType = {
   order: null,
   isModalOpened: false,
 };
 
-const orderDetailsReducer = (state: StateType = defaultState, action: any) => {
+const orderDetailsReducer = (
+  state: OrderStateType = defaultState,
+  action: OrderDetailsDispatchType
+) => {
   switch (action.type) {
     case ORDER_DETAILS_OPEN_MODAL:
       return {
