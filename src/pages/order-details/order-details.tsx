@@ -19,7 +19,8 @@ import {
   getIngredientsDataState
 } from '../../utils/selectors'
 import {
-  OrdersStateType
+  OrdersStateType,
+  OrderInfoType
 } from '../../types/types'
 
 
@@ -57,7 +58,7 @@ const OrderDetailsPage = () => {
 
     if ( data.isSuccess && data.orders ) {
 
-      const [ order ] = data.orders.filter( ( order: any ) => order._id === id )
+      const [ order ] = data.orders.filter( ( order: OrderInfoType ) => order._id === id )
 
       if ( order ) {
 

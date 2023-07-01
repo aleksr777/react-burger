@@ -56,7 +56,6 @@ const selectedIngrReducer = (
       };
 
     case SELECTED_INGREDIENTS_REMOVE_DATA:
-      console.log(action);
       return defaultState;
 
     default:

@@ -38,8 +38,8 @@ const getDecrementedCounter = async (
 };
 
 const getIncrAndDecrCounter = async (
-  addCountId: any,
-  reduceCountId: any,
+  addCountId: string,
+  reduceCountId: string,
   counter: CounterType,
   num: number
 ): Promise<CounterStateType | {}> => {
@@ -85,8 +85,8 @@ export function reduceCount(id: string, counter: CounterType, num: number): Disp
 }
 
 export function addAndReduceCount(
-  addCountId: any,
-  reduceCountId: any,
+  addCountId: string,
+  reduceCountId: string,
   counter: CounterType,
   num: number
 ): DispatchFuncType {
