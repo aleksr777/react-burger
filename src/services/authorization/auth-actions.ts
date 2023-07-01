@@ -47,7 +47,6 @@ export function deleteAuthData(): DispatchFuncType {
 export function requestUpdateToken(request: DispatchFuncType): DispatchFuncType {
   return function (dispatch) {
     function handleError(response: string) {
-      console.log(response);
       dispatch(handleAuthError(request));
     }
 
@@ -57,7 +56,6 @@ export function requestUpdateToken(request: DispatchFuncType): DispatchFuncType 
     requestUpdateTokenServer()
       .then((res: ResponseUpdateTokenType) => {
         if (typeof res === 'object' && res.success) {
-          console.log(res);
           saveAccessToken(res.accessToken);
           saveRefreshToken(res.refreshToken);
           dispatch({ type: AUTH_SUCCESS_UPDATE_TOKEN, payload: {} });

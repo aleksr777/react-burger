@@ -12,8 +12,6 @@ const OrderDetailsLayout = ( { order }: Props ) => {
 
   const { number, name, status, ingredients, totalPrice, createdAt, updatedAt } = order
 
-  console.log( ingredients )
-
   const [ isImgError, setIsImgError ] = useState<boolean>( false )
 
   function handleImgError () {
