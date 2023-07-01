@@ -64,6 +64,7 @@ export type IngredientsDataType = {
 };
 
 export type ObjKeyStringType = { [key: string]: string };
+export type CounterType = { [key: string]: number | unknown };
 
 export type UserType = {
   name: string;

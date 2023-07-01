@@ -1,14 +1,13 @@
-import { CounterActionsType, CounterObjType, CounterStateType } from '../../types/counter-types';
-import { DispatchFuncType } from '../../types/types';
+import { CounterActionsType, CounterStateType } from '../../types/counter-types';
+import { DispatchFuncType, CounterType } from '../../types/types';
 
 export const COUNTER_CHANGE: CounterActionsType = 'COUNTER_CHANGE';
 
 const getIncrementedCounter = async (
   id: string,
-  counter: CounterObjType,
+  counter: CounterType,
   num: number
 ): Promise<CounterStateType | {}> => {
-  console.log(counter);
   let counterObj: CounterStateType | {} = {};
   const keys = Object.keys(counter);
   if (keys.length > 0 && counter) {
@@ -23,7 +22,7 @@ const getIncrementedCounter = async (
 
 const getDecrementedCounter = async (
   id: string,
-  counter: CounterObjType,
+  counter: CounterType,
   num: number
 ): Promise<CounterStateType | {}> => {
   let counterObj: CounterStateType | {} = {};
@@ -33,7 +32,6 @@ const getDecrementedCounter = async (
       key === id
         ? (counterObj = { ...counterObj, [key]: (counter[key] as number) - num })
         : (counterObj = { ...counterObj, [key]: counter[key] });
-      console.log(counter[key]);
     }
   }
   return counterObj;
@@ -42,7 +40,7 @@ const getDecrementedCounter = async (
 const getIncrAndDecrCounter = async (
   addCountId: any,
   reduceCountId: any,
-  counter: CounterObjType,
+  counter: CounterType,
   num: number
 ): Promise<CounterStateType | {}> => {
   let counterObj: CounterStateType | {} = {};
@@ -61,7 +59,7 @@ const getIncrAndDecrCounter = async (
   return counterObj;
 };
 
-const getResetCounter = async (counter: CounterObjType): Promise<CounterStateType | {}> => {
+const getResetCounter = async (counter: CounterType): Promise<CounterStateType | {}> => {
   let counterObj: CounterStateType | {} = {};
   const keys = Object.keys(counter);
   if (keys.length > 0 && counter) {
@@ -72,14 +70,14 @@ const getResetCounter = async (counter: CounterObjType): Promise<CounterStateTyp
   return counterObj;
 };
 
-export function addCount(id: string, counter: CounterObjType, num: number): DispatchFuncType {
+export function addCount(id: string, counter: CounterType, num: number): DispatchFuncType {
   return async function (dispatch) {
     const counterObj = await getIncrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
   };
 }
 
-export function reduceCount(id: string, counter: CounterObjType, num: number): DispatchFuncType {
+export function reduceCount(id: string, counter: CounterType, num: number): DispatchFuncType {
   return async function (dispatch) {
     const counterObj = await getDecrementedCounter(id, counter, num);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });
@@ -89,7 +87,7 @@ export function reduceCount(id: string, counter: CounterObjType, num: number): D
 export function addAndReduceCount(
   addCountId: any,
   reduceCountId: any,
-  counter: CounterObjType,
+  counter: CounterType,
   num: number
 ): DispatchFuncType {
   return async function (dispatch) {
@@ -98,7 +96,7 @@ export function addAndReduceCount(
   };
 }
 
-export function resetCount(counter: CounterObjType): DispatchFuncType {
+export function resetCount(counter: CounterType): DispatchFuncType {
   return async function (dispatch) {
     const counterObj = await getResetCounter(counter);
     dispatch({ type: COUNTER_CHANGE, payload: counterObj });

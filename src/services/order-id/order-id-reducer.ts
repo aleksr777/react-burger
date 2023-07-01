@@ -6,23 +6,18 @@ import {
   ORDER_ID_OPEN_MODAL,
   ORDER_ID_CLOSE_MODAL,
   ORDER_ID_SET_DEFAULT,
-} from './order-id-actions';
+} from './order-id-actions'
+import { OrderIdStateType, OrderIdDispatchType } from '../../types/order-id-types';
 
-export type StateType = {
-  id: null | number;
-  isLoading: boolean;
-  isModalOpened: boolean;
-  isError: boolean;
-};
-
-const defaultState: StateType = {
+const defaultState: OrderIdStateType = {
   id: null,
   isLoading: false,
   isModalOpened: false,
   isError: false,
 };
 
-const orderIdReducer = (state: StateType = defaultState, action: any) => {
+const orderIdReducer = ( state: OrderIdStateType = defaultState, action: OrderIdDispatchType ) => {
+  //console.log(action.payload);
   switch (action.type) {
     case ORDER_ID_OPEN_MODAL:
       return {

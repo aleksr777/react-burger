@@ -1,5 +1,5 @@
 import { COUNTER_CHANGE } from './counter-actions';
-import { CounterStateType, CounterDispatchType } from '../../types/counter-types';
+import { CounterStateType, CounterDispatchType } from '../../types/counter-types'
 
 const defaultState: CounterStateType = {
   counter: {},
