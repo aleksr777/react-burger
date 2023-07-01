@@ -17,7 +17,6 @@ const defaultState: OrderIdStateType = {
 };
 
 const orderIdReducer = ( state: OrderIdStateType = defaultState, action: OrderIdDispatchType ) => {
-  //console.log(action.payload);
   switch (action.type) {
     case ORDER_ID_OPEN_MODAL:
       return {

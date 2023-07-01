@@ -8,33 +8,30 @@ import {
   SELECTED_INGREDIENTS_REMOVE_DATA,
 } from './selected-ingr-actions';
 
-import { SelectedIngredientType, IngredientInfoType } from '../../types/types';
+import { SelectedIngrStateType, SelectedIngrDispatchType } from '../../types/selected-ingr-types';
 
-type StateType = {
-  totalPrice: number;
-  bun: IngredientInfoType;
-  ingredients: SelectedIngredientType[];
-};
-
-const defaultState: StateType = {
+const defaultState: SelectedIngrStateType = {
   totalPrice: 0,
   bun: noBunObj,
   ingredients: [],
 };
 
-const selectedIngrReducer = (state: StateType = defaultState, action: any) => {
+const selectedIngrReducer = (
+  state: SelectedIngrStateType = defaultState,
+  action: SelectedIngrDispatchType
+) => {
   switch (action.type) {
     case SELECTED_INGREDIENTS_ADD_ITEM:
       return {
         ...state,
-        ingredients: action.payload.newArr,
+        ingredients: action.payload.arr,
         totalPrice: state.totalPrice + action.payload.price,
       };
 
     case SELECTED_INGREDIENTS_SWAP_ITEMS:
       return {
         ...state,
-        ingredients: action.payload.newArr,
+        ingredients: action.payload.arr,
       };
 
     case SELECTED_INGREDIENTS_REMOVE_ITEM:
@@ -59,6 +56,7 @@ const selectedIngrReducer = (state: StateType = defaultState, action: any) => {
       };
 
     case SELECTED_INGREDIENTS_REMOVE_DATA:
+      console.log(action);
       return defaultState;
 
     default:

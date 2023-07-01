@@ -40,7 +40,6 @@ export function getOrderId(arrId: string[], counter: CounterType | {}): Dispatch
 
     postOrder(arrId)
       .then((res: ResponseOrderIdType) => {
-        console.log(res);
         if (typeof res === 'object' && res.success) {
           dispatch({ type: ORDER_ID_SUCCESS, payload: { id: res.order.number } });
           dispatch({ type: ORDER_ID_OPEN_MODAL, payload: {} });
