@@ -5,7 +5,7 @@ import {
 } from '../services/authorization/tokens-service';
 import { UserDataType } from '../types/types';
 
-const baseUrl: string = 'norma.nomoreparties.space';
+const baseUrl = 'norma.nomoreparties.space';
 export const urlFeedOrders: string = `wss://${baseUrl}/orders/all`;
 export const urlProfileOrders: string = `wss://${baseUrl}/orders`;
 

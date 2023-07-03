@@ -1,7 +1,7 @@
-import { CounterActionsType, CounterStateType } from '../../types/counter-types';
+import { CounterStateType } from '../../types/counter-types';
 import { DispatchFuncType, CounterType } from '../../types/types';
 
-export const COUNTER_CHANGE: CounterActionsType = 'COUNTER_CHANGE';
+export const COUNTER_CHANGE = 'COUNTER_CHANGE';
 
 const getIncrementedCounter = async (
   id: string,

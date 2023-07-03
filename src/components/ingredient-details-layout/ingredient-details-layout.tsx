@@ -10,7 +10,7 @@ type Props = {
 
 const IngredientDetailsLayout = ( { ingredient, titleAlign }: Props ) => {
 
-  const [ isImgError, setIsImgError ] = useState<boolean>( false )
+  const [ isImgError, setIsImgError ] = useState( false )
 
   function handleImgError () {
     setIsImgError( true )

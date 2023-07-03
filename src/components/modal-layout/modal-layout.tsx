@@ -30,7 +30,7 @@ const ModalLayout = ( { children, handleCloseModal, isModalOpened }: Props ) => 
   const overlayRef = useRef<HTMLDivElement>( null )
   const containerRef = useRef<HTMLDivElement>( null )
 
-  const [ animationIn, setAnimationIn ] = useState<boolean>( false )
+  const [ animationIn, setAnimationIn ] = useState( false )
 
   function startAnimation () {
     setAnimationIn( isModalOpened )

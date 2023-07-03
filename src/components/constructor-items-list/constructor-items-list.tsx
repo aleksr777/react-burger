@@ -22,7 +22,7 @@ const ConstructorItemsList = () => {
   const dropObj = bun // для лучшей читабельности кода
   const { counter } = useAppSelector( getCounterState )
 
-  const [ isBun, setIsBun ] = useState<boolean>( false )
+  const [ isBun, setIsBun ] = useState( false )
 
   // Добавление булки с добавлением цены в общую стоимость
   const dropHandler = ( dropObj: IngredientInfoType, dragObj: IngredientInfoType ) => {
@@ -88,7 +88,7 @@ const ConstructorItemsList = () => {
           </ul>
         ) : (
           <ul className={ styles.listScroll }>
-              { ingredients.map( ( obj: IngredientInfoType ) => (
+            { ingredients.map( ( obj: IngredientInfoType ) => (
               <ConstructorItem obj={ obj } key={ obj._uKey } isLocked={ false } />
             ) ) }
           </ul>

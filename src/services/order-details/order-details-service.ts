@@ -2,7 +2,7 @@ import { SelectedIngredientType, IngredientInfoType, OrderInfoType } from '../..
 
 // Подсчёт общей стоимости
 export function getTotalPrice(arrIngredients: SelectedIngredientType[]): number {
-  let totalPrice: number = 0;
+  let totalPrice = 0;
   if (arrIngredients.length) {
     for (let i = 0; i < arrIngredients.length; i++) {
       if (arrIngredients[i].price && typeof arrIngredients[i].price === 'number') {

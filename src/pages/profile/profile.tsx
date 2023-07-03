@@ -10,10 +10,10 @@ const ProfilePage = () => {
   const dispatch = useAppDispatch()
   const location = useLocation()
 
-  const pathProfile: string = '/profile'
-  const pathOrders: string = '/profile/orders'
+  const pathProfile = '/profile'
+  const pathOrders = '/profile/orders'
 
-  let textAbout: string = ''
+  let textAbout = ''
 
   switch ( location.pathname ) {
     case pathProfile:

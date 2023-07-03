@@ -12,7 +12,7 @@ const LogoLink = () => {
   const match = useMatch( '/' )
   const location = useLocation()
 
-  const [ isActiveLink, setIsActiveLink ] = useState<boolean>( false )
+  const [ isActiveLink, setIsActiveLink ] = useState( false )
 
   useEffect( () => {
     match ? setIsActiveLink( true ) : setIsActiveLink( false )

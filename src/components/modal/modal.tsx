@@ -12,7 +12,7 @@ type Props = {
 
 const Modal = ( { handleCloseModal, isModalOpened, children }: Props ) => {
 
-  const [ isModalMounted, setModalMounted ] = useState<boolean>( false )
+  const [ isModalMounted, setModalMounted ] = useState( false )
 
   useEffect( () => {
     if ( isModalOpened && !isModalMounted ) {

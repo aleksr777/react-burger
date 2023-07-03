@@ -97,7 +97,7 @@ export function addBun(
   dragObj: IngredientInfoType,
   counter: CounterType
 ): DispatchFuncType {
-  let price: number = 0;
+  let price = 0;
   return async function (dispatch) {
     if (!dropObj._id) {
       price = dragObj.price * 2;

@@ -35,15 +35,15 @@ const Loader = () => {
   const profileOrdersState = useAppSelector( getProfileOrdersState )
   const feedOrdersState = useAppSelector( getFeedOrdersState )
 
-  const [ isLoading, setIsLoading ] = useState<boolean>( false )
-  const [ isError, setIsError ] = useState<boolean>( false )
-  const [ animationIn, setAnimationIn ] = useState<boolean>( false )
+  const [ isLoading, setIsLoading ] = useState( false )
+  const [ isError, setIsError ] = useState( false )
+  const [ animationIn, setAnimationIn ] = useState( false )
   type ErrorState = { state: boolean; title: string }
   const [ errorState, setErrorState ] = useState<ErrorState>( {
     state: false,
     title: 'Ошибка сервера',
   } )
-  const [ isMounted, setMounted ] = useState<boolean>( false )
+  const [ isMounted, setMounted ] = useState( false )
 
   useEffect( () => {
     if (

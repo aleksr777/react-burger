@@ -19,7 +19,7 @@ const OrderingButton = () => {
   const { isSuccess, user } = useAppSelector( getAuthState )
   const { counter } = useAppSelector( getCounterState )
 
-  const [ isOrderActive, setOrderActive ] = useState<boolean>( false )
+  const [ isOrderActive, setOrderActive ] = useState( false )
 
   const isAuth: boolean = checkAuth( isSuccess, user.email )
 
