@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.order__ingredients {
+.order_ingredients {
   justify-content: space-between;
   width: 100%;
   display: flex;

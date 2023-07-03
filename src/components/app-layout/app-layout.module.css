@@ -37,12 +37,12 @@
 }
 
 /* для "личного кабинета" */
-.nav>*:last-child {
+.nav > *:last-child {
   padding-right: 15px;
 }
 
 /* для логотипа */
-.nav__box>*:last-child {
+.nav__box > *:last-child {
   margin-left: 108px;
 }
 

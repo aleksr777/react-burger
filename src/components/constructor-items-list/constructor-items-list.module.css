@@ -1,14 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
 .list {
   user-select: none;
   list-style: none;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  opacity: 1;
+  transition: all .3s ease 0s;
   scrollbar-color: rgba(47, 47, 55, 1);
 }
 
 .item {
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 100%;
@@ -27,9 +31,8 @@
   composes: pt-2 pl-10 pr-4 ml-2 from global;
 }
 
-.list_scroll {
+.listScroll {
   list-style: none;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   max-height: 480px;
@@ -37,20 +40,19 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: rgba(47, 47, 55, 1);
-  transition: all .3s ease 0s;
 }
 
-.list_scroll_disabled {
+.listScroll_disabled {
   opacity: .6;
   cursor: 'default';
 }
 
-.list_scroll::-webkit-scrollbar {
+.listScroll::-webkit-scrollbar {
   width: 8px;
   background-color: rgba(47, 47, 55, 1);
 }
 
-.list_scroll::-webkit-scrollbar-thumb {
+.listScroll::-webkit-scrollbar-thumb {
   width: 8px;
   background-color: rgba(133, 133, 173, 1)
 }
