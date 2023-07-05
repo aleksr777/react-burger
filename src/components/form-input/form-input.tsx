@@ -10,7 +10,7 @@ export type Props = {
   icon?: 'EditIcon' | 'ShowIcon' | 'HideIcon' | undefined
   isIcon?: boolean
   onChange: ( event: React.ChangeEvent<HTMLInputElement> ) => void
-};
+}
 
 const FormInput = ( { inputType, ...otherProps }: Props ) => {
 

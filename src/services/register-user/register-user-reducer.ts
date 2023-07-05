@@ -3,28 +3,28 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
   REGISTER_USER_SET_DEFAULT_STATE,
-} from './register-user-actions';
-import { RegisterUserDispatchType } from '../../types/register-user-types';
+} from './register-user-actions'
+import { RegisterUserDispatchType } from '../../types/register-user-types'
 
 type StateType = {
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-};
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+}
 
 const defaultState: StateType = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-};
+}
 
-const registerUserReducer = (state: StateType = defaultState, action: RegisterUserDispatchType) => {
-  switch (action.type) {
+const registerUserReducer = ( state: StateType = defaultState, action: RegisterUserDispatchType ) => {
+  switch ( action.type ) {
     case REGISTER_USER_REQUEST: {
       return {
         ...state,
         isLoading: true,
-      };
+      }
     }
 
     case REGISTER_USER_SUCCESS:
@@ -33,20 +33,20 @@ const registerUserReducer = (state: StateType = defaultState, action: RegisterUs
         isLoading: false,
         isSuccess: true,
         isError: false,
-      };
+      }
 
     case REGISTER_USER_ERROR:
       return {
         ...state,
         isError: true,
-      };
+      }
 
     case REGISTER_USER_SET_DEFAULT_STATE:
-      return defaultState;
+      return defaultState
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export { registerUserReducer };
+export { registerUserReducer }

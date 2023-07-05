@@ -1,27 +1,27 @@
-import { SET_CURRENT_TAB, CurrentTabActionsType } from './tab-actions';
+import { SET_CURRENT_TAB, CurrentTabActionsType } from './tab-actions'
 
 type StateType = {
-  currentTab: string;
-};
+  currentTab: string
+}
 
 type DispatchType = {
-  type: CurrentTabActionsType;
-  payload: { currentTab: 'buns' | 'sauces' | 'fillings' };
-};
+  type: CurrentTabActionsType
+  payload: { currentTab: 'buns' | 'sauces' | 'fillings' }
+}
 
 const defaultState: StateType = {
   currentTab: 'buns',
-};
+}
 
-const currentTabReducer = (state: StateType = defaultState, action: DispatchType) => {
-  switch (action.type) {
+const currentTabReducer = ( state: StateType = defaultState, action: DispatchType ) => {
+  switch ( action.type ) {
     case SET_CURRENT_TAB:
       return {
         currentTab: action.payload.currentTab,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export { currentTabReducer };
+export { currentTabReducer }

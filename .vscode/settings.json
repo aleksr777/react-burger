@@ -1,11 +1,6 @@
 {
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false, // Отключение автоформатирования при сохранении файла
+  "editor.formatOnType": false, // Отключение автоформатирования при вводе
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
@@ -13,10 +8,9 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
-  "prettier.jsxSingleQuote": true,
-  "prettier.singleQuote": true,
+  "files.insertFinalNewline": true,
   "diffEditor.ignoreTrimWhitespace": false,
-  "files.trimTrailingWhitespace": true,
+  "files.trimTrailingWhitespace": false,
   "javascript.format.insertSpaceAfterConstructor": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
@@ -31,5 +25,21 @@
   "scss.format.spaceAroundSelectorSeparator": true,
   "typescript.format.semicolons": "remove",
   "javascript.format.semicolons": "remove",
-  "prettier.htmlWhitespaceSensitivity": "strict"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

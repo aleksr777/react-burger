@@ -5,11 +5,11 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { feedOrdersActions } from '../../services/feed-all-orders/feed-all-orders-actions'
 import { getFeedOrdersState } from '../../utils/selectors'
 import OrderInfoItem from '../order-info-item/order-info-item'
-import { OrderInfoType } from '../../types/types';
+import { OrderInfoType } from '../../types/types'
 
 
 const FeedOrders = () => {
-  
+
   const dispatch = useAppDispatch()
 
   const { orders } = useAppSelector( getFeedOrdersState )

@@ -14,12 +14,12 @@
   composes: pt-15 pr-10 from global;
 }
 
-.button>* {
+.button > * {
   cursor: pointer;
   transition: all .3s ease 0s;
 }
 
-.button:hover>* {
+.button:hover > * {
   opacity: .7;
 }
 

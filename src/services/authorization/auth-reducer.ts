@@ -6,8 +6,8 @@ import {
   AUTH_DEFAULT,
   AUTH_HIDE_ERROR,
   AUTH_SUCCESS_UPDATE_TOKEN,
-} from './auth-actions';
-import { AuthStateType, AuthDispatchType } from '../../types/auth-types';
+} from './auth-actions'
+import { AuthStateType, AuthDispatchType } from '../../types/auth-types'
 
 const defaultState: AuthStateType = {
   isSuccess: false,
@@ -17,15 +17,15 @@ const defaultState: AuthStateType = {
     name: '',
     email: '',
   },
-};
+}
 
-const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchType) => {
-  switch (action.type) {
+const authReducer = ( state: AuthStateType = defaultState, action: AuthDispatchType ) => {
+  switch ( action.type ) {
     case AUTH_REQUEST: {
       return {
         ...state,
         isLoading: true,
-      };
+      }
     }
 
     case AUTH_SUCCESS_LOGIN:
@@ -34,7 +34,7 @@ const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchTy
         isSuccess: true,
         isLoading: false,
         isError: false,
-      };
+      }
 
     case AUTH_SUCCESS_USER:
       return {
@@ -43,7 +43,7 @@ const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchTy
         isLoading: false,
         isError: false,
         user: action.payload.user,
-      };
+      }
 
     case AUTH_SUCCESS_UPDATE_TOKEN:
       return {
@@ -51,27 +51,27 @@ const authReducer = (state: AuthStateType = defaultState, action: AuthDispatchTy
         isSuccess: true,
         isLoading: false,
         isError: false,
-      };
+      }
 
     case AUTH_SHOW_ERROR:
       return {
         ...state,
         isError: true,
-      };
+      }
 
     case AUTH_HIDE_ERROR:
       return {
         ...state,
         isLoading: false,
         isError: false,
-      };
+      }
 
     case AUTH_DEFAULT:
-      return defaultState;
+      return defaultState
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export { authReducer };
+export { authReducer }

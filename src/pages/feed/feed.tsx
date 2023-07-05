@@ -1,5 +1,5 @@
-import FeedOrders from '../../components/feed-orders/feed-orders';
-import FeedStatistics from '../../components/feed-statistics/feed-statistics';
+import FeedOrders from '../../components/feed-orders/feed-orders'
+import FeedStatistics from '../../components/feed-statistics/feed-statistics'
 
 const FeedPage = () => {
 
@@ -9,6 +9,6 @@ const FeedPage = () => {
       <FeedStatistics />
     </>
   )
-};
+}
 
-export default FeedPage;
+export default FeedPage

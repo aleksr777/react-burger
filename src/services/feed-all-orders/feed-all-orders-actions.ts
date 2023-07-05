@@ -1,4 +1,4 @@
-import { AllOrdersActionsObjType } from '../../types/feed-all-orders-types';
+import { AllOrdersActionsObjType } from '../../types/feed-all-orders-types'
 
 export const feedOrdersActions: AllOrdersActionsObjType = {
   connect: 'FEED_SOCKET_CONNECT',
@@ -7,4 +7,4 @@ export const feedOrdersActions: AllOrdersActionsObjType = {
   success: 'FEED_ORDERS_SUCCESS',
   showError: 'FEED_ORDERS_SHOW_ERROR',
   hideError: 'FEED_ORDERS_HIDE_ERROR',
-};
+}
