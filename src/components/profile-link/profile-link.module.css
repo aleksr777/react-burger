@@ -5,22 +5,22 @@
 }
 
 .link {
-  color: #8585AD;
+  color: #8585ad;
   width: fit-content;
-  transition: all .4s ease 0s;
+  transition: all 0.4s ease 0s;
   composes: text_type_main-medium from global;
 }
 
 .link:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .link:active {
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .link_active {
-  color: #F2F2F3;
+  color: #f2f2f3;
   cursor: default;
   pointer-events: none;
 }

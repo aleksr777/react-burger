@@ -33,7 +33,7 @@
 
 .section__blocks::-webkit-scrollbar-thumb {
   width: 7px;
-  background-color: rgba(133, 133, 173, 1)
+  background-color: rgba(133, 133, 173, 1);
 }
 
 .tab {

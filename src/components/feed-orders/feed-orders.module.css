@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   list-style: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -36,7 +36,7 @@
 
 .list::-webkit-scrollbar-thumb {
   width: 7px;
-  background-color: rgba(133, 133, 173, 1)
+  background-color: rgba(133, 133, 173, 1);
 }
 
 .title {

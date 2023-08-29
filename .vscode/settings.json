@@ -1,13 +1,8 @@
 {
-  "editor.formatOnSave": false, // Отключение автоформатирования при сохранении файла
-  "editor.formatOnType": false, // Отключение автоформатирования при вводе
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
-  "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single",
   "files.insertFinalNewline": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "files.trimTrailingWhitespace": false,
@@ -24,22 +19,5 @@
   "less.format.spaceAroundSelectorSeparator": true,
   "scss.format.spaceAroundSelectorSeparator": true,
   "typescript.format.semicolons": "remove",
-  "javascript.format.semicolons": "remove",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.formatOnSave": false
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": false
-  },
-  "[typescript]": {
-    "editor.formatOnSave": false,
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": false
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  "javascript.format.semicolons": "remove"
 }

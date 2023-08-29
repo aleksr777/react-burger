@@ -43,7 +43,7 @@
 }
 
 .status_active {
-  color: #00CCCC;
+  color: #00cccc;
 }
 
 .subtitle {
@@ -63,6 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: 17px;
+  list-style: none;
   flex: 0 0 auto;
   width: 100%;
   max-height: 312px;
@@ -71,7 +72,7 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(47, 47, 55, 1);
   list-style: none;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
@@ -88,7 +89,7 @@
 
 .ingredientsList::-webkit-scrollbar-thumb {
   width: 7px;
-  background-color: rgba(133, 133, 173, 1)
+  background-color: rgba(133, 133, 173, 1);
 }
 
 .ingredientBlock {
@@ -107,7 +108,9 @@
   padding: 2px;
   width: fit-content;
   height: fit-content;
-  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%), linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
+  background:
+    linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%),
+    linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
   border-radius: 50px;
   overflow: hidden;
 }
@@ -137,7 +140,7 @@
   background: transparent;
   font-size: 10px;
   color: #8585ad00;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: text_type_main-default from global;
 }
 

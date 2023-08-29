@@ -17,7 +17,7 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(47, 47, 55, 1);
   list-style: none;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: pl-15 from global;
 }
 
@@ -28,5 +28,5 @@
 
 .feed::-webkit-scrollbar-thumb {
   width: 7px;
-  background-color: rgba(133, 133, 173, 1)
+  background-color: rgba(133, 133, 173, 1);
 }

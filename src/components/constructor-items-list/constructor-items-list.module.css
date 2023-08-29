@@ -8,7 +8,7 @@
   margin: 0;
   padding: 0;
   opacity: 1;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   scrollbar-color: rgba(47, 47, 55, 1);
 }
 
@@ -43,8 +43,8 @@
 }
 
 .listScroll_disabled {
-  opacity: .6;
-  cursor: 'default';
+  opacity: 0.6;
+  cursor: "default";
 }
 
 .listScroll::-webkit-scrollbar {
@@ -54,5 +54,5 @@
 
 .listScroll::-webkit-scrollbar-thumb {
   width: 8px;
-  background-color: rgba(133, 133, 173, 1)
+  background-color: rgba(133, 133, 173, 1);
 }

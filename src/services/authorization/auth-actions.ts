@@ -48,7 +48,6 @@ export function requestUpdateToken ( request: DispatchFuncType ): DispatchFuncTy
   return function ( dispatch ) {
     function handleError ( response: string ) {
       dispatch( handleAuthError( request ) )
-      console.log( response )
     }
 
     dispatch( { type: AUTH_REQUEST, payload: {} } )

@@ -36,7 +36,7 @@
   background-color: transparent;
   font-size: 18px;
   color: #8585ad00;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: text_type_main-default from global;
 }
 
@@ -64,7 +64,7 @@
   flex-direction: column;
   gap: 7px;
   text-align: center;
-  color: #8585AD;
+  color: #8585ad;
   padding: 0 14px 0 14px;
   margin-top: 0;
   margin-bottom: 0;

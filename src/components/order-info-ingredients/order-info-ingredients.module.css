@@ -34,7 +34,9 @@
   padding: 2px;
   width: fit-content;
   height: fit-content;
-  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%), linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
+  background:
+    linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%),
+    linear-gradient(0deg, #131316, #131316) center / cover no-repeat;
   border-radius: 50px;
   overflow: hidden;
 }
@@ -54,7 +56,7 @@
 }
 
 .picture_overflow::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: 0px;
@@ -74,7 +76,7 @@
   background: transparent;
   color: #8585ad00;
   font-size: 10px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: text_type_main-default from global;
 }
 
@@ -88,7 +90,6 @@
   margin: 0;
   background: transparent;
   composes: text_type_main-default from global;
-
 }
 
 .imageWrapper:nth-child(6) {
@@ -128,7 +129,9 @@
 
 .priceBlock__number {
   max-width: 100%;
+  overflow: hidden;
   text-decoration: none;
+  text-overflow: ellipsis;
   overflow-y: hidden;
   margin: 0;
   padding: 0;

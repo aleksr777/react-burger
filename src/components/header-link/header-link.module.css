@@ -6,9 +6,10 @@
   margin-bottom: 0;
   cursor: pointer;
   text-decoration: none;
+  color: inherit;
   background-color: transparent;
-  color: #8585AD;
-  transition: all .3s ease 0s;
+  color: #8585ad;
+  transition: all 0.3s ease 0s;
   composes: p-5 mr-2 from global;
 }
 
@@ -20,11 +21,11 @@
 }
 
 .link:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .link:active {
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .link:last-of-type {

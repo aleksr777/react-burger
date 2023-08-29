@@ -8,7 +8,7 @@ a {
 
 .title {
   text-align: center;
-  color: #F2F2F3;
+  color: #f2f2f3;
   margin: 0;
   padding-left: 0;
   padding-right: 0;
@@ -17,22 +17,22 @@ a {
 }
 
 .link {
-  color: #4C4CFF;
-  transition: all .3s ease 0s;
+  color: #4c4cff;
+  transition: all 0.3s ease 0s;
   composes: text_type_main-default from global;
 }
 
 .link:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .link:active {
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .text {
   text-align: center;
-  color: #8585AD;
+  color: #8585ad;
   padding: 0;
   margin-left: 0;
   margin-top: 0;
@@ -48,8 +48,8 @@ a {
   margin: 0 auto;
   padding: 0;
   padding-top: 180px;
-  display: 'flex';
-  flex-direction: 'column';
+  display: "flex";
+  flex-direction: "column";
 }
 
 .submitBox {
@@ -59,6 +59,6 @@ a {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: pb-20 from global;
 }

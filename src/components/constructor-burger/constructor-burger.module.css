@@ -14,7 +14,7 @@
   min-height: 912px;
   height: 100%;
   width: 100%;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: pt-25 from global;
 }
 
@@ -23,6 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
   composes: pt-10 pr-4 from global;
 }

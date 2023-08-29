@@ -21,7 +21,7 @@ const IngredientDetailsPage = () => {
 
   function goToNotFoundPage () {
     navigate( '/not-found-page', { replace: true } )
-  };
+  }
 
   useEffect( () => {
     if ( !ingredient || !ingredient._id || ingredient.path !== pathname ) {
