@@ -38,6 +38,7 @@
     "@types/uniqid": "^5.3.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "babel-jest": "^29.6.2",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "cypress": "^12.17.4",
     "eslint-plugin-cypress": "^2.14.0",
@@ -57,7 +58,7 @@
     "typescript-plugin-css-modules": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=3100 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
