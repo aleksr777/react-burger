@@ -1,4 +1,4 @@
-# Учебный проект "React-burger" (в процессе разработки)
+# Учебный проект "React-burger"
 
 --------------
 * LINK gh-pages: <https://aleksr777.github.io/react-burger/>
